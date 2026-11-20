@@ -1,0 +1,84 @@
+{
+  "rules": [
+    {
+      "alarmType": "High Turbidity Warning",
+      "severity": "WARNING",
+      "condition": {
+        "type": "SCRIPT",
+        "script": "return msg.turbidity_ntu !== undefined && msg.turbidity_ntu > 50;"
+      },
+      "clearCondition": {
+        "type": "SCRIPT",
+        "script": "return msg.turbidity_ntu !== undefined && msg.turbidity_ntu < 40;"
+      },
+      "propagate": false
+    },
+    {
+      "alarmType": "Gross Contamination Critical",
+      "severity": "CRITICAL",
+      "condition": {
+        "type": "SCRIPT",
+        "script": "return msg.turbidity_ntu !== undefined && msg.turbidity_ntu > 200;"
+      },
+      "clearCondition": {
+        "type": "SCRIPT",
+        "script": "return msg.turbidity_ntu !== undefined && msg.turbidity_ntu < 150;"
+      },
+      "propagate": false
+    },
+    {
+      "alarmType": "pH Out of Range Critical",
+      "severity": "CRITICAL",
+      "condition": {
+        "type": "SCRIPT",
+        "script": "return msg.ph !== undefined && (msg.ph < 6.5 || msg.ph > 8.5);"
+      },
+      "clearCondition": {
+        "type": "SCRIPT",
+        "script": "return msg.ph !== undefined && (msg.ph >= 6.7 && msg.ph <= 8.3);"
+      },
+      "propagate": false
+    },
+    {
+      "alarmType": "High TDS Critical",
+      "severity": "CRITICAL",
+      "condition": {
+        "type": "SCRIPT",
+        "script": "return msg.tds_ppm !== undefined && msg.tds_ppm > 500;"
+      },
+      "clearCondition": {
+        "type": "SCRIPT",
+        "script": "return msg.tds_ppm !== undefined && msg.tds_ppm < 450;"
+      },
+      "propagate": false
+    },
+    {
+      "alarmType": "Supply Interruption Major",
+      "severity": "MAJOR",
+      "condition": {
+        "type": "SCRIPT",
+        "script": "return msg.flow_lpm !== undefined && msg.flow_lpm === 0;"
+      },
+      "clearCondition": {
+        "type": "SCRIPT",
+        "script": "return msg.flow_lpm !== undefined && msg.flow_lpm > 0;"
+      },
+      "propagate": false,
+      "time": 30000
+    },
+    {
+      "alarmType": "Node Inactive Critical",
+      "severity": "CRITICAL",
+      "condition": {
+        "type": "SCRIPT",
+        "script": "return metadata.inactive === true;"
+      },
+      "clearCondition": {
+        "type": "SCRIPT",
+        "script": "return metadata.inactive === false;"
+      },
+      "propagate": false,
+      "time": 60000
+    }
+  ]
+}

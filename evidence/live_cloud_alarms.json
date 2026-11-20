@@ -1,0 +1,62 @@
+{
+  "checked_at": "2026-11-19T20:13:41.092079+00:00",
+  "device": "JalSanket-Node-01",
+  "target": "ThingsBoard Cloud",
+  "cleared_active_alarms_at_start": 1,
+  "results": {
+    "High Turbidity Warning": {
+      "triggered": true,
+      "cleared": true,
+      "active_during": [
+        "High Turbidity Warning"
+      ],
+      "active_after_clear": []
+    },
+    "Gross Contamination Critical": {
+      "triggered": true,
+      "cleared": true,
+      "active_during": [
+        "Gross Contamination Critical",
+        "High Turbidity Warning"
+      ],
+      "active_after_clear": [
+        "High Turbidity Warning"
+      ]
+    },
+    "pH Out of Range Critical": {
+      "triggered": true,
+      "cleared": true,
+      "active_during": [
+        "pH Out of Range Critical"
+      ],
+      "active_after_clear": []
+    },
+    "High TDS Critical": {
+      "triggered": true,
+      "cleared": true,
+      "active_during": [
+        "High TDS Critical"
+      ],
+      "active_after_clear": []
+    },
+    "Supply Interruption Major": {
+      "triggered": true,
+      "cleared": true,
+      "active_during": [
+        "Supply Interruption Major"
+      ],
+      "active_after_clear": []
+    },
+    "Node Inactive Critical": {
+      "triggered": true,
+      "cleared": true,
+      "active_during": [
+        "Node Inactive Critical"
+      ],
+      "active_after_clear": [],
+      "attribute_write_status": 200
+    }
+  },
+  "all_triggered": true,
+  "all_cleared": true
+}

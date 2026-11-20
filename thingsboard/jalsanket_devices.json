@@ -1,0 +1,35 @@
+[
+  {
+    "name": "JalSanket-Node-01",
+    "type": "JalSanket Water Quality Node",
+    "label": "node-01 - JalSanket-Node-01",
+    "profileId": "",
+    "additionalInfo": {
+      "description": "Virtual ESP32-S3 water-quality monitoring node",
+      "latitude": 28.11,
+      "longitude": 85.29
+    }
+  },
+  {
+    "name": "JalSanket-Node-02",
+    "type": "JalSanket Water Quality Node",
+    "label": "node-02 - JalSanket-Node-02",
+    "profileId": "",
+    "additionalInfo": {
+      "description": "Virtual ESP32-S3 water-quality monitoring node",
+      "latitude": 28.092,
+      "longitude": 85.361
+    }
+  },
+  {
+    "name": "JalSanket-Node-03",
+    "type": "JalSanket Water Quality Node",
+    "label": "node-03 - JalSanket-Node-03",
+    "profileId": "",
+    "additionalInfo": {
+      "description": "Virtual ESP32-S3 water-quality monitoring node",
+      "latitude": 28.171,
+      "longitude": 85.387
+    }
+  }
+]

@@ -1,0 +1,33 @@
+{
+  "checked_at": "2026-11-19T20:05:33.784159+00:00",
+  "device": "JalSanket-Node-01",
+  "target": "ThingsBoard Cloud",
+  "transport": "REST two-way RPC delivered to device MQTT/TLS session",
+  "responses": {
+    "trigger_contamination": {
+      "http_status": 200,
+      "response": {
+        "ok": true,
+        "method": "trigger_contamination"
+      },
+      "ok": true
+    },
+    "set_supply_interrupted": {
+      "http_status": 200,
+      "response": {
+        "ok": true,
+        "method": "set_supply_interrupted"
+      },
+      "ok": true
+    },
+    "reset": {
+      "http_status": 200,
+      "response": {
+        "ok": true,
+        "method": "reset"
+      },
+      "ok": true
+    }
+  },
+  "all_ok": true
+}

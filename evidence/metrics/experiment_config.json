@@ -1,0 +1,19 @@
+{
+  "duration_s": 240.0,
+  "outage_tick": 40,
+  "restore_tick": 50,
+  "contamination_tick": {
+    "node-01": 4,
+    "node-02": 6,
+    "node-03": 8
+  },
+  "contamination_reset_tick": 28,
+  "interrupt_tick": {
+    "node-01": 60,
+    "node-02": 62,
+    "node-03": 64
+  },
+  "interrupt_clear_tick": 90,
+  "sample_interval_s": 2.0,
+  "note": "All scenario controls are the existing generator/RPC controls; no telemetry values are injected."
+}

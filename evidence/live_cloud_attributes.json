@@ -1,0 +1,10 @@
+{
+  "checked_at": "2026-11-19T20:16:42Z",
+  "target": "ThingsBoard Cloud",
+  "scope": "CLIENT_SCOPE device attributes published by the fleet",
+  "devices": {
+    "JalSanket-Node-01": {"deviceName": "JalSanket-Node-01", "latitude": 27.8189, "longitude": 85.4297, "safetyStatus": "SAFE"},
+    "JalSanket-Node-02": {"deviceName": "JalSanket-Node-02", "latitude": 27.8097, "longitude": 85.3794, "safetyStatus": "SAFE"},
+    "JalSanket-Node-03": {"deviceName": "JalSanket-Node-03", "latitude": 27.6904, "longitude": 85.3203, "safetyStatus": "SAFE"}
+  }
+}

@@ -1,0 +1,39 @@
+{
+  "verified_at_utc": "2026-11-20T00:42:27.450489+00:00",
+  "device_status": 200,
+  "devices": {
+    "JalSanket-Node-01": {
+      "timeseries_status": 200,
+      "latest_timeseries": {
+        "latitude": "28.11",
+        "longitude": "85.29"
+      },
+      "device_additional_info": {
+        "latitude": null,
+        "longitude": null
+      }
+    },
+    "JalSanket-Node-02": {
+      "timeseries_status": 200,
+      "latest_timeseries": {
+        "latitude": "28.092",
+        "longitude": "85.361"
+      },
+      "device_additional_info": {
+        "latitude": null,
+        "longitude": null
+      }
+    },
+    "JalSanket-Node-03": {
+      "timeseries_status": 200,
+      "latest_timeseries": {
+        "latitude": "28.171",
+        "longitude": "85.387"
+      },
+      "device_additional_info": {
+        "latitude": null,
+        "longitude": null
+      }
+    }
+  }
+}

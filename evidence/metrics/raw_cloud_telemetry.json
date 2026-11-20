@@ -1,0 +1,3628 @@
+{
+  "JalSanket-Node-01": {
+    "1795135602480": {
+      "ts": 1795135602480,
+      "ph": "7.263",
+      "turbidity_ntu": "3.69",
+      "tds_ppm": "170.3",
+      "water_temp_c": "20.92",
+      "flow_lpm": "11.99",
+      "latitude": "28.11",
+      "longitude": "85.29"
+    },
+    "1795135600491": {
+      "ts": 1795135600491,
+      "ph": "7.287",
+      "turbidity_ntu": "4.12",
+      "tds_ppm": "178.9",
+      "water_temp_c": "20.93",
+      "flow_lpm": "11.85",
+      "latitude": "28.11",
+      "longitude": "85.29"
+    },
+    "1795135598472": {
+      "ts": 1795135598472,
+      "ph": "7.211",
+      "turbidity_ntu": "4.6",
+      "tds_ppm": "180.3",
+      "water_temp_c": "21.06",
+      "flow_lpm": "11.74",
+      "latitude": "28.11",
+      "longitude": "85.29"
+    },
+    "1795135596477": {
+      "ts": 1795135596477,
+      "ph": "7.178",
+      "turbidity_ntu": "4.78",
+      "tds_ppm": "180.9",
+      "water_temp_c": "21.0",
+      "flow_lpm": "10.44",
+      "latitude": "28.11",
+      "longitude": "85.29"
+    },
+    "1795135594487": {
+      "ts": 1795135594487,
+      "ph": "7.268",
+      "turbidity_ntu": "4.05",
+      "tds_ppm": "179.9",
+      "water_temp_c": "20.87",
+      "flow_lpm": "13.2",
+      "latitude": "28.11",
+      "longitude": "85.29"
+    },
+    "1795135592492": {
+      "ts": 1795135592492,
+      "ph": "7.227",
+      "turbidity_ntu": "3.83",
+      "tds_ppm": "176.2",
+      "water_temp_c": "20.87",
+      "flow_lpm": "14.41",
+      "latitude": "28.11",
+      "longitude": "85.29"
+    },
+    "1795135590487": {
+      "ts": 1795135590487,
+      "ph": "7.25",
+      "turbidity_ntu": "4.31",
+      "tds_ppm": "174.6",
+      "water_temp_c": "20.77",
+      "flow_lpm": "13.8",
+      "latitude": "28.11",
+      "longitude": "85.29"
+    },
+    "1795135588481": {
+      "ts": 1795135588481,
+      "ph": "7.224",
+      "turbidity_ntu": "4.07",
+      "tds_ppm": "178.2",
+      "water_temp_c": "20.94",
+      "flow_lpm": "12.76",
+      "latitude": "28.11",
+      "longitude": "85.29"
+    },
+    "1795135586487": {
+      "ts": 1795135586487,
+      "ph": "7.189",
+      "turbidity_ntu": "4.32",
+      "tds_ppm": "176.8",
+      "water_temp_c": "20.63",
+      "flow_lpm": "12.24",
+      "latitude": "28.11",
+      "longitude": "85.29"
+    },
+    "1795135584481": {
+      "ts": 1795135584481,
+      "ph": "7.189",
+      "turbidity_ntu": "4.73",
+      "tds_ppm": "183.5",
+      "water_temp_c": "20.72",
+      "flow_lpm": "12.55",
+      "latitude": "28.11",
+      "longitude": "85.29"
+    },
+    "1795135582486": {
+      "ts": 1795135582486,
+      "ph": "7.252",
+      "turbidity_ntu": "4.77",
+      "tds_ppm": "188.8",
+      "water_temp_c": "20.53",
+      "flow_lpm": "12.89",
+      "latitude": "28.11",
+      "longitude": "85.29"
+    },
+    "1795135580476": {
+      "ts": 1795135580476,
+      "ph": "7.152",
+      "turbidity_ntu": "4.91",
+      "tds_ppm": "185.0",
+      "water_temp_c": "20.67",
+      "flow_lpm": "12.95",
+      "latitude": "28.11",
+      "longitude": "85.29"
+    },
+    "1795135578488": {
+      "ts": 1795135578488,
+      "ph": "7.161",
+      "turbidity_ntu": "4.86",
+      "tds_ppm": "183.1",
+      "water_temp_c": "20.93",
+      "flow_lpm": "14.09",
+      "latitude": "28.11",
+      "longitude": "85.29"
+    },
+    "1795135576496": {
+      "ts": 1795135576496,
+      "ph": "7.281",
+      "turbidity_ntu": "4.24",
+      "tds_ppm": "176.0",
+      "water_temp_c": "20.69",
+      "flow_lpm": "12.64",
+      "latitude": "28.11",
+      "longitude": "85.29"
+    },
+    "1795135574494": {
+      "ts": 1795135574494,
+      "ph": "7.179",
+      "turbidity_ntu": "4.53",
+      "tds_ppm": "181.6",
+      "water_temp_c": "20.7",
+      "flow_lpm": "11.67",
+      "latitude": "28.11",
+      "longitude": "85.29"
+    },
+    "1795135572481": {
+      "ts": 1795135572481,
+      "ph": "7.192",
+      "turbidity_ntu": "4.57",
+      "tds_ppm": "176.7",
+      "water_temp_c": "20.46",
+      "flow_lpm": "10.73",
+      "latitude": "28.11",
+      "longitude": "85.29"
+    },
+    "1795135570483": {
+      "ts": 1795135570483,
+      "ph": "7.249",
+      "turbidity_ntu": "5.02",
+      "tds_ppm": "183.9",
+      "water_temp_c": "20.71",
+      "flow_lpm": "11.05",
+      "latitude": "28.11",
+      "longitude": "85.29"
+    },
+    "1795135568492": {
+      "ts": 1795135568492,
+      "ph": "7.204",
+      "turbidity_ntu": "4.59",
+      "tds_ppm": "182.5",
+      "water_temp_c": "20.76",
+      "flow_lpm": "11.15",
+      "latitude": "28.11",
+      "longitude": "85.29"
+    },
+    "1795135566477": {
+      "ts": 1795135566477,
+      "ph": "7.224",
+      "turbidity_ntu": "5.23",
+      "tds_ppm": "185.0",
+      "water_temp_c": "20.53",
+      "flow_lpm": "12.08",
+      "latitude": "28.11",
+      "longitude": "85.29"
+    },
+    "1795135564478": {
+      "ts": 1795135564478,
+      "ph": "7.22",
+      "turbidity_ntu": "4.95",
+      "tds_ppm": "184.8",
+      "water_temp_c": "20.64",
+      "flow_lpm": "13.07",
+      "latitude": "28.11",
+      "longitude": "85.29"
+    },
+    "1795135562493": {
+      "ts": 1795135562493,
+      "ph": "7.201",
+      "turbidity_ntu": "4.83",
+      "tds_ppm": "180.4",
+      "water_temp_c": "20.79",
+      "flow_lpm": "13.37",
+      "latitude": "28.11",
+      "longitude": "85.29"
+    },
+    "1795135560490": {
+      "ts": 1795135560490,
+      "ph": "7.225",
+      "turbidity_ntu": "4.84",
+      "tds_ppm": "187.4",
+      "water_temp_c": "20.63",
+      "flow_lpm": "12.6",
+      "latitude": "28.11",
+      "longitude": "85.29"
+    },
+    "1795135558490": {
+      "ts": 1795135558490,
+      "ph": "7.217",
+      "turbidity_ntu": "5.14",
+      "tds_ppm": "186.6",
+      "water_temp_c": "20.68",
+      "flow_lpm": "11.87",
+      "latitude": "28.11",
+      "longitude": "85.29"
+    },
+    "1795135556497": {
+      "ts": 1795135556497,
+      "ph": "7.226",
+      "turbidity_ntu": "4.87",
+      "tds_ppm": "178.9",
+      "water_temp_c": "20.58",
+      "flow_lpm": "11.89",
+      "latitude": "28.11",
+      "longitude": "85.29"
+    },
+    "1795135554476": {
+      "ts": 1795135554476,
+      "ph": "7.197",
+      "turbidity_ntu": "4.42",
+      "tds_ppm": "178.3",
+      "water_temp_c": "20.71",
+      "flow_lpm": "10.83",
+      "latitude": "28.11",
+      "longitude": "85.29"
+    },
+    "1795135552487": {
+      "ts": 1795135552487,
+      "ph": "7.234",
+      "turbidity_ntu": "4.85",
+      "tds_ppm": "182.0",
+      "water_temp_c": "20.72",
+      "flow_lpm": "10.93",
+      "latitude": "28.11",
+      "longitude": "85.29"
+    },
+    "1795135550475": {
+      "ts": 1795135550475,
+      "ph": "7.223",
+      "turbidity_ntu": "5.02",
+      "tds_ppm": "183.4",
+      "water_temp_c": "21.03",
+      "flow_lpm": "11.36",
+      "latitude": "28.11",
+      "longitude": "85.29"
+    },
+    "1795135548484": {
+      "ts": 1795135548484,
+      "ph": "7.212",
+      "turbidity_ntu": "4.9",
+      "tds_ppm": "186.1",
+      "water_temp_c": "20.9",
+      "flow_lpm": "10.67",
+      "latitude": "28.11",
+      "longitude": "85.29"
+    },
+    "1795135546485": {
+      "ts": 1795135546485,
+      "ph": "7.256",
+      "turbidity_ntu": "5.26",
+      "tds_ppm": "186.4",
+      "water_temp_c": "20.88",
+      "flow_lpm": "9.84",
+      "latitude": "28.11",
+      "longitude": "85.29"
+    },
+    "1795135544484": {
+      "ts": 1795135544484,
+      "ph": "7.155",
+      "turbidity_ntu": "5.0",
+      "tds_ppm": "191.0",
+      "water_temp_c": "20.76",
+      "flow_lpm": "10.13",
+      "latitude": "28.11",
+      "longitude": "85.29"
+    },
+    "1795135542489": {
+      "ts": 1795135542489,
+      "ph": "7.189",
+      "turbidity_ntu": "5.45",
+      "tds_ppm": "183.8",
+      "water_temp_c": "20.78",
+      "flow_lpm": "10.75",
+      "latitude": "28.11",
+      "longitude": "85.29"
+    },
+    "1795135540474": {
+      "ts": 1795135540474,
+      "ph": "7.22",
+      "turbidity_ntu": "4.87",
+      "tds_ppm": "190.6",
+      "water_temp_c": "20.9",
+      "flow_lpm": "0.0",
+      "latitude": "28.11",
+      "longitude": "85.29"
+    },
+    "1795135538480": {
+      "ts": 1795135538480,
+      "ph": "7.232",
+      "turbidity_ntu": "5.55",
+      "tds_ppm": "187.5",
+      "water_temp_c": "20.66",
+      "flow_lpm": "0.0",
+      "latitude": "28.11",
+      "longitude": "85.29"
+    },
+    "1795135536486": {
+      "ts": 1795135536486,
+      "ph": "7.226",
+      "turbidity_ntu": "5.26",
+      "tds_ppm": "184.6",
+      "water_temp_c": "20.55",
+      "flow_lpm": "0.0",
+      "latitude": "28.11",
+      "longitude": "85.29"
+    },
+    "1795135534488": {
+      "ts": 1795135534488,
+      "ph": "7.216",
+      "turbidity_ntu": "4.71",
+      "tds_ppm": "180.8",
+      "water_temp_c": "20.76",
+      "flow_lpm": "0.0",
+      "latitude": "28.11",
+      "longitude": "85.29"
+    },
+    "1795135532482": {
+      "ts": 1795135532482,
+      "ph": "7.25",
+      "turbidity_ntu": "4.91",
+      "tds_ppm": "185.6",
+      "water_temp_c": "20.84",
+      "flow_lpm": "0.0",
+      "latitude": "28.11",
+      "longitude": "85.29"
+    },
+    "1795135530485": {
+      "ts": 1795135530485,
+      "ph": "7.2",
+      "turbidity_ntu": "5.26",
+      "tds_ppm": "188.8",
+      "water_temp_c": "20.88",
+      "flow_lpm": "0.0",
+      "latitude": "28.11",
+      "longitude": "85.29"
+    },
+    "1795135528488": {
+      "ts": 1795135528488,
+      "ph": "7.209",
+      "turbidity_ntu": "4.68",
+      "tds_ppm": "180.2",
+      "water_temp_c": "20.74",
+      "flow_lpm": "0.0",
+      "latitude": "28.11",
+      "longitude": "85.29"
+    },
+    "1795135526478": {
+      "ts": 1795135526478,
+      "ph": "7.267",
+      "turbidity_ntu": "4.16",
+      "tds_ppm": "177.4",
+      "water_temp_c": "20.78",
+      "flow_lpm": "0.0",
+      "latitude": "28.11",
+      "longitude": "85.29"
+    },
+    "1795135524491": {
+      "ts": 1795135524491,
+      "ph": "7.186",
+      "turbidity_ntu": "4.95",
+      "tds_ppm": "184.2",
+      "water_temp_c": "20.8",
+      "flow_lpm": "0.0",
+      "latitude": "28.11",
+      "longitude": "85.29"
+    },
+    "1795135522489": {
+      "ts": 1795135522489,
+      "ph": "7.221",
+      "turbidity_ntu": "4.37",
+      "tds_ppm": "185.5",
+      "water_temp_c": "20.75",
+      "flow_lpm": "0.0",
+      "latitude": "28.11",
+      "longitude": "85.29"
+    },
+    "1795135520473": {
+      "ts": 1795135520473,
+      "ph": "7.19",
+      "turbidity_ntu": "4.82",
+      "tds_ppm": "183.9",
+      "water_temp_c": "20.81",
+      "flow_lpm": "0.0",
+      "latitude": "28.11",
+      "longitude": "85.29"
+    },
+    "1795135518498": {
+      "ts": 1795135518498,
+      "ph": "7.248",
+      "turbidity_ntu": "5.07",
+      "tds_ppm": "182.9",
+      "water_temp_c": "20.74",
+      "flow_lpm": "0.0",
+      "latitude": "28.11",
+      "longitude": "85.29"
+    },
+    "1795135516497": {
+      "ts": 1795135516497,
+      "ph": "7.216",
+      "turbidity_ntu": "4.27",
+      "tds_ppm": "181.9",
+      "water_temp_c": "20.66",
+      "flow_lpm": "0.0",
+      "latitude": "28.11",
+      "longitude": "85.29"
+    },
+    "1795135514475": {
+      "ts": 1795135514475,
+      "ph": "7.245",
+      "turbidity_ntu": "5.0",
+      "tds_ppm": "190.3",
+      "water_temp_c": "20.64",
+      "flow_lpm": "0.0",
+      "latitude": "28.11",
+      "longitude": "85.29"
+    },
+    "1795135512488": {
+      "ts": 1795135512488,
+      "ph": "7.196",
+      "turbidity_ntu": "4.66",
+      "tds_ppm": "187.5",
+      "water_temp_c": "20.63",
+      "flow_lpm": "0.0",
+      "latitude": "28.11",
+      "longitude": "85.29"
+    },
+    "1795135510484": {
+      "ts": 1795135510484,
+      "ph": "7.212",
+      "turbidity_ntu": "4.28",
+      "tds_ppm": "182.2",
+      "water_temp_c": "20.65",
+      "flow_lpm": "0.0",
+      "latitude": "28.11",
+      "longitude": "85.29"
+    },
+    "1795135508477": {
+      "ts": 1795135508477,
+      "ph": "7.252",
+      "turbidity_ntu": "4.11",
+      "tds_ppm": "179.2",
+      "water_temp_c": "20.48",
+      "flow_lpm": "0.0",
+      "latitude": "28.11",
+      "longitude": "85.29"
+    },
+    "1795135506489": {
+      "ts": 1795135506489,
+      "ph": "7.229",
+      "turbidity_ntu": "4.09",
+      "tds_ppm": "181.9",
+      "water_temp_c": "20.52",
+      "flow_lpm": "0.0",
+      "latitude": "28.11",
+      "longitude": "85.29"
+    },
+    "1795135504474": {
+      "ts": 1795135504474,
+      "ph": "7.187",
+      "turbidity_ntu": "5.29",
+      "tds_ppm": "186.6",
+      "water_temp_c": "20.57",
+      "flow_lpm": "0.0",
+      "latitude": "28.11",
+      "longitude": "85.29"
+    },
+    "1795135502493": {
+      "ts": 1795135502493,
+      "ph": "7.249",
+      "turbidity_ntu": "4.55",
+      "tds_ppm": "183.2",
+      "water_temp_c": "20.51",
+      "flow_lpm": "0.0",
+      "latitude": "28.11",
+      "longitude": "85.29"
+    },
+    "1795135500486": {
+      "ts": 1795135500486,
+      "ph": "7.194",
+      "turbidity_ntu": "5.02",
+      "tds_ppm": "183.6",
+      "water_temp_c": "20.47",
+      "flow_lpm": "0.0",
+      "latitude": "28.11",
+      "longitude": "85.29"
+    },
+    "1795135498491": {
+      "ts": 1795135498491,
+      "ph": "7.234",
+      "turbidity_ntu": "4.92",
+      "tds_ppm": "187.5",
+      "water_temp_c": "20.51",
+      "flow_lpm": "0.0",
+      "latitude": "28.11",
+      "longitude": "85.29"
+    },
+    "1795135496495": {
+      "ts": 1795135496495,
+      "ph": "7.229",
+      "turbidity_ntu": "4.92",
+      "tds_ppm": "186.3",
+      "water_temp_c": "20.64",
+      "flow_lpm": "0.0",
+      "latitude": "28.11",
+      "longitude": "85.29"
+    },
+    "1795135494482": {
+      "ts": 1795135494482,
+      "ph": "7.193",
+      "turbidity_ntu": "4.86",
+      "tds_ppm": "183.6",
+      "water_temp_c": "20.66",
+      "flow_lpm": "0.0",
+      "latitude": "28.11",
+      "longitude": "85.29"
+    },
+    "1795135492487": {
+      "ts": 1795135492487,
+      "ph": "7.183",
+      "turbidity_ntu": "4.84",
+      "tds_ppm": "183.2",
+      "water_temp_c": "20.6",
+      "flow_lpm": "0.0",
+      "latitude": "28.11",
+      "longitude": "85.29"
+    },
+    "1795135490488": {
+      "ts": 1795135490488,
+      "ph": "7.138",
+      "turbidity_ntu": "4.99",
+      "tds_ppm": "182.7",
+      "water_temp_c": "20.47",
+      "flow_lpm": "0.0",
+      "latitude": "28.11",
+      "longitude": "85.29"
+    },
+    "1795135488483": {
+      "ts": 1795135488483,
+      "ph": "7.3",
+      "turbidity_ntu": "3.81",
+      "tds_ppm": "179.8",
+      "water_temp_c": "20.4",
+      "flow_lpm": "0.0",
+      "latitude": "28.11",
+      "longitude": "85.29"
+    },
+    "1795135486476": {
+      "ts": 1795135486476,
+      "ph": "7.188",
+      "turbidity_ntu": "4.96",
+      "tds_ppm": "185.5",
+      "water_temp_c": "20.17",
+      "flow_lpm": "0.0",
+      "latitude": "28.11",
+      "longitude": "85.29"
+    },
+    "1795135484480": {
+      "ts": 1795135484480,
+      "ph": "7.211",
+      "turbidity_ntu": "4.94",
+      "tds_ppm": "187.9",
+      "water_temp_c": "20.19",
+      "flow_lpm": "0.0",
+      "latitude": "28.11",
+      "longitude": "85.29"
+    },
+    "1795135482490": {
+      "ts": 1795135482490,
+      "ph": "7.166",
+      "turbidity_ntu": "5.22",
+      "tds_ppm": "184.8",
+      "water_temp_c": "20.11",
+      "flow_lpm": "0.0",
+      "latitude": "28.11",
+      "longitude": "85.29"
+    },
+    "1795135480477": {
+      "ts": 1795135480477,
+      "ph": "7.095",
+      "turbidity_ntu": "5.57",
+      "tds_ppm": "190.8",
+      "water_temp_c": "20.08",
+      "flow_lpm": "12.76",
+      "latitude": "28.11",
+      "longitude": "85.29"
+    },
+    "1795135478491": {
+      "ts": 1795135478491,
+      "ph": "7.206",
+      "turbidity_ntu": "5.37",
+      "tds_ppm": "187.8",
+      "water_temp_c": "20.17",
+      "flow_lpm": "13.38",
+      "latitude": "28.11",
+      "longitude": "85.29"
+    },
+    "1795135476496": {
+      "ts": 1795135476496,
+      "ph": "7.12",
+      "turbidity_ntu": "4.54",
+      "tds_ppm": "185.1",
+      "water_temp_c": "20.17",
+      "flow_lpm": "15.14",
+      "latitude": "28.11",
+      "longitude": "85.29"
+    },
+    "1795135474493": {
+      "ts": 1795135474493,
+      "ph": "7.182",
+      "turbidity_ntu": "5.47",
+      "tds_ppm": "194.9",
+      "water_temp_c": "20.25",
+      "flow_lpm": "16.41",
+      "latitude": "28.11",
+      "longitude": "85.29"
+    },
+    "1795135472474": {
+      "ts": 1795135472474,
+      "ph": "7.172",
+      "turbidity_ntu": "5.07",
+      "tds_ppm": "186.2",
+      "water_temp_c": "20.27",
+      "flow_lpm": "14.64",
+      "latitude": "28.11",
+      "longitude": "85.29"
+    },
+    "1795135470480": {
+      "ts": 1795135470480,
+      "ph": "7.15",
+      "turbidity_ntu": "5.12",
+      "tds_ppm": "190.4",
+      "water_temp_c": "20.07",
+      "flow_lpm": "12.66",
+      "latitude": "28.11",
+      "longitude": "85.29"
+    },
+    "1795135468481": {
+      "ts": 1795135468481,
+      "ph": "7.195",
+      "turbidity_ntu": "5.53",
+      "tds_ppm": "187.1",
+      "water_temp_c": "20.35",
+      "flow_lpm": "12.3",
+      "latitude": "28.11",
+      "longitude": "85.29"
+    },
+    "1795135466478": {
+      "ts": 1795135466478,
+      "ph": "7.171",
+      "turbidity_ntu": "4.96",
+      "tds_ppm": "187.7",
+      "water_temp_c": "20.16",
+      "flow_lpm": "13.99",
+      "latitude": "28.11",
+      "longitude": "85.29"
+    },
+    "1795135464482": {
+      "ts": 1795135464482,
+      "ph": "7.113",
+      "turbidity_ntu": "6.03",
+      "tds_ppm": "200.9",
+      "water_temp_c": "20.12",
+      "flow_lpm": "13.75",
+      "latitude": "28.11",
+      "longitude": "85.29"
+    },
+    "1795135462487": {
+      "ts": 1795135462487,
+      "ph": "7.127",
+      "turbidity_ntu": "5.86",
+      "tds_ppm": "195.4",
+      "water_temp_c": "19.99",
+      "flow_lpm": "14.12",
+      "latitude": "28.11",
+      "longitude": "85.29"
+    },
+    "1795135460481": {
+      "ts": 1795135460481,
+      "ph": "7.107",
+      "turbidity_ntu": "5.67",
+      "tds_ppm": "189.4",
+      "water_temp_c": "20.16",
+      "flow_lpm": "12.83",
+      "latitude": "28.11",
+      "longitude": "85.29"
+    },
+    "1795135458479": {
+      "ts": 1795135458479,
+      "ph": "7.207",
+      "turbidity_ntu": "5.33",
+      "tds_ppm": "186.0",
+      "water_temp_c": "19.89",
+      "flow_lpm": "13.06",
+      "latitude": "28.11",
+      "longitude": "85.29"
+    },
+    "1795135456499": {
+      "ts": 1795135456499,
+      "ph": "7.213",
+      "turbidity_ntu": "5.47",
+      "tds_ppm": "186.2",
+      "water_temp_c": "19.88",
+      "flow_lpm": "13.73",
+      "latitude": "28.11",
+      "longitude": "85.29"
+    },
+    "1795135454476": {
+      "ts": 1795135454476,
+      "ph": "7.222",
+      "turbidity_ntu": "5.58",
+      "tds_ppm": "191.5",
+      "water_temp_c": "19.89",
+      "flow_lpm": "15.11",
+      "latitude": "28.11",
+      "longitude": "85.29"
+    },
+    "1795135452478": {
+      "ts": 1795135452478,
+      "ph": "7.174",
+      "turbidity_ntu": "5.7",
+      "tds_ppm": "192.8",
+      "water_temp_c": "19.97",
+      "flow_lpm": "14.07",
+      "latitude": "28.11",
+      "longitude": "85.29"
+    },
+    "1795135450498": {
+      "ts": 1795135450498,
+      "ph": "7.204",
+      "turbidity_ntu": "5.81",
+      "tds_ppm": "189.4",
+      "water_temp_c": "19.93",
+      "flow_lpm": "13.27",
+      "latitude": "28.11",
+      "longitude": "85.29"
+    },
+    "1795135448500": {
+      "ts": 1795135448500,
+      "ph": "7.116",
+      "turbidity_ntu": "5.78",
+      "tds_ppm": "192.0",
+      "water_temp_c": "19.87",
+      "flow_lpm": "15.38",
+      "latitude": "28.11",
+      "longitude": "85.29"
+    },
+    "1795135446487": {
+      "ts": 1795135446487,
+      "ph": "7.177",
+      "turbidity_ntu": "6.07",
+      "tds_ppm": "188.0",
+      "water_temp_c": "19.87",
+      "flow_lpm": "14.29",
+      "latitude": "28.11",
+      "longitude": "85.29"
+    },
+    "1795135444490": {
+      "ts": 1795135444490,
+      "ph": "7.213",
+      "turbidity_ntu": "4.61",
+      "tds_ppm": "185.9",
+      "water_temp_c": "19.86",
+      "flow_lpm": "13.17",
+      "latitude": "28.11",
+      "longitude": "85.29"
+    },
+    "1795135442488": {
+      "ts": 1795135442488,
+      "ph": "7.232",
+      "turbidity_ntu": "4.84",
+      "tds_ppm": "176.9",
+      "water_temp_c": "19.88",
+      "flow_lpm": "13.75",
+      "latitude": "28.11",
+      "longitude": "85.29"
+    },
+    "1795135440488": {
+      "ts": 1795135440488,
+      "ph": "7.185",
+      "turbidity_ntu": "5.53",
+      "tds_ppm": "188.3",
+      "water_temp_c": "19.86",
+      "flow_lpm": "13.45",
+      "latitude": "28.11",
+      "longitude": "85.29"
+    },
+    "1795135438480": {
+      "ts": 1795135438480,
+      "ph": "7.196",
+      "turbidity_ntu": "5.63",
+      "tds_ppm": "188.2",
+      "water_temp_c": "20.05",
+      "flow_lpm": "12.69",
+      "latitude": "28.11",
+      "longitude": "85.29"
+    },
+    "1795135436489": {
+      "ts": 1795135436489,
+      "ph": "7.243",
+      "turbidity_ntu": "4.98",
+      "tds_ppm": "185.4",
+      "water_temp_c": "20.07",
+      "flow_lpm": "11.04",
+      "latitude": "28.11",
+      "longitude": "85.29"
+    },
+    "1795135434492": {
+      "ts": 1795135434492,
+      "ph": "7.175",
+      "turbidity_ntu": "5.07",
+      "tds_ppm": "187.4",
+      "water_temp_c": "20.14",
+      "flow_lpm": "12.11",
+      "latitude": "28.11",
+      "longitude": "85.29"
+    },
+    "1795135432496": {
+      "ts": 1795135432496,
+      "ph": "7.196",
+      "turbidity_ntu": "5.06",
+      "tds_ppm": "184.9",
+      "water_temp_c": "20.13",
+      "flow_lpm": "13.45",
+      "latitude": "28.11",
+      "longitude": "85.29"
+    },
+    "1795135430480": {
+      "ts": 1795135430480,
+      "ph": "7.226",
+      "turbidity_ntu": "5.41",
+      "tds_ppm": "185.3",
+      "water_temp_c": "20.14",
+      "flow_lpm": "13.0",
+      "latitude": "28.11",
+      "longitude": "85.29"
+    },
+    "1795135428496": {
+      "ts": 1795135428496,
+      "ph": "7.164",
+      "turbidity_ntu": "5.48",
+      "tds_ppm": "188.0",
+      "water_temp_c": "19.92",
+      "flow_lpm": "14.22",
+      "latitude": "28.11",
+      "longitude": "85.29"
+    },
+    "1795135426491": {
+      "ts": 1795135426491,
+      "ph": "7.174",
+      "turbidity_ntu": "5.31",
+      "tds_ppm": "189.5",
+      "water_temp_c": "20.0",
+      "flow_lpm": "13.23",
+      "latitude": "28.11",
+      "longitude": "85.29"
+    },
+    "1795135424487": {
+      "ts": 1795135424487,
+      "ph": "7.104",
+      "turbidity_ntu": "4.93",
+      "tds_ppm": "184.0",
+      "water_temp_c": "19.95",
+      "flow_lpm": "13.46",
+      "latitude": "28.11",
+      "longitude": "85.29"
+    },
+    "1795135422477": {
+      "ts": 1795135422477,
+      "ph": "7.217",
+      "turbidity_ntu": "5.23",
+      "tds_ppm": "184.6",
+      "water_temp_c": "20.0",
+      "flow_lpm": "13.82",
+      "latitude": "28.11",
+      "longitude": "85.29"
+    },
+    "1795135420491": {
+      "ts": 1795135420491,
+      "ph": "7.174",
+      "turbidity_ntu": "4.74",
+      "tds_ppm": "185.5",
+      "water_temp_c": "20.13",
+      "flow_lpm": "14.01",
+      "latitude": "28.11",
+      "longitude": "85.29"
+    },
+    "1795135418499": {
+      "ts": 1795135418499,
+      "ph": "7.15",
+      "turbidity_ntu": "5.04",
+      "tds_ppm": "184.0",
+      "water_temp_c": "20.05",
+      "flow_lpm": "12.8",
+      "latitude": "28.11",
+      "longitude": "85.29"
+    },
+    "1795135416486": {
+      "ts": 1795135416486,
+      "ph": "6.254",
+      "turbidity_ntu": "215.56",
+      "tds_ppm": "474.2",
+      "water_temp_c": "20.27",
+      "flow_lpm": "12.58",
+      "latitude": "28.11",
+      "longitude": "85.29"
+    },
+    "1795135414481": {
+      "ts": 1795135414481,
+      "ph": "6.244",
+      "turbidity_ntu": "219.07",
+      "tds_ppm": "479.7",
+      "water_temp_c": "20.07",
+      "flow_lpm": "10.56",
+      "latitude": "28.11",
+      "longitude": "85.29"
+    },
+    "1795135412484": {
+      "ts": 1795135412484,
+      "ph": "6.249",
+      "turbidity_ntu": "222.67",
+      "tds_ppm": "484.0",
+      "water_temp_c": "20.35",
+      "flow_lpm": "10.17",
+      "latitude": "28.11",
+      "longitude": "85.29"
+    },
+    "1795135410479": {
+      "ts": 1795135410479,
+      "ph": "6.239",
+      "turbidity_ntu": "226.16",
+      "tds_ppm": "488.9",
+      "water_temp_c": "20.16",
+      "flow_lpm": "11.82",
+      "latitude": "28.11",
+      "longitude": "85.29"
+    },
+    "1795135408483": {
+      "ts": 1795135408483,
+      "ph": "6.223",
+      "turbidity_ntu": "229.9",
+      "tds_ppm": "495.4",
+      "water_temp_c": "20.12",
+      "flow_lpm": "11.55",
+      "latitude": "28.11",
+      "longitude": "85.29"
+    },
+    "1795135406491": {
+      "ts": 1795135406491,
+      "ph": "6.221",
+      "turbidity_ntu": "233.49",
+      "tds_ppm": "499.6",
+      "water_temp_c": "19.99",
+      "flow_lpm": "11.88",
+      "latitude": "28.11",
+      "longitude": "85.29"
+    },
+    "1795135404491": {
+      "ts": 1795135404491,
+      "ph": "6.213",
+      "turbidity_ntu": "237.09",
+      "tds_ppm": "503.9",
+      "water_temp_c": "20.16",
+      "flow_lpm": "10.55",
+      "latitude": "28.11",
+      "longitude": "85.29"
+    },
+    "1795135402482": {
+      "ts": 1795135402482,
+      "ph": "6.228",
+      "turbidity_ntu": "240.66",
+      "tds_ppm": "508.5",
+      "water_temp_c": "19.89",
+      "flow_lpm": "10.75",
+      "latitude": "28.11",
+      "longitude": "85.29"
+    },
+    "1795135400476": {
+      "ts": 1795135400476,
+      "ph": "6.225",
+      "turbidity_ntu": "244.21",
+      "tds_ppm": "513.4",
+      "water_temp_c": "19.88",
+      "flow_lpm": "11.38",
+      "latitude": "28.11",
+      "longitude": "85.29"
+    },
+    "1795135398477": {
+      "ts": 1795135398477,
+      "ph": "6.223",
+      "turbidity_ntu": "247.66",
+      "tds_ppm": "518.3",
+      "water_temp_c": "19.89",
+      "flow_lpm": "12.73",
+      "latitude": "28.11",
+      "longitude": "85.29"
+    },
+    "1795135396492": {
+      "ts": 1795135396492,
+      "ph": "6.211",
+      "turbidity_ntu": "250.93",
+      "tds_ppm": "522.8",
+      "water_temp_c": "19.97",
+      "flow_lpm": "11.65",
+      "latitude": "28.11",
+      "longitude": "85.29"
+    },
+    "1795135394476": {
+      "ts": 1795135394476,
+      "ph": "6.213",
+      "turbidity_ntu": "253.94",
+      "tds_ppm": "526.8",
+      "water_temp_c": "19.93",
+      "flow_lpm": "10.83",
+      "latitude": "28.11",
+      "longitude": "85.29"
+    },
+    "1795135392489": {
+      "ts": 1795135392489,
+      "ph": "6.195",
+      "turbidity_ntu": "256.55",
+      "tds_ppm": "530.3",
+      "water_temp_c": "19.87",
+      "flow_lpm": "12.91",
+      "latitude": "28.11",
+      "longitude": "85.29"
+    },
+    "1795135390490": {
+      "ts": 1795135390490,
+      "ph": "6.203",
+      "turbidity_ntu": "258.59",
+      "tds_ppm": "533.1",
+      "water_temp_c": "19.87",
+      "flow_lpm": "11.8",
+      "latitude": "28.11",
+      "longitude": "85.29"
+    },
+    "1795135388482": {
+      "ts": 1795135388482,
+      "ph": "6.208",
+      "turbidity_ntu": "259.81",
+      "tds_ppm": "534.7",
+      "water_temp_c": "19.86",
+      "flow_lpm": "10.68",
+      "latitude": "28.11",
+      "longitude": "85.29"
+    },
+    "1795135386477": {
+      "ts": 1795135386477,
+      "ph": "6.212",
+      "turbidity_ntu": "259.84",
+      "tds_ppm": "534.8",
+      "water_temp_c": "19.88",
+      "flow_lpm": "11.26",
+      "latitude": "28.11",
+      "longitude": "85.29"
+    },
+    "1795135384487": {
+      "ts": 1795135384487,
+      "ph": "6.205",
+      "turbidity_ntu": "258.2",
+      "tds_ppm": "532.5",
+      "water_temp_c": "19.86",
+      "flow_lpm": "11.0",
+      "latitude": "28.11",
+      "longitude": "85.29"
+    },
+    "1795135382481": {
+      "ts": 1795135382481,
+      "ph": "6.211",
+      "turbidity_ntu": "254.2",
+      "tds_ppm": "527.1",
+      "water_temp_c": "20.05",
+      "flow_lpm": "10.31",
+      "latitude": "28.11",
+      "longitude": "85.29"
+    },
+    "1795135380483": {
+      "ts": 1795135380483,
+      "ph": "6.228",
+      "turbidity_ntu": "246.82",
+      "tds_ppm": "516.9",
+      "water_temp_c": "20.07",
+      "flow_lpm": "8.83",
+      "latitude": "28.11",
+      "longitude": "85.29"
+    },
+    "1795135378493": {
+      "ts": 1795135378493,
+      "ph": "6.229",
+      "turbidity_ntu": "234.79",
+      "tds_ppm": "500.6",
+      "water_temp_c": "20.14",
+      "flow_lpm": "10.23",
+      "latitude": "28.11",
+      "longitude": "85.29"
+    },
+    "1795135376492": {
+      "ts": 1795135376492,
+      "ph": "6.258",
+      "turbidity_ntu": "216.17",
+      "tds_ppm": "474.8",
+      "water_temp_c": "20.13",
+      "flow_lpm": "12.18",
+      "latitude": "28.11",
+      "longitude": "85.29"
+    },
+    "1795135374492": {
+      "ts": 1795135374492,
+      "ph": "6.311",
+      "turbidity_ntu": "188.44",
+      "tds_ppm": "436.7",
+      "water_temp_c": "20.14",
+      "flow_lpm": "12.83",
+      "latitude": "28.11",
+      "longitude": "85.29"
+    },
+    "1795135372492": {
+      "ts": 1795135372492,
+      "ph": "6.386",
+      "turbidity_ntu": "147.82",
+      "tds_ppm": "382.1",
+      "water_temp_c": "19.92",
+      "flow_lpm": "15.77",
+      "latitude": "28.11",
+      "longitude": "85.29"
+    },
+    "1795135370477": {
+      "ts": 1795135370477,
+      "ph": "6.614",
+      "turbidity_ntu": "89.1",
+      "tds_ppm": "303.1",
+      "water_temp_c": "20.0",
+      "flow_lpm": "16.41",
+      "latitude": "28.11",
+      "longitude": "85.29"
+    },
+    "1795135368492": {
+      "ts": 1795135368492,
+      "ph": "7.104",
+      "turbidity_ntu": "4.93",
+      "tds_ppm": "184.0",
+      "water_temp_c": "19.95",
+      "flow_lpm": "13.46",
+      "latitude": "28.11",
+      "longitude": "85.29"
+    },
+    "1795135366488": {
+      "ts": 1795135366488,
+      "ph": "7.217",
+      "turbidity_ntu": "5.23",
+      "tds_ppm": "184.6",
+      "water_temp_c": "20.0",
+      "flow_lpm": "13.82",
+      "latitude": "28.11",
+      "longitude": "85.29"
+    },
+    "1795135364481": {
+      "ts": 1795135364481,
+      "ph": "7.174",
+      "turbidity_ntu": "4.74",
+      "tds_ppm": "185.5",
+      "water_temp_c": "20.13",
+      "flow_lpm": "14.01",
+      "latitude": "28.11",
+      "longitude": "85.29"
+    },
+    "1795135363172": {
+      "ts": 1795135363172,
+      "ph": "7.15",
+      "turbidity_ntu": "5.04",
+      "tds_ppm": "184.0",
+      "water_temp_c": "20.05",
+      "flow_lpm": "12.8",
+      "latitude": "28.11",
+      "longitude": "85.29"
+    }
+  },
+  "JalSanket-Node-02": {
+    "1795135602832": {
+      "ts": 1795135602832,
+      "ph": "7.182",
+      "turbidity_ntu": "5.54",
+      "tds_ppm": "191.2",
+      "water_temp_c": "21.03",
+      "flow_lpm": "12.4",
+      "latitude": "28.092",
+      "longitude": "85.361"
+    },
+    "1795135600839": {
+      "ts": 1795135600839,
+      "ph": "7.22",
+      "turbidity_ntu": "5.11",
+      "tds_ppm": "186.6",
+      "water_temp_c": "21.24",
+      "flow_lpm": "10.66",
+      "latitude": "28.092",
+      "longitude": "85.361"
+    },
+    "1795135598836": {
+      "ts": 1795135598836,
+      "ph": "7.133",
+      "turbidity_ntu": "4.84",
+      "tds_ppm": "182.0",
+      "water_temp_c": "21.16",
+      "flow_lpm": "10.57",
+      "latitude": "28.092",
+      "longitude": "85.361"
+    },
+    "1795135596833": {
+      "ts": 1795135596833,
+      "ph": "7.188",
+      "turbidity_ntu": "4.97",
+      "tds_ppm": "181.8",
+      "water_temp_c": "21.28",
+      "flow_lpm": "12.18",
+      "latitude": "28.092",
+      "longitude": "85.361"
+    },
+    "1795135594835": {
+      "ts": 1795135594835,
+      "ph": "7.242",
+      "turbidity_ntu": "4.54",
+      "tds_ppm": "181.2",
+      "water_temp_c": "21.21",
+      "flow_lpm": "13.09",
+      "latitude": "28.092",
+      "longitude": "85.361"
+    },
+    "1795135592824": {
+      "ts": 1795135592824,
+      "ph": "7.216",
+      "turbidity_ntu": "4.91",
+      "tds_ppm": "179.2",
+      "water_temp_c": "21.21",
+      "flow_lpm": "11.24",
+      "latitude": "28.092",
+      "longitude": "85.361"
+    },
+    "1795135590826": {
+      "ts": 1795135590826,
+      "ph": "7.229",
+      "turbidity_ntu": "4.49",
+      "tds_ppm": "176.5",
+      "water_temp_c": "21.12",
+      "flow_lpm": "11.45",
+      "latitude": "28.092",
+      "longitude": "85.361"
+    },
+    "1795135588823": {
+      "ts": 1795135588823,
+      "ph": "7.269",
+      "turbidity_ntu": "4.33",
+      "tds_ppm": "175.2",
+      "water_temp_c": "21.26",
+      "flow_lpm": "13.91",
+      "latitude": "28.092",
+      "longitude": "85.361"
+    },
+    "1795135586838": {
+      "ts": 1795135586838,
+      "ph": "7.23",
+      "turbidity_ntu": "4.78",
+      "tds_ppm": "178.4",
+      "water_temp_c": "21.2",
+      "flow_lpm": "13.27",
+      "latitude": "28.092",
+      "longitude": "85.361"
+    },
+    "1795135584830": {
+      "ts": 1795135584830,
+      "ph": "7.15",
+      "turbidity_ntu": "5.02",
+      "tds_ppm": "185.3",
+      "water_temp_c": "21.38",
+      "flow_lpm": "14.19",
+      "latitude": "28.092",
+      "longitude": "85.361"
+    },
+    "1795135582843": {
+      "ts": 1795135582843,
+      "ph": "7.153",
+      "turbidity_ntu": "5.42",
+      "tds_ppm": "183.2",
+      "water_temp_c": "21.2",
+      "flow_lpm": "13.96",
+      "latitude": "28.092",
+      "longitude": "85.361"
+    },
+    "1795135580832": {
+      "ts": 1795135580832,
+      "ph": "7.107",
+      "turbidity_ntu": "5.57",
+      "tds_ppm": "194.9",
+      "water_temp_c": "21.4",
+      "flow_lpm": "13.38",
+      "latitude": "28.092",
+      "longitude": "85.361"
+    },
+    "1795135578821": {
+      "ts": 1795135578821,
+      "ph": "7.221",
+      "turbidity_ntu": "5.86",
+      "tds_ppm": "192.2",
+      "water_temp_c": "21.41",
+      "flow_lpm": "13.62",
+      "latitude": "28.092",
+      "longitude": "85.361"
+    },
+    "1795135576839": {
+      "ts": 1795135576839,
+      "ph": "7.142",
+      "turbidity_ntu": "5.89",
+      "tds_ppm": "198.4",
+      "water_temp_c": "21.34",
+      "flow_lpm": "13.68",
+      "latitude": "28.092",
+      "longitude": "85.361"
+    },
+    "1795135574821": {
+      "ts": 1795135574821,
+      "ph": "7.148",
+      "turbidity_ntu": "5.34",
+      "tds_ppm": "188.3",
+      "water_temp_c": "21.08",
+      "flow_lpm": "13.15",
+      "latitude": "28.092",
+      "longitude": "85.361"
+    },
+    "1795135572826": {
+      "ts": 1795135572826,
+      "ph": "7.159",
+      "turbidity_ntu": "5.31",
+      "tds_ppm": "185.1",
+      "water_temp_c": "21.09",
+      "flow_lpm": "13.44",
+      "latitude": "28.092",
+      "longitude": "85.361"
+    },
+    "1795135570822": {
+      "ts": 1795135570822,
+      "ph": "7.201",
+      "turbidity_ntu": "4.76",
+      "tds_ppm": "183.7",
+      "water_temp_c": "21.14",
+      "flow_lpm": "13.74",
+      "latitude": "28.092",
+      "longitude": "85.361"
+    },
+    "1795135568828": {
+      "ts": 1795135568828,
+      "ph": "7.186",
+      "turbidity_ntu": "4.93",
+      "tds_ppm": "190.8",
+      "water_temp_c": "21.16",
+      "flow_lpm": "13.33",
+      "latitude": "28.092",
+      "longitude": "85.361"
+    },
+    "1795135566839": {
+      "ts": 1795135566839,
+      "ph": "7.133",
+      "turbidity_ntu": "5.51",
+      "tds_ppm": "187.4",
+      "water_temp_c": "21.07",
+      "flow_lpm": "12.68",
+      "latitude": "28.092",
+      "longitude": "85.361"
+    },
+    "1795135564828": {
+      "ts": 1795135564828,
+      "ph": "7.218",
+      "turbidity_ntu": "5.1",
+      "tds_ppm": "190.0",
+      "water_temp_c": "21.12",
+      "flow_lpm": "12.11",
+      "latitude": "28.092",
+      "longitude": "85.361"
+    },
+    "1795135562821": {
+      "ts": 1795135562821,
+      "ph": "7.144",
+      "turbidity_ntu": "5.08",
+      "tds_ppm": "186.7",
+      "water_temp_c": "21.11",
+      "flow_lpm": "12.53",
+      "latitude": "28.092",
+      "longitude": "85.361"
+    },
+    "1795135560840": {
+      "ts": 1795135560840,
+      "ph": "7.237",
+      "turbidity_ntu": "5.42",
+      "tds_ppm": "186.7",
+      "water_temp_c": "21.39",
+      "flow_lpm": "12.99",
+      "latitude": "28.092",
+      "longitude": "85.361"
+    },
+    "1795135558835": {
+      "ts": 1795135558835,
+      "ph": "7.124",
+      "turbidity_ntu": "5.58",
+      "tds_ppm": "190.0",
+      "water_temp_c": "21.12",
+      "flow_lpm": "12.92",
+      "latitude": "28.092",
+      "longitude": "85.361"
+    },
+    "1795135556822": {
+      "ts": 1795135556822,
+      "ph": "7.197",
+      "turbidity_ntu": "5.93",
+      "tds_ppm": "193.9",
+      "water_temp_c": "21.14",
+      "flow_lpm": "13.12",
+      "latitude": "28.092",
+      "longitude": "85.361"
+    },
+    "1795135554826": {
+      "ts": 1795135554826,
+      "ph": "7.061",
+      "turbidity_ntu": "5.47",
+      "tds_ppm": "191.1",
+      "water_temp_c": "21.2",
+      "flow_lpm": "13.11",
+      "latitude": "28.092",
+      "longitude": "85.361"
+    },
+    "1795135552843": {
+      "ts": 1795135552843,
+      "ph": "7.093",
+      "turbidity_ntu": "5.21",
+      "tds_ppm": "191.8",
+      "water_temp_c": "21.06",
+      "flow_lpm": "13.44",
+      "latitude": "28.092",
+      "longitude": "85.361"
+    },
+    "1795135550827": {
+      "ts": 1795135550827,
+      "ph": "7.225",
+      "turbidity_ntu": "5.28",
+      "tds_ppm": "187.5",
+      "water_temp_c": "21.07",
+      "flow_lpm": "12.74",
+      "latitude": "28.092",
+      "longitude": "85.361"
+    },
+    "1795135548832": {
+      "ts": 1795135548832,
+      "ph": "7.179",
+      "turbidity_ntu": "5.24",
+      "tds_ppm": "188.2",
+      "water_temp_c": "21.09",
+      "flow_lpm": "12.98",
+      "latitude": "28.092",
+      "longitude": "85.361"
+    },
+    "1795135546835": {
+      "ts": 1795135546835,
+      "ph": "7.22",
+      "turbidity_ntu": "4.88",
+      "tds_ppm": "184.7",
+      "water_temp_c": "21.23",
+      "flow_lpm": "12.5",
+      "latitude": "28.092",
+      "longitude": "85.361"
+    },
+    "1795135544830": {
+      "ts": 1795135544830,
+      "ph": "7.184",
+      "turbidity_ntu": "4.64",
+      "tds_ppm": "182.1",
+      "water_temp_c": "21.2",
+      "flow_lpm": "12.82",
+      "latitude": "28.092",
+      "longitude": "85.361"
+    },
+    "1795135542825": {
+      "ts": 1795135542825,
+      "ph": "7.215",
+      "turbidity_ntu": "5.35",
+      "tds_ppm": "185.5",
+      "water_temp_c": "21.06",
+      "flow_lpm": "11.32",
+      "latitude": "28.092",
+      "longitude": "85.361"
+    },
+    "1795135540842": {
+      "ts": 1795135540842,
+      "ph": "7.168",
+      "turbidity_ntu": "5.31",
+      "tds_ppm": "190.2",
+      "water_temp_c": "21.19",
+      "flow_lpm": "0.0",
+      "latitude": "28.092",
+      "longitude": "85.361"
+    },
+    "1795135538825": {
+      "ts": 1795135538825,
+      "ph": "7.264",
+      "turbidity_ntu": "4.95",
+      "tds_ppm": "187.8",
+      "water_temp_c": "21.16",
+      "flow_lpm": "0.0",
+      "latitude": "28.092",
+      "longitude": "85.361"
+    },
+    "1795135536831": {
+      "ts": 1795135536831,
+      "ph": "7.211",
+      "turbidity_ntu": "4.63",
+      "tds_ppm": "182.3",
+      "water_temp_c": "21.11",
+      "flow_lpm": "0.0",
+      "latitude": "28.092",
+      "longitude": "85.361"
+    },
+    "1795135534832": {
+      "ts": 1795135534832,
+      "ph": "7.202",
+      "turbidity_ntu": "4.82",
+      "tds_ppm": "183.6",
+      "water_temp_c": "21.17",
+      "flow_lpm": "0.0",
+      "latitude": "28.092",
+      "longitude": "85.361"
+    },
+    "1795135532828": {
+      "ts": 1795135532828,
+      "ph": "7.151",
+      "turbidity_ntu": "5.04",
+      "tds_ppm": "184.5",
+      "water_temp_c": "21.18",
+      "flow_lpm": "0.0",
+      "latitude": "28.092",
+      "longitude": "85.361"
+    },
+    "1795135530844": {
+      "ts": 1795135530844,
+      "ph": "7.199",
+      "turbidity_ntu": "4.18",
+      "tds_ppm": "180.9",
+      "water_temp_c": "21.12",
+      "flow_lpm": "0.0",
+      "latitude": "28.092",
+      "longitude": "85.361"
+    },
+    "1795135528836": {
+      "ts": 1795135528836,
+      "ph": "7.229",
+      "turbidity_ntu": "4.67",
+      "tds_ppm": "186.1",
+      "water_temp_c": "20.97",
+      "flow_lpm": "0.0",
+      "latitude": "28.092",
+      "longitude": "85.361"
+    },
+    "1795135526833": {
+      "ts": 1795135526833,
+      "ph": "7.208",
+      "turbidity_ntu": "4.95",
+      "tds_ppm": "179.6",
+      "water_temp_c": "21.15",
+      "flow_lpm": "0.0",
+      "latitude": "28.092",
+      "longitude": "85.361"
+    },
+    "1795135524828": {
+      "ts": 1795135524828,
+      "ph": "7.214",
+      "turbidity_ntu": "4.82",
+      "tds_ppm": "185.3",
+      "water_temp_c": "21.1",
+      "flow_lpm": "0.0",
+      "latitude": "28.092",
+      "longitude": "85.361"
+    },
+    "1795135522828": {
+      "ts": 1795135522828,
+      "ph": "7.219",
+      "turbidity_ntu": "5.04",
+      "tds_ppm": "185.5",
+      "water_temp_c": "21.23",
+      "flow_lpm": "0.0",
+      "latitude": "28.092",
+      "longitude": "85.361"
+    },
+    "1795135520846": {
+      "ts": 1795135520846,
+      "ph": "7.198",
+      "turbidity_ntu": "4.98",
+      "tds_ppm": "183.7",
+      "water_temp_c": "21.03",
+      "flow_lpm": "0.0",
+      "latitude": "28.092",
+      "longitude": "85.361"
+    },
+    "1795135518825": {
+      "ts": 1795135518825,
+      "ph": "7.212",
+      "turbidity_ntu": "4.56",
+      "tds_ppm": "176.8",
+      "water_temp_c": "20.94",
+      "flow_lpm": "0.0",
+      "latitude": "28.092",
+      "longitude": "85.361"
+    },
+    "1795135516842": {
+      "ts": 1795135516842,
+      "ph": "7.292",
+      "turbidity_ntu": "4.54",
+      "tds_ppm": "183.3",
+      "water_temp_c": "20.97",
+      "flow_lpm": "0.0",
+      "latitude": "28.092",
+      "longitude": "85.361"
+    },
+    "1795135514836": {
+      "ts": 1795135514836,
+      "ph": "7.2",
+      "turbidity_ntu": "5.59",
+      "tds_ppm": "187.4",
+      "water_temp_c": "20.9",
+      "flow_lpm": "0.0",
+      "latitude": "28.092",
+      "longitude": "85.361"
+    },
+    "1795135512841": {
+      "ts": 1795135512841,
+      "ph": "7.131",
+      "turbidity_ntu": "5.13",
+      "tds_ppm": "189.9",
+      "water_temp_c": "21.05",
+      "flow_lpm": "0.0",
+      "latitude": "28.092",
+      "longitude": "85.361"
+    },
+    "1795135510830": {
+      "ts": 1795135510830,
+      "ph": "7.159",
+      "turbidity_ntu": "5.53",
+      "tds_ppm": "187.6",
+      "water_temp_c": "20.8",
+      "flow_lpm": "0.0",
+      "latitude": "28.092",
+      "longitude": "85.361"
+    },
+    "1795135508822": {
+      "ts": 1795135508822,
+      "ph": "7.182",
+      "turbidity_ntu": "5.44",
+      "tds_ppm": "185.7",
+      "water_temp_c": "20.78",
+      "flow_lpm": "0.0",
+      "latitude": "28.092",
+      "longitude": "85.361"
+    },
+    "1795135506828": {
+      "ts": 1795135506828,
+      "ph": "7.212",
+      "turbidity_ntu": "5.68",
+      "tds_ppm": "191.0",
+      "water_temp_c": "20.73",
+      "flow_lpm": "0.0",
+      "latitude": "28.092",
+      "longitude": "85.361"
+    },
+    "1795135504833": {
+      "ts": 1795135504833,
+      "ph": "7.183",
+      "turbidity_ntu": "5.54",
+      "tds_ppm": "185.3",
+      "water_temp_c": "20.57",
+      "flow_lpm": "0.0",
+      "latitude": "28.092",
+      "longitude": "85.361"
+    },
+    "1795135502844": {
+      "ts": 1795135502844,
+      "ph": "7.155",
+      "turbidity_ntu": "5.53",
+      "tds_ppm": "191.1",
+      "water_temp_c": "20.52",
+      "flow_lpm": "0.0",
+      "latitude": "28.092",
+      "longitude": "85.361"
+    },
+    "1795135500824": {
+      "ts": 1795135500824,
+      "ph": "7.13",
+      "turbidity_ntu": "5.81",
+      "tds_ppm": "194.6",
+      "water_temp_c": "20.56",
+      "flow_lpm": "0.0",
+      "latitude": "28.092",
+      "longitude": "85.361"
+    },
+    "1795135498841": {
+      "ts": 1795135498841,
+      "ph": "7.234",
+      "turbidity_ntu": "5.46",
+      "tds_ppm": "188.9",
+      "water_temp_c": "20.59",
+      "flow_lpm": "0.0",
+      "latitude": "28.092",
+      "longitude": "85.361"
+    },
+    "1795135496839": {
+      "ts": 1795135496839,
+      "ph": "7.116",
+      "turbidity_ntu": "6.03",
+      "tds_ppm": "192.0",
+      "water_temp_c": "20.74",
+      "flow_lpm": "0.0",
+      "latitude": "28.092",
+      "longitude": "85.361"
+    },
+    "1795135494837": {
+      "ts": 1795135494837,
+      "ph": "7.207",
+      "turbidity_ntu": "5.16",
+      "tds_ppm": "192.1",
+      "water_temp_c": "20.7",
+      "flow_lpm": "0.0",
+      "latitude": "28.092",
+      "longitude": "85.361"
+    },
+    "1795135492847": {
+      "ts": 1795135492847,
+      "ph": "7.168",
+      "turbidity_ntu": "6.16",
+      "tds_ppm": "190.0",
+      "water_temp_c": "20.79",
+      "flow_lpm": "0.0",
+      "latitude": "28.092",
+      "longitude": "85.361"
+    },
+    "1795135490834": {
+      "ts": 1795135490834,
+      "ph": "7.149",
+      "turbidity_ntu": "5.51",
+      "tds_ppm": "192.7",
+      "water_temp_c": "20.74",
+      "flow_lpm": "0.0",
+      "latitude": "28.092",
+      "longitude": "85.361"
+    },
+    "1795135488839": {
+      "ts": 1795135488839,
+      "ph": "7.186",
+      "turbidity_ntu": "4.91",
+      "tds_ppm": "184.2",
+      "water_temp_c": "20.75",
+      "flow_lpm": "0.0",
+      "latitude": "28.092",
+      "longitude": "85.361"
+    },
+    "1795135486840": {
+      "ts": 1795135486840,
+      "ph": "7.192",
+      "turbidity_ntu": "5.0",
+      "tds_ppm": "186.3",
+      "water_temp_c": "20.63",
+      "flow_lpm": "0.0",
+      "latitude": "28.092",
+      "longitude": "85.361"
+    },
+    "1795135484823": {
+      "ts": 1795135484823,
+      "ph": "7.171",
+      "turbidity_ntu": "5.24",
+      "tds_ppm": "186.0",
+      "water_temp_c": "20.69",
+      "flow_lpm": "12.19",
+      "latitude": "28.092",
+      "longitude": "85.361"
+    },
+    "1795135482834": {
+      "ts": 1795135482834,
+      "ph": "7.156",
+      "turbidity_ntu": "5.62",
+      "tds_ppm": "187.0",
+      "water_temp_c": "20.62",
+      "flow_lpm": "13.79",
+      "latitude": "28.092",
+      "longitude": "85.361"
+    },
+    "1795135480837": {
+      "ts": 1795135480837,
+      "ph": "7.123",
+      "turbidity_ntu": "5.84",
+      "tds_ppm": "193.3",
+      "water_temp_c": "20.62",
+      "flow_lpm": "13.3",
+      "latitude": "28.092",
+      "longitude": "85.361"
+    },
+    "1795135478825": {
+      "ts": 1795135478825,
+      "ph": "7.13",
+      "turbidity_ntu": "5.17",
+      "tds_ppm": "186.5",
+      "water_temp_c": "20.47",
+      "flow_lpm": "14.68",
+      "latitude": "28.092",
+      "longitude": "85.361"
+    },
+    "1795135476826": {
+      "ts": 1795135476826,
+      "ph": "7.176",
+      "turbidity_ntu": "4.95",
+      "tds_ppm": "185.8",
+      "water_temp_c": "20.36",
+      "flow_lpm": "13.53",
+      "latitude": "28.092",
+      "longitude": "85.361"
+    },
+    "1795135474828": {
+      "ts": 1795135474828,
+      "ph": "7.244",
+      "turbidity_ntu": "5.16",
+      "tds_ppm": "189.0",
+      "water_temp_c": "20.37",
+      "flow_lpm": "14.24",
+      "latitude": "28.092",
+      "longitude": "85.361"
+    },
+    "1795135472831": {
+      "ts": 1795135472831,
+      "ph": "7.111",
+      "turbidity_ntu": "5.16",
+      "tds_ppm": "185.3",
+      "water_temp_c": "20.32",
+      "flow_lpm": "13.57",
+      "latitude": "28.092",
+      "longitude": "85.361"
+    },
+    "1795135470832": {
+      "ts": 1795135470832,
+      "ph": "7.256",
+      "turbidity_ntu": "4.11",
+      "tds_ppm": "181.0",
+      "water_temp_c": "20.53",
+      "flow_lpm": "12.09",
+      "latitude": "28.092",
+      "longitude": "85.361"
+    },
+    "1795135468836": {
+      "ts": 1795135468836,
+      "ph": "7.237",
+      "turbidity_ntu": "5.19",
+      "tds_ppm": "182.2",
+      "water_temp_c": "20.35",
+      "flow_lpm": "12.86",
+      "latitude": "28.092",
+      "longitude": "85.361"
+    },
+    "1795135466835": {
+      "ts": 1795135466835,
+      "ph": "7.232",
+      "turbidity_ntu": "5.23",
+      "tds_ppm": "181.2",
+      "water_temp_c": "20.43",
+      "flow_lpm": "12.77",
+      "latitude": "28.092",
+      "longitude": "85.361"
+    },
+    "1795135464843": {
+      "ts": 1795135464843,
+      "ph": "7.256",
+      "turbidity_ntu": "5.15",
+      "tds_ppm": "178.5",
+      "water_temp_c": "20.34",
+      "flow_lpm": "14.78",
+      "latitude": "28.092",
+      "longitude": "85.361"
+    },
+    "1795135462826": {
+      "ts": 1795135462826,
+      "ph": "7.303",
+      "turbidity_ntu": "4.6",
+      "tds_ppm": "183.5",
+      "water_temp_c": "20.2",
+      "flow_lpm": "13.62",
+      "latitude": "28.092",
+      "longitude": "85.361"
+    },
+    "1795135460827": {
+      "ts": 1795135460827,
+      "ph": "7.173",
+      "turbidity_ntu": "5.08",
+      "tds_ppm": "181.8",
+      "water_temp_c": "20.21",
+      "flow_lpm": "12.52",
+      "latitude": "28.092",
+      "longitude": "85.361"
+    },
+    "1795135458840": {
+      "ts": 1795135458840,
+      "ph": "7.274",
+      "turbidity_ntu": "4.19",
+      "tds_ppm": "179.3",
+      "water_temp_c": "20.25",
+      "flow_lpm": "12.11",
+      "latitude": "28.092",
+      "longitude": "85.361"
+    },
+    "1795135456844": {
+      "ts": 1795135456844,
+      "ph": "7.242",
+      "turbidity_ntu": "3.29",
+      "tds_ppm": "174.2",
+      "water_temp_c": "20.44",
+      "flow_lpm": "12.04",
+      "latitude": "28.092",
+      "longitude": "85.361"
+    },
+    "1795135454831": {
+      "ts": 1795135454831,
+      "ph": "7.242",
+      "turbidity_ntu": "4.26",
+      "tds_ppm": "180.8",
+      "water_temp_c": "20.1",
+      "flow_lpm": "11.72",
+      "latitude": "28.092",
+      "longitude": "85.361"
+    },
+    "1795135452836": {
+      "ts": 1795135452836,
+      "ph": "7.181",
+      "turbidity_ntu": "4.69",
+      "tds_ppm": "184.5",
+      "water_temp_c": "20.21",
+      "flow_lpm": "12.79",
+      "latitude": "28.092",
+      "longitude": "85.361"
+    },
+    "1795135450827": {
+      "ts": 1795135450827,
+      "ph": "7.223",
+      "turbidity_ntu": "5.13",
+      "tds_ppm": "186.3",
+      "water_temp_c": "20.4",
+      "flow_lpm": "13.87",
+      "latitude": "28.092",
+      "longitude": "85.361"
+    },
+    "1795135448843": {
+      "ts": 1795135448843,
+      "ph": "7.148",
+      "turbidity_ntu": "4.91",
+      "tds_ppm": "186.0",
+      "water_temp_c": "20.22",
+      "flow_lpm": "13.48",
+      "latitude": "28.092",
+      "longitude": "85.361"
+    },
+    "1795135446831": {
+      "ts": 1795135446831,
+      "ph": "7.179",
+      "turbidity_ntu": "4.95",
+      "tds_ppm": "184.7",
+      "water_temp_c": "20.15",
+      "flow_lpm": "13.47",
+      "latitude": "28.092",
+      "longitude": "85.361"
+    },
+    "1795135444827": {
+      "ts": 1795135444827,
+      "ph": "7.274",
+      "turbidity_ntu": "4.19",
+      "tds_ppm": "180.2",
+      "water_temp_c": "20.13",
+      "flow_lpm": "12.73",
+      "latitude": "28.092",
+      "longitude": "85.361"
+    },
+    "1795135442907": {
+      "ts": 1795135442907,
+      "ph": "7.294",
+      "turbidity_ntu": "4.62",
+      "tds_ppm": "182.9",
+      "water_temp_c": "20.12",
+      "flow_lpm": "14.05",
+      "latitude": "28.092",
+      "longitude": "85.361"
+    },
+    "1795135440847": {
+      "ts": 1795135440847,
+      "ph": "7.266",
+      "turbidity_ntu": "3.91",
+      "tds_ppm": "180.5",
+      "water_temp_c": "20.29",
+      "flow_lpm": "14.25",
+      "latitude": "28.092",
+      "longitude": "85.361"
+    },
+    "1795135438842": {
+      "ts": 1795135438842,
+      "ph": "7.254",
+      "turbidity_ntu": "4.38",
+      "tds_ppm": "179.9",
+      "water_temp_c": "20.12",
+      "flow_lpm": "14.07",
+      "latitude": "28.092",
+      "longitude": "85.361"
+    },
+    "1795135436824": {
+      "ts": 1795135436824,
+      "ph": "7.206",
+      "turbidity_ntu": "4.06",
+      "tds_ppm": "181.5",
+      "water_temp_c": "20.04",
+      "flow_lpm": "14.79",
+      "latitude": "28.092",
+      "longitude": "85.361"
+    },
+    "1795135434844": {
+      "ts": 1795135434844,
+      "ph": "7.204",
+      "turbidity_ntu": "4.81",
+      "tds_ppm": "177.8",
+      "water_temp_c": "20.25",
+      "flow_lpm": "15.73",
+      "latitude": "28.092",
+      "longitude": "85.361"
+    },
+    "1795135432841": {
+      "ts": 1795135432841,
+      "ph": "7.239",
+      "turbidity_ntu": "5.33",
+      "tds_ppm": "186.5",
+      "water_temp_c": "20.26",
+      "flow_lpm": "14.65",
+      "latitude": "28.092",
+      "longitude": "85.361"
+    },
+    "1795135430834": {
+      "ts": 1795135430834,
+      "ph": "7.112",
+      "turbidity_ntu": "5.03",
+      "tds_ppm": "184.9",
+      "water_temp_c": "20.13",
+      "flow_lpm": "14.9",
+      "latitude": "28.092",
+      "longitude": "85.361"
+    },
+    "1795135428829": {
+      "ts": 1795135428829,
+      "ph": "7.193",
+      "turbidity_ntu": "4.48",
+      "tds_ppm": "182.1",
+      "water_temp_c": "20.0",
+      "flow_lpm": "15.0",
+      "latitude": "28.092",
+      "longitude": "85.361"
+    },
+    "1795135426836": {
+      "ts": 1795135426836,
+      "ph": "7.176",
+      "turbidity_ntu": "4.83",
+      "tds_ppm": "180.4",
+      "water_temp_c": "19.9",
+      "flow_lpm": "12.97",
+      "latitude": "28.092",
+      "longitude": "85.361"
+    },
+    "1795135424841": {
+      "ts": 1795135424841,
+      "ph": "7.215",
+      "turbidity_ntu": "5.12",
+      "tds_ppm": "191.3",
+      "water_temp_c": "19.96",
+      "flow_lpm": "14.78",
+      "latitude": "28.092",
+      "longitude": "85.361"
+    },
+    "1795135422832": {
+      "ts": 1795135422832,
+      "ph": "7.138",
+      "turbidity_ntu": "4.96",
+      "tds_ppm": "187.8",
+      "water_temp_c": "19.99",
+      "flow_lpm": "12.81",
+      "latitude": "28.092",
+      "longitude": "85.361"
+    },
+    "1795135420839": {
+      "ts": 1795135420839,
+      "ph": "7.156",
+      "turbidity_ntu": "5.51",
+      "tds_ppm": "191.7",
+      "water_temp_c": "19.93",
+      "flow_lpm": "13.18",
+      "latitude": "28.092",
+      "longitude": "85.361"
+    },
+    "1795135418843": {
+      "ts": 1795135418843,
+      "ph": "7.12",
+      "turbidity_ntu": "5.19",
+      "tds_ppm": "190.4",
+      "water_temp_c": "20.01",
+      "flow_lpm": "13.84",
+      "latitude": "28.092",
+      "longitude": "85.361"
+    },
+    "1795135416832": {
+      "ts": 1795135416832,
+      "ph": "6.231",
+      "turbidity_ntu": "222.61",
+      "tds_ppm": "483.7",
+      "water_temp_c": "20.32",
+      "flow_lpm": "11.44",
+      "latitude": "28.092",
+      "longitude": "85.361"
+    },
+    "1795135414825": {
+      "ts": 1795135414825,
+      "ph": "6.256",
+      "turbidity_ntu": "226.05",
+      "tds_ppm": "488.0",
+      "water_temp_c": "20.53",
+      "flow_lpm": "9.92",
+      "latitude": "28.092",
+      "longitude": "85.361"
+    },
+    "1795135412836": {
+      "ts": 1795135412836,
+      "ph": "6.248",
+      "turbidity_ntu": "229.8",
+      "tds_ppm": "493.2",
+      "water_temp_c": "20.35",
+      "flow_lpm": "10.66",
+      "latitude": "28.092",
+      "longitude": "85.361"
+    },
+    "1795135410827": {
+      "ts": 1795135410827,
+      "ph": "6.242",
+      "turbidity_ntu": "233.43",
+      "tds_ppm": "498.1",
+      "water_temp_c": "20.43",
+      "flow_lpm": "10.53",
+      "latitude": "28.092",
+      "longitude": "85.361"
+    },
+    "1795135408831": {
+      "ts": 1795135408831,
+      "ph": "6.242",
+      "turbidity_ntu": "237.05",
+      "tds_ppm": "502.9",
+      "water_temp_c": "20.34",
+      "flow_lpm": "12.51",
+      "latitude": "28.092",
+      "longitude": "85.361"
+    },
+    "1795135406828": {
+      "ts": 1795135406828,
+      "ph": "6.246",
+      "turbidity_ntu": "240.61",
+      "tds_ppm": "508.3",
+      "water_temp_c": "20.2",
+      "flow_lpm": "11.31",
+      "latitude": "28.092",
+      "longitude": "85.361"
+    },
+    "1795135404848": {
+      "ts": 1795135404848,
+      "ph": "6.218",
+      "turbidity_ntu": "244.19",
+      "tds_ppm": "513.1",
+      "water_temp_c": "20.21",
+      "flow_lpm": "10.17",
+      "latitude": "28.092",
+      "longitude": "85.361"
+    },
+    "1795135402828": {
+      "ts": 1795135402828,
+      "ph": "6.232",
+      "turbidity_ntu": "247.59",
+      "tds_ppm": "517.7",
+      "water_temp_c": "20.25",
+      "flow_lpm": "9.74",
+      "latitude": "28.092",
+      "longitude": "85.361"
+    },
+    "1795135400844": {
+      "ts": 1795135400844,
+      "ph": "6.223",
+      "turbidity_ntu": "250.84",
+      "tds_ppm": "522.1",
+      "water_temp_c": "20.44",
+      "flow_lpm": "9.63",
+      "latitude": "28.092",
+      "longitude": "85.361"
+    },
+    "1795135398837": {
+      "ts": 1795135398837,
+      "ph": "6.22",
+      "turbidity_ntu": "253.9",
+      "tds_ppm": "526.6",
+      "water_temp_c": "20.1",
+      "flow_lpm": "9.28",
+      "latitude": "28.092",
+      "longitude": "85.361"
+    },
+    "1795135396842": {
+      "ts": 1795135396842,
+      "ph": "6.206",
+      "turbidity_ntu": "256.54",
+      "tds_ppm": "530.2",
+      "water_temp_c": "20.21",
+      "flow_lpm": "10.33",
+      "latitude": "28.092",
+      "longitude": "85.361"
+    },
+    "1795135394832": {
+      "ts": 1795135394832,
+      "ph": "6.211",
+      "turbidity_ntu": "258.59",
+      "tds_ppm": "533.1",
+      "water_temp_c": "20.4",
+      "flow_lpm": "11.38",
+      "latitude": "28.092",
+      "longitude": "85.361"
+    },
+    "1795135392838": {
+      "ts": 1795135392838,
+      "ph": "6.197",
+      "turbidity_ntu": "259.81",
+      "tds_ppm": "534.7",
+      "water_temp_c": "20.22",
+      "flow_lpm": "10.99",
+      "latitude": "28.092",
+      "longitude": "85.361"
+    },
+    "1795135390836": {
+      "ts": 1795135390836,
+      "ph": "6.202",
+      "turbidity_ntu": "259.84",
+      "tds_ppm": "534.8",
+      "water_temp_c": "20.15",
+      "flow_lpm": "10.99",
+      "latitude": "28.092",
+      "longitude": "85.361"
+    },
+    "1795135388837": {
+      "ts": 1795135388837,
+      "ph": "6.22",
+      "turbidity_ntu": "258.19",
+      "tds_ppm": "532.5",
+      "water_temp_c": "20.13",
+      "flow_lpm": "10.28",
+      "latitude": "28.092",
+      "longitude": "85.361"
+    },
+    "1795135386834": {
+      "ts": 1795135386834,
+      "ph": "6.228",
+      "turbidity_ntu": "254.17",
+      "tds_ppm": "527.0",
+      "water_temp_c": "20.12",
+      "flow_lpm": "11.67",
+      "latitude": "28.092",
+      "longitude": "85.361"
+    },
+    "1795135384828": {
+      "ts": 1795135384828,
+      "ph": "6.232",
+      "turbidity_ntu": "246.77",
+      "tds_ppm": "516.7",
+      "water_temp_c": "20.29",
+      "flow_lpm": "12.04",
+      "latitude": "28.092",
+      "longitude": "85.361"
+    },
+    "1795135382825": {
+      "ts": 1795135382825,
+      "ph": "6.244",
+      "turbidity_ntu": "234.72",
+      "tds_ppm": "499.9",
+      "water_temp_c": "20.12",
+      "flow_lpm": "12.18",
+      "latitude": "28.092",
+      "longitude": "85.361"
+    },
+    "1795135380838": {
+      "ts": 1795135380838,
+      "ph": "6.26",
+      "turbidity_ntu": "215.99",
+      "tds_ppm": "474.2",
+      "water_temp_c": "20.04",
+      "flow_lpm": "13.52",
+      "latitude": "28.092",
+      "longitude": "85.361"
+    },
+    "1795135378828": {
+      "ts": 1795135378828,
+      "ph": "6.305",
+      "turbidity_ntu": "188.27",
+      "tds_ppm": "434.6",
+      "water_temp_c": "20.25",
+      "flow_lpm": "15.56",
+      "latitude": "28.092",
+      "longitude": "85.361"
+    },
+    "1795135376843": {
+      "ts": 1795135376843,
+      "ph": "6.41",
+      "turbidity_ntu": "147.76",
+      "tds_ppm": "381.4",
+      "water_temp_c": "20.26",
+      "flow_lpm": "16.2",
+      "latitude": "28.092",
+      "longitude": "85.361"
+    },
+    "1795135374844": {
+      "ts": 1795135374844,
+      "ph": "6.582",
+      "turbidity_ntu": "88.91",
+      "tds_ppm": "300.1",
+      "water_temp_c": "20.13",
+      "flow_lpm": "18.07",
+      "latitude": "28.092",
+      "longitude": "85.361"
+    },
+    "1795135372835": {
+      "ts": 1795135372835,
+      "ph": "7.193",
+      "turbidity_ntu": "4.48",
+      "tds_ppm": "182.1",
+      "water_temp_c": "20.0",
+      "flow_lpm": "15.0",
+      "latitude": "28.092",
+      "longitude": "85.361"
+    },
+    "1795135370840": {
+      "ts": 1795135370840,
+      "ph": "7.176",
+      "turbidity_ntu": "4.83",
+      "tds_ppm": "180.4",
+      "water_temp_c": "19.9",
+      "flow_lpm": "12.97",
+      "latitude": "28.092",
+      "longitude": "85.361"
+    },
+    "1795135368826": {
+      "ts": 1795135368826,
+      "ph": "7.215",
+      "turbidity_ntu": "5.12",
+      "tds_ppm": "191.3",
+      "water_temp_c": "19.96",
+      "flow_lpm": "14.78",
+      "latitude": "28.092",
+      "longitude": "85.361"
+    },
+    "1795135366832": {
+      "ts": 1795135366832,
+      "ph": "7.138",
+      "turbidity_ntu": "4.96",
+      "tds_ppm": "187.8",
+      "water_temp_c": "19.99",
+      "flow_lpm": "12.81",
+      "latitude": "28.092",
+      "longitude": "85.361"
+    },
+    "1795135364838": {
+      "ts": 1795135364838,
+      "ph": "7.156",
+      "turbidity_ntu": "5.51",
+      "tds_ppm": "191.7",
+      "water_temp_c": "19.93",
+      "flow_lpm": "13.18",
+      "latitude": "28.092",
+      "longitude": "85.361"
+    },
+    "1795135363175": {
+      "ts": 1795135363175,
+      "ph": "7.12",
+      "turbidity_ntu": "5.19",
+      "tds_ppm": "190.4",
+      "water_temp_c": "20.01",
+      "flow_lpm": "13.84",
+      "latitude": "28.092",
+      "longitude": "85.361"
+    }
+  },
+  "JalSanket-Node-03": {
+    "1795135601181": {
+      "ts": 1795135601181,
+      "ph": "7.153",
+      "turbidity_ntu": "4.8",
+      "tds_ppm": "189.7",
+      "water_temp_c": "21.0",
+      "flow_lpm": "11.43",
+      "latitude": "28.171",
+      "longitude": "85.387"
+    },
+    "1795135599183": {
+      "ts": 1795135599183,
+      "ph": "7.21",
+      "turbidity_ntu": "4.83",
+      "tds_ppm": "186.5",
+      "water_temp_c": "20.94",
+      "flow_lpm": "11.62",
+      "latitude": "28.171",
+      "longitude": "85.387"
+    },
+    "1795135597173": {
+      "ts": 1795135597173,
+      "ph": "7.238",
+      "turbidity_ntu": "5.24",
+      "tds_ppm": "187.8",
+      "water_temp_c": "20.92",
+      "flow_lpm": "11.79",
+      "latitude": "28.171",
+      "longitude": "85.387"
+    },
+    "1795135595170": {
+      "ts": 1795135595170,
+      "ph": "7.155",
+      "turbidity_ntu": "5.72",
+      "tds_ppm": "190.3",
+      "water_temp_c": "20.96",
+      "flow_lpm": "11.59",
+      "latitude": "28.171",
+      "longitude": "85.387"
+    },
+    "1795135593185": {
+      "ts": 1795135593185,
+      "ph": "7.16",
+      "turbidity_ntu": "5.06",
+      "tds_ppm": "189.3",
+      "water_temp_c": "20.82",
+      "flow_lpm": "11.05",
+      "latitude": "28.171",
+      "longitude": "85.387"
+    },
+    "1795135591173": {
+      "ts": 1795135591173,
+      "ph": "7.153",
+      "turbidity_ntu": "4.93",
+      "tds_ppm": "183.0",
+      "water_temp_c": "20.81",
+      "flow_lpm": "12.28",
+      "latitude": "28.171",
+      "longitude": "85.387"
+    },
+    "1795135589173": {
+      "ts": 1795135589173,
+      "ph": "7.249",
+      "turbidity_ntu": "4.84",
+      "tds_ppm": "185.3",
+      "water_temp_c": "20.78",
+      "flow_lpm": "12.79",
+      "latitude": "28.171",
+      "longitude": "85.387"
+    },
+    "1795135587180": {
+      "ts": 1795135587180,
+      "ph": "7.19",
+      "turbidity_ntu": "5.45",
+      "tds_ppm": "188.6",
+      "water_temp_c": "20.76",
+      "flow_lpm": "13.57",
+      "latitude": "28.171",
+      "longitude": "85.387"
+    },
+    "1795135585171": {
+      "ts": 1795135585171,
+      "ph": "7.219",
+      "turbidity_ntu": "5.32",
+      "tds_ppm": "188.1",
+      "water_temp_c": "20.9",
+      "flow_lpm": "13.8",
+      "latitude": "28.171",
+      "longitude": "85.387"
+    },
+    "1795135583187": {
+      "ts": 1795135583187,
+      "ph": "7.186",
+      "turbidity_ntu": "5.42",
+      "tds_ppm": "195.3",
+      "water_temp_c": "21.04",
+      "flow_lpm": "14.75",
+      "latitude": "28.171",
+      "longitude": "85.387"
+    },
+    "1795135581168": {
+      "ts": 1795135581168,
+      "ph": "7.128",
+      "turbidity_ntu": "5.3",
+      "tds_ppm": "190.2",
+      "water_temp_c": "20.95",
+      "flow_lpm": "13.01",
+      "latitude": "28.171",
+      "longitude": "85.387"
+    },
+    "1795135579188": {
+      "ts": 1795135579188,
+      "ph": "7.167",
+      "turbidity_ntu": "5.57",
+      "tds_ppm": "190.3",
+      "water_temp_c": "21.13",
+      "flow_lpm": "14.63",
+      "latitude": "28.171",
+      "longitude": "85.387"
+    },
+    "1795135577174": {
+      "ts": 1795135577174,
+      "ph": "7.196",
+      "turbidity_ntu": "5.37",
+      "tds_ppm": "190.2",
+      "water_temp_c": "21.06",
+      "flow_lpm": "13.12",
+      "latitude": "28.171",
+      "longitude": "85.387"
+    },
+    "1795135575191": {
+      "ts": 1795135575191,
+      "ph": "7.13",
+      "turbidity_ntu": "5.61",
+      "tds_ppm": "189.6",
+      "water_temp_c": "20.93",
+      "flow_lpm": "12.94",
+      "latitude": "28.171",
+      "longitude": "85.387"
+    },
+    "1795135573187": {
+      "ts": 1795135573187,
+      "ph": "7.164",
+      "turbidity_ntu": "5.35",
+      "tds_ppm": "192.3",
+      "water_temp_c": "20.81",
+      "flow_lpm": "12.52",
+      "latitude": "28.171",
+      "longitude": "85.387"
+    },
+    "1795135571180": {
+      "ts": 1795135571180,
+      "ph": "7.14",
+      "turbidity_ntu": "5.83",
+      "tds_ppm": "197.9",
+      "water_temp_c": "20.82",
+      "flow_lpm": "12.71",
+      "latitude": "28.171",
+      "longitude": "85.387"
+    },
+    "1795135569184": {
+      "ts": 1795135569184,
+      "ph": "7.104",
+      "turbidity_ntu": "6.89",
+      "tds_ppm": "195.7",
+      "water_temp_c": "20.91",
+      "flow_lpm": "12.66",
+      "latitude": "28.171",
+      "longitude": "85.387"
+    },
+    "1795135567180": {
+      "ts": 1795135567180,
+      "ph": "7.07",
+      "turbidity_ntu": "6.22",
+      "tds_ppm": "200.5",
+      "water_temp_c": "20.84",
+      "flow_lpm": "13.03",
+      "latitude": "28.171",
+      "longitude": "85.387"
+    },
+    "1795135565190": {
+      "ts": 1795135565190,
+      "ph": "7.08",
+      "turbidity_ntu": "6.37",
+      "tds_ppm": "202.6",
+      "water_temp_c": "20.93",
+      "flow_lpm": "13.24",
+      "latitude": "28.171",
+      "longitude": "85.387"
+    },
+    "1795135563178": {
+      "ts": 1795135563178,
+      "ph": "7.098",
+      "turbidity_ntu": "6.26",
+      "tds_ppm": "196.9",
+      "water_temp_c": "20.76",
+      "flow_lpm": "12.98",
+      "latitude": "28.171",
+      "longitude": "85.387"
+    },
+    "1795135561189": {
+      "ts": 1795135561189,
+      "ph": "7.133",
+      "turbidity_ntu": "5.46",
+      "tds_ppm": "194.3",
+      "water_temp_c": "20.88",
+      "flow_lpm": "12.86",
+      "latitude": "28.171",
+      "longitude": "85.387"
+    },
+    "1795135559170": {
+      "ts": 1795135559170,
+      "ph": "7.212",
+      "turbidity_ntu": "5.48",
+      "tds_ppm": "190.9",
+      "water_temp_c": "20.87",
+      "flow_lpm": "14.53",
+      "latitude": "28.171",
+      "longitude": "85.387"
+    },
+    "1795135557179": {
+      "ts": 1795135557179,
+      "ph": "7.143",
+      "turbidity_ntu": "5.77",
+      "tds_ppm": "192.4",
+      "water_temp_c": "20.93",
+      "flow_lpm": "13.77",
+      "latitude": "28.171",
+      "longitude": "85.387"
+    },
+    "1795135555181": {
+      "ts": 1795135555181,
+      "ph": "7.106",
+      "turbidity_ntu": "4.54",
+      "tds_ppm": "184.9",
+      "water_temp_c": "20.85",
+      "flow_lpm": "14.05",
+      "latitude": "28.171",
+      "longitude": "85.387"
+    },
+    "1795135553170": {
+      "ts": 1795135553170,
+      "ph": "7.227",
+      "turbidity_ntu": "4.07",
+      "tds_ppm": "177.0",
+      "water_temp_c": "21.02",
+      "flow_lpm": "14.57",
+      "latitude": "28.171",
+      "longitude": "85.387"
+    },
+    "1795135551172": {
+      "ts": 1795135551172,
+      "ph": "7.292",
+      "turbidity_ntu": "4.39",
+      "tds_ppm": "180.2",
+      "water_temp_c": "20.95",
+      "flow_lpm": "14.39",
+      "latitude": "28.171",
+      "longitude": "85.387"
+    },
+    "1795135549177": {
+      "ts": 1795135549177,
+      "ph": "7.151",
+      "turbidity_ntu": "5.15",
+      "tds_ppm": "183.8",
+      "water_temp_c": "20.93",
+      "flow_lpm": "13.71",
+      "latitude": "28.171",
+      "longitude": "85.387"
+    },
+    "1795135547173": {
+      "ts": 1795135547173,
+      "ph": "7.175",
+      "turbidity_ntu": "3.95",
+      "tds_ppm": "181.4",
+      "water_temp_c": "20.86",
+      "flow_lpm": "12.86",
+      "latitude": "28.171",
+      "longitude": "85.387"
+    },
+    "1795135545173": {
+      "ts": 1795135545173,
+      "ph": "7.245",
+      "turbidity_ntu": "4.27",
+      "tds_ppm": "181.5",
+      "water_temp_c": "20.74",
+      "flow_lpm": "12.66",
+      "latitude": "28.171",
+      "longitude": "85.387"
+    },
+    "1795135543177": {
+      "ts": 1795135543177,
+      "ph": "7.187",
+      "turbidity_ntu": "4.55",
+      "tds_ppm": "176.7",
+      "water_temp_c": "20.92",
+      "flow_lpm": "13.42",
+      "latitude": "28.171",
+      "longitude": "85.387"
+    },
+    "1795135541193": {
+      "ts": 1795135541193,
+      "ph": "7.202",
+      "turbidity_ntu": "4.59",
+      "tds_ppm": "190.6",
+      "water_temp_c": "20.98",
+      "flow_lpm": "0.0",
+      "latitude": "28.171",
+      "longitude": "85.387"
+    },
+    "1795135539187": {
+      "ts": 1795135539187,
+      "ph": "7.151",
+      "turbidity_ntu": "5.24",
+      "tds_ppm": "188.0",
+      "water_temp_c": "20.82",
+      "flow_lpm": "0.0",
+      "latitude": "28.171",
+      "longitude": "85.387"
+    },
+    "1795135537188": {
+      "ts": 1795135537188,
+      "ph": "7.211",
+      "turbidity_ntu": "5.1",
+      "tds_ppm": "183.9",
+      "water_temp_c": "20.72",
+      "flow_lpm": "0.0",
+      "latitude": "28.171",
+      "longitude": "85.387"
+    },
+    "1795135535173": {
+      "ts": 1795135535173,
+      "ph": "7.2",
+      "turbidity_ntu": "4.98",
+      "tds_ppm": "180.4",
+      "water_temp_c": "20.61",
+      "flow_lpm": "0.0",
+      "latitude": "28.171",
+      "longitude": "85.387"
+    },
+    "1795135533175": {
+      "ts": 1795135533175,
+      "ph": "7.187",
+      "turbidity_ntu": "5.26",
+      "tds_ppm": "189.9",
+      "water_temp_c": "20.73",
+      "flow_lpm": "0.0",
+      "latitude": "28.171",
+      "longitude": "85.387"
+    },
+    "1795135531181": {
+      "ts": 1795135531181,
+      "ph": "7.202",
+      "turbidity_ntu": "5.89",
+      "tds_ppm": "189.4",
+      "water_temp_c": "20.84",
+      "flow_lpm": "0.0",
+      "latitude": "28.171",
+      "longitude": "85.387"
+    },
+    "1795135529183": {
+      "ts": 1795135529183,
+      "ph": "7.197",
+      "turbidity_ntu": "6.14",
+      "tds_ppm": "197.1",
+      "water_temp_c": "20.89",
+      "flow_lpm": "0.0",
+      "latitude": "28.171",
+      "longitude": "85.387"
+    },
+    "1795135527169": {
+      "ts": 1795135527169,
+      "ph": "7.106",
+      "turbidity_ntu": "6.62",
+      "tds_ppm": "201.2",
+      "water_temp_c": "20.99",
+      "flow_lpm": "0.0",
+      "latitude": "28.171",
+      "longitude": "85.387"
+    },
+    "1795135525193": {
+      "ts": 1795135525193,
+      "ph": "7.163",
+      "turbidity_ntu": "6.57",
+      "tds_ppm": "197.1",
+      "water_temp_c": "20.72",
+      "flow_lpm": "0.0",
+      "latitude": "28.171",
+      "longitude": "85.387"
+    },
+    "1795135523173": {
+      "ts": 1795135523173,
+      "ph": "7.143",
+      "turbidity_ntu": "5.75",
+      "tds_ppm": "197.1",
+      "water_temp_c": "20.69",
+      "flow_lpm": "0.0",
+      "latitude": "28.171",
+      "longitude": "85.387"
+    },
+    "1795135521183": {
+      "ts": 1795135521183,
+      "ph": "7.152",
+      "turbidity_ntu": "5.9",
+      "tds_ppm": "196.8",
+      "water_temp_c": "20.72",
+      "flow_lpm": "0.0",
+      "latitude": "28.171",
+      "longitude": "85.387"
+    },
+    "1795135519179": {
+      "ts": 1795135519179,
+      "ph": "7.164",
+      "turbidity_ntu": "6.2",
+      "tds_ppm": "189.5",
+      "water_temp_c": "20.69",
+      "flow_lpm": "0.0",
+      "latitude": "28.171",
+      "longitude": "85.387"
+    },
+    "1795135517190": {
+      "ts": 1795135517190,
+      "ph": "7.149",
+      "turbidity_ntu": "5.92",
+      "tds_ppm": "192.1",
+      "water_temp_c": "20.97",
+      "flow_lpm": "0.0",
+      "latitude": "28.171",
+      "longitude": "85.387"
+    },
+    "1795135515182": {
+      "ts": 1795135515182,
+      "ph": "7.123",
+      "turbidity_ntu": "5.26",
+      "tds_ppm": "192.4",
+      "water_temp_c": "20.9",
+      "flow_lpm": "0.0",
+      "latitude": "28.171",
+      "longitude": "85.387"
+    },
+    "1795135513170": {
+      "ts": 1795135513170,
+      "ph": "7.18",
+      "turbidity_ntu": "5.77",
+      "tds_ppm": "192.6",
+      "water_temp_c": "20.73",
+      "flow_lpm": "0.0",
+      "latitude": "28.171",
+      "longitude": "85.387"
+    },
+    "1795135511169": {
+      "ts": 1795135511169,
+      "ph": "7.179",
+      "turbidity_ntu": "5.62",
+      "tds_ppm": "194.9",
+      "water_temp_c": "20.76",
+      "flow_lpm": "0.0",
+      "latitude": "28.171",
+      "longitude": "85.387"
+    },
+    "1795135509172": {
+      "ts": 1795135509172,
+      "ph": "7.177",
+      "turbidity_ntu": "5.78",
+      "tds_ppm": "192.4",
+      "water_temp_c": "20.72",
+      "flow_lpm": "0.0",
+      "latitude": "28.171",
+      "longitude": "85.387"
+    },
+    "1795135507189": {
+      "ts": 1795135507189,
+      "ph": "7.21",
+      "turbidity_ntu": "5.87",
+      "tds_ppm": "192.6",
+      "water_temp_c": "20.59",
+      "flow_lpm": "0.0",
+      "latitude": "28.171",
+      "longitude": "85.387"
+    },
+    "1795135505171": {
+      "ts": 1795135505171,
+      "ph": "7.13",
+      "turbidity_ntu": "5.77",
+      "tds_ppm": "194.6",
+      "water_temp_c": "20.52",
+      "flow_lpm": "0.0",
+      "latitude": "28.171",
+      "longitude": "85.387"
+    },
+    "1795135503182": {
+      "ts": 1795135503182,
+      "ph": "7.122",
+      "turbidity_ntu": "5.99",
+      "tds_ppm": "193.7",
+      "water_temp_c": "20.43",
+      "flow_lpm": "0.0",
+      "latitude": "28.171",
+      "longitude": "85.387"
+    },
+    "1795135501174": {
+      "ts": 1795135501174,
+      "ph": "7.18",
+      "turbidity_ntu": "5.94",
+      "tds_ppm": "190.5",
+      "water_temp_c": "20.38",
+      "flow_lpm": "0.0",
+      "latitude": "28.171",
+      "longitude": "85.387"
+    },
+    "1795135499174": {
+      "ts": 1795135499174,
+      "ph": "7.122",
+      "turbidity_ntu": "6.49",
+      "tds_ppm": "193.4",
+      "water_temp_c": "20.34",
+      "flow_lpm": "0.0",
+      "latitude": "28.171",
+      "longitude": "85.387"
+    },
+    "1795135497170": {
+      "ts": 1795135497170,
+      "ph": "7.07",
+      "turbidity_ntu": "6.62",
+      "tds_ppm": "199.0",
+      "water_temp_c": "20.34",
+      "flow_lpm": "0.0",
+      "latitude": "28.171",
+      "longitude": "85.387"
+    },
+    "1795135495171": {
+      "ts": 1795135495171,
+      "ph": "7.18",
+      "turbidity_ntu": "5.53",
+      "tds_ppm": "190.7",
+      "water_temp_c": "20.33",
+      "flow_lpm": "0.0",
+      "latitude": "28.171",
+      "longitude": "85.387"
+    },
+    "1795135493183": {
+      "ts": 1795135493183,
+      "ph": "7.147",
+      "turbidity_ntu": "5.34",
+      "tds_ppm": "189.2",
+      "water_temp_c": "20.38",
+      "flow_lpm": "0.0",
+      "latitude": "28.171",
+      "longitude": "85.387"
+    },
+    "1795135491190": {
+      "ts": 1795135491190,
+      "ph": "7.182",
+      "turbidity_ntu": "5.08",
+      "tds_ppm": "181.7",
+      "water_temp_c": "20.53",
+      "flow_lpm": "0.0",
+      "latitude": "28.171",
+      "longitude": "85.387"
+    },
+    "1795135489172": {
+      "ts": 1795135489172,
+      "ph": "7.23",
+      "turbidity_ntu": "4.74",
+      "tds_ppm": "184.8",
+      "water_temp_c": "20.61",
+      "flow_lpm": "13.48",
+      "latitude": "28.171",
+      "longitude": "85.387"
+    },
+    "1795135487190": {
+      "ts": 1795135487190,
+      "ph": "7.197",
+      "turbidity_ntu": "4.11",
+      "tds_ppm": "177.7",
+      "water_temp_c": "20.65",
+      "flow_lpm": "12.93",
+      "latitude": "28.171",
+      "longitude": "85.387"
+    },
+    "1795135485189": {
+      "ts": 1795135485189,
+      "ph": "7.214",
+      "turbidity_ntu": "4.42",
+      "tds_ppm": "180.4",
+      "water_temp_c": "20.49",
+      "flow_lpm": "11.84",
+      "latitude": "28.171",
+      "longitude": "85.387"
+    },
+    "1795135483169": {
+      "ts": 1795135483169,
+      "ph": "7.253",
+      "turbidity_ntu": "4.3",
+      "tds_ppm": "178.8",
+      "water_temp_c": "20.38",
+      "flow_lpm": "13.09",
+      "latitude": "28.171",
+      "longitude": "85.387"
+    },
+    "1795135481173": {
+      "ts": 1795135481173,
+      "ph": "7.259",
+      "turbidity_ntu": "4.0",
+      "tds_ppm": "173.9",
+      "water_temp_c": "20.33",
+      "flow_lpm": "12.7",
+      "latitude": "28.171",
+      "longitude": "85.387"
+    },
+    "1795135479191": {
+      "ts": 1795135479191,
+      "ph": "7.269",
+      "turbidity_ntu": "4.18",
+      "tds_ppm": "178.6",
+      "water_temp_c": "20.36",
+      "flow_lpm": "11.81",
+      "latitude": "28.171",
+      "longitude": "85.387"
+    },
+    "1795135477184": {
+      "ts": 1795135477184,
+      "ph": "7.196",
+      "turbidity_ntu": "4.06",
+      "tds_ppm": "182.8",
+      "water_temp_c": "20.47",
+      "flow_lpm": "12.71",
+      "latitude": "28.171",
+      "longitude": "85.387"
+    },
+    "1795135475185": {
+      "ts": 1795135475185,
+      "ph": "7.214",
+      "turbidity_ntu": "4.62",
+      "tds_ppm": "176.7",
+      "water_temp_c": "20.46",
+      "flow_lpm": "13.28",
+      "latitude": "28.171",
+      "longitude": "85.387"
+    },
+    "1795135473187": {
+      "ts": 1795135473187,
+      "ph": "7.222",
+      "turbidity_ntu": "4.53",
+      "tds_ppm": "180.5",
+      "water_temp_c": "20.47",
+      "flow_lpm": "12.16",
+      "latitude": "28.171",
+      "longitude": "85.387"
+    },
+    "1795135471179": {
+      "ts": 1795135471179,
+      "ph": "7.237",
+      "turbidity_ntu": "4.28",
+      "tds_ppm": "176.9",
+      "water_temp_c": "20.57",
+      "flow_lpm": "14.29",
+      "latitude": "28.171",
+      "longitude": "85.387"
+    },
+    "1795135469187": {
+      "ts": 1795135469187,
+      "ph": "7.253",
+      "turbidity_ntu": "3.97",
+      "tds_ppm": "178.1",
+      "water_temp_c": "20.47",
+      "flow_lpm": "14.04",
+      "latitude": "28.171",
+      "longitude": "85.387"
+    },
+    "1795135467173": {
+      "ts": 1795135467173,
+      "ph": "7.221",
+      "turbidity_ntu": "4.44",
+      "tds_ppm": "180.3",
+      "water_temp_c": "20.43",
+      "flow_lpm": "13.82",
+      "latitude": "28.171",
+      "longitude": "85.387"
+    },
+    "1795135465189": {
+      "ts": 1795135465189,
+      "ph": "7.203",
+      "turbidity_ntu": "4.96",
+      "tds_ppm": "181.2",
+      "water_temp_c": "20.49",
+      "flow_lpm": "12.73",
+      "latitude": "28.171",
+      "longitude": "85.387"
+    },
+    "1795135463180": {
+      "ts": 1795135463180,
+      "ph": "7.224",
+      "turbidity_ntu": "4.77",
+      "tds_ppm": "184.4",
+      "water_temp_c": "20.35",
+      "flow_lpm": "12.83",
+      "latitude": "28.171",
+      "longitude": "85.387"
+    },
+    "1795135461176": {
+      "ts": 1795135461176,
+      "ph": "7.202",
+      "turbidity_ntu": "4.64",
+      "tds_ppm": "180.0",
+      "water_temp_c": "20.26",
+      "flow_lpm": "12.23",
+      "latitude": "28.171",
+      "longitude": "85.387"
+    },
+    "1795135459176": {
+      "ts": 1795135459176,
+      "ph": "7.203",
+      "turbidity_ntu": "4.74",
+      "tds_ppm": "183.2",
+      "water_temp_c": "20.22",
+      "flow_lpm": "13.36",
+      "latitude": "28.171",
+      "longitude": "85.387"
+    },
+    "1795135457189": {
+      "ts": 1795135457189,
+      "ph": "7.283",
+      "turbidity_ntu": "4.09",
+      "tds_ppm": "179.0",
+      "water_temp_c": "20.24",
+      "flow_lpm": "14.19",
+      "latitude": "28.171",
+      "longitude": "85.387"
+    },
+    "1795135455194": {
+      "ts": 1795135455194,
+      "ph": "7.207",
+      "turbidity_ntu": "4.67",
+      "tds_ppm": "180.8",
+      "water_temp_c": "20.32",
+      "flow_lpm": "13.83",
+      "latitude": "28.171",
+      "longitude": "85.387"
+    },
+    "1795135453195": {
+      "ts": 1795135453195,
+      "ph": "7.192",
+      "turbidity_ntu": "4.38",
+      "tds_ppm": "181.1",
+      "water_temp_c": "20.26",
+      "flow_lpm": "14.17",
+      "latitude": "28.171",
+      "longitude": "85.387"
+    },
+    "1795135451176": {
+      "ts": 1795135451176,
+      "ph": "7.223",
+      "turbidity_ntu": "4.87",
+      "tds_ppm": "183.3",
+      "water_temp_c": "20.22",
+      "flow_lpm": "13.62",
+      "latitude": "28.171",
+      "longitude": "85.387"
+    },
+    "1795135449193": {
+      "ts": 1795135449193,
+      "ph": "7.22",
+      "turbidity_ntu": "5.19",
+      "tds_ppm": "183.1",
+      "water_temp_c": "20.08",
+      "flow_lpm": "13.48",
+      "latitude": "28.171",
+      "longitude": "85.387"
+    },
+    "1795135447189": {
+      "ts": 1795135447189,
+      "ph": "7.231",
+      "turbidity_ntu": "5.46",
+      "tds_ppm": "185.0",
+      "water_temp_c": "20.33",
+      "flow_lpm": "13.02",
+      "latitude": "28.171",
+      "longitude": "85.387"
+    },
+    "1795135445182": {
+      "ts": 1795135445182,
+      "ph": "7.186",
+      "turbidity_ntu": "5.45",
+      "tds_ppm": "185.6",
+      "water_temp_c": "20.31",
+      "flow_lpm": "14.01",
+      "latitude": "28.171",
+      "longitude": "85.387"
+    },
+    "1795135443658": {
+      "ts": 1795135443658,
+      "ph": "7.167",
+      "turbidity_ntu": "5.37",
+      "tds_ppm": "191.7",
+      "water_temp_c": "19.89",
+      "flow_lpm": "13.86",
+      "latitude": "28.171",
+      "longitude": "85.387"
+    },
+    "1795135441182": {
+      "ts": 1795135441182,
+      "ph": "7.248",
+      "turbidity_ntu": "4.86",
+      "tds_ppm": "179.8",
+      "water_temp_c": "20.04",
+      "flow_lpm": "13.08",
+      "latitude": "28.171",
+      "longitude": "85.387"
+    },
+    "1795135439174": {
+      "ts": 1795135439174,
+      "ph": "7.205",
+      "turbidity_ntu": "4.88",
+      "tds_ppm": "186.5",
+      "water_temp_c": "19.89",
+      "flow_lpm": "12.43",
+      "latitude": "28.171",
+      "longitude": "85.387"
+    },
+    "1795135437189": {
+      "ts": 1795135437189,
+      "ph": "7.147",
+      "turbidity_ntu": "6.29",
+      "tds_ppm": "191.6",
+      "water_temp_c": "19.87",
+      "flow_lpm": "14.05",
+      "latitude": "28.171",
+      "longitude": "85.387"
+    },
+    "1795135435181": {
+      "ts": 1795135435181,
+      "ph": "7.236",
+      "turbidity_ntu": "5.22",
+      "tds_ppm": "187.5",
+      "water_temp_c": "19.87",
+      "flow_lpm": "15.03",
+      "latitude": "28.171",
+      "longitude": "85.387"
+    },
+    "1795135433182": {
+      "ts": 1795135433182,
+      "ph": "7.188",
+      "turbidity_ntu": "5.07",
+      "tds_ppm": "184.6",
+      "water_temp_c": "19.95",
+      "flow_lpm": "14.42",
+      "latitude": "28.171",
+      "longitude": "85.387"
+    },
+    "1795135431192": {
+      "ts": 1795135431192,
+      "ph": "7.172",
+      "turbidity_ntu": "5.11",
+      "tds_ppm": "183.7",
+      "water_temp_c": "19.91",
+      "flow_lpm": "14.58",
+      "latitude": "28.171",
+      "longitude": "85.387"
+    },
+    "1795135429193": {
+      "ts": 1795135429193,
+      "ph": "7.179",
+      "turbidity_ntu": "5.1",
+      "tds_ppm": "182.5",
+      "water_temp_c": "19.83",
+      "flow_lpm": "13.36",
+      "latitude": "28.171",
+      "longitude": "85.387"
+    },
+    "1795135427172": {
+      "ts": 1795135427172,
+      "ph": "7.179",
+      "turbidity_ntu": "5.08",
+      "tds_ppm": "181.7",
+      "water_temp_c": "19.86",
+      "flow_lpm": "12.36",
+      "latitude": "28.171",
+      "longitude": "85.387"
+    },
+    "1795135425179": {
+      "ts": 1795135425179,
+      "ph": "7.201",
+      "turbidity_ntu": "5.07",
+      "tds_ppm": "183.2",
+      "water_temp_c": "20.06",
+      "flow_lpm": "12.28",
+      "latitude": "28.171",
+      "longitude": "85.387"
+    },
+    "1795135423178": {
+      "ts": 1795135423178,
+      "ph": "7.201",
+      "turbidity_ntu": "4.45",
+      "tds_ppm": "180.4",
+      "water_temp_c": "20.0",
+      "flow_lpm": "14.06",
+      "latitude": "28.171",
+      "longitude": "85.387"
+    },
+    "1795135421189": {
+      "ts": 1795135421189,
+      "ph": "7.187",
+      "turbidity_ntu": "4.82",
+      "tds_ppm": "188.7",
+      "water_temp_c": "19.99",
+      "flow_lpm": "14.28",
+      "latitude": "28.171",
+      "longitude": "85.387"
+    },
+    "1795135419183": {
+      "ts": 1795135419183,
+      "ph": "7.226",
+      "turbidity_ntu": "4.7",
+      "tds_ppm": "181.9",
+      "water_temp_c": "19.98",
+      "flow_lpm": "13.73",
+      "latitude": "28.171",
+      "longitude": "85.387"
+    },
+    "1795135417193": {
+      "ts": 1795135417193,
+      "ph": "6.245",
+      "turbidity_ntu": "229.72",
+      "tds_ppm": "493.0",
+      "water_temp_c": "20.47",
+      "flow_lpm": "9.95",
+      "latitude": "28.171",
+      "longitude": "85.387"
+    },
+    "1795135415183": {
+      "ts": 1795135415183,
+      "ph": "6.243",
+      "turbidity_ntu": "233.33",
+      "tds_ppm": "497.6",
+      "water_temp_c": "20.57",
+      "flow_lpm": "12.05",
+      "latitude": "28.171",
+      "longitude": "85.387"
+    },
+    "1795135413171": {
+      "ts": 1795135413171,
+      "ph": "6.241",
+      "turbidity_ntu": "236.94",
+      "tds_ppm": "502.9",
+      "water_temp_c": "20.47",
+      "flow_lpm": "11.76",
+      "latitude": "28.171",
+      "longitude": "85.387"
+    },
+    "1795135411179": {
+      "ts": 1795135411179,
+      "ph": "6.231",
+      "turbidity_ntu": "240.59",
+      "tds_ppm": "508.1",
+      "water_temp_c": "20.43",
+      "flow_lpm": "11.51",
+      "latitude": "28.171",
+      "longitude": "85.387"
+    },
+    "1795135409173": {
+      "ts": 1795135409173,
+      "ph": "6.223",
+      "turbidity_ntu": "244.18",
+      "tds_ppm": "513.1",
+      "water_temp_c": "20.49",
+      "flow_lpm": "10.39",
+      "latitude": "28.171",
+      "longitude": "85.387"
+    },
+    "1795135407187": {
+      "ts": 1795135407187,
+      "ph": "6.223",
+      "turbidity_ntu": "247.62",
+      "tds_ppm": "518.0",
+      "water_temp_c": "20.35",
+      "flow_lpm": "10.45",
+      "latitude": "28.171",
+      "longitude": "85.387"
+    },
+    "1795135405185": {
+      "ts": 1795135405185,
+      "ph": "6.216",
+      "turbidity_ntu": "250.89",
+      "tds_ppm": "522.3",
+      "water_temp_c": "20.26",
+      "flow_lpm": "9.82",
+      "latitude": "28.171",
+      "longitude": "85.387"
+    },
+    "1795135403188": {
+      "ts": 1795135403188,
+      "ph": "6.213",
+      "turbidity_ntu": "253.91",
+      "tds_ppm": "526.6",
+      "water_temp_c": "20.22",
+      "flow_lpm": "10.92",
+      "latitude": "28.171",
+      "longitude": "85.387"
+    },
+    "1795135401186": {
+      "ts": 1795135401186,
+      "ph": "6.224",
+      "turbidity_ntu": "256.53",
+      "tds_ppm": "530.2",
+      "water_temp_c": "20.24",
+      "flow_lpm": "11.73",
+      "latitude": "28.171",
+      "longitude": "85.387"
+    },
+    "1795135399196": {
+      "ts": 1795135399196,
+      "ph": "6.208",
+      "turbidity_ntu": "258.59",
+      "tds_ppm": "533.0",
+      "water_temp_c": "20.32",
+      "flow_lpm": "11.34",
+      "latitude": "28.171",
+      "longitude": "85.387"
+    },
+    "1795135397190": {
+      "ts": 1795135397190,
+      "ph": "6.205",
+      "turbidity_ntu": "259.81",
+      "tds_ppm": "534.7",
+      "water_temp_c": "20.26",
+      "flow_lpm": "11.68",
+      "latitude": "28.171",
+      "longitude": "85.387"
+    },
+    "1795135395189": {
+      "ts": 1795135395189,
+      "ph": "6.21",
+      "turbidity_ntu": "259.84",
+      "tds_ppm": "534.8",
+      "water_temp_c": "20.22",
+      "flow_lpm": "11.14",
+      "latitude": "28.171",
+      "longitude": "85.387"
+    },
+    "1795135393181": {
+      "ts": 1795135393181,
+      "ph": "6.211",
+      "turbidity_ntu": "258.2",
+      "tds_ppm": "532.5",
+      "water_temp_c": "20.08",
+      "flow_lpm": "11.03",
+      "latitude": "28.171",
+      "longitude": "85.387"
+    },
+    "1795135391178": {
+      "ts": 1795135391178,
+      "ph": "6.217",
+      "turbidity_ntu": "254.19",
+      "tds_ppm": "527.0",
+      "water_temp_c": "20.33",
+      "flow_lpm": "10.65",
+      "latitude": "28.171",
+      "longitude": "85.387"
+    },
+    "1795135389172": {
+      "ts": 1795135389172,
+      "ph": "6.217",
+      "turbidity_ntu": "246.85",
+      "tds_ppm": "517.0",
+      "water_temp_c": "20.31",
+      "flow_lpm": "11.8",
+      "latitude": "28.171",
+      "longitude": "85.387"
+    },
+    "1795135387180": {
+      "ts": 1795135387180,
+      "ph": "6.227",
+      "turbidity_ntu": "234.82",
+      "tds_ppm": "501.0",
+      "water_temp_c": "19.89",
+      "flow_lpm": "11.97",
+      "latitude": "28.171",
+      "longitude": "85.387"
+    },
+    "1795135385190": {
+      "ts": 1795135385190,
+      "ph": "6.269",
+      "turbidity_ntu": "216.13",
+      "tds_ppm": "473.9",
+      "water_temp_c": "20.04",
+      "flow_lpm": "11.8",
+      "latitude": "28.171",
+      "longitude": "85.387"
+    },
+    "1795135383189": {
+      "ts": 1795135383189,
+      "ph": "6.305",
+      "turbidity_ntu": "188.29",
+      "tds_ppm": "437.0",
+      "water_temp_c": "19.89",
+      "flow_lpm": "12.26",
+      "latitude": "28.171",
+      "longitude": "85.387"
+    },
+    "1795135381183": {
+      "ts": 1795135381183,
+      "ph": "6.38",
+      "turbidity_ntu": "148.18",
+      "tds_ppm": "383.6",
+      "water_temp_c": "19.87",
+      "flow_lpm": "15.59",
+      "latitude": "28.171",
+      "longitude": "85.387"
+    },
+    "1795135379192": {
+      "ts": 1795135379192,
+      "ph": "6.647",
+      "turbidity_ntu": "89.04",
+      "tds_ppm": "301.8",
+      "water_temp_c": "19.87",
+      "flow_lpm": "18.2",
+      "latitude": "28.171",
+      "longitude": "85.387"
+    },
+    "1795135377176": {
+      "ts": 1795135377176,
+      "ph": "7.188",
+      "turbidity_ntu": "5.07",
+      "tds_ppm": "184.6",
+      "water_temp_c": "19.95",
+      "flow_lpm": "14.42",
+      "latitude": "28.171",
+      "longitude": "85.387"
+    },
+    "1795135375180": {
+      "ts": 1795135375180,
+      "ph": "7.172",
+      "turbidity_ntu": "5.11",
+      "tds_ppm": "183.7",
+      "water_temp_c": "19.91",
+      "flow_lpm": "14.58",
+      "latitude": "28.171",
+      "longitude": "85.387"
+    },
+    "1795135373194": {
+      "ts": 1795135373194,
+      "ph": "7.179",
+      "turbidity_ntu": "5.1",
+      "tds_ppm": "182.5",
+      "water_temp_c": "19.83",
+      "flow_lpm": "13.36",
+      "latitude": "28.171",
+      "longitude": "85.387"
+    },
+    "1795135371196": {
+      "ts": 1795135371196,
+      "ph": "7.179",
+      "turbidity_ntu": "5.08",
+      "tds_ppm": "181.7",
+      "water_temp_c": "19.86",
+      "flow_lpm": "12.36",
+      "latitude": "28.171",
+      "longitude": "85.387"
+    },
+    "1795135369180": {
+      "ts": 1795135369180,
+      "ph": "7.201",
+      "turbidity_ntu": "5.07",
+      "tds_ppm": "183.2",
+      "water_temp_c": "20.06",
+      "flow_lpm": "12.28",
+      "latitude": "28.171",
+      "longitude": "85.387"
+    },
+    "1795135367175": {
+      "ts": 1795135367175,
+      "ph": "7.201",
+      "turbidity_ntu": "4.45",
+      "tds_ppm": "180.4",
+      "water_temp_c": "20.0",
+      "flow_lpm": "14.06",
+      "latitude": "28.171",
+      "longitude": "85.387"
+    },
+    "1795135365175": {
+      "ts": 1795135365175,
+      "ph": "7.187",
+      "turbidity_ntu": "4.82",
+      "tds_ppm": "188.7",
+      "water_temp_c": "19.99",
+      "flow_lpm": "14.28",
+      "latitude": "28.171",
+      "longitude": "85.387"
+    },
+    "1795135363177": {
+      "ts": 1795135363177,
+      "ph": "7.226",
+      "turbidity_ntu": "4.7",
+      "tds_ppm": "181.9",
+      "water_temp_c": "19.98",
+      "flow_lpm": "13.73",
+      "latitude": "28.171",
+      "longitude": "85.387"
+    }
+  }
+}

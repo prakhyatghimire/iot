@@ -1,0 +1,64 @@
+
+=== 1. Store setup and WAL mode ===
+  [PASS] journal mode is WAL  (wal)
+  [PASS] default capacity is 10,800
+  [PASS] eviction policy is drop_newest
+  [PASS] empty buffer depth is zero
+  [PASS] synchronous is FULL
+  [PASS] WAL sidecar file created  ([PosixPath('/var/folders/b2/bxzmf0jd2hv8w93z8x768cjm0000gn/T/jalsanket-phase2-nnun5b8y/node01.db-wal')])
+
+=== 2. Persistence before publish, timestamps and values ===
+  [PASS] tick persists reading immediately
+  [PASS] row id assigned
+  [PASS] depth after one tick is one
+  [PASS] original acquisition_ms preserved
+  [PASS] acquired_at ISO preserved
+  [PASS] all telemetry values preserved
+  [PASS] stored_at_ms is real wall clock  (stored=1795135636652 now=1795135636652)
+  [PASS] stored_at_ms is NOT the acquisition time
+  [PASS] simulated clock not stored as measurement time
+  [PASS] all readings persisted  (rows=10)
+  [PASS] depth tracks unsynced rows
+
+=== 3. Chronological retrieval of unsynchronized rows ===
+  [PASS] unsynced rows sorted by acquisition_ms  ([1795132036000, 1795132036000, 1795132038000, 1795132040000, 1795132044000, 1795132046000, 1795132048000, 1795132052000, 1795132056000, 1795132060000])
+  [PASS] batch respects limit
+  [PASS] id is the tie-breaker for equal acquisition_ms
+  [PASS] oldest row is first
+
+=== 4. Sync-state changes ===
+  [PASS] mark_synced changes exactly 4 rows  (changed=4)
+  [PASS] buffer depth decreases to 6
+  [PASS] synced rows excluded from unsynced queue
+  [PASS] remaining rows are the newer ones
+  [PASS] mark_synced is idempotent
+  [PASS] sync log reports flushed and remaining rows
+  [PASS] depth/capacity logged on storage
+
+=== 5. Restart survival ===
+  [PASS] WAL mode survives restart
+  [PASS] unsynced rows survive restart
+  [PASS] synced rows remain synced after restart
+  [PASS] acquisition_ms survives restart
+  [PASS] no data loss recorded during normal operation
+
+=== 6. Capacity and drop-newest eviction ===
+  [PASS] first 5 readings inserted
+  [PASS] next 2 readings rejected
+  [PASS] buffer stays at capacity
+  [PASS] total rows equals capacity
+  [PASS] data loss count is 2
+  [PASS] oldest rows kept (newest dropped)  ([1795132036000, 1795132038000, 1795132040000, 1795132042000, 1795132044000])
+  [PASS] eviction events logged  (logged=2)
+  [PASS] eviction log shows depth and capacity
+  [PASS] loss events persisted
+
+=== 7. Physical model unchanged (Phase 1 regression) ===
+  [PASS] first reading identical to Phase 1 baseline  (7.15, 5.04, 20.05, 12.8)
+  [PASS] contamination still crosses critical threshold
+  [PASS] pH suppression still bounded
+
+=== Summary ===
+  45/45 checks passed
+
+Phase 2 verification: ALL CHECKS PASSED

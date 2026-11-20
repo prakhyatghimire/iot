@@ -1,0 +1,106 @@
+{
+  "finalized_at": "2026-11-19T20:23:30Z",
+  "target": "ThingsBoard Cloud (eu.thingsboard.cloud)",
+  "scope": "Phase 1-4 Cloud integration and live end-to-end verification. Manuscript metrics and final demonstration plots are out of scope.",
+
+  "locally_verified": {
+    "phase1_checks": "31/31",
+    "phase2_checks": "45/45",
+    "phase3_checks": "50/50",
+    "phase4_checks": "93/93",
+    "compileall": "OK",
+    "method": "verify_phase1.py .. verify_phase4.py with injected fake MQTT/REST clients; no live credentials required",
+    "latest_logs": ["evidence/verify_phase1.log", "evidence/verify_phase2.log", "evidence/verify_phase3.log", "evidence/verify_phase4.log"]
+  },
+
+  "live_cloud_verified": {
+    "preflight": {
+      "evidence": "evidence/live_preflight.json",
+      "rest_status": 200,
+      "rest_uri": "https://eu.thingsboard.cloud:443",
+      "mqtt_endpoint": "eu.thingsboard.cloud:8883",
+      "mqtt_transport": "MQTT over TLS, QoS 1",
+      "three_distinct_tokens_configured": true
+    },
+    "cloud_configuration": {
+      "evidence": "evidence/live_cloud_config.json",
+      "device_profile": "JalSanket Water Quality Node",
+      "devices": ["JalSanket-Node-01", "JalSanket-Node-02", "JalSanket-Node-03"],
+      "alarm_rules": 6,
+      "dashboard": "JalSanket - Municipal Water Safety",
+      "dashboard_widgets": 9,
+      "fleet_alias": "entityList bound to the three exact Cloud device IDs",
+      "inactivity_timeout_ms": 60000,
+      "verified_via": "logged-in browser REST session"
+    },
+    "mqtt_tls_and_qos1": {
+      "evidence": "evidence/live_mqtt_probe.json",
+      "tls_port": 8883,
+      "all_three_connected": true,
+      "all_three_qos1_confirmed": true,
+      "rpc_topics_subscribed": true
+    },
+    "rpc": {
+      "evidence": "evidence/live_rpc_probe.json",
+      "transport": "Cloud REST two-way RPC delivered to the device MQTT/TLS session",
+      "methods_verified": ["trigger_contamination", "set_supply_interrupted", "reset"],
+      "all_ok": true
+    },
+    "alarms": {
+      "evidence": "evidence/live_cloud_alarms.json",
+      "rules": [
+        "High Turbidity Warning",
+        "Gross Contamination Critical",
+        "pH Out of Range Critical",
+        "High TDS Critical",
+        "Supply Interruption Major",
+        "Node Inactive Critical"
+      ],
+      "all_triggered": true,
+      "all_cleared": true,
+      "active_alarms_after_verification": 0
+    },
+    "telemetry": {
+      "evidence": [
+        "evidence/live_cloud_verification.json",
+        "evidence/dashboard_cloud.png",
+        "evidence/dashboard_cloud_alarms.png"
+      ],
+      "keys_per_device": ["ph", "turbidity_ntu", "tds_ppm", "water_temp_c", "flow_lpm", "latitude", "longitude"],
+      "all_three_devices_present": true,
+      "sample_ts_ms_last_fleet_cycle": {"JalSanket-Node-01": 1795119722015, "JalSanket-Node-02": 1795119722376, "JalSanket-Node-03": 1795119720744}
+    },
+    "client_attributes": {
+      "evidence": "evidence/live_cloud_attributes.json",
+      "keys": ["deviceName", "latitude", "longitude", "safetyStatus"],
+      "all_three_devices_present": true
+    },
+    "store_and_forward_end_to_end": {
+      "evidence": "evidence/live_fleet_run7.log",
+      "command": ".venv/bin/python run_fleet.py --duration 90 --outage-after 15 --outage-duration 20 --verbose",
+      "successful_initial_connections": 3,
+      "simulated_cellular_outages": 3,
+      "reconnect_scheduled_events": 3,
+      "reconnect_attempts_after_backoff": 3,
+      "successful_reconnects": 6,
+      "offline_buffering_events": 6,
+      "replay_batches_published": 9,
+      "qos1_pubacks_replay": 9,
+      "qos1_pubacks_live": 128,
+      "chronological_replay_confirmed": true,
+      "example_replay_windows_ms": [
+        {"oldest": 1795119660028, "newest": 1795119662015},
+        {"oldest": 1795119660380, "newest": 1795119662417},
+        {"oldest": 1795119660751, "newest": 1795119663267}
+      ],
+      "original_acquisition_timestamps_preserved": true,
+      "final_buffer_depth_per_node": [0, 0, 0],
+      "final_unsynced_rows_per_node": [0, 0, 0],
+      "fleet_stopped_cleanly": true
+    }
+  },
+
+  "not_yet_verified": [
+    "Manuscript metrics, tables and final demonstration plots (deliberately out of scope per the task boundary)"
+  ]
+}

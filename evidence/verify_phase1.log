@@ -1,0 +1,57 @@
+
+=== 1. Normal telemetry (60 readings) ===
+  [PASS] all required fields present
+  [PASS] node id propagated
+  [PASS] timestamps are UTC aware
+  [PASS] timestamps strictly increasing
+  [PASS] timestamps match expected sequence
+  [PASS] acquisition_ms is epoch milliseconds
+  [PASS] pH within 6.8-7.6  (7.095..7.300)
+  [PASS] turbidity within 2-8 NTU  (3.81..6.07)
+  [PASS] TDS within 120-250 ppm  (176.9..200.9)
+  [PASS] temperature within 16-24 C  (19.86..20.88)
+  [PASS] flow within 8-18 L/min  (11.02..16.41)
+  [PASS] coordinates present
+  [PASS] temperature varies smoothly  (max step 0.280 C)
+  [PASS] normal flow actually varies  (spread 5.39 L/min)
+  sample rows:
+    {'node_id': 'node-01', 'acquired_at': '2026-06-15T06:00:00+00:00', 'ph': 7.15, 'turbidity_ntu': 5.04, 'tds_ppm': 184.0, 'water_temp_c': 20.05, 'flow_lpm': 12.8, 'latitude': 28.11, 'longitude': 85.29}
+    {'node_id': 'node-01', 'acquired_at': '2026-06-15T06:00:02+00:00', 'ph': 7.174, 'turbidity_ntu': 4.74, 'tds_ppm': 185.5, 'water_temp_c': 20.13, 'flow_lpm': 14.01, 'latitude': 28.11, 'longitude': 85.29}
+    {'node_id': 'node-01', 'acquired_at': '2026-06-15T06:00:04+00:00', 'ph': 7.217, 'turbidity_ntu': 5.23, 'tds_ppm': 184.6, 'water_temp_c': 20.0, 'flow_lpm': 13.82, 'latitude': 28.11, 'longitude': 85.29}
+
+=== 2. Rainfall-triggered contamination (rising phase) ===
+  [PASS] turbidity crosses warning threshold (>50)  (peak 259.84 NTU)
+  [PASS] turbidity crosses critical threshold (>200)  (peak 259.84 NTU)
+  [PASS] TDS rises above 500 ppm  (peak 534.8 ppm)
+  [PASS] pH falls below 6.5  (min 6.205)
+  [PASS] pH never drops below physical floor (6.0)  (min 6.205)
+  [PASS] flow is perturbed  (normal 11.0-16.4, event 8.0-13.8)
+  [PASS] turbidity rise is gradual (not a single jump)
+  event rows (first 6):
+    {'node_id': 'node-01', 'acquired_at': '2026-06-15T06:02:00+00:00', 'ph': 6.645, 'turbidity_ntu': 89.26, 'tds_ppm': 301.8, 'water_temp_c': 20.66, 'flow_lpm': 13.84, 'latitude': 28.11, 'longitude': 85.29}
+    {'node_id': 'node-01', 'acquired_at': '2026-06-15T06:02:02+00:00', 'ph': 6.404, 'turbidity_ntu': 147.55, 'tds_ppm': 383.2, 'water_temp_c': 20.9, 'flow_lpm': 12.43, 'latitude': 28.11, 'longitude': 85.29}
+    {'node_id': 'node-01', 'acquired_at': '2026-06-15T06:02:04+00:00', 'ph': 6.301, 'turbidity_ntu': 188.45, 'tds_ppm': 436.3, 'water_temp_c': 20.78, 'flow_lpm': 10.58, 'latitude': 28.11, 'longitude': 85.29}
+    {'node_id': 'node-01', 'acquired_at': '2026-06-15T06:02:06+00:00', 'ph': 6.249, 'turbidity_ntu': 216.16, 'tds_ppm': 475.9, 'water_temp_c': 20.76, 'flow_lpm': 8.86, 'latitude': 28.11, 'longitude': 85.29}
+    {'node_id': 'node-01', 'acquired_at': '2026-06-15T06:02:08+00:00', 'ph': 6.245, 'turbidity_ntu': 234.8, 'tds_ppm': 500.5, 'water_temp_c': 20.88, 'flow_lpm': 7.95, 'latitude': 28.11, 'longitude': 85.29}
+    {'node_id': 'node-01', 'acquired_at': '2026-06-15T06:02:10+00:00', 'ph': 6.222, 'turbidity_ntu': 246.82, 'tds_ppm': 517.0, 'water_temp_c': 20.9, 'flow_lpm': 8.47, 'latitude': 28.11, 'longitude': 85.29}
+
+=== 3. Washout phase ===
+  [PASS] turbidity washes out below 40 NTU  (final 14.27 NTU)
+  [PASS] washout is monotonic overall
+  [PASS] TDS returns toward baseline  (final 200.6 ppm)
+  [PASS] pH recovers above 6.5  (final 7.114)
+  [PASS] envelope eventually reaches zero  (intensity 0.0342)
+
+=== 4. Complete supply interruption ===
+  [PASS] flow becomes exactly zero
+  [PASS] flow resumes after restoration  ([13.48, 13.7, 13.68])
+
+=== 5. Repeatability after reset() ===
+  [PASS] contamination curve is bit-for-bit repeatable
+  [PASS] reset() restores seeded initial state
+  [PASS] two fresh generators produce identical events
+
+=== Summary ===
+  31/31 checks passed
+
+Phase 1 verification: ALL CHECKS PASSED

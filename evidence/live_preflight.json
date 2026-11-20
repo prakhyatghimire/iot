@@ -1,0 +1,22 @@
+{
+  "checked_at": "2026-11-19T21:06:37.757834+00:00",
+  "target": "ThingsBoard Cloud",
+  "rest": {
+    "mqtt_host": "eu.thingsboard.cloud",
+    "rest_host": "eu.thingsboard.cloud",
+    "scheme": "https",
+    "port": 443,
+    "base_url": "https://eu.thingsboard.cloud:443"
+  },
+  "mqtt_endpoint": "eu.thingsboard.cloud:8883",
+  "mqtt_transport": "MQTT over TLS, port 8883, QoS 1",
+  "tokens_configured": 3,
+  "tokens_distinct": true,
+  "token_variables": {
+    "TB_NODE_01_TOKEN": true,
+    "TB_NODE_02_TOKEN": true,
+    "TB_NODE_03_TOKEN": true
+  },
+  "rest_reachable": true,
+  "rest_status": 200
+}

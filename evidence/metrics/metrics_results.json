@@ -1,0 +1,194 @@
+{
+  "generated_at": "2026-11-20T00:46:46.807774+00:00",
+  "target": "ThingsBoard Cloud",
+  "jwt_fingerprint_not_secret": "111bfd4e",
+  "experiment": {
+    "duration_s": 240.0,
+    "outage_tick": 40,
+    "restore_tick": 50,
+    "contamination_tick": {
+      "node-01": 4,
+      "node-02": 6,
+      "node-03": 8
+    },
+    "contamination_reset_tick": 28,
+    "interrupt_tick": {
+      "node-01": 60,
+      "node-02": 62,
+      "node-03": 64
+    },
+    "interrupt_clear_tick": 90,
+    "sample_interval_s": 2.0,
+    "note": "All scenario controls are the existing generator/RPC controls; no telemetry values are injected."
+  },
+  "window_ms": {
+    "start": 1795135362129,
+    "end": 1795135608223
+  },
+  "evidence": {
+    "devices": {
+      "JalSanket-Node-01": "737cbce0-e44f-11f1-8c2a-39d8a38c3af6",
+      "JalSanket-Node-02": "8090ab30-e44f-11f1-b835-cf86ca25bc9f",
+      "JalSanket-Node-03": "81265b80-e44f-11f1-b835-cf86ca25bc9f"
+    },
+    "active_alarms_cleared_at_start": 0,
+    "local_alarm_events": 15,
+    "puback_events": 359,
+    "connect_events": 6,
+    "link_events": 6,
+    "cloud_timeseries_devices": [
+      "JalSanket-Node-01",
+      "JalSanket-Node-02",
+      "JalSanket-Node-03"
+    ],
+    "cloud_alarms_in_window": 15
+  },
+  "definitions": {
+    "latency_primary": {
+      "name": "edge acquisition \u2192 MQTT QoS 1 PUBACK",
+      "start": "SQLite readings.acquisition_ms (device wall-clock acquisition time)",
+      "end": "PUBACK callback time captured in the fleet process",
+      "sample": "one value per generated row, separated into live and replay paths",
+      "limitation": "This is edge-to-broker confirmation. It is NOT ThingsBoard Cloud dashboard ingestion latency."
+    },
+    "cloud_ingestion_latency": {
+      "available": false,
+      "reason": "Cloud timeseries REST exposes only the device-supplied ts equal to acquisition_ms; no server ingestion timestamp is returned. Any Cloud-ingestion latency number would be fabricated."
+    },
+    "cloud_delivery": {
+      "method": "Post-run REST timeseries query keyed by (device name, acquisition_ms); presence confirms Cloud-visible storage, not ingestion time."
+    },
+    "alarm_activation_delay": {
+      "name": "Cloud alarm createdTime \u2212 Cloud alarm startTs",
+      "start": "Cloud alarm startTs (the triggering telemetry event timestamp)",
+      "end": "Cloud alarm createdTime (actual alarm activation)",
+      "correlation": "startTs is matched to a local SQLite acquisition_ms for the same device where possible."
+    },
+    "buffer_flush_throughput": {
+      "name": "replayed rows / (last replay PUBACK \u2212 first replay publish)",
+      "source": "instrumented PUBACK events from the existing transport"
+    },
+    "recovery_time": {
+      "name": "buffer empty after replay \u2212 simulated outage onset",
+      "note": "reconnect_delay_ms and flush_ms are reported separately. The transport auto-reconnects with backoff, often before the demo restore tick, so wall-clock restoration is not a valid measurement anchor."
+    },
+    "data_loss": {
+      "source": "SQLite loss_events table",
+      "note": "Temporarily buffered rows are not loss; only drop-newest evictions count."
+    }
+  },
+  "metrics": {
+    "latency_edge_to_puback_live_ms": {
+      "n": 353,
+      "mean": 196.8668555240793,
+      "median": 194.0,
+      "p95": 203.39999999999998,
+      "min": 173.0,
+      "max": 629.0
+    },
+    "latency_edge_to_puback_replay_ms": {
+      "n": 9,
+      "mean": 1640.5555555555557,
+      "median": 1118.0,
+      "p95": 3401.2,
+      "min": 364.0,
+      "max": 3532.0
+    },
+    "puback_only_live_ms": {
+      "n": 353,
+      "mean": 194.92634560906515,
+      "median": 192.0,
+      "p95": 201.0,
+      "min": 172.0,
+      "max": 627.0
+    },
+    "delivery": {
+      "generated": 362,
+      "delivered_cloud": 362,
+      "buffered": 0,
+      "lost": 0,
+      "delivery_ratio_pct": 100.0,
+      "buffered_pct": 0.0,
+      "loss_pct": 0.0,
+      "puback_synced_rows": 362,
+      "puback_synced_pct": 100.0
+    },
+    "alarm_activation_delay_ms": {
+      "alarms": 15,
+      "n": 15,
+      "mean": 544.8,
+      "median": 189.0,
+      "p95": 2009.5,
+      "min": 134.0,
+      "max": 2013.0
+    },
+    "buffer_flush": {
+      "events": 3,
+      "recovery_ms": {
+        "n": 3,
+        "mean": 3302.6666666666665,
+        "median": 3203.0,
+        "p95": 3496.4,
+        "min": 3176.0,
+        "max": 3529.0
+      },
+      "flush_rows_per_s": {
+        "n": 3,
+        "mean": 5.504929569829248,
+        "median": 5.5096418732782375,
+        "p95": 5.550964187327824,
+        "min": 5.4495912806539515,
+        "max": 5.555555555555555
+      },
+      "per_node": [
+        {
+          "node_id": "node-01",
+          "device": "JalSanket-Node-01",
+          "outage_ms": 1795135440491,
+          "demo_restore_ms": 1795135460483,
+          "reconnect_ms": 1795135443656,
+          "rows_replayed": 2,
+          "replay_start_ms": 1795135443657,
+          "buffer_empty_ms": 1795135444020,
+          "recovery_ms": 3529,
+          "reconnect_delay_ms": 3165,
+          "flush_ms": 364,
+          "flush_rows_per_s": 5.5096418732782375
+        },
+        {
+          "node_id": "node-02",
+          "device": "JalSanket-Node-02",
+          "outage_ms": 1795135440849,
+          "demo_restore_ms": 1795135460828,
+          "reconnect_ms": 1795135443657,
+          "rows_replayed": 2,
+          "replay_start_ms": 1795135443658,
+          "buffer_empty_ms": 1795135444025,
+          "recovery_ms": 3176,
+          "reconnect_delay_ms": 2808,
+          "flush_ms": 368,
+          "flush_rows_per_s": 5.4495912806539515
+        },
+        {
+          "node_id": "node-03",
+          "device": "JalSanket-Node-03",
+          "outage_ms": 1795135441184,
+          "demo_restore_ms": 1795135461179,
+          "reconnect_ms": 1795135444027,
+          "rows_replayed": 2,
+          "replay_start_ms": 1795135444027,
+          "buffer_empty_ms": 1795135444387,
+          "recovery_ms": 3203,
+          "reconnect_delay_ms": 2843,
+          "flush_ms": 360,
+          "flush_rows_per_s": 5.555555555555555
+        }
+      ]
+    },
+    "data_loss": {
+      "lost_rows": 0,
+      "generated_rows": 362,
+      "loss_pct": 0.0
+    }
+  }
+}

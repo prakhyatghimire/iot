@@ -1,0 +1,346 @@
+2026-11-20 01:41:54,016 INFO    jalsanket.demo: Wrote artifacts: ['thingsboard/jalsanket_dashboard.json', 'thingsboard/jalsanket_rule_chain.json', 'thingsboard/jalsanket_alarm_config.json', 'thingsboard/jalsanket_devices.json']
+2026-11-20 01:41:54,020 INFO    jalsanket.storage: store opened path=data/node-01.db journal_mode=WAL capacity=10800 policy=drop_newest unsynced=0
+2026-11-20 01:41:54,038 INFO    jalsanket.storage: store opened path=data/node-02.db journal_mode=WAL capacity=10800 policy=drop_newest unsynced=0
+2026-11-20 01:41:54,049 INFO    jalsanket.storage: store opened path=data/node-03.db journal_mode=WAL capacity=10800 policy=drop_newest unsynced=0
+2026-11-20 01:41:54,057 INFO    jalsanket.mqtt: MQTT CONFIG {'host': 'eu.thingsboard.cloud', 'port': 8883, 'tls': True, 'ca_cert': 'system trust store', 'client_id': 'jalsanket-node-01', 'token_present': True, 'reconnect_min_delay_s': 2.0, 'reconnect_max_delay_s': 60.0, 'replay_batch_size': 20, 'telemetry_topic': 'v1/devices/me/telemetry'}
+2026-11-20 01:41:54,057 INFO    jalsanket.mqtt: CONNECTING host=eu.thingsboard.cloud port=8883 tls=enabled
+2026-11-20 01:41:54,057 INFO    jalsanket.runner: SIMULATOR STARTED node=node-01 interval=2.0s
+2026-11-20 01:41:54,057 INFO    jalsanket.mqtt: MQTT CONFIG {'host': 'eu.thingsboard.cloud', 'port': 8883, 'tls': True, 'ca_cert': 'system trust store', 'client_id': 'jalsanket-node-02', 'token_present': True, 'reconnect_min_delay_s': 2.0, 'reconnect_max_delay_s': 60.0, 'replay_batch_size': 20, 'telemetry_topic': 'v1/devices/me/telemetry'}
+2026-11-20 01:41:54,057 INFO    jalsanket.mqtt: CONNECTING host=eu.thingsboard.cloud port=8883 tls=enabled
+2026-11-20 01:41:54,057 INFO    jalsanket.runner: SIMULATOR STARTED node=node-02 interval=2.0s
+2026-11-20 01:41:54,057 INFO    jalsanket.mqtt: MQTT CONFIG {'host': 'eu.thingsboard.cloud', 'port': 8883, 'tls': True, 'ca_cert': 'system trust store', 'client_id': 'jalsanket-node-03', 'token_present': True, 'reconnect_min_delay_s': 2.0, 'reconnect_max_delay_s': 60.0, 'replay_batch_size': 20, 'telemetry_topic': 'v1/devices/me/telemetry'}
+2026-11-20 01:41:54,057 INFO    jalsanket.mqtt: CONNECTING host=eu.thingsboard.cloud port=8883 tls=enabled
+2026-11-20 01:41:54,057 INFO    jalsanket.runner: SIMULATOR STARTED node=node-03 interval=2.0s
+2026-11-20 01:41:54,057 INFO    jalsanket.fleet: FLEET STARTED nodes=3
+2026-11-20 01:41:54,058 INFO    jalsanket.storage: STORED node=node-01 id=1 acquisition_ms=1795118214057 stored_at_ms=1795118214057 buffer_depth=1 capacity=10800
+2026-11-20 01:41:54,058 WARNING jalsanket.mqtt: OFFLINE - BUFFERING node=node-01 id=1 acquisition_ms=1795118214057 buffer_depth=1/10800
+2026-11-20 01:41:54,058 INFO    jalsanket.storage: STORED node=node-02 id=1 acquisition_ms=1795118214058 stored_at_ms=1795118214058 buffer_depth=1 capacity=10800
+2026-11-20 01:41:54,058 WARNING jalsanket.mqtt: OFFLINE - BUFFERING node=node-02 id=1 acquisition_ms=1795118214058 buffer_depth=1/10800
+2026-11-20 01:41:54,058 INFO    jalsanket.storage: STORED node=node-03 id=1 acquisition_ms=1795118214058 stored_at_ms=1795118214058 buffer_depth=1 capacity=10800
+2026-11-20 01:41:54,058 WARNING jalsanket.mqtt: OFFLINE - BUFFERING node=node-03 id=1 acquisition_ms=1795118214058 buffer_depth=1/10800
+2026-11-20 01:41:56,081 INFO    jalsanket.storage: STORED node=node-01 id=2 acquisition_ms=1795118216079 stored_at_ms=1795118216079 buffer_depth=2 capacity=10800
+2026-11-20 01:41:56,081 WARNING jalsanket.mqtt: OFFLINE - BUFFERING node=node-01 id=2 acquisition_ms=1795118216079 buffer_depth=2/10800
+2026-11-20 01:41:56,082 INFO    jalsanket.storage: STORED node=node-02 id=2 acquisition_ms=1795118216081 stored_at_ms=1795118216081 buffer_depth=2 capacity=10800
+2026-11-20 01:41:56,082 WARNING jalsanket.mqtt: OFFLINE - BUFFERING node=node-02 id=2 acquisition_ms=1795118216081 buffer_depth=2/10800
+2026-11-20 01:41:56,082 INFO    jalsanket.storage: STORED node=node-03 id=2 acquisition_ms=1795118216082 stored_at_ms=1795118216082 buffer_depth=2 capacity=10800
+2026-11-20 01:41:56,082 WARNING jalsanket.mqtt: OFFLINE - BUFFERING node=node-03 id=2 acquisition_ms=1795118216082 buffer_depth=2/10800
+2026-11-20 01:41:58,064 INFO    jalsanket.storage: STORED node=node-01 id=3 acquisition_ms=1795118218063 stored_at_ms=1795118218063 buffer_depth=3 capacity=10800
+2026-11-20 01:41:58,064 WARNING jalsanket.mqtt: OFFLINE - BUFFERING node=node-01 id=3 acquisition_ms=1795118218063 buffer_depth=3/10800
+2026-11-20 01:41:58,065 INFO    jalsanket.storage: STORED node=node-02 id=3 acquisition_ms=1795118218064 stored_at_ms=1795118218064 buffer_depth=3 capacity=10800
+2026-11-20 01:41:58,065 WARNING jalsanket.mqtt: OFFLINE - BUFFERING node=node-02 id=3 acquisition_ms=1795118218064 buffer_depth=3/10800
+2026-11-20 01:41:58,065 INFO    jalsanket.storage: STORED node=node-03 id=3 acquisition_ms=1795118218065 stored_at_ms=1795118218065 buffer_depth=3 capacity=10800
+2026-11-20 01:41:58,065 WARNING jalsanket.mqtt: OFFLINE - BUFFERING node=node-03 id=3 acquisition_ms=1795118218065 buffer_depth=3/10800
+2026-11-20 01:42:00,078 INFO    jalsanket.storage: STORED node=node-01 id=4 acquisition_ms=1795118220077 stored_at_ms=1795118220077 buffer_depth=4 capacity=10800
+2026-11-20 01:42:00,078 WARNING jalsanket.mqtt: OFFLINE - BUFFERING node=node-01 id=4 acquisition_ms=1795118220077 buffer_depth=4/10800
+2026-11-20 01:42:00,079 INFO    jalsanket.storage: STORED node=node-02 id=4 acquisition_ms=1795118220078 stored_at_ms=1795118220078 buffer_depth=4 capacity=10800
+2026-11-20 01:42:00,079 WARNING jalsanket.mqtt: OFFLINE - BUFFERING node=node-02 id=4 acquisition_ms=1795118220078 buffer_depth=4/10800
+2026-11-20 01:42:00,079 INFO    jalsanket.storage: STORED node=node-03 id=4 acquisition_ms=1795118220079 stored_at_ms=1795118220079 buffer_depth=4 capacity=10800
+2026-11-20 01:42:00,079 WARNING jalsanket.mqtt: OFFLINE - BUFFERING node=node-03 id=4 acquisition_ms=1795118220079 buffer_depth=4/10800
+2026-11-20 01:42:02,066 INFO    jalsanket.storage: STORED node=node-01 id=5 acquisition_ms=1795118222064 stored_at_ms=1795118222066 buffer_depth=5 capacity=10800
+2026-11-20 01:42:02,067 WARNING jalsanket.mqtt: OFFLINE - BUFFERING node=node-01 id=5 acquisition_ms=1795118222064 buffer_depth=5/10800
+2026-11-20 01:42:02,067 INFO    jalsanket.storage: STORED node=node-02 id=5 acquisition_ms=1795118222067 stored_at_ms=1795118222067 buffer_depth=5 capacity=10800
+2026-11-20 01:42:02,067 WARNING jalsanket.mqtt: OFFLINE - BUFFERING node=node-02 id=5 acquisition_ms=1795118222067 buffer_depth=5/10800
+2026-11-20 01:42:02,067 INFO    jalsanket.storage: STORED node=node-03 id=5 acquisition_ms=1795118222067 stored_at_ms=1795118222067 buffer_depth=5 capacity=10800
+2026-11-20 01:42:02,067 WARNING jalsanket.mqtt: OFFLINE - BUFFERING node=node-03 id=5 acquisition_ms=1795118222067 buffer_depth=5/10800
+2026-11-20 01:42:04,066 INFO    jalsanket.storage: STORED node=node-01 id=6 acquisition_ms=1795118224065 stored_at_ms=1795118224065 buffer_depth=6 capacity=10800
+2026-11-20 01:42:04,066 WARNING jalsanket.mqtt: OFFLINE - BUFFERING node=node-01 id=6 acquisition_ms=1795118224065 buffer_depth=6/10800
+2026-11-20 01:42:04,066 INFO    jalsanket.storage: STORED node=node-02 id=6 acquisition_ms=1795118224066 stored_at_ms=1795118224066 buffer_depth=6 capacity=10800
+2026-11-20 01:42:04,066 WARNING jalsanket.mqtt: OFFLINE - BUFFERING node=node-02 id=6 acquisition_ms=1795118224066 buffer_depth=6/10800
+2026-11-20 01:42:04,067 INFO    jalsanket.storage: STORED node=node-03 id=6 acquisition_ms=1795118224067 stored_at_ms=1795118224067 buffer_depth=6 capacity=10800
+2026-11-20 01:42:04,067 WARNING jalsanket.mqtt: OFFLINE - BUFFERING node=node-03 id=6 acquisition_ms=1795118224067 buffer_depth=6/10800
+2026-11-20 01:42:06,069 INFO    jalsanket.storage: STORED node=node-01 id=7 acquisition_ms=1795118226069 stored_at_ms=1795118226069 buffer_depth=7 capacity=10800
+2026-11-20 01:42:06,070 WARNING jalsanket.mqtt: OFFLINE - BUFFERING node=node-01 id=7 acquisition_ms=1795118226069 buffer_depth=7/10800
+2026-11-20 01:42:06,070 INFO    jalsanket.storage: STORED node=node-02 id=7 acquisition_ms=1795118226070 stored_at_ms=1795118226070 buffer_depth=7 capacity=10800
+2026-11-20 01:42:06,070 WARNING jalsanket.mqtt: OFFLINE - BUFFERING node=node-02 id=7 acquisition_ms=1795118226070 buffer_depth=7/10800
+2026-11-20 01:42:06,071 INFO    jalsanket.storage: STORED node=node-03 id=7 acquisition_ms=1795118226070 stored_at_ms=1795118226070 buffer_depth=7 capacity=10800
+2026-11-20 01:42:06,071 WARNING jalsanket.mqtt: OFFLINE - BUFFERING node=node-03 id=7 acquisition_ms=1795118226070 buffer_depth=7/10800
+2026-11-20 01:42:08,070 INFO    jalsanket.storage: STORED node=node-01 id=8 acquisition_ms=1795118228069 stored_at_ms=1795118228069 buffer_depth=8 capacity=10800
+2026-11-20 01:42:08,070 WARNING jalsanket.mqtt: OFFLINE - BUFFERING node=node-01 id=8 acquisition_ms=1795118228069 buffer_depth=8/10800
+2026-11-20 01:42:08,071 INFO    jalsanket.storage: STORED node=node-02 id=8 acquisition_ms=1795118228070 stored_at_ms=1795118228070 buffer_depth=8 capacity=10800
+2026-11-20 01:42:08,071 WARNING jalsanket.mqtt: OFFLINE - BUFFERING node=node-02 id=8 acquisition_ms=1795118228070 buffer_depth=8/10800
+2026-11-20 01:42:08,071 INFO    jalsanket.storage: STORED node=node-03 id=8 acquisition_ms=1795118228071 stored_at_ms=1795118228071 buffer_depth=8 capacity=10800
+2026-11-20 01:42:08,071 WARNING jalsanket.mqtt: OFFLINE - BUFFERING node=node-03 id=8 acquisition_ms=1795118228071 buffer_depth=8/10800
+2026-11-20 01:42:10,078 INFO    jalsanket.storage: STORED node=node-01 id=9 acquisition_ms=1795118230078 stored_at_ms=1795118230078 buffer_depth=9 capacity=10800
+2026-11-20 01:42:10,078 WARNING jalsanket.mqtt: OFFLINE - BUFFERING node=node-01 id=9 acquisition_ms=1795118230078 buffer_depth=9/10800
+2026-11-20 01:42:10,079 INFO    jalsanket.storage: STORED node=node-02 id=9 acquisition_ms=1795118230078 stored_at_ms=1795118230078 buffer_depth=9 capacity=10800
+2026-11-20 01:42:10,079 WARNING jalsanket.mqtt: OFFLINE - BUFFERING node=node-02 id=9 acquisition_ms=1795118230078 buffer_depth=9/10800
+2026-11-20 01:42:10,079 INFO    jalsanket.storage: STORED node=node-03 id=9 acquisition_ms=1795118230079 stored_at_ms=1795118230079 buffer_depth=9 capacity=10800
+2026-11-20 01:42:10,079 WARNING jalsanket.mqtt: OFFLINE - BUFFERING node=node-03 id=9 acquisition_ms=1795118230079 buffer_depth=9/10800
+2026-11-20 01:42:12,073 INFO    jalsanket.storage: STORED node=node-01 id=10 acquisition_ms=1795118232072 stored_at_ms=1795118232072 buffer_depth=10 capacity=10800
+2026-11-20 01:42:12,073 WARNING jalsanket.mqtt: OFFLINE - BUFFERING node=node-01 id=10 acquisition_ms=1795118232072 buffer_depth=10/10800
+2026-11-20 01:42:12,074 INFO    jalsanket.storage: STORED node=node-02 id=10 acquisition_ms=1795118232073 stored_at_ms=1795118232073 buffer_depth=10 capacity=10800
+2026-11-20 01:42:12,074 WARNING jalsanket.mqtt: OFFLINE - BUFFERING node=node-02 id=10 acquisition_ms=1795118232073 buffer_depth=10/10800
+2026-11-20 01:42:12,074 INFO    jalsanket.storage: STORED node=node-03 id=10 acquisition_ms=1795118232074 stored_at_ms=1795118232074 buffer_depth=10 capacity=10800
+2026-11-20 01:42:12,074 WARNING jalsanket.mqtt: OFFLINE - BUFFERING node=node-03 id=10 acquisition_ms=1795118232074 buffer_depth=10/10800
+2026-11-20 01:42:14,059 INFO    jalsanket.storage: STORED node=node-01 id=11 acquisition_ms=1795118234058 stored_at_ms=1795118234058 buffer_depth=11 capacity=10800
+2026-11-20 01:42:14,059 WARNING jalsanket.mqtt: OFFLINE - BUFFERING node=node-01 id=11 acquisition_ms=1795118234058 buffer_depth=11/10800
+2026-11-20 01:42:14,059 INFO    jalsanket.storage: STORED node=node-02 id=11 acquisition_ms=1795118234059 stored_at_ms=1795118234059 buffer_depth=11 capacity=10800
+2026-11-20 01:42:14,059 WARNING jalsanket.mqtt: OFFLINE - BUFFERING node=node-02 id=11 acquisition_ms=1795118234059 buffer_depth=11/10800
+2026-11-20 01:42:14,060 INFO    jalsanket.storage: STORED node=node-03 id=11 acquisition_ms=1795118234060 stored_at_ms=1795118234060 buffer_depth=11 capacity=10800
+2026-11-20 01:42:14,060 WARNING jalsanket.mqtt: OFFLINE - BUFFERING node=node-03 id=11 acquisition_ms=1795118234060 buffer_depth=11/10800
+2026-11-20 01:42:16,060 INFO    jalsanket.storage: STORED node=node-01 id=12 acquisition_ms=1795118236060 stored_at_ms=1795118236060 buffer_depth=12 capacity=10800
+2026-11-20 01:42:16,060 WARNING jalsanket.mqtt: OFFLINE - BUFFERING node=node-01 id=12 acquisition_ms=1795118236060 buffer_depth=12/10800
+2026-11-20 01:42:16,060 INFO    jalsanket.storage: STORED node=node-02 id=12 acquisition_ms=1795118236060 stored_at_ms=1795118236060 buffer_depth=12 capacity=10800
+2026-11-20 01:42:16,061 WARNING jalsanket.mqtt: OFFLINE - BUFFERING node=node-02 id=12 acquisition_ms=1795118236060 buffer_depth=12/10800
+2026-11-20 01:42:16,061 INFO    jalsanket.storage: STORED node=node-03 id=12 acquisition_ms=1795118236061 stored_at_ms=1795118236061 buffer_depth=12 capacity=10800
+2026-11-20 01:42:16,061 WARNING jalsanket.mqtt: OFFLINE - BUFFERING node=node-03 id=12 acquisition_ms=1795118236061 buffer_depth=12/10800
+2026-11-20 01:42:18,073 INFO    jalsanket.storage: STORED node=node-01 id=13 acquisition_ms=1795118238072 stored_at_ms=1795118238072 buffer_depth=13 capacity=10800
+2026-11-20 01:42:18,074 WARNING jalsanket.mqtt: OFFLINE - BUFFERING node=node-01 id=13 acquisition_ms=1795118238072 buffer_depth=13/10800
+2026-11-20 01:42:18,075 INFO    jalsanket.storage: STORED node=node-02 id=13 acquisition_ms=1795118238074 stored_at_ms=1795118238074 buffer_depth=13 capacity=10800
+2026-11-20 01:42:18,075 WARNING jalsanket.mqtt: OFFLINE - BUFFERING node=node-02 id=13 acquisition_ms=1795118238074 buffer_depth=13/10800
+2026-11-20 01:42:18,076 INFO    jalsanket.storage: STORED node=node-03 id=13 acquisition_ms=1795118238075 stored_at_ms=1795118238075 buffer_depth=13 capacity=10800
+2026-11-20 01:42:18,076 WARNING jalsanket.mqtt: OFFLINE - BUFFERING node=node-03 id=13 acquisition_ms=1795118238075 buffer_depth=13/10800
+2026-11-20 01:42:20,077 INFO    jalsanket.storage: STORED node=node-01 id=14 acquisition_ms=1795118240075 stored_at_ms=1795118240075 buffer_depth=14 capacity=10800
+2026-11-20 01:42:20,080 WARNING jalsanket.mqtt: OFFLINE - BUFFERING node=node-01 id=14 acquisition_ms=1795118240075 buffer_depth=14/10800
+2026-11-20 01:42:20,080 INFO    jalsanket.storage: STORED node=node-02 id=14 acquisition_ms=1795118240080 stored_at_ms=1795118240080 buffer_depth=14 capacity=10800
+2026-11-20 01:42:20,080 WARNING jalsanket.mqtt: OFFLINE - BUFFERING node=node-02 id=14 acquisition_ms=1795118240080 buffer_depth=14/10800
+2026-11-20 01:42:20,081 INFO    jalsanket.storage: STORED node=node-03 id=14 acquisition_ms=1795118240080 stored_at_ms=1795118240080 buffer_depth=14 capacity=10800
+2026-11-20 01:42:20,081 WARNING jalsanket.mqtt: OFFLINE - BUFFERING node=node-03 id=14 acquisition_ms=1795118240080 buffer_depth=14/10800
+2026-11-20 01:42:22,075 INFO    jalsanket.storage: STORED node=node-01 id=15 acquisition_ms=1795118242074 stored_at_ms=1795118242074 buffer_depth=15 capacity=10800
+2026-11-20 01:42:22,075 WARNING jalsanket.mqtt: OFFLINE - BUFFERING node=node-01 id=15 acquisition_ms=1795118242074 buffer_depth=15/10800
+2026-11-20 01:42:22,075 WARNING jalsanket.mqtt: SIMULATED CELLULAR OUTAGE - dropping MQTT link
+2026-11-20 01:42:22,075 INFO    jalsanket.storage: STORED node=node-02 id=15 acquisition_ms=1795118242075 stored_at_ms=1795118242075 buffer_depth=15 capacity=10800
+2026-11-20 01:42:22,075 WARNING jalsanket.mqtt: OFFLINE - BUFFERING node=node-02 id=15 acquisition_ms=1795118242075 buffer_depth=15/10800
+2026-11-20 01:42:22,075 WARNING jalsanket.mqtt: SIMULATED CELLULAR OUTAGE - dropping MQTT link
+2026-11-20 01:42:22,076 INFO    jalsanket.storage: STORED node=node-03 id=15 acquisition_ms=1795118242075 stored_at_ms=1795118242075 buffer_depth=15 capacity=10800
+2026-11-20 01:42:22,076 WARNING jalsanket.mqtt: OFFLINE - BUFFERING node=node-03 id=15 acquisition_ms=1795118242075 buffer_depth=15/10800
+2026-11-20 01:42:22,076 WARNING jalsanket.mqtt: SIMULATED CELLULAR OUTAGE - dropping MQTT link
+2026-11-20 01:42:24,059 INFO    jalsanket.storage: STORED node=node-01 id=16 acquisition_ms=1795118244058 stored_at_ms=1795118244059 buffer_depth=16 capacity=10800
+2026-11-20 01:42:24,059 WARNING jalsanket.mqtt: OFFLINE - BUFFERING node=node-01 id=16 acquisition_ms=1795118244058 buffer_depth=16/10800
+2026-11-20 01:42:24,060 INFO    jalsanket.storage: STORED node=node-02 id=16 acquisition_ms=1795118244060 stored_at_ms=1795118244060 buffer_depth=16 capacity=10800
+2026-11-20 01:42:24,060 WARNING jalsanket.mqtt: OFFLINE - BUFFERING node=node-02 id=16 acquisition_ms=1795118244060 buffer_depth=16/10800
+2026-11-20 01:42:24,060 INFO    jalsanket.storage: STORED node=node-03 id=16 acquisition_ms=1795118244060 stored_at_ms=1795118244060 buffer_depth=16 capacity=10800
+2026-11-20 01:42:24,060 WARNING jalsanket.mqtt: OFFLINE - BUFFERING node=node-03 id=16 acquisition_ms=1795118244060 buffer_depth=16/10800
+2026-11-20 01:42:26,061 INFO    jalsanket.storage: STORED node=node-01 id=17 acquisition_ms=1795118246060 stored_at_ms=1795118246060 buffer_depth=17 capacity=10800
+2026-11-20 01:42:26,061 WARNING jalsanket.mqtt: OFFLINE - BUFFERING node=node-01 id=17 acquisition_ms=1795118246060 buffer_depth=17/10800
+2026-11-20 01:42:26,062 INFO    jalsanket.storage: STORED node=node-02 id=17 acquisition_ms=1795118246061 stored_at_ms=1795118246062 buffer_depth=17 capacity=10800
+2026-11-20 01:42:26,062 WARNING jalsanket.mqtt: OFFLINE - BUFFERING node=node-02 id=17 acquisition_ms=1795118246061 buffer_depth=17/10800
+2026-11-20 01:42:26,062 INFO    jalsanket.storage: STORED node=node-03 id=17 acquisition_ms=1795118246062 stored_at_ms=1795118246062 buffer_depth=17 capacity=10800
+2026-11-20 01:42:26,062 WARNING jalsanket.mqtt: OFFLINE - BUFFERING node=node-03 id=17 acquisition_ms=1795118246062 buffer_depth=17/10800
+2026-11-20 01:42:28,076 INFO    jalsanket.storage: STORED node=node-01 id=18 acquisition_ms=1795118248075 stored_at_ms=1795118248075 buffer_depth=18 capacity=10800
+2026-11-20 01:42:28,076 WARNING jalsanket.mqtt: OFFLINE - BUFFERING node=node-01 id=18 acquisition_ms=1795118248075 buffer_depth=18/10800
+2026-11-20 01:42:28,076 INFO    jalsanket.storage: STORED node=node-02 id=18 acquisition_ms=1795118248076 stored_at_ms=1795118248076 buffer_depth=18 capacity=10800
+2026-11-20 01:42:28,076 WARNING jalsanket.mqtt: OFFLINE - BUFFERING node=node-02 id=18 acquisition_ms=1795118248076 buffer_depth=18/10800
+2026-11-20 01:42:28,077 INFO    jalsanket.storage: STORED node=node-03 id=18 acquisition_ms=1795118248076 stored_at_ms=1795118248076 buffer_depth=18 capacity=10800
+2026-11-20 01:42:28,077 WARNING jalsanket.mqtt: OFFLINE - BUFFERING node=node-03 id=18 acquisition_ms=1795118248076 buffer_depth=18/10800
+2026-11-20 01:42:30,069 INFO    jalsanket.storage: STORED node=node-01 id=19 acquisition_ms=1795118250068 stored_at_ms=1795118250068 buffer_depth=19 capacity=10800
+2026-11-20 01:42:30,070 WARNING jalsanket.mqtt: OFFLINE - BUFFERING node=node-01 id=19 acquisition_ms=1795118250068 buffer_depth=19/10800
+2026-11-20 01:42:30,071 INFO    jalsanket.storage: STORED node=node-02 id=19 acquisition_ms=1795118250070 stored_at_ms=1795118250070 buffer_depth=19 capacity=10800
+2026-11-20 01:42:30,071 WARNING jalsanket.mqtt: OFFLINE - BUFFERING node=node-02 id=19 acquisition_ms=1795118250070 buffer_depth=19/10800
+2026-11-20 01:42:30,071 INFO    jalsanket.storage: STORED node=node-03 id=19 acquisition_ms=1795118250071 stored_at_ms=1795118250071 buffer_depth=19 capacity=10800
+2026-11-20 01:42:30,071 WARNING jalsanket.mqtt: OFFLINE - BUFFERING node=node-03 id=19 acquisition_ms=1795118250071 buffer_depth=19/10800
+2026-11-20 01:42:32,064 INFO    jalsanket.storage: STORED node=node-01 id=20 acquisition_ms=1795118252063 stored_at_ms=1795118252063 buffer_depth=20 capacity=10800
+2026-11-20 01:42:32,064 WARNING jalsanket.mqtt: OFFLINE - BUFFERING node=node-01 id=20 acquisition_ms=1795118252063 buffer_depth=20/10800
+2026-11-20 01:42:32,065 INFO    jalsanket.storage: STORED node=node-02 id=20 acquisition_ms=1795118252064 stored_at_ms=1795118252065 buffer_depth=20 capacity=10800
+2026-11-20 01:42:32,065 WARNING jalsanket.mqtt: OFFLINE - BUFFERING node=node-02 id=20 acquisition_ms=1795118252064 buffer_depth=20/10800
+2026-11-20 01:42:32,066 INFO    jalsanket.storage: STORED node=node-03 id=20 acquisition_ms=1795118252065 stored_at_ms=1795118252065 buffer_depth=20 capacity=10800
+2026-11-20 01:42:32,066 WARNING jalsanket.mqtt: OFFLINE - BUFFERING node=node-03 id=20 acquisition_ms=1795118252065 buffer_depth=20/10800
+2026-11-20 01:42:34,075 INFO    jalsanket.storage: STORED node=node-01 id=21 acquisition_ms=1795118254075 stored_at_ms=1795118254075 buffer_depth=21 capacity=10800
+2026-11-20 01:42:34,075 WARNING jalsanket.mqtt: OFFLINE - BUFFERING node=node-01 id=21 acquisition_ms=1795118254075 buffer_depth=21/10800
+2026-11-20 01:42:34,076 INFO    jalsanket.storage: STORED node=node-02 id=21 acquisition_ms=1795118254075 stored_at_ms=1795118254075 buffer_depth=21 capacity=10800
+2026-11-20 01:42:34,076 WARNING jalsanket.mqtt: OFFLINE - BUFFERING node=node-02 id=21 acquisition_ms=1795118254075 buffer_depth=21/10800
+2026-11-20 01:42:34,076 INFO    jalsanket.storage: STORED node=node-03 id=21 acquisition_ms=1795118254076 stored_at_ms=1795118254076 buffer_depth=21 capacity=10800
+2026-11-20 01:42:34,076 WARNING jalsanket.mqtt: OFFLINE - BUFFERING node=node-03 id=21 acquisition_ms=1795118254076 buffer_depth=21/10800
+2026-11-20 01:42:36,079 INFO    jalsanket.storage: STORED node=node-01 id=22 acquisition_ms=1795118256078 stored_at_ms=1795118256078 buffer_depth=22 capacity=10800
+2026-11-20 01:42:36,079 WARNING jalsanket.mqtt: OFFLINE - BUFFERING node=node-01 id=22 acquisition_ms=1795118256078 buffer_depth=22/10800
+2026-11-20 01:42:36,079 INFO    jalsanket.storage: STORED node=node-02 id=22 acquisition_ms=1795118256079 stored_at_ms=1795118256079 buffer_depth=22 capacity=10800
+2026-11-20 01:42:36,079 WARNING jalsanket.mqtt: OFFLINE - BUFFERING node=node-02 id=22 acquisition_ms=1795118256079 buffer_depth=22/10800
+2026-11-20 01:42:36,080 INFO    jalsanket.storage: STORED node=node-03 id=22 acquisition_ms=1795118256079 stored_at_ms=1795118256079 buffer_depth=22 capacity=10800
+2026-11-20 01:42:36,080 WARNING jalsanket.mqtt: OFFLINE - BUFFERING node=node-03 id=22 acquisition_ms=1795118256079 buffer_depth=22/10800
+2026-11-20 01:42:38,064 INFO    jalsanket.storage: STORED node=node-01 id=23 acquisition_ms=1795118258063 stored_at_ms=1795118258064 buffer_depth=23 capacity=10800
+2026-11-20 01:42:38,064 WARNING jalsanket.mqtt: OFFLINE - BUFFERING node=node-01 id=23 acquisition_ms=1795118258063 buffer_depth=23/10800
+2026-11-20 01:42:38,065 INFO    jalsanket.storage: STORED node=node-02 id=23 acquisition_ms=1795118258064 stored_at_ms=1795118258064 buffer_depth=23 capacity=10800
+2026-11-20 01:42:38,065 WARNING jalsanket.mqtt: OFFLINE - BUFFERING node=node-02 id=23 acquisition_ms=1795118258064 buffer_depth=23/10800
+2026-11-20 01:42:38,065 INFO    jalsanket.storage: STORED node=node-03 id=23 acquisition_ms=1795118258065 stored_at_ms=1795118258065 buffer_depth=23 capacity=10800
+2026-11-20 01:42:38,065 WARNING jalsanket.mqtt: OFFLINE - BUFFERING node=node-03 id=23 acquisition_ms=1795118258065 buffer_depth=23/10800
+2026-11-20 01:42:40,072 INFO    jalsanket.storage: STORED node=node-01 id=24 acquisition_ms=1795118260071 stored_at_ms=1795118260071 buffer_depth=24 capacity=10800
+2026-11-20 01:42:40,072 WARNING jalsanket.mqtt: OFFLINE - BUFFERING node=node-01 id=24 acquisition_ms=1795118260071 buffer_depth=24/10800
+2026-11-20 01:42:40,073 INFO    jalsanket.storage: STORED node=node-02 id=24 acquisition_ms=1795118260072 stored_at_ms=1795118260072 buffer_depth=24 capacity=10800
+2026-11-20 01:42:40,073 WARNING jalsanket.mqtt: OFFLINE - BUFFERING node=node-02 id=24 acquisition_ms=1795118260072 buffer_depth=24/10800
+2026-11-20 01:42:40,074 INFO    jalsanket.storage: STORED node=node-03 id=24 acquisition_ms=1795118260073 stored_at_ms=1795118260073 buffer_depth=24 capacity=10800
+2026-11-20 01:42:40,074 WARNING jalsanket.mqtt: OFFLINE - BUFFERING node=node-03 id=24 acquisition_ms=1795118260073 buffer_depth=24/10800
+2026-11-20 01:42:42,067 INFO    jalsanket.storage: STORED node=node-01 id=25 acquisition_ms=1795118262066 stored_at_ms=1795118262066 buffer_depth=25 capacity=10800
+2026-11-20 01:42:42,067 WARNING jalsanket.mqtt: OFFLINE - BUFFERING node=node-01 id=25 acquisition_ms=1795118262066 buffer_depth=25/10800
+2026-11-20 01:42:42,068 INFO    jalsanket.storage: STORED node=node-02 id=25 acquisition_ms=1795118262067 stored_at_ms=1795118262067 buffer_depth=25 capacity=10800
+2026-11-20 01:42:42,068 WARNING jalsanket.mqtt: OFFLINE - BUFFERING node=node-02 id=25 acquisition_ms=1795118262067 buffer_depth=25/10800
+2026-11-20 01:42:42,069 INFO    jalsanket.storage: STORED node=node-03 id=25 acquisition_ms=1795118262068 stored_at_ms=1795118262068 buffer_depth=25 capacity=10800
+2026-11-20 01:42:42,069 WARNING jalsanket.mqtt: OFFLINE - BUFFERING node=node-03 id=25 acquisition_ms=1795118262068 buffer_depth=25/10800
+2026-11-20 01:42:44,071 INFO    jalsanket.storage: STORED node=node-01 id=26 acquisition_ms=1795118264070 stored_at_ms=1795118264070 buffer_depth=26 capacity=10800
+2026-11-20 01:42:44,071 WARNING jalsanket.mqtt: OFFLINE - BUFFERING node=node-01 id=26 acquisition_ms=1795118264070 buffer_depth=26/10800
+2026-11-20 01:42:44,072 INFO    jalsanket.storage: STORED node=node-02 id=26 acquisition_ms=1795118264071 stored_at_ms=1795118264071 buffer_depth=26 capacity=10800
+2026-11-20 01:42:44,072 WARNING jalsanket.mqtt: OFFLINE - BUFFERING node=node-02 id=26 acquisition_ms=1795118264071 buffer_depth=26/10800
+2026-11-20 01:42:44,072 INFO    jalsanket.storage: STORED node=node-03 id=26 acquisition_ms=1795118264072 stored_at_ms=1795118264072 buffer_depth=26 capacity=10800
+2026-11-20 01:42:44,072 WARNING jalsanket.mqtt: OFFLINE - BUFFERING node=node-03 id=26 acquisition_ms=1795118264072 buffer_depth=26/10800
+2026-11-20 01:42:46,081 INFO    jalsanket.storage: STORED node=node-01 id=27 acquisition_ms=1795118266080 stored_at_ms=1795118266080 buffer_depth=27 capacity=10800
+2026-11-20 01:42:46,082 WARNING jalsanket.mqtt: OFFLINE - BUFFERING node=node-01 id=27 acquisition_ms=1795118266080 buffer_depth=27/10800
+2026-11-20 01:42:46,082 INFO    jalsanket.storage: STORED node=node-02 id=27 acquisition_ms=1795118266082 stored_at_ms=1795118266082 buffer_depth=27 capacity=10800
+2026-11-20 01:42:46,083 WARNING jalsanket.mqtt: OFFLINE - BUFFERING node=node-02 id=27 acquisition_ms=1795118266082 buffer_depth=27/10800
+2026-11-20 01:42:46,083 INFO    jalsanket.storage: STORED node=node-03 id=27 acquisition_ms=1795118266083 stored_at_ms=1795118266083 buffer_depth=27 capacity=10800
+2026-11-20 01:42:46,083 WARNING jalsanket.mqtt: OFFLINE - BUFFERING node=node-03 id=27 acquisition_ms=1795118266083 buffer_depth=27/10800
+2026-11-20 01:42:48,059 INFO    jalsanket.storage: STORED node=node-01 id=28 acquisition_ms=1795118268058 stored_at_ms=1795118268058 buffer_depth=28 capacity=10800
+2026-11-20 01:42:48,059 WARNING jalsanket.mqtt: OFFLINE - BUFFERING node=node-01 id=28 acquisition_ms=1795118268058 buffer_depth=28/10800
+2026-11-20 01:42:48,060 INFO    jalsanket.storage: STORED node=node-02 id=28 acquisition_ms=1795118268059 stored_at_ms=1795118268059 buffer_depth=28 capacity=10800
+2026-11-20 01:42:48,060 WARNING jalsanket.mqtt: OFFLINE - BUFFERING node=node-02 id=28 acquisition_ms=1795118268059 buffer_depth=28/10800
+2026-11-20 01:42:48,061 INFO    jalsanket.storage: STORED node=node-03 id=28 acquisition_ms=1795118268060 stored_at_ms=1795118268060 buffer_depth=28 capacity=10800
+2026-11-20 01:42:48,061 WARNING jalsanket.mqtt: OFFLINE - BUFFERING node=node-03 id=28 acquisition_ms=1795118268060 buffer_depth=28/10800
+2026-11-20 01:42:50,059 INFO    jalsanket.storage: STORED node=node-01 id=29 acquisition_ms=1795118270059 stored_at_ms=1795118270059 buffer_depth=29 capacity=10800
+2026-11-20 01:42:50,060 WARNING jalsanket.mqtt: OFFLINE - BUFFERING node=node-01 id=29 acquisition_ms=1795118270059 buffer_depth=29/10800
+2026-11-20 01:42:50,060 INFO    jalsanket.storage: STORED node=node-02 id=29 acquisition_ms=1795118270060 stored_at_ms=1795118270060 buffer_depth=29 capacity=10800
+2026-11-20 01:42:50,060 WARNING jalsanket.mqtt: OFFLINE - BUFFERING node=node-02 id=29 acquisition_ms=1795118270060 buffer_depth=29/10800
+2026-11-20 01:42:50,060 INFO    jalsanket.storage: STORED node=node-03 id=29 acquisition_ms=1795118270060 stored_at_ms=1795118270060 buffer_depth=29 capacity=10800
+2026-11-20 01:42:50,060 WARNING jalsanket.mqtt: OFFLINE - BUFFERING node=node-03 id=29 acquisition_ms=1795118270060 buffer_depth=29/10800
+2026-11-20 01:42:52,069 INFO    jalsanket.storage: STORED node=node-01 id=30 acquisition_ms=1795118272068 stored_at_ms=1795118272068 buffer_depth=30 capacity=10800
+2026-11-20 01:42:52,070 WARNING jalsanket.mqtt: OFFLINE - BUFFERING node=node-01 id=30 acquisition_ms=1795118272068 buffer_depth=30/10800
+2026-11-20 01:42:52,071 INFO    jalsanket.storage: STORED node=node-02 id=30 acquisition_ms=1795118272070 stored_at_ms=1795118272070 buffer_depth=30 capacity=10800
+2026-11-20 01:42:52,071 WARNING jalsanket.mqtt: OFFLINE - BUFFERING node=node-02 id=30 acquisition_ms=1795118272070 buffer_depth=30/10800
+2026-11-20 01:42:52,072 INFO    jalsanket.storage: STORED node=node-03 id=30 acquisition_ms=1795118272071 stored_at_ms=1795118272071 buffer_depth=30 capacity=10800
+2026-11-20 01:42:52,072 WARNING jalsanket.mqtt: OFFLINE - BUFFERING node=node-03 id=30 acquisition_ms=1795118272071 buffer_depth=30/10800
+2026-11-20 01:42:54,082 INFO    jalsanket.storage: STORED node=node-01 id=31 acquisition_ms=1795118274080 stored_at_ms=1795118274081 buffer_depth=31 capacity=10800
+2026-11-20 01:42:54,082 WARNING jalsanket.mqtt: OFFLINE - BUFFERING node=node-01 id=31 acquisition_ms=1795118274080 buffer_depth=31/10800
+2026-11-20 01:42:54,083 INFO    jalsanket.storage: STORED node=node-02 id=31 acquisition_ms=1795118274082 stored_at_ms=1795118274082 buffer_depth=31 capacity=10800
+2026-11-20 01:42:54,083 WARNING jalsanket.mqtt: OFFLINE - BUFFERING node=node-02 id=31 acquisition_ms=1795118274082 buffer_depth=31/10800
+2026-11-20 01:42:54,084 INFO    jalsanket.storage: STORED node=node-03 id=31 acquisition_ms=1795118274083 stored_at_ms=1795118274083 buffer_depth=31 capacity=10800
+2026-11-20 01:42:54,084 WARNING jalsanket.mqtt: OFFLINE - BUFFERING node=node-03 id=31 acquisition_ms=1795118274083 buffer_depth=31/10800
+2026-11-20 01:42:56,075 INFO    jalsanket.storage: STORED node=node-01 id=32 acquisition_ms=1795118276074 stored_at_ms=1795118276075 buffer_depth=32 capacity=10800
+2026-11-20 01:42:56,076 WARNING jalsanket.mqtt: OFFLINE - BUFFERING node=node-01 id=32 acquisition_ms=1795118276074 buffer_depth=32/10800
+2026-11-20 01:42:56,076 INFO    jalsanket.storage: STORED node=node-02 id=32 acquisition_ms=1795118276076 stored_at_ms=1795118276076 buffer_depth=32 capacity=10800
+2026-11-20 01:42:56,076 WARNING jalsanket.mqtt: OFFLINE - BUFFERING node=node-02 id=32 acquisition_ms=1795118276076 buffer_depth=32/10800
+2026-11-20 01:42:56,076 INFO    jalsanket.storage: STORED node=node-03 id=32 acquisition_ms=1795118276076 stored_at_ms=1795118276076 buffer_depth=32 capacity=10800
+2026-11-20 01:42:56,076 WARNING jalsanket.mqtt: OFFLINE - BUFFERING node=node-03 id=32 acquisition_ms=1795118276076 buffer_depth=32/10800
+2026-11-20 01:42:58,058 INFO    jalsanket.storage: STORED node=node-01 id=33 acquisition_ms=1795118278057 stored_at_ms=1795118278057 buffer_depth=33 capacity=10800
+2026-11-20 01:42:58,059 WARNING jalsanket.mqtt: OFFLINE - BUFFERING node=node-01 id=33 acquisition_ms=1795118278057 buffer_depth=33/10800
+2026-11-20 01:42:58,059 INFO    jalsanket.storage: STORED node=node-02 id=33 acquisition_ms=1795118278059 stored_at_ms=1795118278059 buffer_depth=33 capacity=10800
+2026-11-20 01:42:58,059 WARNING jalsanket.mqtt: OFFLINE - BUFFERING node=node-02 id=33 acquisition_ms=1795118278059 buffer_depth=33/10800
+2026-11-20 01:42:58,060 INFO    jalsanket.storage: STORED node=node-03 id=33 acquisition_ms=1795118278059 stored_at_ms=1795118278059 buffer_depth=33 capacity=10800
+2026-11-20 01:42:58,060 WARNING jalsanket.mqtt: OFFLINE - BUFFERING node=node-03 id=33 acquisition_ms=1795118278059 buffer_depth=33/10800
+2026-11-20 01:43:00,076 INFO    jalsanket.storage: STORED node=node-01 id=34 acquisition_ms=1795118280074 stored_at_ms=1795118280075 buffer_depth=34 capacity=10800
+2026-11-20 01:43:00,076 WARNING jalsanket.mqtt: OFFLINE - BUFFERING node=node-01 id=34 acquisition_ms=1795118280074 buffer_depth=34/10800
+2026-11-20 01:43:00,077 INFO    jalsanket.storage: STORED node=node-02 id=34 acquisition_ms=1795118280076 stored_at_ms=1795118280076 buffer_depth=34 capacity=10800
+2026-11-20 01:43:00,077 WARNING jalsanket.mqtt: OFFLINE - BUFFERING node=node-02 id=34 acquisition_ms=1795118280076 buffer_depth=34/10800
+2026-11-20 01:43:00,077 INFO    jalsanket.storage: STORED node=node-03 id=34 acquisition_ms=1795118280077 stored_at_ms=1795118280077 buffer_depth=34 capacity=10800
+2026-11-20 01:43:00,077 WARNING jalsanket.mqtt: OFFLINE - BUFFERING node=node-03 id=34 acquisition_ms=1795118280077 buffer_depth=34/10800
+2026-11-20 01:43:02,074 INFO    jalsanket.storage: STORED node=node-01 id=35 acquisition_ms=1795118282073 stored_at_ms=1795118282074 buffer_depth=35 capacity=10800
+2026-11-20 01:43:02,075 WARNING jalsanket.mqtt: OFFLINE - BUFFERING node=node-01 id=35 acquisition_ms=1795118282073 buffer_depth=35/10800
+2026-11-20 01:43:02,075 WARNING jalsanket.demo: DEMO TRIGGER: restoring link on node-01
+2026-11-20 01:43:02,075 INFO    jalsanket.mqtt: MQTT CONFIG {'host': 'eu.thingsboard.cloud', 'port': 8883, 'tls': True, 'ca_cert': 'system trust store', 'client_id': 'jalsanket-node-01', 'token_present': True, 'reconnect_min_delay_s': 2.0, 'reconnect_max_delay_s': 60.0, 'replay_batch_size': 20, 'telemetry_topic': 'v1/devices/me/telemetry'}
+2026-11-20 01:43:02,075 INFO    jalsanket.mqtt: CONNECTING host=eu.thingsboard.cloud port=8883 tls=enabled
+2026-11-20 01:43:02,076 INFO    jalsanket.storage: STORED node=node-02 id=35 acquisition_ms=1795118282075 stored_at_ms=1795118282075 buffer_depth=35 capacity=10800
+2026-11-20 01:43:02,076 WARNING jalsanket.mqtt: OFFLINE - BUFFERING node=node-02 id=35 acquisition_ms=1795118282075 buffer_depth=35/10800
+2026-11-20 01:43:02,076 WARNING jalsanket.demo: DEMO TRIGGER: restoring link on node-02
+2026-11-20 01:43:02,076 INFO    jalsanket.mqtt: MQTT CONFIG {'host': 'eu.thingsboard.cloud', 'port': 8883, 'tls': True, 'ca_cert': 'system trust store', 'client_id': 'jalsanket-node-02', 'token_present': True, 'reconnect_min_delay_s': 2.0, 'reconnect_max_delay_s': 60.0, 'replay_batch_size': 20, 'telemetry_topic': 'v1/devices/me/telemetry'}
+2026-11-20 01:43:02,076 INFO    jalsanket.mqtt: CONNECTING host=eu.thingsboard.cloud port=8883 tls=enabled
+2026-11-20 01:43:02,076 INFO    jalsanket.storage: STORED node=node-03 id=35 acquisition_ms=1795118282076 stored_at_ms=1795118282076 buffer_depth=35 capacity=10800
+2026-11-20 01:43:02,076 WARNING jalsanket.mqtt: OFFLINE - BUFFERING node=node-03 id=35 acquisition_ms=1795118282076 buffer_depth=35/10800
+2026-11-20 01:43:02,076 WARNING jalsanket.demo: DEMO TRIGGER: restoring link on node-03
+2026-11-20 01:43:02,076 INFO    jalsanket.mqtt: MQTT CONFIG {'host': 'eu.thingsboard.cloud', 'port': 8883, 'tls': True, 'ca_cert': 'system trust store', 'client_id': 'jalsanket-node-03', 'token_present': True, 'reconnect_min_delay_s': 2.0, 'reconnect_max_delay_s': 60.0, 'replay_batch_size': 20, 'telemetry_topic': 'v1/devices/me/telemetry'}
+2026-11-20 01:43:02,076 INFO    jalsanket.mqtt: CONNECTING host=eu.thingsboard.cloud port=8883 tls=enabled
+2026-11-20 01:43:04,070 INFO    jalsanket.storage: STORED node=node-01 id=36 acquisition_ms=1795118284069 stored_at_ms=1795118284069 buffer_depth=36 capacity=10800
+2026-11-20 01:43:04,071 WARNING jalsanket.mqtt: OFFLINE - BUFFERING node=node-01 id=36 acquisition_ms=1795118284069 buffer_depth=36/10800
+2026-11-20 01:43:04,071 INFO    jalsanket.storage: STORED node=node-02 id=36 acquisition_ms=1795118284071 stored_at_ms=1795118284071 buffer_depth=36 capacity=10800
+2026-11-20 01:43:04,071 WARNING jalsanket.mqtt: OFFLINE - BUFFERING node=node-02 id=36 acquisition_ms=1795118284071 buffer_depth=36/10800
+2026-11-20 01:43:04,071 INFO    jalsanket.storage: STORED node=node-03 id=36 acquisition_ms=1795118284071 stored_at_ms=1795118284071 buffer_depth=36 capacity=10800
+2026-11-20 01:43:04,072 WARNING jalsanket.mqtt: OFFLINE - BUFFERING node=node-03 id=36 acquisition_ms=1795118284071 buffer_depth=36/10800
+2026-11-20 01:43:06,063 INFO    jalsanket.storage: STORED node=node-01 id=37 acquisition_ms=1795118286063 stored_at_ms=1795118286063 buffer_depth=37 capacity=10800
+2026-11-20 01:43:06,064 WARNING jalsanket.mqtt: OFFLINE - BUFFERING node=node-01 id=37 acquisition_ms=1795118286063 buffer_depth=37/10800
+2026-11-20 01:43:06,064 INFO    jalsanket.storage: STORED node=node-02 id=37 acquisition_ms=1795118286064 stored_at_ms=1795118286064 buffer_depth=37 capacity=10800
+2026-11-20 01:43:06,064 WARNING jalsanket.mqtt: OFFLINE - BUFFERING node=node-02 id=37 acquisition_ms=1795118286064 buffer_depth=37/10800
+2026-11-20 01:43:06,064 INFO    jalsanket.storage: STORED node=node-03 id=37 acquisition_ms=1795118286064 stored_at_ms=1795118286064 buffer_depth=37 capacity=10800
+2026-11-20 01:43:06,064 WARNING jalsanket.mqtt: OFFLINE - BUFFERING node=node-03 id=37 acquisition_ms=1795118286064 buffer_depth=37/10800
+2026-11-20 01:43:08,066 INFO    jalsanket.storage: STORED node=node-01 id=38 acquisition_ms=1795118288065 stored_at_ms=1795118288065 buffer_depth=38 capacity=10800
+2026-11-20 01:43:08,067 WARNING jalsanket.mqtt: OFFLINE - BUFFERING node=node-01 id=38 acquisition_ms=1795118288065 buffer_depth=38/10800
+2026-11-20 01:43:08,068 INFO    jalsanket.storage: STORED node=node-02 id=38 acquisition_ms=1795118288067 stored_at_ms=1795118288067 buffer_depth=38 capacity=10800
+2026-11-20 01:43:08,068 WARNING jalsanket.mqtt: OFFLINE - BUFFERING node=node-02 id=38 acquisition_ms=1795118288067 buffer_depth=38/10800
+2026-11-20 01:43:08,068 INFO    jalsanket.storage: STORED node=node-03 id=38 acquisition_ms=1795118288068 stored_at_ms=1795118288068 buffer_depth=38 capacity=10800
+2026-11-20 01:43:08,068 WARNING jalsanket.mqtt: OFFLINE - BUFFERING node=node-03 id=38 acquisition_ms=1795118288068 buffer_depth=38/10800
+2026-11-20 01:43:10,060 INFO    jalsanket.storage: STORED node=node-01 id=39 acquisition_ms=1795118290060 stored_at_ms=1795118290060 buffer_depth=39 capacity=10800
+2026-11-20 01:43:10,061 WARNING jalsanket.mqtt: OFFLINE - BUFFERING node=node-01 id=39 acquisition_ms=1795118290060 buffer_depth=39/10800
+2026-11-20 01:43:10,061 INFO    jalsanket.storage: STORED node=node-02 id=39 acquisition_ms=1795118290061 stored_at_ms=1795118290061 buffer_depth=39 capacity=10800
+2026-11-20 01:43:10,061 WARNING jalsanket.mqtt: OFFLINE - BUFFERING node=node-02 id=39 acquisition_ms=1795118290061 buffer_depth=39/10800
+2026-11-20 01:43:10,062 INFO    jalsanket.storage: STORED node=node-03 id=39 acquisition_ms=1795118290061 stored_at_ms=1795118290061 buffer_depth=39 capacity=10800
+2026-11-20 01:43:10,062 WARNING jalsanket.mqtt: OFFLINE - BUFFERING node=node-03 id=39 acquisition_ms=1795118290061 buffer_depth=39/10800
+2026-11-20 01:43:12,063 INFO    jalsanket.storage: STORED node=node-01 id=40 acquisition_ms=1795118292062 stored_at_ms=1795118292063 buffer_depth=40 capacity=10800
+2026-11-20 01:43:12,064 WARNING jalsanket.mqtt: OFFLINE - BUFFERING node=node-01 id=40 acquisition_ms=1795118292062 buffer_depth=40/10800
+2026-11-20 01:43:12,064 INFO    jalsanket.storage: STORED node=node-02 id=40 acquisition_ms=1795118292064 stored_at_ms=1795118292064 buffer_depth=40 capacity=10800
+2026-11-20 01:43:12,064 WARNING jalsanket.mqtt: OFFLINE - BUFFERING node=node-02 id=40 acquisition_ms=1795118292064 buffer_depth=40/10800
+2026-11-20 01:43:12,064 INFO    jalsanket.storage: STORED node=node-03 id=40 acquisition_ms=1795118292064 stored_at_ms=1795118292064 buffer_depth=40 capacity=10800
+2026-11-20 01:43:12,065 WARNING jalsanket.mqtt: OFFLINE - BUFFERING node=node-03 id=40 acquisition_ms=1795118292064 buffer_depth=40/10800
+2026-11-20 01:43:14,065 INFO    jalsanket.storage: STORED node=node-01 id=41 acquisition_ms=1795118294064 stored_at_ms=1795118294064 buffer_depth=41 capacity=10800
+2026-11-20 01:43:14,066 WARNING jalsanket.mqtt: OFFLINE - BUFFERING node=node-01 id=41 acquisition_ms=1795118294064 buffer_depth=41/10800
+2026-11-20 01:43:14,066 INFO    jalsanket.storage: STORED node=node-02 id=41 acquisition_ms=1795118294066 stored_at_ms=1795118294066 buffer_depth=41 capacity=10800
+2026-11-20 01:43:14,066 WARNING jalsanket.mqtt: OFFLINE - BUFFERING node=node-02 id=41 acquisition_ms=1795118294066 buffer_depth=41/10800
+2026-11-20 01:43:14,067 INFO    jalsanket.storage: STORED node=node-03 id=41 acquisition_ms=1795118294066 stored_at_ms=1795118294066 buffer_depth=41 capacity=10800
+2026-11-20 01:43:14,067 WARNING jalsanket.mqtt: OFFLINE - BUFFERING node=node-03 id=41 acquisition_ms=1795118294066 buffer_depth=41/10800
+2026-11-20 01:43:16,059 INFO    jalsanket.storage: STORED node=node-01 id=42 acquisition_ms=1795118296058 stored_at_ms=1795118296058 buffer_depth=42 capacity=10800
+2026-11-20 01:43:16,059 WARNING jalsanket.mqtt: OFFLINE - BUFFERING node=node-01 id=42 acquisition_ms=1795118296058 buffer_depth=42/10800
+2026-11-20 01:43:16,060 INFO    jalsanket.storage: STORED node=node-02 id=42 acquisition_ms=1795118296059 stored_at_ms=1795118296059 buffer_depth=42 capacity=10800
+2026-11-20 01:43:16,060 WARNING jalsanket.mqtt: OFFLINE - BUFFERING node=node-02 id=42 acquisition_ms=1795118296059 buffer_depth=42/10800
+2026-11-20 01:43:16,060 INFO    jalsanket.storage: STORED node=node-03 id=42 acquisition_ms=1795118296060 stored_at_ms=1795118296060 buffer_depth=42 capacity=10800
+2026-11-20 01:43:16,060 WARNING jalsanket.mqtt: OFFLINE - BUFFERING node=node-03 id=42 acquisition_ms=1795118296060 buffer_depth=42/10800
+2026-11-20 01:43:18,059 INFO    jalsanket.storage: STORED node=node-01 id=43 acquisition_ms=1795118298058 stored_at_ms=1795118298058 buffer_depth=43 capacity=10800
+2026-11-20 01:43:18,059 WARNING jalsanket.mqtt: OFFLINE - BUFFERING node=node-01 id=43 acquisition_ms=1795118298058 buffer_depth=43/10800
+2026-11-20 01:43:18,060 INFO    jalsanket.storage: STORED node=node-02 id=43 acquisition_ms=1795118298059 stored_at_ms=1795118298060 buffer_depth=43 capacity=10800
+2026-11-20 01:43:18,060 WARNING jalsanket.mqtt: OFFLINE - BUFFERING node=node-02 id=43 acquisition_ms=1795118298059 buffer_depth=43/10800
+2026-11-20 01:43:18,060 INFO    jalsanket.storage: STORED node=node-03 id=43 acquisition_ms=1795118298060 stored_at_ms=1795118298060 buffer_depth=43 capacity=10800
+2026-11-20 01:43:18,061 WARNING jalsanket.mqtt: OFFLINE - BUFFERING node=node-03 id=43 acquisition_ms=1795118298060 buffer_depth=43/10800
+2026-11-20 01:43:20,080 INFO    jalsanket.storage: STORED node=node-01 id=44 acquisition_ms=1795118300079 stored_at_ms=1795118300079 buffer_depth=44 capacity=10800
+2026-11-20 01:43:20,080 WARNING jalsanket.mqtt: OFFLINE - BUFFERING node=node-01 id=44 acquisition_ms=1795118300079 buffer_depth=44/10800
+2026-11-20 01:43:20,081 INFO    jalsanket.storage: STORED node=node-02 id=44 acquisition_ms=1795118300081 stored_at_ms=1795118300081 buffer_depth=44 capacity=10800
+2026-11-20 01:43:20,081 WARNING jalsanket.mqtt: OFFLINE - BUFFERING node=node-02 id=44 acquisition_ms=1795118300081 buffer_depth=44/10800
+2026-11-20 01:43:20,081 INFO    jalsanket.storage: STORED node=node-03 id=44 acquisition_ms=1795118300081 stored_at_ms=1795118300081 buffer_depth=44 capacity=10800
+2026-11-20 01:43:20,082 WARNING jalsanket.mqtt: OFFLINE - BUFFERING node=node-03 id=44 acquisition_ms=1795118300081 buffer_depth=44/10800
+2026-11-20 01:43:22,073 INFO    jalsanket.storage: STORED node=node-01 id=45 acquisition_ms=1795118302072 stored_at_ms=1795118302073 buffer_depth=45 capacity=10800
+2026-11-20 01:43:22,074 WARNING jalsanket.mqtt: OFFLINE - BUFFERING node=node-01 id=45 acquisition_ms=1795118302072 buffer_depth=45/10800
+2026-11-20 01:43:22,074 INFO    jalsanket.storage: STORED node=node-02 id=45 acquisition_ms=1795118302074 stored_at_ms=1795118302074 buffer_depth=45 capacity=10800
+2026-11-20 01:43:22,074 WARNING jalsanket.mqtt: OFFLINE - BUFFERING node=node-02 id=45 acquisition_ms=1795118302074 buffer_depth=45/10800
+2026-11-20 01:43:22,075 INFO    jalsanket.storage: STORED node=node-03 id=45 acquisition_ms=1795118302075 stored_at_ms=1795118302075 buffer_depth=45 capacity=10800
+2026-11-20 01:43:22,075 WARNING jalsanket.mqtt: OFFLINE - BUFFERING node=node-03 id=45 acquisition_ms=1795118302075 buffer_depth=45/10800
+2026-11-20 01:43:24,056 INFO    jalsanket.storage: STORED node=node-01 id=46 acquisition_ms=1795118304055 stored_at_ms=1795118304055 buffer_depth=46 capacity=10800
+2026-11-20 01:43:24,056 WARNING jalsanket.mqtt: OFFLINE - BUFFERING node=node-01 id=46 acquisition_ms=1795118304055 buffer_depth=46/10800
+2026-11-20 01:43:24,081 INFO    jalsanket.storage: STORED node=node-02 id=46 acquisition_ms=1795118304080 stored_at_ms=1795118304080 buffer_depth=46 capacity=10800
+2026-11-20 01:43:24,081 WARNING jalsanket.mqtt: OFFLINE - BUFFERING node=node-02 id=46 acquisition_ms=1795118304080 buffer_depth=46/10800
+2026-11-20 01:43:24,082 INFO    jalsanket.storage: STORED node=node-03 id=46 acquisition_ms=1795118304081 stored_at_ms=1795118304081 buffer_depth=46 capacity=10800
+2026-11-20 01:43:24,082 WARNING jalsanket.mqtt: OFFLINE - BUFFERING node=node-03 id=46 acquisition_ms=1795118304081 buffer_depth=46/10800
+2026-11-20 01:43:26,058 INFO    jalsanket.storage: STORED node=node-01 id=47 acquisition_ms=1795118306057 stored_at_ms=1795118306057 buffer_depth=47 capacity=10800
+2026-11-20 01:43:26,058 WARNING jalsanket.mqtt: OFFLINE - BUFFERING node=node-01 id=47 acquisition_ms=1795118306057 buffer_depth=47/10800
+2026-11-20 01:43:26,059 INFO    jalsanket.storage: STORED node=node-02 id=47 acquisition_ms=1795118306059 stored_at_ms=1795118306059 buffer_depth=47 capacity=10800
+2026-11-20 01:43:26,059 WARNING jalsanket.mqtt: OFFLINE - BUFFERING node=node-02 id=47 acquisition_ms=1795118306059 buffer_depth=47/10800
+2026-11-20 01:43:26,059 INFO    jalsanket.storage: STORED node=node-03 id=47 acquisition_ms=1795118306059 stored_at_ms=1795118306059 buffer_depth=47 capacity=10800
+2026-11-20 01:43:26,059 WARNING jalsanket.mqtt: OFFLINE - BUFFERING node=node-03 id=47 acquisition_ms=1795118306059 buffer_depth=47/10800
+2026-11-20 01:43:28,060 INFO    jalsanket.storage: STORED node=node-01 id=48 acquisition_ms=1795118308059 stored_at_ms=1795118308060 buffer_depth=48 capacity=10800
+2026-11-20 01:43:28,061 WARNING jalsanket.mqtt: OFFLINE - BUFFERING node=node-01 id=48 acquisition_ms=1795118308059 buffer_depth=48/10800
+2026-11-20 01:43:28,061 INFO    jalsanket.storage: STORED node=node-02 id=48 acquisition_ms=1795118308061 stored_at_ms=1795118308061 buffer_depth=48 capacity=10800
+2026-11-20 01:43:28,061 WARNING jalsanket.mqtt: OFFLINE - BUFFERING node=node-02 id=48 acquisition_ms=1795118308061 buffer_depth=48/10800
+2026-11-20 01:43:28,061 INFO    jalsanket.storage: STORED node=node-03 id=48 acquisition_ms=1795118308061 stored_at_ms=1795118308061 buffer_depth=48 capacity=10800
+2026-11-20 01:43:28,061 WARNING jalsanket.mqtt: OFFLINE - BUFFERING node=node-03 id=48 acquisition_ms=1795118308061 buffer_depth=48/10800
+2026-11-20 01:43:30,075 INFO    jalsanket.storage: STORED node=node-01 id=49 acquisition_ms=1795118310074 stored_at_ms=1795118310074 buffer_depth=49 capacity=10800
+2026-11-20 01:43:30,075 WARNING jalsanket.mqtt: OFFLINE - BUFFERING node=node-01 id=49 acquisition_ms=1795118310074 buffer_depth=49/10800
+2026-11-20 01:43:30,076 INFO    jalsanket.storage: STORED node=node-02 id=49 acquisition_ms=1795118310076 stored_at_ms=1795118310076 buffer_depth=49 capacity=10800
+2026-11-20 01:43:30,076 WARNING jalsanket.mqtt: OFFLINE - BUFFERING node=node-02 id=49 acquisition_ms=1795118310076 buffer_depth=49/10800
+2026-11-20 01:43:30,076 INFO    jalsanket.storage: STORED node=node-03 id=49 acquisition_ms=1795118310076 stored_at_ms=1795118310076 buffer_depth=49 capacity=10800
+2026-11-20 01:43:30,076 WARNING jalsanket.mqtt: OFFLINE - BUFFERING node=node-03 id=49 acquisition_ms=1795118310076 buffer_depth=49/10800
+2026-11-20 01:43:32,077 INFO    jalsanket.storage: STORED node=node-01 id=50 acquisition_ms=1795118312076 stored_at_ms=1795118312076 buffer_depth=50 capacity=10800
+2026-11-20 01:43:32,077 WARNING jalsanket.mqtt: OFFLINE - BUFFERING node=node-01 id=50 acquisition_ms=1795118312076 buffer_depth=50/10800
+2026-11-20 01:43:32,078 INFO    jalsanket.storage: STORED node=node-02 id=50 acquisition_ms=1795118312077 stored_at_ms=1795118312077 buffer_depth=50 capacity=10800
+2026-11-20 01:43:32,078 WARNING jalsanket.mqtt: OFFLINE - BUFFERING node=node-02 id=50 acquisition_ms=1795118312077 buffer_depth=50/10800
+2026-11-20 01:43:32,078 INFO    jalsanket.storage: STORED node=node-03 id=50 acquisition_ms=1795118312078 stored_at_ms=1795118312078 buffer_depth=50 capacity=10800
+2026-11-20 01:43:32,078 WARNING jalsanket.mqtt: OFFLINE - BUFFERING node=node-03 id=50 acquisition_ms=1795118312078 buffer_depth=50/10800
+Traceback (most recent call last):
+  File "/Users/prakhyat/Downloads/iot task3/run_fleet.py", line 114, in <module>
+    raise SystemExit(main())
+                     ~~~~^^
+  File "/Users/prakhyat/Downloads/iot task3/run_fleet.py", line 105, in main
+    runner.run(duration_s=args.duration)
+    ~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/prakhyat/Downloads/iot task3/jalsanket/fleet.py", line 237, in run
+    logger.info("FLEET STOPPED status=%s", self.fleet.status())
+                                           ~~~~~~~~~~~~~~~~~^^
+  File "/Users/prakhyat/Downloads/iot task3/jalsanket/fleet.py", line 175, in status
+    **fn.simulator.node.status(),
+      ~~~~~~~~~~~~~~~~~~~~~~~~^^
+  File "/Users/prakhyat/Downloads/iot task3/jalsanket/node.py", line 52, in status
+    "buffer_depth": self.store.get_buffer_depth(),
+                    ~~~~~~~~~~~~~~~~~~~~~~~~~~~^^
+  File "/Users/prakhyat/Downloads/iot task3/jalsanket/storage.py", line 195, in get_buffer_depth
+    row = self._conn.execute("SELECT COUNT(*) AS n FROM readings WHERE synced = 0").fetchone()
+          ~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+sqlite3.ProgrammingError: Cannot operate on a closed database.

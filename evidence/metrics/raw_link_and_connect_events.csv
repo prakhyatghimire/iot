@@ -1,0 +1,13 @@
+at_ms,connected_ms,event,first,node_id,tick
+1795135440491,,link_dropped,,node-01,40
+1795135440849,,link_dropped,,node-02,40
+1795135441184,,link_dropped,,node-03,40
+1795135460483,,link_restored,,node-01,50
+1795135460828,,link_restored,,node-02,50
+1795135461179,,link_restored,,node-03,50
+,1795135363174,,True,node-01,
+,1795135363203,,True,node-02,
+,1795135363538,,True,node-03,
+,1795135443656,,False,node-01,
+,1795135443657,,False,node-02,
+,1795135444027,,False,node-03,

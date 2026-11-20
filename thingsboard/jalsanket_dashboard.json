@@ -1,0 +1,596 @@
+{
+  "title": "JalSanket - Municipal Water Safety",
+  "configuration": {
+    "description": "Municipal water-safety overview for three JalSanket Cloud nodes. Telemetry keys: ph, turbidity_ntu, tds_ppm, water_temp_c, flow_lpm, latitude, longitude.",
+    "widgets": {
+      "summary": {
+        "typeFullFqn": "system.cards.markdown_card",
+        "type": "latest",
+        "sizeX": 24,
+        "sizeY": 2,
+        "config": {
+          "datasources": [],
+          "settings": {
+            "markdownTextPattern": "**Read the Fleet Health table below.** A source marked UNSAFE has an active CRITICAL or MAJOR alarm; WARNING means the High Turbidity Warning is active.",
+            "applyDefaultMarkdownStyle": true
+          },
+          "showTitle": true,
+          "title": "Which water source is unsafe right now?"
+        },
+        "row": 0,
+        "col": 0,
+        "id": "summary"
+      },
+      "fleet_health": {
+        "typeFullFqn": "system.cards.entities_table",
+        "type": "latest",
+        "sizeX": 24,
+        "sizeY": 4,
+        "config": {
+          "datasources": [
+            {
+              "type": "entity",
+              "name": "",
+              "entityAliasId": "fleet",
+              "filterId": null,
+              "dataKeys": [
+                {
+                  "name": "safetyStatus",
+                  "type": "attribute",
+                  "label": "Safety status",
+                  "color": "#4caf50",
+                  "settings": {},
+                  "aggregationType": null,
+                  "units": null
+                },
+                {
+                  "name": "deviceName",
+                  "type": "attribute",
+                  "label": "Source",
+                  "color": "#2196f3",
+                  "settings": {},
+                  "aggregationType": null,
+                  "units": null
+                },
+                {
+                  "name": "bufferDepth",
+                  "type": "attribute",
+                  "label": "Buffer depth",
+                  "color": "#ffc107",
+                  "settings": {},
+                  "aggregationType": null,
+                  "units": null,
+                  "decimals": 0
+                }
+              ],
+              "alarmFilterConfig": {
+                "statusList": [
+                  "ACTIVE"
+                ]
+              }
+            }
+          ],
+          "settings": {
+            "defaultPageSize": 10,
+            "defaultSortOrder": "displayName",
+            "enableSearch": true,
+            "enableSelectColumnDisplay": true
+          },
+          "showTitle": true,
+          "title": "Fleet Health / Safety Status",
+          "useDashboardTimewindow": false
+        },
+        "row": 2,
+        "col": 0,
+        "id": "fleet_health"
+      },
+      "ph_gauge": {
+        "typeFullFqn": "system.digital_gauges.gauge_justgage",
+        "type": "latest",
+        "sizeX": 8,
+        "sizeY": 5,
+        "config": {
+          "datasources": [
+            {
+              "type": "entity",
+              "name": "",
+              "entityAliasId": "fleet",
+              "filterId": null,
+              "dataKeys": [
+                {
+                  "name": "ph",
+                  "type": "timeseries",
+                  "label": "pH (all sources)",
+                  "color": "#2196f3",
+                  "settings": {},
+                  "aggregationType": null,
+                  "units": null,
+                  "decimals": 2
+                }
+              ],
+              "alarmFilterConfig": {
+                "statusList": [
+                  "ACTIVE"
+                ]
+              }
+            }
+          ],
+          "settings": {
+            "minValue": 0,
+            "maxValue": 14,
+            "decimals": 2,
+            "units": "pH",
+            "showTitle": true,
+            "showMinMax": true
+          },
+          "showTitle": true,
+          "title": "pH (all sources)"
+        },
+        "row": 6,
+        "col": 0,
+        "id": "ph_gauge"
+      },
+      "turbidity_gauge": {
+        "typeFullFqn": "system.digital_gauges.gauge_justgage",
+        "type": "latest",
+        "sizeX": 8,
+        "sizeY": 5,
+        "config": {
+          "datasources": [
+            {
+              "type": "entity",
+              "name": "",
+              "entityAliasId": "fleet",
+              "filterId": null,
+              "dataKeys": [
+                {
+                  "name": "turbidity_ntu",
+                  "type": "timeseries",
+                  "label": "Turbidity (all sources)",
+                  "color": "#2196f3",
+                  "settings": {},
+                  "aggregationType": null,
+                  "units": null,
+                  "decimals": 1
+                }
+              ],
+              "alarmFilterConfig": {
+                "statusList": [
+                  "ACTIVE"
+                ]
+              }
+            }
+          ],
+          "settings": {
+            "minValue": 0,
+            "maxValue": 300,
+            "decimals": 1,
+            "units": "NTU",
+            "showTitle": true,
+            "showMinMax": true
+          },
+          "showTitle": true,
+          "title": "Turbidity (all sources)"
+        },
+        "row": 6,
+        "col": 8,
+        "id": "turbidity_gauge"
+      },
+      "tds_gauge": {
+        "typeFullFqn": "system.digital_gauges.gauge_justgage",
+        "type": "latest",
+        "sizeX": 8,
+        "sizeY": 5,
+        "config": {
+          "datasources": [
+            {
+              "type": "entity",
+              "name": "",
+              "entityAliasId": "fleet",
+              "filterId": null,
+              "dataKeys": [
+                {
+                  "name": "tds_ppm",
+                  "type": "timeseries",
+                  "label": "TDS (all sources)",
+                  "color": "#2196f3",
+                  "settings": {},
+                  "aggregationType": null,
+                  "units": null,
+                  "decimals": 1
+                }
+              ],
+              "alarmFilterConfig": {
+                "statusList": [
+                  "ACTIVE"
+                ]
+              }
+            }
+          ],
+          "settings": {
+            "minValue": 0,
+            "maxValue": 1000,
+            "decimals": 1,
+            "units": "ppm",
+            "showTitle": true,
+            "showMinMax": true
+          },
+          "showTitle": true,
+          "title": "TDS (all sources)"
+        },
+        "row": 6,
+        "col": 16,
+        "id": "tds_gauge"
+      },
+      "multi_series": {
+        "typeFullFqn": "system.time_series_chart",
+        "type": "timeseries",
+        "sizeX": 24,
+        "sizeY": 6,
+        "config": {
+          "datasources": [
+            {
+              "type": "entity",
+              "name": "",
+              "entityAliasId": "fleet",
+              "filterId": null,
+              "dataKeys": [
+                {
+                  "name": "turbidity_ntu",
+                  "type": "timeseries",
+                  "label": "turbidity_ntu",
+                  "color": "#2196f3",
+                  "settings": {},
+                  "aggregationType": null,
+                  "units": null,
+                  "decimals": 2
+                },
+                {
+                  "name": "ph",
+                  "type": "timeseries",
+                  "label": "ph",
+                  "color": "#f44336",
+                  "settings": {},
+                  "aggregationType": null,
+                  "units": null,
+                  "decimals": 2
+                },
+                {
+                  "name": "tds_ppm",
+                  "type": "timeseries",
+                  "label": "tds_ppm",
+                  "color": "#4caf50",
+                  "settings": {},
+                  "aggregationType": null,
+                  "units": null,
+                  "decimals": 2
+                }
+              ],
+              "alarmFilterConfig": {
+                "statusList": [
+                  "ACTIVE"
+                ]
+              }
+            }
+          ],
+          "settings": {
+            "showLegend": true,
+            "legendConfig": {
+              "show": true
+            }
+          },
+          "showTitle": true,
+          "title": "Turbidity / pH / TDS time series",
+          "useDashboardTimewindow": true
+        },
+        "row": 11,
+        "col": 0,
+        "id": "multi_series"
+      },
+      "temp_flow": {
+        "typeFullFqn": "system.time_series_chart",
+        "type": "timeseries",
+        "sizeX": 24,
+        "sizeY": 5,
+        "config": {
+          "datasources": [
+            {
+              "type": "entity",
+              "name": "",
+              "entityAliasId": "fleet",
+              "filterId": null,
+              "dataKeys": [
+                {
+                  "name": "water_temp_c",
+                  "type": "timeseries",
+                  "label": "water_temp_c",
+                  "color": "#2196f3",
+                  "settings": {},
+                  "aggregationType": null,
+                  "units": null,
+                  "decimals": 2
+                },
+                {
+                  "name": "flow_lpm",
+                  "type": "timeseries",
+                  "label": "flow_lpm",
+                  "color": "#f44336",
+                  "settings": {},
+                  "aggregationType": null,
+                  "units": null,
+                  "decimals": 2
+                }
+              ],
+              "alarmFilterConfig": {
+                "statusList": [
+                  "ACTIVE"
+                ]
+              }
+            }
+          ],
+          "settings": {
+            "showLegend": true,
+            "legendConfig": {
+              "show": true
+            }
+          },
+          "showTitle": true,
+          "title": "Water temperature and flow",
+          "useDashboardTimewindow": true
+        },
+        "row": 17,
+        "col": 0,
+        "id": "temp_flow"
+      },
+      "node_map": {
+        "typeFullFqn": "system.maps_v2.openstreetmap",
+        "type": "latest",
+        "sizeX": 16,
+        "sizeY": 7,
+        "config": {
+          "datasources": [
+            {
+              "type": "entity",
+              "name": "",
+              "entityAliasId": "fleet",
+              "filterId": null,
+              "dataKeys": [
+                {
+                  "name": "latitude",
+                  "type": "timeseries",
+                  "label": "latitude",
+                  "color": "#2196f3",
+                  "settings": {},
+                  "aggregationType": null,
+                  "units": null,
+                  "decimals": 7
+                },
+                {
+                  "name": "longitude",
+                  "type": "timeseries",
+                  "label": "longitude",
+                  "color": "#4caf50",
+                  "settings": {},
+                  "aggregationType": null,
+                  "units": null,
+                  "decimals": 7
+                }
+              ],
+              "alarmFilterConfig": {
+                "statusList": [
+                  "ACTIVE"
+                ]
+              }
+            }
+          ],
+          "settings": {
+            "latKeyName": "latitude",
+            "lngKeyName": "longitude",
+            "label": "${entityName}",
+            "mapProvider": "OpenStreetMap.Mapnik",
+            "provider": "openstreet-map",
+            "fitMapBounds": true,
+            "useDefaultCenterPosition": false,
+            "showLabel": true,
+            "showTooltip": true
+          },
+          "showTitle": true,
+          "title": "Source locations (OpenStreetMap)"
+        },
+        "row": 22,
+        "col": 0,
+        "id": "node_map"
+      },
+      "alarms": {
+        "typeFullFqn": "system.alarm_widgets.alarms_table",
+        "type": "alarm",
+        "sizeX": 8,
+        "sizeY": 7,
+        "config": {
+          "alarmSource": {
+            "type": "entity",
+            "entityAliasId": "fleet",
+            "name": "alarms",
+            "dataKeys": [
+              {
+                "name": "createdTime",
+                "type": "alarm",
+                "label": "Created time",
+                "color": "#2196f3",
+                "settings": {},
+                "aggregationType": null,
+                "units": null
+              },
+              {
+                "name": "originatorDisplayName",
+                "type": "alarm",
+                "label": "Originator",
+                "color": "#4caf50",
+                "settings": {},
+                "aggregationType": null,
+                "units": null
+              },
+              {
+                "name": "type",
+                "type": "alarm",
+                "label": "Type",
+                "color": "#f44336",
+                "settings": {},
+                "aggregationType": null,
+                "units": null
+              },
+              {
+                "name": "severity",
+                "type": "alarm",
+                "label": "Severity",
+                "color": "#ffc107",
+                "settings": {},
+                "aggregationType": null,
+                "units": null
+              },
+              {
+                "name": "status",
+                "type": "alarm",
+                "label": "Status",
+                "color": "#607d8b",
+                "settings": {},
+                "aggregationType": null,
+                "units": null
+              }
+            ]
+          },
+          "alarmStatusList": [
+            "ACTIVE"
+          ],
+          "settings": {
+            "defaultPageSize": 10,
+            "defaultSortOrder": "-createdTime",
+            "enableSearch": true,
+            "enableSelection": true
+          },
+          "showTitle": true,
+          "title": "Active alarms",
+          "useDashboardTimewindow": false
+        },
+        "row": 22,
+        "col": 16,
+        "id": "alarms"
+      }
+    },
+    "states": {
+      "default": {
+        "name": "Default",
+        "root": true,
+        "layouts": {
+          "main": {
+            "widgets": {
+              "summary": {
+                "sizeX": 24,
+                "sizeY": 2,
+                "row": 0,
+                "col": 0
+              },
+              "fleet_health": {
+                "sizeX": 24,
+                "sizeY": 4,
+                "row": 2,
+                "col": 0
+              },
+              "ph_gauge": {
+                "sizeX": 8,
+                "sizeY": 5,
+                "row": 6,
+                "col": 0
+              },
+              "turbidity_gauge": {
+                "sizeX": 8,
+                "sizeY": 5,
+                "row": 6,
+                "col": 8
+              },
+              "tds_gauge": {
+                "sizeX": 8,
+                "sizeY": 5,
+                "row": 6,
+                "col": 16
+              },
+              "multi_series": {
+                "sizeX": 24,
+                "sizeY": 6,
+                "row": 11,
+                "col": 0
+              },
+              "temp_flow": {
+                "sizeX": 24,
+                "sizeY": 5,
+                "row": 17,
+                "col": 0
+              },
+              "node_map": {
+                "sizeX": 16,
+                "sizeY": 7,
+                "row": 22,
+                "col": 0
+              },
+              "alarms": {
+                "sizeX": 8,
+                "sizeY": 7,
+                "row": 22,
+                "col": 16
+              }
+            },
+            "gridSettings": {
+              "layoutType": "default",
+              "backgroundColor": "#eeeeee",
+              "columns": 24,
+              "margin": 10,
+              "outerMargin": true,
+              "backgroundSizeMode": "100%"
+            }
+          }
+        }
+      }
+    },
+    "entityAliases": {
+      "fleet": {
+        "id": "fleet",
+        "alias": "JalSanket Fleet",
+        "filter": {
+          "type": "entityName",
+          "entityType": "DEVICE",
+          "entityNameFilter": "(JalSanket\\-Node\\-01|JalSanket\\-Node\\-02|JalSanket\\-Node\\-03)"
+        }
+      }
+    },
+    "filters": {},
+    "timewindow": {
+      "selectedTab": 0,
+      "realtime": {
+        "realtimeType": 0,
+        "interval": 5000,
+        "timewindowMs": 3600000,
+        "quickInterval": "CURRENT_DAY"
+      },
+      "history": {
+        "historyType": 0,
+        "interval": 1000,
+        "timewindowMs": 60000,
+        "fixedTimewindow": null
+      },
+      "aggregation": {
+        "type": "AVG",
+        "limit": 25000
+      },
+      "timezone": null
+    },
+    "settings": {
+      "stateControllerId": "entity",
+      "showTitle": false,
+      "showDashboardsSelect": true,
+      "showEntitiesSelect": true,
+      "showDashboardTimewindow": true,
+      "showDashboardExport": true,
+      "toolbarAlwaysOpen": true
+    }
+  }
+}

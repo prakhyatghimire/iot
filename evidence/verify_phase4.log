@@ -1,0 +1,119 @@
+
+=== 1. Three-node identity, credentials and location separation ===
+  [PASS] exactly three nodes
+  [PASS] distinct node ids  (['node-01', 'node-02', 'node-03'])
+  [PASS] distinct device identities  (['JalSanket-Test-1', 'JalSanket-Test-2', 'JalSanket-Test-3'])
+  [PASS] distinct access tokens
+  [PASS] each token matches its node config
+  [PASS] token env var names distinct
+  [PASS] distinct coordinates  ([(27.810000000000002, 85.31), (27.82, 85.32), (27.830000000000002, 85.33)])
+  [PASS] separate SQLite databases
+  [PASS] separate MQTT clients
+  [PASS] buffers are independent
+
+=== 2. Telemetry schema and per-node attribution ===
+  [PASS] exact required field set
+  [PASS] all seven telemetry keys present
+  [PASS] readings attributed to their node
+  [PASS] coordinates differ in telemetry
+
+=== 3. Alarm thresholds and hysteresis ===
+  [PASS] high turbidity triggers above 50
+  [PASS] warning hysteresis at 41 (clear is <40)
+  [PASS] warning clears below 40
+  [PASS] gross contamination triggers above 200
+  [PASS] critical hysteresis at 151 (clear is <150)
+  [PASS] critical clears below 150
+  [PASS] low pH triggers below 6.5
+  [PASS] pH hysteresis at 6.6 (clear starts 6.7)
+  [PASS] low pH clears within 6.7-8.3
+  [PASS] high pH triggers above 8.5
+  [PASS] high pH clears within 6.7-8.3
+  [PASS] high TDS triggers above 500
+  [PASS] TDS hysteresis at 451 (clear is <450)
+  [PASS] TDS clears below 450
+  [PASS] active CRITICAL makes source UNSAFE
+  [PASS] source returns SAFE after clears
+
+=== 4. Sustained interruption and node inactivity ===
+  [PASS] 15 zero-flow samples required (30 s / 2 s)  (required=15)
+  [PASS] no supply alarm after 14 zero samples
+  [PASS] supply alarm activates on 15th zero sample
+  [PASS] supply alarm clears when flow resumes
+  [PASS] no inactivity alarm at 59 s
+  [PASS] inactivity alarm at 61 s
+  [PASS] inactivity alarm clears when telemetry resumes
+  [PASS] fleet status exposes safety for each node
+
+=== 5. Repeatable contamination across all three nodes ===
+  [PASS] node-01: turbidity crosses warning and critical
+  [PASS] node-01: TDS rises above 500
+  [PASS] node-01: pH drops below 6.5
+  [PASS] node-01: local evaluator raises critical alarm
+  [PASS] node-02: turbidity crosses warning and critical
+  [PASS] node-02: TDS rises above 500
+  [PASS] node-02: pH drops below 6.5
+  [PASS] node-02: local evaluator raises critical alarm
+  [PASS] node-03: turbidity crosses warning and critical
+  [PASS] node-03: TDS rises above 500
+  [PASS] node-03: pH drops below 6.5
+  [PASS] node-03: local evaluator raises critical alarm
+
+=== 6. Remote scenario control via MQTT RPC ===
+  [PASS] all nodes subscribed to RPC requests
+  [PASS] RPC contamination affects the real generator
+  [PASS] RPC response published
+  [PASS] RPC interruption forces real zero flow
+  [PASS] unknown RPC method rejected safely
+  [PASS] contamination changed pH through the model (not a fixed value)  (ph=6.422)
+  [PASS] RPC reset restores model baselines (no fabricated telemetry)  (ph=7.12 temp=20.01 flow=13.84)
+
+=== 7. ThingsBoard dashboard and alarm artifacts ===
+  [PASS] dashboard contains Analog Gauge
+  [PASS] dashboard contains Digital Gauge
+  [PASS] dashboard contains Timeseries Chart
+  [PASS] dashboard contains OpenStreetMap
+  [PASS] dashboard contains Alarms Table
+  [PASS] dashboard contains Entities Table
+  [PASS] dashboard datasources cover all telemetry keys
+  [PASS] dashboard uses one fleet alias
+  [PASS] dashboard title states the duty-officer question
+  [PASS] rule chain encodes condition > 50
+  [PASS] rule chain encodes condition < 40
+  [PASS] rule chain encodes condition > 200
+  [PASS] rule chain encodes condition < 150
+  [PASS] rule chain encodes condition < 6.5
+  [PASS] rule chain encodes condition > 8.5
+  [PASS] rule chain encodes condition >= 6.7
+  [PASS] rule chain encodes condition <= 8.3
+  [PASS] rule chain encodes condition > 500
+  [PASS] rule chain encodes condition < 450
+  [PASS] rule chain encodes condition === 0
+  [PASS] rule chain encodes condition > 0
+  [PASS] rule chain has trigger and clear nodes for 6 alarms
+  [PASS] 6 device-profile alarm rules
+  [PASS] 30 s and 60 s durations present  ({30000, 60000})
+  [PASS] profile uses 60 s inactivity timeout
+  [PASS] profile lists telemetry keys
+  [PASS] four artifact files written
+
+=== 7b. Default node coordinates (Rasuwa scenario) ===
+  [PASS] three distinct default node sites  ([(28.11, 85.29), (28.092, 85.361), (28.171, 85.387)])
+  [PASS] all defaults inside Rasuwa bounding box  ([(28.11, 85.29), (28.092, 85.361), (28.171, 85.387)])
+  [PASS] device artifact carries the configured node coordinates  ([(27.810000000000002, 85.31), (27.82, 85.32), (27.830000000000002, 85.33)])
+
+=== 8. Device provisioning with fake REST transport ===
+  [PASS] login called with admin credentials
+  [PASS] profile name correct
+  [PASS] profile inactivity timeout 60000
+  [PASS] three devices created
+  [PASS] device names distinct
+  [PASS] three distinct device tokens applied
+  [PASS] dashboard imported via REST
+  [PASS] admin password never appears in summary
+  [PASS] device tokens never appear in summary
+
+=== Summary ===
+  96/96 checks passed
+
+Phase 4 verification: ALL CHECKS PASSED

@@ -1,0 +1,42 @@
+{
+  "checked_at": "2026-11-19T20:05:59Z",
+  "target": "ThingsBoard Cloud",
+  "verification_method": "logged-in browser REST session via isolated tab eval",
+  "device_profile": {
+    "name": "JalSanket Water Quality Node",
+    "id": "73446ed0-e44f-11f1-8c2a-39d8a38c3af6"
+  },
+  "devices": [
+    {"name": "JalSanket-Node-01", "id": "737cbce0-e44f-11f1-8c2a-39d8a38c3af6", "type": "JalSanket Water Quality Node"},
+    {"name": "JalSanket-Node-02", "id": "8090ab30-e44f-11f1-b835-cf86ca25bc9f", "type": "JalSanket Water Quality Node"},
+    {"name": "JalSanket-Node-03", "id": "81265b80-e44f-11f1-8c2a-39d8a38c3af6", "type": "JalSanket Water Quality Node"}
+  ],
+  "alarm_rules": [
+    {"name": "High Turbidity Warning", "entityType": "DEVICE_PROFILE", "entityId": "73446ed0-e44f-11f1-8c2a-39d8a38c3af6"},
+    {"name": "Gross Contamination Critical", "entityType": "DEVICE_PROFILE", "entityId": "73446ed0-e44f-11f1-8c2a-39d8a38c3af6"},
+    {"name": "pH Out of Range Critical", "entityType": "DEVICE_PROFILE", "entityId": "73446ed0-e44f-11f1-8c2a-39d8a38c3af6"},
+    {"name": "High TDS Critical", "entityType": "DEVICE_PROFILE", "entityId": "73446ed0-e44f-11f1-8c2a-39d8a38c3af6"},
+    {"name": "Supply Interruption Major", "entityType": "DEVICE_PROFILE", "entityId": "73446ed0-e44f-11f1-8c2a-39d8a38c3af6"},
+    {"name": "Node Inactive Critical", "entityType": "DEVICE_PROFILE", "entityId": "73446ed0-e44f-11f1-8c2a-39d8a38c3af6"}
+  ],
+  "dashboard": {
+    "title": "JalSanket - Municipal Water Safety",
+    "id": "8626a700-e451-11f1-8c2a-39d8a38c3af6",
+    "widget_count": 9,
+    "states": ["default"],
+    "fleet_alias": {
+      "id": "fleet",
+      "alias": "JalSanket Fleet",
+      "filter": {
+        "type": "entityList",
+        "entityType": "DEVICE",
+        "entityList": [
+          "737cbce0-e44f-11f1-8c2a-39d8a38c3af6",
+          "8090ab30-e44f-11f1-b835-cf86ca25bc9f",
+          "81265b80-e44f-11f1-8c2a-39d8a38c3af6"
+        ],
+        "resolveMultiple": true
+      }
+    }
+  }
+}

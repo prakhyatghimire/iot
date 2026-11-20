@@ -1,0 +1,471 @@
+2026-11-20 02:59:50,787 INFO    jalsanket.demo: Wrote artifacts: ['thingsboard/jalsanket_dashboard.json', 'thingsboard/jalsanket_rule_chain.json', 'thingsboard/jalsanket_alarm_config.json', 'thingsboard/jalsanket_devices.json']
+2026-11-20 02:59:50,790 INFO    jalsanket.storage: store opened path=data/node-01.db journal_mode=WAL capacity=10800 policy=drop_newest unsynced=0
+2026-11-20 02:59:50,799 INFO    jalsanket.storage: store opened path=data/node-02.db journal_mode=WAL capacity=10800 policy=drop_newest unsynced=0
+2026-11-20 02:59:50,807 INFO    jalsanket.storage: store opened path=data/node-03.db journal_mode=WAL capacity=10800 policy=drop_newest unsynced=1
+2026-11-20 02:59:50,814 INFO    jalsanket.mqtt: MQTT CONFIG {'host': 'eu.thingsboard.cloud', 'port': 8883, 'tls': True, 'ca_cert': 'system trust store', 'client_id': 'jalsanket-node-01', 'token_present': True, 'reconnect_min_delay_s': 2.0, 'reconnect_max_delay_s': 60.0, 'replay_batch_size': 20, 'telemetry_topic': 'v1/devices/me/telemetry'}
+2026-11-20 02:59:50,814 INFO    jalsanket.mqtt: CONNECTING host=eu.thingsboard.cloud port=8883 tls=enabled
+2026-11-20 02:59:51,179 INFO    jalsanket.runner: SIMULATOR STARTED node=node-01 interval=2.0s
+2026-11-20 02:59:51,179 INFO    jalsanket.mqtt: MQTT CONFIG {'host': 'eu.thingsboard.cloud', 'port': 8883, 'tls': True, 'ca_cert': 'system trust store', 'client_id': 'jalsanket-node-02', 'token_present': True, 'reconnect_min_delay_s': 2.0, 'reconnect_max_delay_s': 60.0, 'replay_batch_size': 20, 'telemetry_topic': 'v1/devices/me/telemetry'}
+2026-11-20 02:59:51,179 INFO    jalsanket.mqtt: CONNECTING host=eu.thingsboard.cloud port=8883 tls=enabled
+2026-11-20 02:59:51,542 INFO    jalsanket.runner: SIMULATOR STARTED node=node-02 interval=2.0s
+2026-11-20 02:59:51,542 INFO    jalsanket.mqtt: MQTT CONFIG {'host': 'eu.thingsboard.cloud', 'port': 8883, 'tls': True, 'ca_cert': 'system trust store', 'client_id': 'jalsanket-node-03', 'token_present': True, 'reconnect_min_delay_s': 2.0, 'reconnect_max_delay_s': 60.0, 'replay_batch_size': 20, 'telemetry_topic': 'v1/devices/me/telemetry'}
+2026-11-20 02:59:51,542 INFO    jalsanket.mqtt: CONNECTING host=eu.thingsboard.cloud port=8883 tls=enabled
+2026-11-20 02:59:51,917 INFO    jalsanket.runner: SIMULATOR STARTED node=node-03 interval=2.0s
+2026-11-20 02:59:51,917 INFO    jalsanket.fleet: FLEET STARTED nodes=3
+2026-11-20 02:59:51,920 INFO    jalsanket.storage: STORED node=node-01 id=109 acquisition_ms=1795122891917 stored_at_ms=1795122891918 buffer_depth=1 capacity=10800
+2026-11-20 02:59:51,920 WARNING jalsanket.mqtt: OFFLINE - BUFFERING node=node-01 id=109 acquisition_ms=1795122891917 buffer_depth=1/10800
+2026-11-20 02:59:51,920 INFO    jalsanket.mqtt: SUCCESSFUL CONNECTION to eu.thingsboard.cloud:8883
+2026-11-20 02:59:51,921 INFO    jalsanket.mqtt: REPLAY BATCH PUBLISHED rows=1 batch_size=20 oldest_acq_ms=1795122891917 newest_acq_ms=1795122891917 buffer_depth=1
+2026-11-20 02:59:51,922 INFO    jalsanket.storage: STORED node=node-02 id=108 acquisition_ms=1795122891921 stored_at_ms=1795122891921 buffer_depth=1 capacity=10800
+2026-11-20 02:59:51,922 WARNING jalsanket.mqtt: OFFLINE - BUFFERING node=node-02 id=108 acquisition_ms=1795122891921 buffer_depth=1/10800
+2026-11-20 02:59:51,923 INFO    jalsanket.storage: STORED node=node-03 id=107 acquisition_ms=1795122891923 stored_at_ms=1795122891923 buffer_depth=2 capacity=10800
+2026-11-20 02:59:51,923 WARNING jalsanket.mqtt: OFFLINE - BUFFERING node=node-03 id=107 acquisition_ms=1795122891923 buffer_depth=2/10800
+2026-11-20 02:59:51,945 INFO    jalsanket.mqtt: SUCCESSFUL CONNECTION to eu.thingsboard.cloud:8883
+2026-11-20 02:59:51,946 INFO    jalsanket.mqtt: REPLAY BATCH PUBLISHED rows=1 batch_size=20 oldest_acq_ms=1795122891921 newest_acq_ms=1795122891921 buffer_depth=1
+2026-11-20 02:59:52,276 INFO    jalsanket.storage: SYNCED rows_flushed=1 remaining_rows=0 buffer_depth=0 capacity=10800
+2026-11-20 02:59:52,276 INFO    jalsanket.mqtt: PUBLISH CONFIRMED (QoS 1 PUBACK) mid=2 type=replay rows_confirmed=1 publish_latency_ms=355 buffer_depth=0
+2026-11-20 02:59:52,277 INFO    jalsanket.mqtt: REPLAY COMPLETE - BUFFER EMPTY remaining_rows=0
+2026-11-20 02:59:52,277 INFO    jalsanket.mqtt: SUCCESSFUL CONNECTION to eu.thingsboard.cloud:8883
+2026-11-20 02:59:52,278 INFO    jalsanket.mqtt: REPLAY BATCH PUBLISHED rows=2 batch_size=20 oldest_acq_ms=1795122501150 newest_acq_ms=1795122891923 buffer_depth=2
+2026-11-20 02:59:52,300 INFO    jalsanket.storage: SYNCED rows_flushed=1 remaining_rows=0 buffer_depth=0 capacity=10800
+2026-11-20 02:59:52,300 INFO    jalsanket.mqtt: PUBLISH CONFIRMED (QoS 1 PUBACK) mid=2 type=replay rows_confirmed=1 publish_latency_ms=354 buffer_depth=0
+2026-11-20 02:59:52,300 INFO    jalsanket.mqtt: REPLAY COMPLETE - BUFFER EMPTY remaining_rows=0
+2026-11-20 02:59:52,661 INFO    jalsanket.storage: SYNCED rows_flushed=2 remaining_rows=0 buffer_depth=0 capacity=10800
+2026-11-20 02:59:52,662 INFO    jalsanket.mqtt: PUBLISH CONFIRMED (QoS 1 PUBACK) mid=2 type=replay rows_confirmed=2 publish_latency_ms=383 buffer_depth=0
+2026-11-20 02:59:52,662 INFO    jalsanket.mqtt: REPLAY COMPLETE - BUFFER EMPTY remaining_rows=0
+2026-11-20 02:59:53,182 INFO    jalsanket.storage: STORED node=node-01 id=110 acquisition_ms=1795122893181 stored_at_ms=1795122893181 buffer_depth=1 capacity=10800
+2026-11-20 02:59:53,373 INFO    jalsanket.storage: SYNCED rows_flushed=1 remaining_rows=0 buffer_depth=0 capacity=10800
+2026-11-20 02:59:53,373 INFO    jalsanket.mqtt: PUBLISH CONFIRMED (QoS 1 PUBACK) mid=4 type=live rows_confirmed=1 publish_latency_ms=190 buffer_depth=0
+2026-11-20 02:59:53,565 INFO    jalsanket.storage: STORED node=node-02 id=109 acquisition_ms=1795122893564 stored_at_ms=1795122893564 buffer_depth=1 capacity=10800
+2026-11-20 02:59:53,758 INFO    jalsanket.storage: SYNCED rows_flushed=1 remaining_rows=0 buffer_depth=0 capacity=10800
+2026-11-20 02:59:53,758 INFO    jalsanket.mqtt: PUBLISH CONFIRMED (QoS 1 PUBACK) mid=4 type=live rows_confirmed=1 publish_latency_ms=193 buffer_depth=0
+2026-11-20 02:59:53,919 INFO    jalsanket.storage: STORED node=node-03 id=108 acquisition_ms=1795122893918 stored_at_ms=1795122893918 buffer_depth=1 capacity=10800
+2026-11-20 02:59:54,113 INFO    jalsanket.storage: SYNCED rows_flushed=1 remaining_rows=0 buffer_depth=0 capacity=10800
+2026-11-20 02:59:54,114 INFO    jalsanket.mqtt: PUBLISH CONFIRMED (QoS 1 PUBACK) mid=4 type=live rows_confirmed=1 publish_latency_ms=195 buffer_depth=0
+2026-11-20 02:59:55,201 INFO    jalsanket.storage: STORED node=node-01 id=111 acquisition_ms=1795122895199 stored_at_ms=1795122895199 buffer_depth=1 capacity=10800
+2026-11-20 02:59:55,389 INFO    jalsanket.storage: SYNCED rows_flushed=1 remaining_rows=0 buffer_depth=0 capacity=10800
+2026-11-20 02:59:55,389 INFO    jalsanket.mqtt: PUBLISH CONFIRMED (QoS 1 PUBACK) mid=5 type=live rows_confirmed=1 publish_latency_ms=187 buffer_depth=0
+2026-11-20 02:59:55,553 INFO    jalsanket.storage: STORED node=node-02 id=110 acquisition_ms=1795122895552 stored_at_ms=1795122895552 buffer_depth=1 capacity=10800
+2026-11-20 02:59:55,743 INFO    jalsanket.storage: SYNCED rows_flushed=1 remaining_rows=0 buffer_depth=0 capacity=10800
+2026-11-20 02:59:55,743 INFO    jalsanket.mqtt: PUBLISH CONFIRMED (QoS 1 PUBACK) mid=5 type=live rows_confirmed=1 publish_latency_ms=190 buffer_depth=0
+2026-11-20 02:59:55,940 INFO    jalsanket.storage: STORED node=node-03 id=109 acquisition_ms=1795122895938 stored_at_ms=1795122895938 buffer_depth=1 capacity=10800
+2026-11-20 02:59:56,127 INFO    jalsanket.storage: SYNCED rows_flushed=1 remaining_rows=0 buffer_depth=0 capacity=10800
+2026-11-20 02:59:56,127 INFO    jalsanket.mqtt: PUBLISH CONFIRMED (QoS 1 PUBACK) mid=5 type=live rows_confirmed=1 publish_latency_ms=187 buffer_depth=0
+2026-11-20 02:59:57,188 INFO    jalsanket.storage: STORED node=node-01 id=112 acquisition_ms=1795122897187 stored_at_ms=1795122897187 buffer_depth=1 capacity=10800
+2026-11-20 02:59:57,377 INFO    jalsanket.storage: SYNCED rows_flushed=1 remaining_rows=0 buffer_depth=0 capacity=10800
+2026-11-20 02:59:57,378 INFO    jalsanket.mqtt: PUBLISH CONFIRMED (QoS 1 PUBACK) mid=6 type=live rows_confirmed=1 publish_latency_ms=190 buffer_depth=0
+2026-11-20 02:59:57,561 INFO    jalsanket.storage: STORED node=node-02 id=111 acquisition_ms=1795122897560 stored_at_ms=1795122897560 buffer_depth=1 capacity=10800
+2026-11-20 02:59:57,753 INFO    jalsanket.storage: SYNCED rows_flushed=1 remaining_rows=0 buffer_depth=0 capacity=10800
+2026-11-20 02:59:57,754 INFO    jalsanket.mqtt: PUBLISH CONFIRMED (QoS 1 PUBACK) mid=6 type=live rows_confirmed=1 publish_latency_ms=192 buffer_depth=0
+2026-11-20 02:59:57,923 INFO    jalsanket.storage: STORED node=node-03 id=110 acquisition_ms=1795122897922 stored_at_ms=1795122897922 buffer_depth=1 capacity=10800
+2026-11-20 02:59:58,113 INFO    jalsanket.storage: SYNCED rows_flushed=1 remaining_rows=0 buffer_depth=0 capacity=10800
+2026-11-20 02:59:58,113 INFO    jalsanket.mqtt: PUBLISH CONFIRMED (QoS 1 PUBACK) mid=6 type=live rows_confirmed=1 publish_latency_ms=189 buffer_depth=0
+2026-11-20 02:59:59,198 INFO    jalsanket.storage: STORED node=node-01 id=113 acquisition_ms=1795122899197 stored_at_ms=1795122899197 buffer_depth=1 capacity=10800
+2026-11-20 02:59:59,384 INFO    jalsanket.storage: SYNCED rows_flushed=1 remaining_rows=0 buffer_depth=0 capacity=10800
+2026-11-20 02:59:59,384 INFO    jalsanket.mqtt: PUBLISH CONFIRMED (QoS 1 PUBACK) mid=7 type=live rows_confirmed=1 publish_latency_ms=186 buffer_depth=0
+2026-11-20 02:59:59,543 INFO    jalsanket.storage: STORED node=node-02 id=112 acquisition_ms=1795122899542 stored_at_ms=1795122899542 buffer_depth=1 capacity=10800
+2026-11-20 02:59:59,733 INFO    jalsanket.storage: SYNCED rows_flushed=1 remaining_rows=0 buffer_depth=0 capacity=10800
+2026-11-20 02:59:59,734 INFO    jalsanket.mqtt: PUBLISH CONFIRMED (QoS 1 PUBACK) mid=7 type=live rows_confirmed=1 publish_latency_ms=191 buffer_depth=0
+2026-11-20 02:59:59,942 INFO    jalsanket.storage: STORED node=node-03 id=111 acquisition_ms=1795122899941 stored_at_ms=1795122899941 buffer_depth=1 capacity=10800
+2026-11-20 03:00:00,127 INFO    jalsanket.storage: SYNCED rows_flushed=1 remaining_rows=0 buffer_depth=0 capacity=10800
+2026-11-20 03:00:00,127 INFO    jalsanket.mqtt: PUBLISH CONFIRMED (QoS 1 PUBACK) mid=7 type=live rows_confirmed=1 publish_latency_ms=185 buffer_depth=0
+2026-11-20 03:00:01,182 INFO    jalsanket.storage: STORED node=node-01 id=114 acquisition_ms=1795122901182 stored_at_ms=1795122901182 buffer_depth=1 capacity=10800
+2026-11-20 03:00:01,364 INFO    jalsanket.storage: SYNCED rows_flushed=1 remaining_rows=0 buffer_depth=0 capacity=10800
+2026-11-20 03:00:01,364 INFO    jalsanket.mqtt: PUBLISH CONFIRMED (QoS 1 PUBACK) mid=8 type=live rows_confirmed=1 publish_latency_ms=181 buffer_depth=0
+2026-11-20 03:00:01,559 INFO    jalsanket.storage: STORED node=node-02 id=113 acquisition_ms=1795122901558 stored_at_ms=1795122901558 buffer_depth=1 capacity=10800
+2026-11-20 03:00:01,747 INFO    jalsanket.storage: SYNCED rows_flushed=1 remaining_rows=0 buffer_depth=0 capacity=10800
+2026-11-20 03:00:01,748 INFO    jalsanket.mqtt: PUBLISH CONFIRMED (QoS 1 PUBACK) mid=8 type=live rows_confirmed=1 publish_latency_ms=189 buffer_depth=0
+2026-11-20 03:00:01,921 INFO    jalsanket.storage: STORED node=node-03 id=112 acquisition_ms=1795122901920 stored_at_ms=1795122901920 buffer_depth=1 capacity=10800
+2026-11-20 03:00:02,105 INFO    jalsanket.storage: SYNCED rows_flushed=1 remaining_rows=0 buffer_depth=0 capacity=10800
+2026-11-20 03:00:02,105 INFO    jalsanket.mqtt: PUBLISH CONFIRMED (QoS 1 PUBACK) mid=8 type=live rows_confirmed=1 publish_latency_ms=184 buffer_depth=0
+2026-11-20 03:00:03,193 INFO    jalsanket.storage: STORED node=node-01 id=115 acquisition_ms=1795122903192 stored_at_ms=1795122903192 buffer_depth=1 capacity=10800
+2026-11-20 03:00:03,382 INFO    jalsanket.storage: SYNCED rows_flushed=1 remaining_rows=0 buffer_depth=0 capacity=10800
+2026-11-20 03:00:03,382 INFO    jalsanket.mqtt: PUBLISH CONFIRMED (QoS 1 PUBACK) mid=9 type=live rows_confirmed=1 publish_latency_ms=189 buffer_depth=0
+2026-11-20 03:00:03,546 INFO    jalsanket.storage: STORED node=node-02 id=114 acquisition_ms=1795122903545 stored_at_ms=1795122903545 buffer_depth=1 capacity=10800
+2026-11-20 03:00:03,735 INFO    jalsanket.storage: SYNCED rows_flushed=1 remaining_rows=0 buffer_depth=0 capacity=10800
+2026-11-20 03:00:03,736 INFO    jalsanket.mqtt: PUBLISH CONFIRMED (QoS 1 PUBACK) mid=9 type=live rows_confirmed=1 publish_latency_ms=189 buffer_depth=0
+2026-11-20 03:00:03,927 INFO    jalsanket.storage: STORED node=node-03 id=113 acquisition_ms=1795122903926 stored_at_ms=1795122903926 buffer_depth=1 capacity=10800
+2026-11-20 03:00:04,114 INFO    jalsanket.storage: SYNCED rows_flushed=1 remaining_rows=0 buffer_depth=0 capacity=10800
+2026-11-20 03:00:04,114 INFO    jalsanket.mqtt: PUBLISH CONFIRMED (QoS 1 PUBACK) mid=9 type=live rows_confirmed=1 publish_latency_ms=186 buffer_depth=0
+2026-11-20 03:00:05,191 INFO    jalsanket.storage: STORED node=node-01 id=116 acquisition_ms=1795122905190 stored_at_ms=1795122905190 buffer_depth=1 capacity=10800
+2026-11-20 03:00:05,381 INFO    jalsanket.storage: SYNCED rows_flushed=1 remaining_rows=0 buffer_depth=0 capacity=10800
+2026-11-20 03:00:05,381 INFO    jalsanket.mqtt: PUBLISH CONFIRMED (QoS 1 PUBACK) mid=10 type=live rows_confirmed=1 publish_latency_ms=189 buffer_depth=0
+2026-11-20 03:00:05,550 INFO    jalsanket.storage: STORED node=node-02 id=115 acquisition_ms=1795122905549 stored_at_ms=1795122905549 buffer_depth=1 capacity=10800
+2026-11-20 03:00:05,759 INFO    jalsanket.storage: SYNCED rows_flushed=1 remaining_rows=0 buffer_depth=0 capacity=10800
+2026-11-20 03:00:05,760 INFO    jalsanket.mqtt: PUBLISH CONFIRMED (QoS 1 PUBACK) mid=10 type=live rows_confirmed=1 publish_latency_ms=210 buffer_depth=0
+2026-11-20 03:00:05,926 INFO    jalsanket.storage: STORED node=node-03 id=114 acquisition_ms=1795122905926 stored_at_ms=1795122905926 buffer_depth=1 capacity=10800
+2026-11-20 03:00:06,115 INFO    jalsanket.storage: SYNCED rows_flushed=1 remaining_rows=0 buffer_depth=0 capacity=10800
+2026-11-20 03:00:06,115 INFO    jalsanket.mqtt: PUBLISH CONFIRMED (QoS 1 PUBACK) mid=10 type=live rows_confirmed=1 publish_latency_ms=188 buffer_depth=0
+2026-11-20 03:00:07,201 INFO    jalsanket.storage: STORED node=node-01 id=117 acquisition_ms=1795122907200 stored_at_ms=1795122907200 buffer_depth=1 capacity=10800
+2026-11-20 03:00:07,384 INFO    jalsanket.storage: SYNCED rows_flushed=1 remaining_rows=0 buffer_depth=0 capacity=10800
+2026-11-20 03:00:07,384 INFO    jalsanket.mqtt: PUBLISH CONFIRMED (QoS 1 PUBACK) mid=11 type=live rows_confirmed=1 publish_latency_ms=183 buffer_depth=0
+2026-11-20 03:00:07,544 INFO    jalsanket.storage: STORED node=node-02 id=116 acquisition_ms=1795122907543 stored_at_ms=1795122907543 buffer_depth=1 capacity=10800
+2026-11-20 03:00:07,732 INFO    jalsanket.storage: SYNCED rows_flushed=1 remaining_rows=0 buffer_depth=0 capacity=10800
+2026-11-20 03:00:07,732 INFO    jalsanket.mqtt: PUBLISH CONFIRMED (QoS 1 PUBACK) mid=11 type=live rows_confirmed=1 publish_latency_ms=188 buffer_depth=0
+2026-11-20 03:00:07,932 INFO    jalsanket.storage: STORED node=node-03 id=115 acquisition_ms=1795122907932 stored_at_ms=1795122907932 buffer_depth=1 capacity=10800
+2026-11-20 03:00:08,124 INFO    jalsanket.storage: SYNCED rows_flushed=1 remaining_rows=0 buffer_depth=0 capacity=10800
+2026-11-20 03:00:08,124 INFO    jalsanket.mqtt: PUBLISH CONFIRMED (QoS 1 PUBACK) mid=11 type=live rows_confirmed=1 publish_latency_ms=191 buffer_depth=0
+2026-11-20 03:00:09,197 INFO    jalsanket.storage: STORED node=node-01 id=118 acquisition_ms=1795122909196 stored_at_ms=1795122909196 buffer_depth=1 capacity=10800
+2026-11-20 03:00:09,383 INFO    jalsanket.storage: SYNCED rows_flushed=1 remaining_rows=0 buffer_depth=0 capacity=10800
+2026-11-20 03:00:09,383 INFO    jalsanket.mqtt: PUBLISH CONFIRMED (QoS 1 PUBACK) mid=12 type=live rows_confirmed=1 publish_latency_ms=186 buffer_depth=0
+2026-11-20 03:00:09,553 INFO    jalsanket.storage: STORED node=node-02 id=117 acquisition_ms=1795122909552 stored_at_ms=1795122909552 buffer_depth=1 capacity=10800
+2026-11-20 03:00:09,745 INFO    jalsanket.storage: SYNCED rows_flushed=1 remaining_rows=0 buffer_depth=0 capacity=10800
+2026-11-20 03:00:09,745 INFO    jalsanket.mqtt: PUBLISH CONFIRMED (QoS 1 PUBACK) mid=12 type=live rows_confirmed=1 publish_latency_ms=192 buffer_depth=0
+2026-11-20 03:00:09,945 INFO    jalsanket.storage: STORED node=node-03 id=116 acquisition_ms=1795122909935 stored_at_ms=1795122909944 buffer_depth=1 capacity=10800
+2026-11-20 03:00:10,134 INFO    jalsanket.storage: SYNCED rows_flushed=1 remaining_rows=0 buffer_depth=0 capacity=10800
+2026-11-20 03:00:10,134 INFO    jalsanket.mqtt: PUBLISH CONFIRMED (QoS 1 PUBACK) mid=12 type=live rows_confirmed=1 publish_latency_ms=186 buffer_depth=0
+2026-11-20 03:00:11,198 INFO    jalsanket.storage: STORED node=node-01 id=119 acquisition_ms=1795122911197 stored_at_ms=1795122911197 buffer_depth=1 capacity=10800
+2026-11-20 03:00:11,389 INFO    jalsanket.storage: SYNCED rows_flushed=1 remaining_rows=0 buffer_depth=0 capacity=10800
+2026-11-20 03:00:11,389 INFO    jalsanket.mqtt: PUBLISH CONFIRMED (QoS 1 PUBACK) mid=13 type=live rows_confirmed=1 publish_latency_ms=190 buffer_depth=0
+2026-11-20 03:00:11,549 INFO    jalsanket.storage: STORED node=node-02 id=118 acquisition_ms=1795122911549 stored_at_ms=1795122911549 buffer_depth=1 capacity=10800
+2026-11-20 03:00:11,759 INFO    jalsanket.storage: SYNCED rows_flushed=1 remaining_rows=0 buffer_depth=0 capacity=10800
+2026-11-20 03:00:11,759 INFO    jalsanket.mqtt: PUBLISH CONFIRMED (QoS 1 PUBACK) mid=13 type=live rows_confirmed=1 publish_latency_ms=209 buffer_depth=0
+2026-11-20 03:00:11,922 INFO    jalsanket.storage: STORED node=node-03 id=117 acquisition_ms=1795122911921 stored_at_ms=1795122911921 buffer_depth=1 capacity=10800
+2026-11-20 03:00:12,114 INFO    jalsanket.storage: SYNCED rows_flushed=1 remaining_rows=0 buffer_depth=0 capacity=10800
+2026-11-20 03:00:12,114 INFO    jalsanket.mqtt: PUBLISH CONFIRMED (QoS 1 PUBACK) mid=13 type=live rows_confirmed=1 publish_latency_ms=192 buffer_depth=0
+2026-11-20 03:00:13,197 INFO    jalsanket.storage: STORED node=node-01 id=120 acquisition_ms=1795122913196 stored_at_ms=1795122913196 buffer_depth=1 capacity=10800
+2026-11-20 03:00:13,387 INFO    jalsanket.storage: SYNCED rows_flushed=1 remaining_rows=0 buffer_depth=0 capacity=10800
+2026-11-20 03:00:13,387 INFO    jalsanket.mqtt: PUBLISH CONFIRMED (QoS 1 PUBACK) mid=14 type=live rows_confirmed=1 publish_latency_ms=189 buffer_depth=0
+2026-11-20 03:00:13,553 INFO    jalsanket.storage: STORED node=node-02 id=119 acquisition_ms=1795122913552 stored_at_ms=1795122913552 buffer_depth=1 capacity=10800
+2026-11-20 03:00:13,743 INFO    jalsanket.storage: SYNCED rows_flushed=1 remaining_rows=0 buffer_depth=0 capacity=10800
+2026-11-20 03:00:13,743 INFO    jalsanket.mqtt: PUBLISH CONFIRMED (QoS 1 PUBACK) mid=14 type=live rows_confirmed=1 publish_latency_ms=190 buffer_depth=0
+2026-11-20 03:00:13,930 INFO    jalsanket.storage: STORED node=node-03 id=118 acquisition_ms=1795122913929 stored_at_ms=1795122913929 buffer_depth=1 capacity=10800
+2026-11-20 03:00:14,116 INFO    jalsanket.storage: SYNCED rows_flushed=1 remaining_rows=0 buffer_depth=0 capacity=10800
+2026-11-20 03:00:14,117 INFO    jalsanket.mqtt: PUBLISH CONFIRMED (QoS 1 PUBACK) mid=14 type=live rows_confirmed=1 publish_latency_ms=187 buffer_depth=0
+2026-11-20 03:00:15,188 INFO    jalsanket.storage: STORED node=node-01 id=121 acquisition_ms=1795122915187 stored_at_ms=1795122915187 buffer_depth=1 capacity=10800
+2026-11-20 03:00:15,382 INFO    jalsanket.storage: SYNCED rows_flushed=1 remaining_rows=0 buffer_depth=0 capacity=10800
+2026-11-20 03:00:15,382 INFO    jalsanket.mqtt: PUBLISH CONFIRMED (QoS 1 PUBACK) mid=15 type=live rows_confirmed=1 publish_latency_ms=193 buffer_depth=0
+2026-11-20 03:00:15,544 INFO    jalsanket.storage: STORED node=node-02 id=120 acquisition_ms=1795122915543 stored_at_ms=1795122915543 buffer_depth=1 capacity=10800
+2026-11-20 03:00:15,732 INFO    jalsanket.storage: SYNCED rows_flushed=1 remaining_rows=0 buffer_depth=0 capacity=10800
+2026-11-20 03:00:15,732 INFO    jalsanket.mqtt: PUBLISH CONFIRMED (QoS 1 PUBACK) mid=15 type=live rows_confirmed=1 publish_latency_ms=188 buffer_depth=0
+2026-11-20 03:00:15,923 INFO    jalsanket.storage: STORED node=node-03 id=119 acquisition_ms=1795122915922 stored_at_ms=1795122915922 buffer_depth=1 capacity=10800
+2026-11-20 03:00:16,123 INFO    jalsanket.storage: SYNCED rows_flushed=1 remaining_rows=0 buffer_depth=0 capacity=10800
+2026-11-20 03:00:16,123 INFO    jalsanket.mqtt: PUBLISH CONFIRMED (QoS 1 PUBACK) mid=15 type=live rows_confirmed=1 publish_latency_ms=199 buffer_depth=0
+2026-11-20 03:00:17,202 INFO    jalsanket.storage: STORED node=node-01 id=122 acquisition_ms=1795122917201 stored_at_ms=1795122917201 buffer_depth=1 capacity=10800
+2026-11-20 03:00:17,388 INFO    jalsanket.storage: SYNCED rows_flushed=1 remaining_rows=0 buffer_depth=0 capacity=10800
+2026-11-20 03:00:17,389 INFO    jalsanket.mqtt: PUBLISH CONFIRMED (QoS 1 PUBACK) mid=16 type=live rows_confirmed=1 publish_latency_ms=186 buffer_depth=0
+2026-11-20 03:00:17,564 INFO    jalsanket.storage: STORED node=node-02 id=121 acquisition_ms=1795122917562 stored_at_ms=1795122917562 buffer_depth=1 capacity=10800
+2026-11-20 03:00:17,752 INFO    jalsanket.storage: SYNCED rows_flushed=1 remaining_rows=0 buffer_depth=0 capacity=10800
+2026-11-20 03:00:17,752 INFO    jalsanket.mqtt: PUBLISH CONFIRMED (QoS 1 PUBACK) mid=16 type=live rows_confirmed=1 publish_latency_ms=188 buffer_depth=0
+2026-11-20 03:00:17,922 INFO    jalsanket.storage: STORED node=node-03 id=120 acquisition_ms=1795122917921 stored_at_ms=1795122917921 buffer_depth=1 capacity=10800
+2026-11-20 03:00:18,116 INFO    jalsanket.storage: SYNCED rows_flushed=1 remaining_rows=0 buffer_depth=0 capacity=10800
+2026-11-20 03:00:18,116 INFO    jalsanket.mqtt: PUBLISH CONFIRMED (QoS 1 PUBACK) mid=16 type=live rows_confirmed=1 publish_latency_ms=193 buffer_depth=0
+2026-11-20 03:00:19,202 INFO    jalsanket.storage: STORED node=node-01 id=123 acquisition_ms=1795122919201 stored_at_ms=1795122919201 buffer_depth=1 capacity=10800
+2026-11-20 03:00:19,202 WARNING jalsanket.mqtt: SIMULATED CELLULAR OUTAGE - dropping MQTT link
+2026-11-20 03:00:19,203 WARNING jalsanket.mqtt: OFFLINE - CELLULAR/MQTT LINK LOST (rc=0); generation continues, rows are buffering. buffer_depth=1
+2026-11-20 03:00:19,203 INFO    jalsanket.mqtt: RECONNECT SCHEDULED in 2.1s (auth_failure=False, last_error=disconnected rc=0)
+2026-11-20 03:00:19,548 INFO    jalsanket.storage: STORED node=node-02 id=122 acquisition_ms=1795122919547 stored_at_ms=1795122919548 buffer_depth=1 capacity=10800
+2026-11-20 03:00:19,549 WARNING jalsanket.mqtt: SIMULATED CELLULAR OUTAGE - dropping MQTT link
+2026-11-20 03:00:19,549 WARNING jalsanket.mqtt: OFFLINE - CELLULAR/MQTT LINK LOST (rc=0); generation continues, rows are buffering. buffer_depth=1
+2026-11-20 03:00:19,550 INFO    jalsanket.mqtt: RECONNECT SCHEDULED in 2.0s (auth_failure=False, last_error=disconnected rc=0)
+2026-11-20 03:00:19,925 INFO    jalsanket.storage: STORED node=node-03 id=121 acquisition_ms=1795122919924 stored_at_ms=1795122919924 buffer_depth=1 capacity=10800
+2026-11-20 03:00:19,925 WARNING jalsanket.mqtt: SIMULATED CELLULAR OUTAGE - dropping MQTT link
+2026-11-20 03:00:19,926 WARNING jalsanket.mqtt: OFFLINE - CELLULAR/MQTT LINK LOST (rc=0); generation continues, rows are buffering. buffer_depth=1
+2026-11-20 03:00:19,926 INFO    jalsanket.mqtt: RECONNECT SCHEDULED in 2.0s (auth_failure=False, last_error=disconnected rc=0)
+2026-11-20 03:00:21,179 INFO    jalsanket.storage: STORED node=node-01 id=124 acquisition_ms=1795122921179 stored_at_ms=1795122921179 buffer_depth=2 capacity=10800
+2026-11-20 03:00:21,179 WARNING jalsanket.mqtt: OFFLINE - BUFFERING node=node-01 id=124 acquisition_ms=1795122921179 buffer_depth=2/10800
+2026-11-20 03:00:21,343 INFO    jalsanket.mqtt: RECONNECT ATTEMPT #1 after backoff (auth_failure=False, last_error=disconnected rc=0)
+2026-11-20 03:00:21,694 INFO    jalsanket.mqtt: RECONNECT ATTEMPT #1 after backoff (auth_failure=False, last_error=disconnected rc=0)
+2026-11-20 03:00:22,045 INFO    jalsanket.mqtt: RECONNECT ATTEMPT #1 after backoff (auth_failure=False, last_error=disconnected rc=0)
+2026-11-20 03:00:22,449 INFO    jalsanket.mqtt: SUCCESSFUL RECONNECT attempt=0 buffered_rows=2
+2026-11-20 03:00:22,450 INFO    jalsanket.mqtt: REPLAY BATCH PUBLISHED rows=2 batch_size=20 oldest_acq_ms=1795122919201 newest_acq_ms=1795122921179 buffer_depth=2
+2026-11-20 03:00:22,451 INFO    jalsanket.storage: STORED node=node-02 id=123 acquisition_ms=1795122922451 stored_at_ms=1795122922451 buffer_depth=2 capacity=10800
+2026-11-20 03:00:22,452 WARNING jalsanket.mqtt: OFFLINE - BUFFERING node=node-02 id=123 acquisition_ms=1795122922451 buffer_depth=2/10800
+2026-11-20 03:00:22,452 INFO    jalsanket.mqtt: SUCCESSFUL RECONNECT attempt=0 buffered_rows=2
+2026-11-20 03:00:22,453 INFO    jalsanket.mqtt: REPLAY BATCH PUBLISHED rows=2 batch_size=20 oldest_acq_ms=1795122919547 newest_acq_ms=1795122922451 buffer_depth=2
+2026-11-20 03:00:22,454 INFO    jalsanket.storage: STORED node=node-03 id=122 acquisition_ms=1795122922453 stored_at_ms=1795122922453 buffer_depth=2 capacity=10800
+2026-11-20 03:00:22,454 WARNING jalsanket.mqtt: OFFLINE - BUFFERING node=node-03 id=122 acquisition_ms=1795122922453 buffer_depth=2/10800
+2026-11-20 03:00:22,804 INFO    jalsanket.storage: SYNCED rows_flushed=2 remaining_rows=0 buffer_depth=0 capacity=10800
+2026-11-20 03:00:22,804 INFO    jalsanket.mqtt: PUBLISH CONFIRMED (QoS 1 PUBACK) mid=19 type=replay rows_confirmed=2 publish_latency_ms=353 buffer_depth=0
+2026-11-20 03:00:22,804 INFO    jalsanket.mqtt: REPLAY COMPLETE - BUFFER EMPTY remaining_rows=0
+2026-11-20 03:00:22,804 INFO    jalsanket.storage: SYNCED rows_flushed=2 remaining_rows=0 buffer_depth=0 capacity=10800
+2026-11-20 03:00:22,805 INFO    jalsanket.mqtt: PUBLISH CONFIRMED (QoS 1 PUBACK) mid=19 type=replay rows_confirmed=2 publish_latency_ms=352 buffer_depth=0
+2026-11-20 03:00:22,805 INFO    jalsanket.mqtt: REPLAY COMPLETE - BUFFER EMPTY remaining_rows=0
+2026-11-20 03:00:22,827 INFO    jalsanket.mqtt: SUCCESSFUL RECONNECT attempt=0 buffered_rows=2
+2026-11-20 03:00:22,827 INFO    jalsanket.mqtt: REPLAY BATCH PUBLISHED rows=2 batch_size=20 oldest_acq_ms=1795122919924 newest_acq_ms=1795122922453 buffer_depth=2
+2026-11-20 03:00:23,204 INFO    jalsanket.storage: STORED node=node-01 id=125 acquisition_ms=1795122923202 stored_at_ms=1795122923202 buffer_depth=1 capacity=10800
+2026-11-20 03:00:23,205 INFO    jalsanket.storage: SYNCED rows_flushed=2 remaining_rows=0 buffer_depth=0 capacity=10800
+2026-11-20 03:00:23,205 INFO    jalsanket.mqtt: PUBLISH CONFIRMED (QoS 1 PUBACK) mid=19 type=replay rows_confirmed=2 publish_latency_ms=377 buffer_depth=0
+2026-11-20 03:00:23,205 INFO    jalsanket.mqtt: REPLAY COMPLETE - BUFFER EMPTY remaining_rows=0
+2026-11-20 03:00:23,390 INFO    jalsanket.storage: SYNCED rows_flushed=1 remaining_rows=0 buffer_depth=0 capacity=10800
+2026-11-20 03:00:23,391 INFO    jalsanket.mqtt: PUBLISH CONFIRMED (QoS 1 PUBACK) mid=20 type=live rows_confirmed=1 publish_latency_ms=187 buffer_depth=0
+2026-11-20 03:00:23,554 INFO    jalsanket.storage: STORED node=node-02 id=124 acquisition_ms=1795122923552 stored_at_ms=1795122923552 buffer_depth=1 capacity=10800
+2026-11-20 03:00:23,738 INFO    jalsanket.storage: SYNCED rows_flushed=1 remaining_rows=0 buffer_depth=0 capacity=10800
+2026-11-20 03:00:23,738 INFO    jalsanket.mqtt: PUBLISH CONFIRMED (QoS 1 PUBACK) mid=20 type=live rows_confirmed=1 publish_latency_ms=184 buffer_depth=0
+2026-11-20 03:00:23,934 INFO    jalsanket.storage: STORED node=node-03 id=123 acquisition_ms=1795122923932 stored_at_ms=1795122923932 buffer_depth=1 capacity=10800
+2026-11-20 03:00:24,143 INFO    jalsanket.storage: SYNCED rows_flushed=1 remaining_rows=0 buffer_depth=0 capacity=10800
+2026-11-20 03:00:24,143 INFO    jalsanket.mqtt: PUBLISH CONFIRMED (QoS 1 PUBACK) mid=20 type=live rows_confirmed=1 publish_latency_ms=209 buffer_depth=0
+2026-11-20 03:00:25,198 INFO    jalsanket.storage: STORED node=node-01 id=126 acquisition_ms=1795122925197 stored_at_ms=1795122925197 buffer_depth=1 capacity=10800
+2026-11-20 03:00:25,390 INFO    jalsanket.storage: SYNCED rows_flushed=1 remaining_rows=0 buffer_depth=0 capacity=10800
+2026-11-20 03:00:25,390 INFO    jalsanket.mqtt: PUBLISH CONFIRMED (QoS 1 PUBACK) mid=21 type=live rows_confirmed=1 publish_latency_ms=191 buffer_depth=0
+2026-11-20 03:00:25,563 INFO    jalsanket.storage: STORED node=node-02 id=125 acquisition_ms=1795122925562 stored_at_ms=1795122925562 buffer_depth=1 capacity=10800
+2026-11-20 03:00:25,744 INFO    jalsanket.storage: SYNCED rows_flushed=1 remaining_rows=0 buffer_depth=0 capacity=10800
+2026-11-20 03:00:25,744 INFO    jalsanket.mqtt: PUBLISH CONFIRMED (QoS 1 PUBACK) mid=21 type=live rows_confirmed=1 publish_latency_ms=181 buffer_depth=0
+2026-11-20 03:00:25,931 INFO    jalsanket.storage: STORED node=node-03 id=124 acquisition_ms=1795122925930 stored_at_ms=1795122925930 buffer_depth=1 capacity=10800
+2026-11-20 03:00:26,139 INFO    jalsanket.storage: SYNCED rows_flushed=1 remaining_rows=0 buffer_depth=0 capacity=10800
+2026-11-20 03:00:26,139 INFO    jalsanket.mqtt: PUBLISH CONFIRMED (QoS 1 PUBACK) mid=21 type=live rows_confirmed=1 publish_latency_ms=208 buffer_depth=0
+2026-11-20 03:00:27,182 INFO    jalsanket.storage: STORED node=node-01 id=127 acquisition_ms=1795122927181 stored_at_ms=1795122927181 buffer_depth=1 capacity=10800
+2026-11-20 03:00:27,370 INFO    jalsanket.storage: SYNCED rows_flushed=1 remaining_rows=0 buffer_depth=0 capacity=10800
+2026-11-20 03:00:27,370 INFO    jalsanket.mqtt: PUBLISH CONFIRMED (QoS 1 PUBACK) mid=22 type=live rows_confirmed=1 publish_latency_ms=187 buffer_depth=0
+2026-11-20 03:00:27,554 INFO    jalsanket.storage: STORED node=node-02 id=126 acquisition_ms=1795122927553 stored_at_ms=1795122927553 buffer_depth=1 capacity=10800
+2026-11-20 03:00:27,729 INFO    jalsanket.storage: SYNCED rows_flushed=1 remaining_rows=0 buffer_depth=0 capacity=10800
+2026-11-20 03:00:27,730 INFO    jalsanket.mqtt: PUBLISH CONFIRMED (QoS 1 PUBACK) mid=22 type=live rows_confirmed=1 publish_latency_ms=175 buffer_depth=0
+2026-11-20 03:00:27,923 INFO    jalsanket.storage: STORED node=node-03 id=125 acquisition_ms=1795122927922 stored_at_ms=1795122927922 buffer_depth=1 capacity=10800
+2026-11-20 03:00:28,133 INFO    jalsanket.storage: SYNCED rows_flushed=1 remaining_rows=0 buffer_depth=0 capacity=10800
+2026-11-20 03:00:28,133 INFO    jalsanket.mqtt: PUBLISH CONFIRMED (QoS 1 PUBACK) mid=22 type=live rows_confirmed=1 publish_latency_ms=210 buffer_depth=0
+2026-11-20 03:00:29,202 INFO    jalsanket.storage: STORED node=node-01 id=128 acquisition_ms=1795122929202 stored_at_ms=1795122929202 buffer_depth=1 capacity=10800
+2026-11-20 03:00:29,387 INFO    jalsanket.storage: SYNCED rows_flushed=1 remaining_rows=0 buffer_depth=0 capacity=10800
+2026-11-20 03:00:29,388 INFO    jalsanket.mqtt: PUBLISH CONFIRMED (QoS 1 PUBACK) mid=23 type=live rows_confirmed=1 publish_latency_ms=185 buffer_depth=0
+2026-11-20 03:00:29,549 INFO    jalsanket.storage: STORED node=node-02 id=127 acquisition_ms=1795122929548 stored_at_ms=1795122929548 buffer_depth=1 capacity=10800
+2026-11-20 03:00:29,760 INFO    jalsanket.storage: SYNCED rows_flushed=1 remaining_rows=0 buffer_depth=0 capacity=10800
+2026-11-20 03:00:29,760 INFO    jalsanket.mqtt: PUBLISH CONFIRMED (QoS 1 PUBACK) mid=23 type=live rows_confirmed=1 publish_latency_ms=211 buffer_depth=0
+2026-11-20 03:00:29,925 INFO    jalsanket.storage: STORED node=node-03 id=126 acquisition_ms=1795122929924 stored_at_ms=1795122929925 buffer_depth=1 capacity=10800
+2026-11-20 03:00:30,116 INFO    jalsanket.storage: SYNCED rows_flushed=1 remaining_rows=0 buffer_depth=0 capacity=10800
+2026-11-20 03:00:30,116 INFO    jalsanket.mqtt: PUBLISH CONFIRMED (QoS 1 PUBACK) mid=23 type=live rows_confirmed=1 publish_latency_ms=190 buffer_depth=0
+2026-11-20 03:00:31,198 INFO    jalsanket.storage: STORED node=node-01 id=129 acquisition_ms=1795122931197 stored_at_ms=1795122931197 buffer_depth=1 capacity=10800
+2026-11-20 03:00:31,389 INFO    jalsanket.storage: SYNCED rows_flushed=1 remaining_rows=0 buffer_depth=0 capacity=10800
+2026-11-20 03:00:31,389 INFO    jalsanket.mqtt: PUBLISH CONFIRMED (QoS 1 PUBACK) mid=24 type=live rows_confirmed=1 publish_latency_ms=191 buffer_depth=0
+2026-11-20 03:00:31,555 INFO    jalsanket.storage: STORED node=node-02 id=128 acquisition_ms=1795122931554 stored_at_ms=1795122931554 buffer_depth=1 capacity=10800
+2026-11-20 03:00:31,739 INFO    jalsanket.storage: SYNCED rows_flushed=1 remaining_rows=0 buffer_depth=0 capacity=10800
+2026-11-20 03:00:31,739 INFO    jalsanket.mqtt: PUBLISH CONFIRMED (QoS 1 PUBACK) mid=24 type=live rows_confirmed=1 publish_latency_ms=184 buffer_depth=0
+2026-11-20 03:00:31,927 INFO    jalsanket.storage: STORED node=node-03 id=127 acquisition_ms=1795122931927 stored_at_ms=1795122931927 buffer_depth=1 capacity=10800
+2026-11-20 03:00:32,133 INFO    jalsanket.storage: SYNCED rows_flushed=1 remaining_rows=0 buffer_depth=0 capacity=10800
+2026-11-20 03:00:32,134 INFO    jalsanket.mqtt: PUBLISH CONFIRMED (QoS 1 PUBACK) mid=24 type=live rows_confirmed=1 publish_latency_ms=206 buffer_depth=0
+2026-11-20 03:00:33,194 INFO    jalsanket.storage: STORED node=node-01 id=130 acquisition_ms=1795122933193 stored_at_ms=1795122933193 buffer_depth=1 capacity=10800
+2026-11-20 03:00:33,377 INFO    jalsanket.storage: SYNCED rows_flushed=1 remaining_rows=0 buffer_depth=0 capacity=10800
+2026-11-20 03:00:33,377 INFO    jalsanket.mqtt: PUBLISH CONFIRMED (QoS 1 PUBACK) mid=25 type=live rows_confirmed=1 publish_latency_ms=182 buffer_depth=0
+2026-11-20 03:00:33,562 INFO    jalsanket.storage: STORED node=node-02 id=129 acquisition_ms=1795122933561 stored_at_ms=1795122933561 buffer_depth=1 capacity=10800
+2026-11-20 03:00:33,744 INFO    jalsanket.storage: SYNCED rows_flushed=1 remaining_rows=0 buffer_depth=0 capacity=10800
+2026-11-20 03:00:33,744 INFO    jalsanket.mqtt: PUBLISH CONFIRMED (QoS 1 PUBACK) mid=25 type=live rows_confirmed=1 publish_latency_ms=182 buffer_depth=0
+2026-11-20 03:00:33,926 INFO    jalsanket.storage: STORED node=node-03 id=128 acquisition_ms=1795122933925 stored_at_ms=1795122933925 buffer_depth=1 capacity=10800
+2026-11-20 03:00:34,119 INFO    jalsanket.storage: SYNCED rows_flushed=1 remaining_rows=0 buffer_depth=0 capacity=10800
+2026-11-20 03:00:34,119 INFO    jalsanket.mqtt: PUBLISH CONFIRMED (QoS 1 PUBACK) mid=25 type=live rows_confirmed=1 publish_latency_ms=193 buffer_depth=0
+2026-11-20 03:00:35,182 INFO    jalsanket.storage: STORED node=node-01 id=131 acquisition_ms=1795122935181 stored_at_ms=1795122935182 buffer_depth=1 capacity=10800
+2026-11-20 03:00:35,368 INFO    jalsanket.storage: SYNCED rows_flushed=1 remaining_rows=0 buffer_depth=0 capacity=10800
+2026-11-20 03:00:35,368 INFO    jalsanket.mqtt: PUBLISH CONFIRMED (QoS 1 PUBACK) mid=26 type=live rows_confirmed=1 publish_latency_ms=186 buffer_depth=0
+2026-11-20 03:00:35,561 INFO    jalsanket.storage: STORED node=node-02 id=130 acquisition_ms=1795122935560 stored_at_ms=1795122935560 buffer_depth=1 capacity=10800
+2026-11-20 03:00:35,735 INFO    jalsanket.storage: SYNCED rows_flushed=1 remaining_rows=0 buffer_depth=0 capacity=10800
+2026-11-20 03:00:35,735 INFO    jalsanket.mqtt: PUBLISH CONFIRMED (QoS 1 PUBACK) mid=26 type=live rows_confirmed=1 publish_latency_ms=173 buffer_depth=0
+2026-11-20 03:00:35,925 INFO    jalsanket.storage: STORED node=node-03 id=129 acquisition_ms=1795122935924 stored_at_ms=1795122935924 buffer_depth=1 capacity=10800
+2026-11-20 03:00:36,133 INFO    jalsanket.storage: SYNCED rows_flushed=1 remaining_rows=0 buffer_depth=0 capacity=10800
+2026-11-20 03:00:36,133 INFO    jalsanket.mqtt: PUBLISH CONFIRMED (QoS 1 PUBACK) mid=26 type=live rows_confirmed=1 publish_latency_ms=208 buffer_depth=0
+2026-11-20 03:00:37,183 INFO    jalsanket.storage: STORED node=node-01 id=132 acquisition_ms=1795122937183 stored_at_ms=1795122937183 buffer_depth=1 capacity=10800
+2026-11-20 03:00:37,389 INFO    jalsanket.storage: SYNCED rows_flushed=1 remaining_rows=0 buffer_depth=0 capacity=10800
+2026-11-20 03:00:37,390 INFO    jalsanket.mqtt: PUBLISH CONFIRMED (QoS 1 PUBACK) mid=27 type=live rows_confirmed=1 publish_latency_ms=206 buffer_depth=0
+2026-11-20 03:00:37,563 INFO    jalsanket.storage: STORED node=node-02 id=131 acquisition_ms=1795122937562 stored_at_ms=1795122937562 buffer_depth=1 capacity=10800
+2026-11-20 03:00:37,750 INFO    jalsanket.storage: SYNCED rows_flushed=1 remaining_rows=0 buffer_depth=0 capacity=10800
+2026-11-20 03:00:37,750 INFO    jalsanket.mqtt: PUBLISH CONFIRMED (QoS 1 PUBACK) mid=27 type=live rows_confirmed=1 publish_latency_ms=187 buffer_depth=0
+2026-11-20 03:00:37,942 INFO    jalsanket.storage: STORED node=node-03 id=130 acquisition_ms=1795122937941 stored_at_ms=1795122937941 buffer_depth=1 capacity=10800
+2026-11-20 03:00:38,142 INFO    jalsanket.storage: SYNCED rows_flushed=1 remaining_rows=0 buffer_depth=0 capacity=10800
+2026-11-20 03:00:38,142 INFO    jalsanket.mqtt: PUBLISH CONFIRMED (QoS 1 PUBACK) mid=27 type=live rows_confirmed=1 publish_latency_ms=199 buffer_depth=0
+2026-11-20 03:00:39,183 INFO    jalsanket.storage: STORED node=node-01 id=133 acquisition_ms=1795122939182 stored_at_ms=1795122939182 buffer_depth=1 capacity=10800
+2026-11-20 03:00:39,373 INFO    jalsanket.storage: SYNCED rows_flushed=1 remaining_rows=0 buffer_depth=0 capacity=10800
+2026-11-20 03:00:39,373 INFO    jalsanket.mqtt: PUBLISH CONFIRMED (QoS 1 PUBACK) mid=28 type=live rows_confirmed=1 publish_latency_ms=190 buffer_depth=0
+2026-11-20 03:00:39,544 INFO    jalsanket.storage: STORED node=node-02 id=132 acquisition_ms=1795122939543 stored_at_ms=1795122939543 buffer_depth=1 capacity=10800
+2026-11-20 03:00:39,730 INFO    jalsanket.storage: SYNCED rows_flushed=1 remaining_rows=0 buffer_depth=0 capacity=10800
+2026-11-20 03:00:39,730 INFO    jalsanket.mqtt: PUBLISH CONFIRMED (QoS 1 PUBACK) mid=28 type=live rows_confirmed=1 publish_latency_ms=186 buffer_depth=0
+2026-11-20 03:00:39,919 INFO    jalsanket.storage: STORED node=node-03 id=131 acquisition_ms=1795122939918 stored_at_ms=1795122939918 buffer_depth=1 capacity=10800
+2026-11-20 03:00:40,118 INFO    jalsanket.storage: SYNCED rows_flushed=1 remaining_rows=0 buffer_depth=0 capacity=10800
+2026-11-20 03:00:40,118 INFO    jalsanket.mqtt: PUBLISH CONFIRMED (QoS 1 PUBACK) mid=28 type=live rows_confirmed=1 publish_latency_ms=198 buffer_depth=0
+2026-11-20 03:00:41,200 INFO    jalsanket.storage: STORED node=node-01 id=134 acquisition_ms=1795122941198 stored_at_ms=1795122941198 buffer_depth=1 capacity=10800
+2026-11-20 03:00:41,388 INFO    jalsanket.storage: SYNCED rows_flushed=1 remaining_rows=0 buffer_depth=0 capacity=10800
+2026-11-20 03:00:41,388 INFO    jalsanket.mqtt: PUBLISH CONFIRMED (QoS 1 PUBACK) mid=29 type=live rows_confirmed=1 publish_latency_ms=188 buffer_depth=0
+2026-11-20 03:00:41,546 INFO    jalsanket.storage: STORED node=node-02 id=133 acquisition_ms=1795122941545 stored_at_ms=1795122941546 buffer_depth=1 capacity=10800
+2026-11-20 03:00:41,764 INFO    jalsanket.storage: SYNCED rows_flushed=1 remaining_rows=0 buffer_depth=0 capacity=10800
+2026-11-20 03:00:41,765 INFO    jalsanket.mqtt: PUBLISH CONFIRMED (QoS 1 PUBACK) mid=29 type=live rows_confirmed=1 publish_latency_ms=218 buffer_depth=0
+2026-11-20 03:00:41,928 INFO    jalsanket.storage: STORED node=node-03 id=132 acquisition_ms=1795122941927 stored_at_ms=1795122941927 buffer_depth=1 capacity=10800
+2026-11-20 03:00:42,146 INFO    jalsanket.storage: SYNCED rows_flushed=1 remaining_rows=0 buffer_depth=0 capacity=10800
+2026-11-20 03:00:42,146 INFO    jalsanket.mqtt: PUBLISH CONFIRMED (QoS 1 PUBACK) mid=29 type=live rows_confirmed=1 publish_latency_ms=217 buffer_depth=0
+2026-11-20 03:00:43,189 INFO    jalsanket.storage: STORED node=node-01 id=135 acquisition_ms=1795122943188 stored_at_ms=1795122943188 buffer_depth=1 capacity=10800
+2026-11-20 03:00:43,383 INFO    jalsanket.storage: SYNCED rows_flushed=1 remaining_rows=0 buffer_depth=0 capacity=10800
+2026-11-20 03:00:43,383 INFO    jalsanket.mqtt: PUBLISH CONFIRMED (QoS 1 PUBACK) mid=30 type=live rows_confirmed=1 publish_latency_ms=194 buffer_depth=0
+2026-11-20 03:00:43,550 INFO    jalsanket.storage: STORED node=node-02 id=134 acquisition_ms=1795122943549 stored_at_ms=1795122943549 buffer_depth=1 capacity=10800
+2026-11-20 03:00:43,736 INFO    jalsanket.storage: SYNCED rows_flushed=1 remaining_rows=0 buffer_depth=0 capacity=10800
+2026-11-20 03:00:43,736 INFO    jalsanket.mqtt: PUBLISH CONFIRMED (QoS 1 PUBACK) mid=30 type=live rows_confirmed=1 publish_latency_ms=185 buffer_depth=0
+2026-11-20 03:00:43,927 INFO    jalsanket.storage: STORED node=node-03 id=133 acquisition_ms=1795122943927 stored_at_ms=1795122943927 buffer_depth=1 capacity=10800
+2026-11-20 03:00:44,124 INFO    jalsanket.storage: SYNCED rows_flushed=1 remaining_rows=0 buffer_depth=0 capacity=10800
+2026-11-20 03:00:44,124 INFO    jalsanket.mqtt: PUBLISH CONFIRMED (QoS 1 PUBACK) mid=30 type=live rows_confirmed=1 publish_latency_ms=196 buffer_depth=0
+2026-11-20 03:00:45,189 INFO    jalsanket.storage: STORED node=node-01 id=136 acquisition_ms=1795122945188 stored_at_ms=1795122945189 buffer_depth=1 capacity=10800
+2026-11-20 03:00:45,377 INFO    jalsanket.storage: SYNCED rows_flushed=1 remaining_rows=0 buffer_depth=0 capacity=10800
+2026-11-20 03:00:45,378 INFO    jalsanket.mqtt: PUBLISH CONFIRMED (QoS 1 PUBACK) mid=31 type=live rows_confirmed=1 publish_latency_ms=188 buffer_depth=0
+2026-11-20 03:00:45,544 INFO    jalsanket.storage: STORED node=node-02 id=135 acquisition_ms=1795122945543 stored_at_ms=1795122945543 buffer_depth=1 capacity=10800
+2026-11-20 03:00:45,737 INFO    jalsanket.storage: SYNCED rows_flushed=1 remaining_rows=0 buffer_depth=0 capacity=10800
+2026-11-20 03:00:45,737 INFO    jalsanket.mqtt: PUBLISH CONFIRMED (QoS 1 PUBACK) mid=31 type=live rows_confirmed=1 publish_latency_ms=193 buffer_depth=0
+2026-11-20 03:00:45,919 INFO    jalsanket.storage: STORED node=node-03 id=134 acquisition_ms=1795122945918 stored_at_ms=1795122945918 buffer_depth=1 capacity=10800
+2026-11-20 03:00:46,126 INFO    jalsanket.storage: SYNCED rows_flushed=1 remaining_rows=0 buffer_depth=0 capacity=10800
+2026-11-20 03:00:46,126 INFO    jalsanket.mqtt: PUBLISH CONFIRMED (QoS 1 PUBACK) mid=31 type=live rows_confirmed=1 publish_latency_ms=206 buffer_depth=0
+2026-11-20 03:00:47,193 INFO    jalsanket.storage: STORED node=node-01 id=137 acquisition_ms=1795122947192 stored_at_ms=1795122947192 buffer_depth=1 capacity=10800
+2026-11-20 03:00:47,383 INFO    jalsanket.storage: SYNCED rows_flushed=1 remaining_rows=0 buffer_depth=0 capacity=10800
+2026-11-20 03:00:47,383 INFO    jalsanket.mqtt: PUBLISH CONFIRMED (QoS 1 PUBACK) mid=32 type=live rows_confirmed=1 publish_latency_ms=190 buffer_depth=0
+2026-11-20 03:00:47,542 INFO    jalsanket.storage: STORED node=node-02 id=136 acquisition_ms=1795122947541 stored_at_ms=1795122947541 buffer_depth=1 capacity=10800
+2026-11-20 03:00:47,734 INFO    jalsanket.storage: SYNCED rows_flushed=1 remaining_rows=0 buffer_depth=0 capacity=10800
+2026-11-20 03:00:47,734 INFO    jalsanket.mqtt: PUBLISH CONFIRMED (QoS 1 PUBACK) mid=32 type=live rows_confirmed=1 publish_latency_ms=191 buffer_depth=0
+2026-11-20 03:00:47,932 INFO    jalsanket.storage: STORED node=node-03 id=135 acquisition_ms=1795122947930 stored_at_ms=1795122947930 buffer_depth=1 capacity=10800
+2026-11-20 03:00:48,133 INFO    jalsanket.storage: SYNCED rows_flushed=1 remaining_rows=0 buffer_depth=0 capacity=10800
+2026-11-20 03:00:48,134 INFO    jalsanket.mqtt: PUBLISH CONFIRMED (QoS 1 PUBACK) mid=32 type=live rows_confirmed=1 publish_latency_ms=202 buffer_depth=0
+2026-11-20 03:00:49,196 INFO    jalsanket.storage: STORED node=node-01 id=138 acquisition_ms=1795122949195 stored_at_ms=1795122949195 buffer_depth=1 capacity=10800
+2026-11-20 03:00:49,383 INFO    jalsanket.storage: SYNCED rows_flushed=1 remaining_rows=0 buffer_depth=0 capacity=10800
+2026-11-20 03:00:49,383 INFO    jalsanket.mqtt: PUBLISH CONFIRMED (QoS 1 PUBACK) mid=33 type=live rows_confirmed=1 publish_latency_ms=187 buffer_depth=0
+2026-11-20 03:00:49,545 INFO    jalsanket.storage: STORED node=node-02 id=137 acquisition_ms=1795122949544 stored_at_ms=1795122949545 buffer_depth=1 capacity=10800
+2026-11-20 03:00:49,737 INFO    jalsanket.storage: SYNCED rows_flushed=1 remaining_rows=0 buffer_depth=0 capacity=10800
+2026-11-20 03:00:49,738 INFO    jalsanket.mqtt: PUBLISH CONFIRMED (QoS 1 PUBACK) mid=33 type=live rows_confirmed=1 publish_latency_ms=192 buffer_depth=0
+2026-11-20 03:00:49,928 INFO    jalsanket.storage: STORED node=node-03 id=136 acquisition_ms=1795122949927 stored_at_ms=1795122949927 buffer_depth=1 capacity=10800
+2026-11-20 03:00:50,117 INFO    jalsanket.storage: SYNCED rows_flushed=1 remaining_rows=0 buffer_depth=0 capacity=10800
+2026-11-20 03:00:50,117 INFO    jalsanket.mqtt: PUBLISH CONFIRMED (QoS 1 PUBACK) mid=33 type=live rows_confirmed=1 publish_latency_ms=188 buffer_depth=0
+2026-11-20 03:00:51,193 INFO    jalsanket.storage: STORED node=node-01 id=139 acquisition_ms=1795122951192 stored_at_ms=1795122951192 buffer_depth=1 capacity=10800
+2026-11-20 03:00:51,382 INFO    jalsanket.storage: SYNCED rows_flushed=1 remaining_rows=0 buffer_depth=0 capacity=10800
+2026-11-20 03:00:51,382 INFO    jalsanket.mqtt: PUBLISH CONFIRMED (QoS 1 PUBACK) mid=34 type=live rows_confirmed=1 publish_latency_ms=188 buffer_depth=0
+2026-11-20 03:00:51,549 INFO    jalsanket.storage: STORED node=node-02 id=138 acquisition_ms=1795122951548 stored_at_ms=1795122951548 buffer_depth=1 capacity=10800
+2026-11-20 03:00:51,735 INFO    jalsanket.storage: SYNCED rows_flushed=1 remaining_rows=0 buffer_depth=0 capacity=10800
+2026-11-20 03:00:51,735 INFO    jalsanket.mqtt: PUBLISH CONFIRMED (QoS 1 PUBACK) mid=34 type=live rows_confirmed=1 publish_latency_ms=185 buffer_depth=0
+2026-11-20 03:00:51,925 INFO    jalsanket.storage: STORED node=node-03 id=137 acquisition_ms=1795122951924 stored_at_ms=1795122951924 buffer_depth=1 capacity=10800
+2026-11-20 03:00:52,137 INFO    jalsanket.storage: SYNCED rows_flushed=1 remaining_rows=0 buffer_depth=0 capacity=10800
+2026-11-20 03:00:52,137 INFO    jalsanket.mqtt: PUBLISH CONFIRMED (QoS 1 PUBACK) mid=34 type=live rows_confirmed=1 publish_latency_ms=211 buffer_depth=0
+2026-11-20 03:00:53,193 INFO    jalsanket.storage: STORED node=node-01 id=140 acquisition_ms=1795122953192 stored_at_ms=1795122953192 buffer_depth=1 capacity=10800
+2026-11-20 03:00:53,380 INFO    jalsanket.storage: SYNCED rows_flushed=1 remaining_rows=0 buffer_depth=0 capacity=10800
+2026-11-20 03:00:53,380 INFO    jalsanket.mqtt: PUBLISH CONFIRMED (QoS 1 PUBACK) mid=35 type=live rows_confirmed=1 publish_latency_ms=187 buffer_depth=0
+2026-11-20 03:00:53,568 INFO    jalsanket.storage: STORED node=node-02 id=139 acquisition_ms=1795122953567 stored_at_ms=1795122953567 buffer_depth=1 capacity=10800
+2026-11-20 03:00:53,760 INFO    jalsanket.storage: SYNCED rows_flushed=1 remaining_rows=0 buffer_depth=0 capacity=10800
+2026-11-20 03:00:53,761 INFO    jalsanket.mqtt: PUBLISH CONFIRMED (QoS 1 PUBACK) mid=35 type=live rows_confirmed=1 publish_latency_ms=191 buffer_depth=0
+2026-11-20 03:00:53,928 INFO    jalsanket.storage: STORED node=node-03 id=138 acquisition_ms=1795122953927 stored_at_ms=1795122953927 buffer_depth=1 capacity=10800
+2026-11-20 03:00:54,135 INFO    jalsanket.storage: SYNCED rows_flushed=1 remaining_rows=0 buffer_depth=0 capacity=10800
+2026-11-20 03:00:54,136 INFO    jalsanket.mqtt: PUBLISH CONFIRMED (QoS 1 PUBACK) mid=35 type=live rows_confirmed=1 publish_latency_ms=208 buffer_depth=0
+2026-11-20 03:00:55,203 INFO    jalsanket.storage: STORED node=node-01 id=141 acquisition_ms=1795122955202 stored_at_ms=1795122955202 buffer_depth=1 capacity=10800
+2026-11-20 03:00:55,390 INFO    jalsanket.storage: SYNCED rows_flushed=1 remaining_rows=0 buffer_depth=0 capacity=10800
+2026-11-20 03:00:55,390 INFO    jalsanket.mqtt: PUBLISH CONFIRMED (QoS 1 PUBACK) mid=36 type=live rows_confirmed=1 publish_latency_ms=187 buffer_depth=0
+2026-11-20 03:00:55,559 INFO    jalsanket.storage: STORED node=node-02 id=140 acquisition_ms=1795122955557 stored_at_ms=1795122955557 buffer_depth=1 capacity=10800
+2026-11-20 03:00:55,746 INFO    jalsanket.storage: SYNCED rows_flushed=1 remaining_rows=0 buffer_depth=0 capacity=10800
+2026-11-20 03:00:55,746 INFO    jalsanket.mqtt: PUBLISH CONFIRMED (QoS 1 PUBACK) mid=36 type=live rows_confirmed=1 publish_latency_ms=187 buffer_depth=0
+2026-11-20 03:00:55,933 INFO    jalsanket.storage: STORED node=node-03 id=139 acquisition_ms=1795122955932 stored_at_ms=1795122955932 buffer_depth=1 capacity=10800
+2026-11-20 03:00:56,128 INFO    jalsanket.storage: SYNCED rows_flushed=1 remaining_rows=0 buffer_depth=0 capacity=10800
+2026-11-20 03:00:56,128 INFO    jalsanket.mqtt: PUBLISH CONFIRMED (QoS 1 PUBACK) mid=36 type=live rows_confirmed=1 publish_latency_ms=192 buffer_depth=0
+2026-11-20 03:00:57,186 INFO    jalsanket.storage: STORED node=node-01 id=142 acquisition_ms=1795122957185 stored_at_ms=1795122957185 buffer_depth=1 capacity=10800
+2026-11-20 03:00:57,384 INFO    jalsanket.storage: SYNCED rows_flushed=1 remaining_rows=0 buffer_depth=0 capacity=10800
+2026-11-20 03:00:57,385 INFO    jalsanket.mqtt: PUBLISH CONFIRMED (QoS 1 PUBACK) mid=37 type=live rows_confirmed=1 publish_latency_ms=199 buffer_depth=0
+2026-11-20 03:00:57,546 INFO    jalsanket.storage: STORED node=node-02 id=141 acquisition_ms=1795122957545 stored_at_ms=1795122957545 buffer_depth=1 capacity=10800
+2026-11-20 03:00:57,730 INFO    jalsanket.storage: SYNCED rows_flushed=1 remaining_rows=0 buffer_depth=0 capacity=10800
+2026-11-20 03:00:57,730 INFO    jalsanket.mqtt: PUBLISH CONFIRMED (QoS 1 PUBACK) mid=37 type=live rows_confirmed=1 publish_latency_ms=183 buffer_depth=0
+2026-11-20 03:00:57,927 INFO    jalsanket.storage: STORED node=node-03 id=140 acquisition_ms=1795122957926 stored_at_ms=1795122957926 buffer_depth=1 capacity=10800
+2026-11-20 03:00:58,132 INFO    jalsanket.storage: SYNCED rows_flushed=1 remaining_rows=0 buffer_depth=0 capacity=10800
+2026-11-20 03:00:58,132 INFO    jalsanket.mqtt: PUBLISH CONFIRMED (QoS 1 PUBACK) mid=37 type=live rows_confirmed=1 publish_latency_ms=205 buffer_depth=0
+2026-11-20 03:00:59,201 INFO    jalsanket.storage: STORED node=node-01 id=143 acquisition_ms=1795122959198 stored_at_ms=1795122959199 buffer_depth=1 capacity=10800
+2026-11-20 03:00:59,202 WARNING jalsanket.demo: DEMO TRIGGER: restoring link on node-01
+2026-11-20 03:00:59,206 DEBUG   jalsanket.mqtt: MQTT START SKIPPED node=node-01 connected=True connect_pending=False shutdown=False
+2026-11-20 03:00:59,376 INFO    jalsanket.storage: SYNCED rows_flushed=1 remaining_rows=0 buffer_depth=0 capacity=10800
+2026-11-20 03:00:59,377 INFO    jalsanket.mqtt: PUBLISH CONFIRMED (QoS 1 PUBACK) mid=38 type=live rows_confirmed=1 publish_latency_ms=176 buffer_depth=0
+2026-11-20 03:00:59,557 INFO    jalsanket.storage: STORED node=node-02 id=142 acquisition_ms=1795122959556 stored_at_ms=1795122959556 buffer_depth=1 capacity=10800
+2026-11-20 03:00:59,557 WARNING jalsanket.demo: DEMO TRIGGER: restoring link on node-02
+2026-11-20 03:00:59,558 DEBUG   jalsanket.mqtt: MQTT START SKIPPED node=node-02 connected=True connect_pending=False shutdown=False
+2026-11-20 03:00:59,744 INFO    jalsanket.storage: SYNCED rows_flushed=1 remaining_rows=0 buffer_depth=0 capacity=10800
+2026-11-20 03:00:59,744 INFO    jalsanket.mqtt: PUBLISH CONFIRMED (QoS 1 PUBACK) mid=38 type=live rows_confirmed=1 publish_latency_ms=187 buffer_depth=0
+2026-11-20 03:00:59,928 INFO    jalsanket.storage: STORED node=node-03 id=141 acquisition_ms=1795122959926 stored_at_ms=1795122959926 buffer_depth=1 capacity=10800
+2026-11-20 03:00:59,929 WARNING jalsanket.demo: DEMO TRIGGER: restoring link on node-03
+2026-11-20 03:00:59,929 DEBUG   jalsanket.mqtt: MQTT START SKIPPED node=node-03 connected=True connect_pending=False shutdown=False
+2026-11-20 03:01:00,119 INFO    jalsanket.storage: SYNCED rows_flushed=1 remaining_rows=0 buffer_depth=0 capacity=10800
+2026-11-20 03:01:00,120 INFO    jalsanket.mqtt: PUBLISH CONFIRMED (QoS 1 PUBACK) mid=38 type=live rows_confirmed=1 publish_latency_ms=191 buffer_depth=0
+2026-11-20 03:01:01,204 INFO    jalsanket.storage: STORED node=node-01 id=144 acquisition_ms=1795122961202 stored_at_ms=1795122961203 buffer_depth=1 capacity=10800
+2026-11-20 03:01:01,398 INFO    jalsanket.storage: SYNCED rows_flushed=1 remaining_rows=0 buffer_depth=0 capacity=10800
+2026-11-20 03:01:01,398 INFO    jalsanket.mqtt: PUBLISH CONFIRMED (QoS 1 PUBACK) mid=39 type=live rows_confirmed=1 publish_latency_ms=193 buffer_depth=0
+2026-11-20 03:01:01,561 INFO    jalsanket.storage: STORED node=node-02 id=143 acquisition_ms=1795122961560 stored_at_ms=1795122961560 buffer_depth=1 capacity=10800
+2026-11-20 03:01:01,753 INFO    jalsanket.storage: SYNCED rows_flushed=1 remaining_rows=0 buffer_depth=0 capacity=10800
+2026-11-20 03:01:01,753 INFO    jalsanket.mqtt: PUBLISH CONFIRMED (QoS 1 PUBACK) mid=39 type=live rows_confirmed=1 publish_latency_ms=191 buffer_depth=0
+2026-11-20 03:01:01,940 INFO    jalsanket.storage: STORED node=node-03 id=142 acquisition_ms=1795122961939 stored_at_ms=1795122961939 buffer_depth=1 capacity=10800
+2026-11-20 03:01:02,130 INFO    jalsanket.storage: SYNCED rows_flushed=1 remaining_rows=0 buffer_depth=0 capacity=10800
+2026-11-20 03:01:02,131 INFO    jalsanket.mqtt: PUBLISH CONFIRMED (QoS 1 PUBACK) mid=39 type=live rows_confirmed=1 publish_latency_ms=191 buffer_depth=0
+2026-11-20 03:01:03,195 INFO    jalsanket.storage: STORED node=node-01 id=145 acquisition_ms=1795122963193 stored_at_ms=1795122963193 buffer_depth=1 capacity=10800
+2026-11-20 03:01:03,395 INFO    jalsanket.storage: SYNCED rows_flushed=1 remaining_rows=0 buffer_depth=0 capacity=10800
+2026-11-20 03:01:03,396 INFO    jalsanket.mqtt: PUBLISH CONFIRMED (QoS 1 PUBACK) mid=40 type=live rows_confirmed=1 publish_latency_ms=201 buffer_depth=0
+2026-11-20 03:01:03,558 INFO    jalsanket.storage: STORED node=node-02 id=144 acquisition_ms=1795122963556 stored_at_ms=1795122963556 buffer_depth=1 capacity=10800
+2026-11-20 03:01:03,751 INFO    jalsanket.storage: SYNCED rows_flushed=1 remaining_rows=0 buffer_depth=0 capacity=10800
+2026-11-20 03:01:03,751 INFO    jalsanket.mqtt: PUBLISH CONFIRMED (QoS 1 PUBACK) mid=40 type=live rows_confirmed=1 publish_latency_ms=192 buffer_depth=0
+2026-11-20 03:01:03,937 INFO    jalsanket.storage: STORED node=node-03 id=143 acquisition_ms=1795122963935 stored_at_ms=1795122963935 buffer_depth=1 capacity=10800
+2026-11-20 03:01:04,147 INFO    jalsanket.storage: SYNCED rows_flushed=1 remaining_rows=0 buffer_depth=0 capacity=10800
+2026-11-20 03:01:04,147 INFO    jalsanket.mqtt: PUBLISH CONFIRMED (QoS 1 PUBACK) mid=40 type=live rows_confirmed=1 publish_latency_ms=210 buffer_depth=0
+2026-11-20 03:01:05,194 INFO    jalsanket.storage: STORED node=node-01 id=146 acquisition_ms=1795122965193 stored_at_ms=1795122965193 buffer_depth=1 capacity=10800
+2026-11-20 03:01:05,384 INFO    jalsanket.storage: SYNCED rows_flushed=1 remaining_rows=0 buffer_depth=0 capacity=10800
+2026-11-20 03:01:05,384 INFO    jalsanket.mqtt: PUBLISH CONFIRMED (QoS 1 PUBACK) mid=41 type=live rows_confirmed=1 publish_latency_ms=189 buffer_depth=0
+2026-11-20 03:01:05,568 INFO    jalsanket.storage: STORED node=node-02 id=145 acquisition_ms=1795122965567 stored_at_ms=1795122965567 buffer_depth=1 capacity=10800
+2026-11-20 03:01:05,756 INFO    jalsanket.storage: SYNCED rows_flushed=1 remaining_rows=0 buffer_depth=0 capacity=10800
+2026-11-20 03:01:05,756 INFO    jalsanket.mqtt: PUBLISH CONFIRMED (QoS 1 PUBACK) mid=41 type=live rows_confirmed=1 publish_latency_ms=187 buffer_depth=0
+2026-11-20 03:01:05,944 INFO    jalsanket.storage: STORED node=node-03 id=144 acquisition_ms=1795122965943 stored_at_ms=1795122965943 buffer_depth=1 capacity=10800
+2026-11-20 03:01:06,156 INFO    jalsanket.storage: SYNCED rows_flushed=1 remaining_rows=0 buffer_depth=0 capacity=10800
+2026-11-20 03:01:06,156 INFO    jalsanket.mqtt: PUBLISH CONFIRMED (QoS 1 PUBACK) mid=41 type=live rows_confirmed=1 publish_latency_ms=211 buffer_depth=0
+2026-11-20 03:01:07,184 INFO    jalsanket.storage: STORED node=node-01 id=147 acquisition_ms=1795122967183 stored_at_ms=1795122967183 buffer_depth=1 capacity=10800
+2026-11-20 03:01:07,395 INFO    jalsanket.storage: SYNCED rows_flushed=1 remaining_rows=0 buffer_depth=0 capacity=10800
+2026-11-20 03:01:07,395 INFO    jalsanket.mqtt: PUBLISH CONFIRMED (QoS 1 PUBACK) mid=42 type=live rows_confirmed=1 publish_latency_ms=211 buffer_depth=0
+2026-11-20 03:01:07,613 INFO    jalsanket.storage: STORED node=node-02 id=146 acquisition_ms=1795122967603 stored_at_ms=1795122967603 buffer_depth=1 capacity=10800
+2026-11-20 03:01:07,802 INFO    jalsanket.storage: SYNCED rows_flushed=1 remaining_rows=0 buffer_depth=0 capacity=10800
+2026-11-20 03:01:07,803 INFO    jalsanket.mqtt: PUBLISH CONFIRMED (QoS 1 PUBACK) mid=42 type=live rows_confirmed=1 publish_latency_ms=189 buffer_depth=0
+2026-11-20 03:01:07,922 INFO    jalsanket.storage: STORED node=node-03 id=145 acquisition_ms=1795122967921 stored_at_ms=1795122967922 buffer_depth=1 capacity=10800
+2026-11-20 03:01:08,134 INFO    jalsanket.storage: SYNCED rows_flushed=1 remaining_rows=0 buffer_depth=0 capacity=10800
+2026-11-20 03:01:08,134 INFO    jalsanket.mqtt: PUBLISH CONFIRMED (QoS 1 PUBACK) mid=42 type=live rows_confirmed=1 publish_latency_ms=211 buffer_depth=0
+2026-11-20 03:01:09,198 INFO    jalsanket.storage: STORED node=node-01 id=148 acquisition_ms=1795122969197 stored_at_ms=1795122969197 buffer_depth=1 capacity=10800
+2026-11-20 03:01:09,396 INFO    jalsanket.storage: SYNCED rows_flushed=1 remaining_rows=0 buffer_depth=0 capacity=10800
+2026-11-20 03:01:09,396 INFO    jalsanket.mqtt: PUBLISH CONFIRMED (QoS 1 PUBACK) mid=43 type=live rows_confirmed=1 publish_latency_ms=198 buffer_depth=0
+2026-11-20 03:01:09,554 INFO    jalsanket.storage: STORED node=node-02 id=147 acquisition_ms=1795122969553 stored_at_ms=1795122969553 buffer_depth=1 capacity=10800
+2026-11-20 03:01:09,739 INFO    jalsanket.storage: SYNCED rows_flushed=1 remaining_rows=0 buffer_depth=0 capacity=10800
+2026-11-20 03:01:09,739 INFO    jalsanket.mqtt: PUBLISH CONFIRMED (QoS 1 PUBACK) mid=43 type=live rows_confirmed=1 publish_latency_ms=184 buffer_depth=0
+2026-11-20 03:01:09,924 INFO    jalsanket.storage: STORED node=node-03 id=146 acquisition_ms=1795122969924 stored_at_ms=1795122969924 buffer_depth=1 capacity=10800
+2026-11-20 03:01:10,116 INFO    jalsanket.storage: SYNCED rows_flushed=1 remaining_rows=0 buffer_depth=0 capacity=10800
+2026-11-20 03:01:10,116 INFO    jalsanket.mqtt: PUBLISH CONFIRMED (QoS 1 PUBACK) mid=43 type=live rows_confirmed=1 publish_latency_ms=191 buffer_depth=0
+2026-11-20 03:01:11,186 INFO    jalsanket.storage: STORED node=node-01 id=149 acquisition_ms=1795122971185 stored_at_ms=1795122971185 buffer_depth=1 capacity=10800
+2026-11-20 03:01:11,370 INFO    jalsanket.storage: SYNCED rows_flushed=1 remaining_rows=0 buffer_depth=0 capacity=10800
+2026-11-20 03:01:11,370 INFO    jalsanket.mqtt: PUBLISH CONFIRMED (QoS 1 PUBACK) mid=44 type=live rows_confirmed=1 publish_latency_ms=183 buffer_depth=0
+2026-11-20 03:01:11,552 INFO    jalsanket.storage: STORED node=node-02 id=148 acquisition_ms=1795122971551 stored_at_ms=1795122971551 buffer_depth=1 capacity=10800
+2026-11-20 03:01:11,748 INFO    jalsanket.storage: SYNCED rows_flushed=1 remaining_rows=0 buffer_depth=0 capacity=10800
+2026-11-20 03:01:11,749 INFO    jalsanket.mqtt: PUBLISH CONFIRMED (QoS 1 PUBACK) mid=44 type=live rows_confirmed=1 publish_latency_ms=196 buffer_depth=0
+2026-11-20 03:01:11,944 INFO    jalsanket.storage: STORED node=node-03 id=147 acquisition_ms=1795122971944 stored_at_ms=1795122971944 buffer_depth=1 capacity=10800
+2026-11-20 03:01:12,149 INFO    jalsanket.storage: SYNCED rows_flushed=1 remaining_rows=0 buffer_depth=0 capacity=10800
+2026-11-20 03:01:12,149 INFO    jalsanket.mqtt: PUBLISH CONFIRMED (QoS 1 PUBACK) mid=44 type=live rows_confirmed=1 publish_latency_ms=204 buffer_depth=0
+2026-11-20 03:01:13,200 INFO    jalsanket.storage: STORED node=node-01 id=150 acquisition_ms=1795122973199 stored_at_ms=1795122973199 buffer_depth=1 capacity=10800
+2026-11-20 03:01:13,388 INFO    jalsanket.storage: SYNCED rows_flushed=1 remaining_rows=0 buffer_depth=0 capacity=10800
+2026-11-20 03:01:13,388 INFO    jalsanket.mqtt: PUBLISH CONFIRMED (QoS 1 PUBACK) mid=45 type=live rows_confirmed=1 publish_latency_ms=188 buffer_depth=0
+2026-11-20 03:01:13,556 INFO    jalsanket.storage: STORED node=node-02 id=149 acquisition_ms=1795122973555 stored_at_ms=1795122973555 buffer_depth=1 capacity=10800
+2026-11-20 03:01:13,754 INFO    jalsanket.storage: SYNCED rows_flushed=1 remaining_rows=0 buffer_depth=0 capacity=10800
+2026-11-20 03:01:13,754 INFO    jalsanket.mqtt: PUBLISH CONFIRMED (QoS 1 PUBACK) mid=45 type=live rows_confirmed=1 publish_latency_ms=197 buffer_depth=0
+2026-11-20 03:01:13,933 INFO    jalsanket.storage: STORED node=node-03 id=148 acquisition_ms=1795122973932 stored_at_ms=1795122973932 buffer_depth=1 capacity=10800
+2026-11-20 03:01:14,145 INFO    jalsanket.storage: SYNCED rows_flushed=1 remaining_rows=0 buffer_depth=0 capacity=10800
+2026-11-20 03:01:14,145 INFO    jalsanket.mqtt: PUBLISH CONFIRMED (QoS 1 PUBACK) mid=45 type=live rows_confirmed=1 publish_latency_ms=211 buffer_depth=0
+2026-11-20 03:01:15,205 INFO    jalsanket.storage: STORED node=node-01 id=151 acquisition_ms=1795122975204 stored_at_ms=1795122975204 buffer_depth=1 capacity=10800
+2026-11-20 03:01:15,396 INFO    jalsanket.storage: SYNCED rows_flushed=1 remaining_rows=0 buffer_depth=0 capacity=10800
+2026-11-20 03:01:15,397 INFO    jalsanket.mqtt: PUBLISH CONFIRMED (QoS 1 PUBACK) mid=46 type=live rows_confirmed=1 publish_latency_ms=192 buffer_depth=0
+2026-11-20 03:01:15,562 INFO    jalsanket.storage: STORED node=node-02 id=150 acquisition_ms=1795122975561 stored_at_ms=1795122975561 buffer_depth=1 capacity=10800
+2026-11-20 03:01:15,749 INFO    jalsanket.storage: SYNCED rows_flushed=1 remaining_rows=0 buffer_depth=0 capacity=10800
+2026-11-20 03:01:15,750 INFO    jalsanket.mqtt: PUBLISH CONFIRMED (QoS 1 PUBACK) mid=46 type=live rows_confirmed=1 publish_latency_ms=188 buffer_depth=0
+2026-11-20 03:01:15,938 INFO    jalsanket.storage: STORED node=node-03 id=149 acquisition_ms=1795122975938 stored_at_ms=1795122975938 buffer_depth=1 capacity=10800
+2026-11-20 03:01:16,148 INFO    jalsanket.storage: SYNCED rows_flushed=1 remaining_rows=0 buffer_depth=0 capacity=10800
+2026-11-20 03:01:16,148 INFO    jalsanket.mqtt: PUBLISH CONFIRMED (QoS 1 PUBACK) mid=46 type=live rows_confirmed=1 publish_latency_ms=209 buffer_depth=0
+2026-11-20 03:01:17,211 INFO    jalsanket.storage: STORED node=node-01 id=152 acquisition_ms=1795122977211 stored_at_ms=1795122977211 buffer_depth=1 capacity=10800
+2026-11-20 03:01:17,403 INFO    jalsanket.storage: SYNCED rows_flushed=1 remaining_rows=0 buffer_depth=0 capacity=10800
+2026-11-20 03:01:17,403 INFO    jalsanket.mqtt: PUBLISH CONFIRMED (QoS 1 PUBACK) mid=47 type=live rows_confirmed=1 publish_latency_ms=192 buffer_depth=0
+2026-11-20 03:01:17,571 INFO    jalsanket.storage: STORED node=node-02 id=151 acquisition_ms=1795122977570 stored_at_ms=1795122977570 buffer_depth=1 capacity=10800
+2026-11-20 03:01:17,759 INFO    jalsanket.storage: SYNCED rows_flushed=1 remaining_rows=0 buffer_depth=0 capacity=10800
+2026-11-20 03:01:17,759 INFO    jalsanket.mqtt: PUBLISH CONFIRMED (QoS 1 PUBACK) mid=47 type=live rows_confirmed=1 publish_latency_ms=188 buffer_depth=0
+2026-11-20 03:01:17,947 INFO    jalsanket.storage: STORED node=node-03 id=150 acquisition_ms=1795122977946 stored_at_ms=1795122977946 buffer_depth=1 capacity=10800
+2026-11-20 03:01:18,136 INFO    jalsanket.storage: SYNCED rows_flushed=1 remaining_rows=0 buffer_depth=0 capacity=10800
+2026-11-20 03:01:18,137 INFO    jalsanket.mqtt: PUBLISH CONFIRMED (QoS 1 PUBACK) mid=47 type=live rows_confirmed=1 publish_latency_ms=190 buffer_depth=0
+2026-11-20 03:01:19,195 INFO    jalsanket.storage: STORED node=node-01 id=153 acquisition_ms=1795122979194 stored_at_ms=1795122979194 buffer_depth=1 capacity=10800
+2026-11-20 03:01:19,388 INFO    jalsanket.storage: SYNCED rows_flushed=1 remaining_rows=0 buffer_depth=0 capacity=10800
+2026-11-20 03:01:19,388 INFO    jalsanket.mqtt: PUBLISH CONFIRMED (QoS 1 PUBACK) mid=48 type=live rows_confirmed=1 publish_latency_ms=193 buffer_depth=0
+2026-11-20 03:01:19,557 INFO    jalsanket.storage: STORED node=node-02 id=152 acquisition_ms=1795122979556 stored_at_ms=1795122979556 buffer_depth=1 capacity=10800
+2026-11-20 03:01:19,751 INFO    jalsanket.storage: SYNCED rows_flushed=1 remaining_rows=0 buffer_depth=0 capacity=10800
+2026-11-20 03:01:19,751 INFO    jalsanket.mqtt: PUBLISH CONFIRMED (QoS 1 PUBACK) mid=48 type=live rows_confirmed=1 publish_latency_ms=194 buffer_depth=0
+2026-11-20 03:01:19,931 INFO    jalsanket.storage: STORED node=node-03 id=151 acquisition_ms=1795122979930 stored_at_ms=1795122979930 buffer_depth=1 capacity=10800
+2026-11-20 03:01:20,126 INFO    jalsanket.storage: SYNCED rows_flushed=1 remaining_rows=0 buffer_depth=0 capacity=10800
+2026-11-20 03:01:20,126 INFO    jalsanket.mqtt: PUBLISH CONFIRMED (QoS 1 PUBACK) mid=48 type=live rows_confirmed=1 publish_latency_ms=194 buffer_depth=0
+2026-11-20 03:01:21,192 INFO    jalsanket.storage: STORED node=node-01 id=154 acquisition_ms=1795122981190 stored_at_ms=1795122981191 buffer_depth=1 capacity=10800
+2026-11-20 03:01:21,386 INFO    jalsanket.storage: SYNCED rows_flushed=1 remaining_rows=0 buffer_depth=0 capacity=10800
+2026-11-20 03:01:21,386 INFO    jalsanket.mqtt: PUBLISH CONFIRMED (QoS 1 PUBACK) mid=49 type=live rows_confirmed=1 publish_latency_ms=193 buffer_depth=0
+2026-11-20 03:01:21,556 INFO    jalsanket.storage: STORED node=node-02 id=153 acquisition_ms=1795122981554 stored_at_ms=1795122981554 buffer_depth=1 capacity=10800
+2026-11-20 03:01:21,745 INFO    jalsanket.storage: SYNCED rows_flushed=1 remaining_rows=0 buffer_depth=0 capacity=10800
+2026-11-20 03:01:21,745 INFO    jalsanket.mqtt: PUBLISH CONFIRMED (QoS 1 PUBACK) mid=49 type=live rows_confirmed=1 publish_latency_ms=189 buffer_depth=0
+2026-11-20 03:01:21,929 INFO    jalsanket.mqtt: SHUTDOWN DRAIN START node=node-01 timeout_s=10.00 connected=True pending=0 buffer_depth=0
+2026-11-20 03:01:21,930 INFO    jalsanket.mqtt: MQTT DISCONNECTED during shutdown (rc=0) buffer_depth=0
+2026-11-20 03:01:21,931 INFO    jalsanket.mqtt: SHUTDOWN DRAIN COMPLETE node=node-01 pending=0 buffer_depth=0
+2026-11-20 03:01:21,931 INFO    jalsanket.mqtt: SHUTDOWN DRAIN START node=node-02 timeout_s=10.00 connected=True pending=0 buffer_depth=0
+2026-11-20 03:01:21,931 INFO    jalsanket.mqtt: MQTT DISCONNECTED during shutdown (rc=0) buffer_depth=0
+2026-11-20 03:01:21,932 INFO    jalsanket.mqtt: SHUTDOWN DRAIN COMPLETE node=node-02 pending=0 buffer_depth=0
+2026-11-20 03:01:21,932 INFO    jalsanket.mqtt: SHUTDOWN DRAIN START node=node-03 timeout_s=10.00 connected=True pending=0 buffer_depth=0
+2026-11-20 03:01:21,933 INFO    jalsanket.mqtt: MQTT DISCONNECTED during shutdown (rc=0) buffer_depth=0
+2026-11-20 03:01:21,933 INFO    jalsanket.mqtt: SHUTDOWN DRAIN COMPLETE node=node-03 pending=0 buffer_depth=0
+2026-11-20 03:01:21,935 INFO    jalsanket.fleet: FLEET STOPPED status=[{'node_id': 'node-01', 'buffer_depth': 0, 'capacity': 10800, 'eviction_policy': 'drop_newest', 'data_loss_count': 0, 'simulation_time_s': 23440.0, 'deviceName': 'JalSanket-Node-01', 'latitude': 27.8189, 'longitude': 85.4297, 'connected': False, 'safetyStatus': 'SAFE', 'activeAlarms': []}, {'node_id': 'node-02', 'buffer_depth': 0, 'capacity': 10800, 'eviction_policy': 'drop_newest', 'data_loss_count': 0, 'simulation_time_s': 23440.0, 'deviceName': 'JalSanket-Node-02', 'latitude': 27.8097, 'longitude': 85.3794, 'connected': False, 'safetyStatus': 'SAFE', 'activeAlarms': []}, {'node_id': 'node-03', 'buffer_depth': 0, 'capacity': 10800, 'eviction_policy': 'drop_newest', 'data_loss_count': 0, 'simulation_time_s': 23400.0, 'deviceName': 'JalSanket-Node-03', 'latitude': 27.6904, 'longitude': 85.3203, 'connected': False, 'safetyStatus': 'SAFE', 'activeAlarms': []}]

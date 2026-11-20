@@ -1,0 +1,84 @@
+
+=== 1. Secure configuration (no invented credentials) ===
+  [PASS] missing host/token raises configuration error
+  [PASS] env config uses port 8883
+  [PASS] approved reconnect defaults 2/60
+  [PASS] approved replay batch default 20
+  [PASS] token never appears in loggable summary
+  [PASS] non-8883 port rejected
+
+=== 2. TLS auth and QoS 1 confirmed delivery ===
+  [PASS] successful connection logged
+  [PASS] TLS context configured
+  [PASS] username is the device token
+  [PASS] password is empty
+  [PASS] live publish attempted
+  [PASS] live publish uses QoS 1
+  [PASS] live topic is correct
+  [PASS] live payload carries original acquisition_ms
+  [PASS] row still unsynced before PUBACK
+  [PASS] still unsynced after one more pump
+  [PASS] row synced only after QoS 1 PUBACK
+  [PASS] PUBACK confirmation logged
+  [PASS] puback statistic recorded
+
+=== 3. Authentication vs network failure distinction ===
+  [PASS] auth failure logged distinctly
+  [PASS] auth failure counted
+  [PASS] auth failure not counted as network failure
+  [PASS] auth failure leaves node offline
+  [PASS] network failure logged distinctly
+  [PASS] network failure counted
+  [PASS] network failure not counted as auth failure
+
+=== 4. Exponential backoff bounds (2 s / 60 s) ===
+  [PASS] backoff sequence 2,4,8,16,32,60,60,60  ([2.0, 4.0, 8.0, 16.0, 32.0, 60.0, 60.0, 60.0])
+  [PASS] auth failure forces maximum backoff
+
+=== 5. Outage: generation continues, buffer grows ===
+  [PASS] connected before outage
+  [PASS] live rows confirmed before outage
+  [PASS] outage detected (offline)
+  [PASS] readings still generated while offline
+  [PASS] offline/buffering logs emitted
+  [PASS] outage log emitted
+  [PASS] no crash: simulator still advancing
+
+=== 6. Automatic reconnect, chronological batched replay ===
+  [PASS] reconnect attempt logged
+  [PASS] automatic reconnect succeeded
+  [PASS] successful reconnect logged
+  [PASS] buffer fully drained
+  [PASS] exactly 3 replay batches for 5 rows at batch size 2  (batches=3)
+  [PASS] replay batch size respected
+  [PASS] replay preserves ORIGINAL acquisition_ms
+  [PASS] replay is chronological
+  [PASS] all replay messages use QoS 1
+  [PASS] replay complete logged
+  [PASS] rows flushed/remaining logged
+  [PASS] replay reuses telemetry topic
+
+=== 7. Local publish failure leaves rows unsynced ===
+  [PASS] failed publish counted  (count=2)
+  [PASS] failed publish leaves row unsynced
+  [PASS] failed publish logged
+
+=== 8. Idempotent start() and graceful shutdown drain ===
+  [PASS] initial start() connects once
+  [PASS] already-connected start() does not reconnect
+  [PASS] client stays connected after repeated start()
+  [PASS] row in flight before shutdown
+  [PASS] in-flight PUBACK received during drain
+  [PASS] PUBACK still required for sync at shutdown
+  [PASS] shutdown drain completed without timeout
+  [PASS] row marked synced only after PUBACK  ((1, None))
+  [PASS] client disconnected after drain
+  [PASS] unconfirmed row exists before timeout shutdown
+  [PASS] bounded shutdown timeout logged
+  [PASS] no PUBACK confirmation on timeout
+  [PASS] timed-out row remains unsynced and durable
+
+=== Summary ===
+  63/63 checks passed
+
+Phase 3 verification: ALL CHECKS PASSED

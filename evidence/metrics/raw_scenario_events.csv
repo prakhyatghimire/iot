@@ -1,0 +1,13 @@
+at_ms,control,node_id,tick
+1795135368494,trigger_contamination,node-01,4
+1795135372837,trigger_contamination,node-02,6
+1795135377178,trigger_contamination,node-03,8
+1795135416489,reset,node-01,28
+1795135416835,reset,node-02,28
+1795135417194,reset,node-03,28
+1795135480479,set_supply_interrupted(True),node-01,60
+1795135484825,set_supply_interrupted(True),node-02,62
+1795135489173,set_supply_interrupted(True),node-03,64
+1795135540476,set_supply_interrupted(False),node-01,90
+1795135540844,set_supply_interrupted(False),node-02,90
+1795135541195,set_supply_interrupted(False),node-03,90

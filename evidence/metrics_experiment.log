@@ -1,0 +1,27 @@
+OFFLINE - BUFFERING node=node-01 id=666 acquisition_ms=1795135363172 buffer_depth=1/10800
+OFFLINE - BUFFERING node=node-02 id=664 acquisition_ms=1795135363175 buffer_depth=1/10800
+OFFLINE - BUFFERING node=node-03 id=657 acquisition_ms=1795135363177 buffer_depth=1/10800
+SIMULATED CELLULAR OUTAGE - dropping MQTT link
+OFFLINE - CELLULAR/MQTT LINK LOST (rc=0); generation continues, rows are buffering. buffer_depth=1
+SIMULATED CELLULAR OUTAGE - dropping MQTT link
+OFFLINE - CELLULAR/MQTT LINK LOST (rc=0); generation continues, rows are buffering. buffer_depth=1
+SIMULATED CELLULAR OUTAGE - dropping MQTT link
+OFFLINE - CELLULAR/MQTT LINK LOST (rc=0); generation continues, rows are buffering. buffer_depth=1
+OFFLINE - BUFFERING node=node-01 id=706 acquisition_ms=1795135442488 buffer_depth=2/10800
+OFFLINE - BUFFERING node=node-02 id=704 acquisition_ms=1795135442907 buffer_depth=2/10800
+OFFLINE - BUFFERING node=node-03 id=697 acquisition_ms=1795135443658 buffer_depth=2/10800
+Running 240.0s Cloud metrics experiment (JWT fingerprint 111bfd4e)
+
+=== Metrics summary ===
+messages generated:        362
+Cloud-visible delivered:    362 (100.00%)
+still buffered at end:     0
+permanently lost rows:     0 (0.00%)
+live edge→PUBACK latency:  n=353 mean=196.9 ms median=194.0 ms p95=203.4 ms max=629.0 ms
+Cloud alarm events:        15 mean delay=544.8 ms
+recovery events:           3
+  JalSanket-Node-01: recovery=3529 ms rows=2 flush=5.51 rows/s reconnect=3165 ms
+  JalSanket-Node-02: recovery=3176 ms rows=2 flush=5.45 rows/s reconnect=2808 ms
+  JalSanket-Node-03: recovery=3203 ms rows=2 flush=5.56 rows/s reconnect=2843 ms
+Cloud ingestion latency:   NOT MEASURABLE (no Cloud ingestion timestamp exposed)
+raw evidence:              evidence/metrics/

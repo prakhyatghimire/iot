@@ -1,0 +1,44 @@
+=== 1. Percentiles and summaries ===
+  [PASS] p50 of 1..10 is 5.5
+  [PASS] p95 of 1..10 is 9.55  (9.549999999999999)
+  [PASS] summary count/mean/max  ({'n': 10, 'mean': 5.5, 'median': 5.5, 'p95': 9.549999999999999, 'min': 1.0, 'max': 10.0})
+  [PASS] empty summary is explicit
+
+=== 2. Delivery, buffering and loss ===
+  [PASS] delivery ratio 97%  ({'generated': 100, 'delivered_cloud': 97, 'buffered': 3, 'lost': 0, 'delivery_ratio_pct': 97.0, 'buffered_pct': 3.0, 'loss_pct': 0.0})
+  [PASS] temporarily buffered is not loss
+  [PASS] real loss reported separately
+
+=== 3. Alarm activation delay ===
+  [PASS] alarm delay mean 200 ms  ({'alarms': 3, 'n': 3, 'mean': 200.0, 'median': 200.0, 'p95': 290.0, 'min': 100.0, 'max': 300.0})
+
+=== 4. Replay grouping, throughput and recovery ===
+  [PASS] three replay episodes, live ignored  (3)
+  [PASS] episode sizes 2, 1 and 1  ([2, 1, 1])
+  [PASS] throughput 10 rows/s  (10.0)
+  [PASS] zero-length window is not a number
+  [PASS] mean recovery 500 ms  ({'n': 2, 'mean': 500.0, 'median': 500.0, 'p95': 590.0, 'min': 400.0, 'max': 600.0})
+
+=== 5. Collector correlation, recovery and plots (synthetic) ===
+  [PASS] latency sample counts live=3 replay=2  ((3, 2))
+  [PASS] no negative latency from cross-node id collision
+  [PASS] identical row ids map to each node's own acquisition  ({'node-01': 1000, 'node-02': 1200, 'node-03': 1400})
+  [PASS] edge acquisition to PUBACK = 100 ms
+  [PASS] PUBACK-only = 95 ms (not end-to-end)
+  [PASS] stored to PUBACK = 98 ms
+  [PASS] one recovery event  (1)
+  [PASS] recovery anchored at outage onset (2400 ms)  ({'node_id': 'node-01', 'device': 'JalSanket-Node-01', 'outage_ms': 3000, 'demo_restore_ms': 6000, 'reconnect_ms': 4200, 'rows_replayed': 2, 'replay_start_ms': 5000, 'buffer_empty_ms': 5400, 'recovery_ms': 2400, 'reconnect_delay_ms': 1200, 'flush_ms': 1200, 'flush_rows_per_s': 5.0})
+  [PASS] reconnect delay 1200 ms
+  [PASS] two rows replayed at 5 rows/s  (5.0)
+  [PASS] buffer depth keys are device names
+  [PASS] max buffered depth = 2
+  [PASS] both PNG plots written
+
+=== 6. Secret scanning ===
+  [PASS] JWT-like string detected  ({'configured secret #1', 'JWT-like string'})
+  [PASS] configured secret detected  ({'configured secret #1', 'JWT-like string'})
+  [PASS] clean file not flagged
+
+  29/29 checks passed
+
+Metrics verification: ALL CHECKS PASSED

@@ -1,0 +1,363 @@
+{
+  "ruleChain": {
+    "name": "JalSanket Water Quality Alarms",
+    "type": "CORE",
+    "description": "Assignment thresholds with hysteresis; 30 s flow and 60 s inactivity durations",
+    "debugMode": false
+  },
+  "metadata": {
+    "firstNodeIndex": 0,
+    "nodes": [
+      {
+        "index": 0,
+        "type": "org.thingsboard.rule.engine.filter.TbJsFilterNode",
+        "name": "High Turbidity Warning - TRIGGER",
+        "configuration": {
+          "jsScript": "return msg.turbidity_ntu !== undefined && msg.turbidity_ntu > 50;"
+        },
+        "connections": {
+          "True": [
+            1
+          ],
+          "False": []
+        },
+        "x": 100,
+        "y": 100
+      },
+      {
+        "index": 1,
+        "type": "org.thingsboard.rule.engine.action.TbCreateAlarmNode",
+        "name": "Create High Turbidity Warning",
+        "configuration": {
+          "alarmType": "High Turbidity Warning",
+          "alarmSeverity": "WARNING",
+          "checkExistingAlarm": true,
+          "propagate": false
+        },
+        "connections": {},
+        "x": 300,
+        "y": 100
+      },
+      {
+        "index": 3,
+        "type": "org.thingsboard.rule.engine.filter.TbJsFilterNode",
+        "name": "High Turbidity Warning - CLEAR",
+        "configuration": {
+          "jsScript": "return msg.turbidity_ntu !== undefined && msg.turbidity_ntu < 40;"
+        },
+        "connections": {
+          "True": [
+            2
+          ],
+          "False": []
+        },
+        "x": 100,
+        "y": 300
+      },
+      {
+        "index": 2,
+        "type": "org.thingsboard.rule.engine.action.TbClearAlarmNode",
+        "name": "Clear High Turbidity Warning",
+        "configuration": {
+          "alarmType": "High Turbidity Warning",
+          "propagate": false
+        },
+        "connections": {},
+        "x": 300,
+        "y": 300
+      },
+      {
+        "index": 4,
+        "type": "org.thingsboard.rule.engine.filter.TbJsFilterNode",
+        "name": "Gross Contamination Critical - TRIGGER",
+        "configuration": {
+          "jsScript": "return msg.turbidity_ntu !== undefined && msg.turbidity_ntu > 200;"
+        },
+        "connections": {
+          "True": [
+            5
+          ],
+          "False": []
+        },
+        "x": 260,
+        "y": 100
+      },
+      {
+        "index": 5,
+        "type": "org.thingsboard.rule.engine.action.TbCreateAlarmNode",
+        "name": "Create Gross Contamination Critical",
+        "configuration": {
+          "alarmType": "Gross Contamination Critical",
+          "alarmSeverity": "CRITICAL",
+          "checkExistingAlarm": true,
+          "propagate": false
+        },
+        "connections": {},
+        "x": 460,
+        "y": 100
+      },
+      {
+        "index": 7,
+        "type": "org.thingsboard.rule.engine.filter.TbJsFilterNode",
+        "name": "Gross Contamination Critical - CLEAR",
+        "configuration": {
+          "jsScript": "return msg.turbidity_ntu !== undefined && msg.turbidity_ntu < 150;"
+        },
+        "connections": {
+          "True": [
+            6
+          ],
+          "False": []
+        },
+        "x": 260,
+        "y": 300
+      },
+      {
+        "index": 6,
+        "type": "org.thingsboard.rule.engine.action.TbClearAlarmNode",
+        "name": "Clear Gross Contamination Critical",
+        "configuration": {
+          "alarmType": "Gross Contamination Critical",
+          "propagate": false
+        },
+        "connections": {},
+        "x": 460,
+        "y": 300
+      },
+      {
+        "index": 8,
+        "type": "org.thingsboard.rule.engine.filter.TbJsFilterNode",
+        "name": "pH Out of Range Critical - TRIGGER",
+        "configuration": {
+          "jsScript": "return msg.ph !== undefined && (msg.ph < 6.5 || msg.ph > 8.5);"
+        },
+        "connections": {
+          "True": [
+            9
+          ],
+          "False": []
+        },
+        "x": 420,
+        "y": 100
+      },
+      {
+        "index": 9,
+        "type": "org.thingsboard.rule.engine.action.TbCreateAlarmNode",
+        "name": "Create pH Out of Range Critical",
+        "configuration": {
+          "alarmType": "pH Out of Range Critical",
+          "alarmSeverity": "CRITICAL",
+          "checkExistingAlarm": true,
+          "propagate": false
+        },
+        "connections": {},
+        "x": 620,
+        "y": 100
+      },
+      {
+        "index": 11,
+        "type": "org.thingsboard.rule.engine.filter.TbJsFilterNode",
+        "name": "pH Out of Range Critical - CLEAR",
+        "configuration": {
+          "jsScript": "return msg.ph !== undefined && (msg.ph >= 6.7 && msg.ph <= 8.3);"
+        },
+        "connections": {
+          "True": [
+            10
+          ],
+          "False": []
+        },
+        "x": 420,
+        "y": 300
+      },
+      {
+        "index": 10,
+        "type": "org.thingsboard.rule.engine.action.TbClearAlarmNode",
+        "name": "Clear pH Out of Range Critical",
+        "configuration": {
+          "alarmType": "pH Out of Range Critical",
+          "propagate": false
+        },
+        "connections": {},
+        "x": 620,
+        "y": 300
+      },
+      {
+        "index": 12,
+        "type": "org.thingsboard.rule.engine.filter.TbJsFilterNode",
+        "name": "High TDS Critical - TRIGGER",
+        "configuration": {
+          "jsScript": "return msg.tds_ppm !== undefined && msg.tds_ppm > 500;"
+        },
+        "connections": {
+          "True": [
+            13
+          ],
+          "False": []
+        },
+        "x": 580,
+        "y": 100
+      },
+      {
+        "index": 13,
+        "type": "org.thingsboard.rule.engine.action.TbCreateAlarmNode",
+        "name": "Create High TDS Critical",
+        "configuration": {
+          "alarmType": "High TDS Critical",
+          "alarmSeverity": "CRITICAL",
+          "checkExistingAlarm": true,
+          "propagate": false
+        },
+        "connections": {},
+        "x": 780,
+        "y": 100
+      },
+      {
+        "index": 15,
+        "type": "org.thingsboard.rule.engine.filter.TbJsFilterNode",
+        "name": "High TDS Critical - CLEAR",
+        "configuration": {
+          "jsScript": "return msg.tds_ppm !== undefined && msg.tds_ppm < 450;"
+        },
+        "connections": {
+          "True": [
+            14
+          ],
+          "False": []
+        },
+        "x": 580,
+        "y": 300
+      },
+      {
+        "index": 14,
+        "type": "org.thingsboard.rule.engine.action.TbClearAlarmNode",
+        "name": "Clear High TDS Critical",
+        "configuration": {
+          "alarmType": "High TDS Critical",
+          "propagate": false
+        },
+        "connections": {},
+        "x": 780,
+        "y": 300
+      },
+      {
+        "index": 16,
+        "type": "org.thingsboard.rule.engine.filter.TbJsFilterNode",
+        "name": "Supply Interruption Major - TRIGGER",
+        "configuration": {
+          "jsScript": "return msg.flow_lpm !== undefined && msg.flow_lpm === 0;"
+        },
+        "connections": {
+          "True": [
+            17
+          ],
+          "False": []
+        },
+        "x": 740,
+        "y": 100
+      },
+      {
+        "index": 17,
+        "type": "org.thingsboard.rule.engine.action.TbCreateAlarmNode",
+        "name": "Create Supply Interruption Major",
+        "configuration": {
+          "alarmType": "Supply Interruption Major",
+          "alarmSeverity": "MAJOR",
+          "checkExistingAlarm": true,
+          "propagate": false
+        },
+        "connections": {},
+        "x": 940,
+        "y": 100
+      },
+      {
+        "index": 19,
+        "type": "org.thingsboard.rule.engine.filter.TbJsFilterNode",
+        "name": "Supply Interruption Major - CLEAR",
+        "configuration": {
+          "jsScript": "return msg.flow_lpm !== undefined && msg.flow_lpm > 0;"
+        },
+        "connections": {
+          "True": [
+            18
+          ],
+          "False": []
+        },
+        "x": 740,
+        "y": 300
+      },
+      {
+        "index": 18,
+        "type": "org.thingsboard.rule.engine.action.TbClearAlarmNode",
+        "name": "Clear Supply Interruption Major",
+        "configuration": {
+          "alarmType": "Supply Interruption Major",
+          "propagate": false
+        },
+        "connections": {},
+        "x": 940,
+        "y": 300
+      },
+      {
+        "index": 20,
+        "type": "org.thingsboard.rule.engine.filter.TbJsFilterNode",
+        "name": "Node Inactive Critical - TRIGGER",
+        "configuration": {
+          "jsScript": "return metadata.inactive === true;"
+        },
+        "connections": {
+          "True": [
+            21
+          ],
+          "False": []
+        },
+        "x": 900,
+        "y": 100
+      },
+      {
+        "index": 21,
+        "type": "org.thingsboard.rule.engine.action.TbCreateAlarmNode",
+        "name": "Create Node Inactive Critical",
+        "configuration": {
+          "alarmType": "Node Inactive Critical",
+          "alarmSeverity": "CRITICAL",
+          "checkExistingAlarm": true,
+          "propagate": false
+        },
+        "connections": {},
+        "x": 1100,
+        "y": 100
+      },
+      {
+        "index": 23,
+        "type": "org.thingsboard.rule.engine.filter.TbJsFilterNode",
+        "name": "Node Inactive Critical - CLEAR",
+        "configuration": {
+          "jsScript": "return metadata.inactive === false;"
+        },
+        "connections": {
+          "True": [
+            22
+          ],
+          "False": []
+        },
+        "x": 900,
+        "y": 300
+      },
+      {
+        "index": 22,
+        "type": "org.thingsboard.rule.engine.action.TbClearAlarmNode",
+        "name": "Clear Node Inactive Critical",
+        "configuration": {
+          "alarmType": "Node Inactive Critical",
+          "propagate": false
+        },
+        "connections": {},
+        "x": 1100,
+        "y": 300
+      }
+    ],
+    "connections": [],
+    "ruleChainConnections": []
+  }
+}

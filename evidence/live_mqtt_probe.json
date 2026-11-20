@@ -1,0 +1,34 @@
+{
+  "checked_at": "2026-11-19T19:54:39.778886+00:00",
+  "host": "eu.thingsboard.cloud",
+  "port": 8883,
+  "tls": true,
+  "devices": {
+    "JalSanket-Node-01": {
+      "connected": true,
+      "reason": 0,
+      "published": true,
+      "rpc_subscribed": true,
+      "publish_queued": true,
+      "telemetry_ts": 1795118075531
+    },
+    "JalSanket-Node-02": {
+      "connected": true,
+      "reason": 0,
+      "published": true,
+      "rpc_subscribed": true,
+      "publish_queued": true,
+      "telemetry_ts": 1795118077296
+    },
+    "JalSanket-Node-03": {
+      "connected": true,
+      "reason": 0,
+      "published": true,
+      "rpc_subscribed": true,
+      "publish_queued": true,
+      "telemetry_ts": 1795118078857
+    }
+  },
+  "all_connected": true,
+  "all_qos1_confirmed": true
+}

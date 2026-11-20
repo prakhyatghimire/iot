@@ -1,0 +1,461 @@
+2026-11-20 01:48:53,480 INFO    jalsanket.demo: Wrote artifacts: ['thingsboard/jalsanket_dashboard.json', 'thingsboard/jalsanket_rule_chain.json', 'thingsboard/jalsanket_alarm_config.json', 'thingsboard/jalsanket_devices.json']
+2026-11-20 01:48:53,483 INFO    jalsanket.storage: store opened path=data/node-01.db journal_mode=WAL capacity=10800 policy=drop_newest unsynced=87
+2026-11-20 01:48:53,495 INFO    jalsanket.storage: store opened path=data/node-02.db journal_mode=WAL capacity=10800 policy=drop_newest unsynced=87
+2026-11-20 01:48:53,505 INFO    jalsanket.storage: store opened path=data/node-03.db journal_mode=WAL capacity=10800 policy=drop_newest unsynced=86
+2026-11-20 01:48:53,513 INFO    jalsanket.mqtt: MQTT CONFIG {'host': 'eu.thingsboard.cloud', 'port': 8883, 'tls': True, 'ca_cert': 'system trust store', 'client_id': 'jalsanket-node-01', 'token_present': True, 'reconnect_min_delay_s': 2.0, 'reconnect_max_delay_s': 60.0, 'replay_batch_size': 20, 'telemetry_topic': 'v1/devices/me/telemetry'}
+2026-11-20 01:48:53,513 INFO    jalsanket.mqtt: CONNECTING host=eu.thingsboard.cloud port=8883 tls=enabled
+2026-11-20 01:48:53,872 INFO    jalsanket.runner: SIMULATOR STARTED node=node-01 interval=2.0s
+2026-11-20 01:48:53,872 INFO    jalsanket.mqtt: MQTT CONFIG {'host': 'eu.thingsboard.cloud', 'port': 8883, 'tls': True, 'ca_cert': 'system trust store', 'client_id': 'jalsanket-node-02', 'token_present': True, 'reconnect_min_delay_s': 2.0, 'reconnect_max_delay_s': 60.0, 'replay_batch_size': 20, 'telemetry_topic': 'v1/devices/me/telemetry'}
+2026-11-20 01:48:53,872 INFO    jalsanket.mqtt: CONNECTING host=eu.thingsboard.cloud port=8883 tls=enabled
+2026-11-20 01:48:54,247 INFO    jalsanket.runner: SIMULATOR STARTED node=node-02 interval=2.0s
+2026-11-20 01:48:54,247 INFO    jalsanket.mqtt: MQTT CONFIG {'host': 'eu.thingsboard.cloud', 'port': 8883, 'tls': True, 'ca_cert': 'system trust store', 'client_id': 'jalsanket-node-03', 'token_present': True, 'reconnect_min_delay_s': 2.0, 'reconnect_max_delay_s': 60.0, 'replay_batch_size': 20, 'telemetry_topic': 'v1/devices/me/telemetry'}
+2026-11-20 01:48:54,247 INFO    jalsanket.mqtt: CONNECTING host=eu.thingsboard.cloud port=8883 tls=enabled
+2026-11-20 01:48:54,607 INFO    jalsanket.runner: SIMULATOR STARTED node=node-03 interval=2.0s
+2026-11-20 01:48:54,607 INFO    jalsanket.fleet: FLEET STARTED nodes=3
+2026-11-20 01:48:54,609 INFO    jalsanket.storage: STORED node=node-01 id=88 acquisition_ms=1795118634607 stored_at_ms=1795118634607 buffer_depth=88 capacity=10800
+2026-11-20 01:48:54,609 WARNING jalsanket.mqtt: OFFLINE - BUFFERING node=node-01 id=88 acquisition_ms=1795118634607 buffer_depth=88/10800
+2026-11-20 01:48:54,610 INFO    jalsanket.mqtt: SUCCESSFUL CONNECTION to eu.thingsboard.cloud:8883
+2026-11-20 01:48:54,611 INFO    jalsanket.mqtt: REPLAY BATCH PUBLISHED rows=20 batch_size=20 oldest_acq_ms=1795118214057 newest_acq_ms=1795118252063 buffer_depth=88
+2026-11-20 01:48:54,612 INFO    jalsanket.storage: STORED node=node-02 id=88 acquisition_ms=1795118634612 stored_at_ms=1795118634612 buffer_depth=88 capacity=10800
+2026-11-20 01:48:54,612 WARNING jalsanket.mqtt: OFFLINE - BUFFERING node=node-02 id=88 acquisition_ms=1795118634612 buffer_depth=88/10800
+2026-11-20 01:48:54,987 INFO    jalsanket.storage: STORED node=node-03 id=87 acquisition_ms=1795118634986 stored_at_ms=1795118634986 buffer_depth=87 capacity=10800
+2026-11-20 01:48:54,988 WARNING jalsanket.mqtt: OFFLINE - BUFFERING node=node-03 id=87 acquisition_ms=1795118634986 buffer_depth=87/10800
+2026-11-20 01:48:54,988 INFO    jalsanket.mqtt: SUCCESSFUL CONNECTION to eu.thingsboard.cloud:8883
+2026-11-20 01:48:54,989 INFO    jalsanket.mqtt: REPLAY BATCH PUBLISHED rows=20 batch_size=20 oldest_acq_ms=1795118214058 newest_acq_ms=1795118252065 buffer_depth=87
+2026-11-20 01:48:55,016 WARNING jalsanket.mqtt: OFFLINE - CELLULAR/MQTT LINK LOST (rc=128); generation continues, rows are buffering. buffer_depth=88
+2026-11-20 01:48:55,016 INFO    jalsanket.mqtt: RECONNECT ATTEMPT #1 in 2.1s (auth_failure=False, last_error=disconnected rc=128)
+2026-11-20 01:48:55,370 INFO    jalsanket.mqtt: SUCCESSFUL CONNECTION to eu.thingsboard.cloud:8883
+2026-11-20 01:48:55,372 INFO    jalsanket.mqtt: REPLAY BATCH PUBLISHED rows=20 batch_size=20 oldest_acq_ms=1795118214058 newest_acq_ms=1795118252064 buffer_depth=88
+2026-11-20 01:48:55,374 WARNING jalsanket.mqtt: OFFLINE - CELLULAR/MQTT LINK LOST (rc=128); generation continues, rows are buffering. buffer_depth=87
+2026-11-20 01:48:55,374 INFO    jalsanket.mqtt: RECONNECT ATTEMPT #1 in 2.0s (auth_failure=False, last_error=disconnected rc=128)
+2026-11-20 01:48:55,755 INFO    jalsanket.mqtt: SUCCESSFUL RECONNECT attempt=0 buffered_rows=88
+2026-11-20 01:48:55,756 INFO    jalsanket.mqtt: REPLAY BATCH PUBLISHED rows=20 batch_size=20 oldest_acq_ms=1795118214057 newest_acq_ms=1795118252063 buffer_depth=88
+2026-11-20 01:48:55,758 WARNING jalsanket.mqtt: OFFLINE - CELLULAR/MQTT LINK LOST (rc=128); generation continues, rows are buffering. buffer_depth=88
+2026-11-20 01:48:55,876 INFO    jalsanket.storage: STORED node=node-01 id=89 acquisition_ms=1795118635874 stored_at_ms=1795118635874 buffer_depth=89 capacity=10800
+2026-11-20 01:48:55,949 WARNING jalsanket.mqtt: OFFLINE - CELLULAR/MQTT LINK LOST (rc=128); generation continues, rows are buffering. buffer_depth=89
+2026-11-20 01:48:56,105 INFO    jalsanket.mqtt: SUCCESSFUL RECONNECT attempt=0 buffered_rows=87
+2026-11-20 01:48:56,107 INFO    jalsanket.mqtt: REPLAY BATCH PUBLISHED rows=20 batch_size=20 oldest_acq_ms=1795118214058 newest_acq_ms=1795118252065 buffer_depth=87
+2026-11-20 01:48:56,258 INFO    jalsanket.storage: STORED node=node-02 id=89 acquisition_ms=1795118636257 stored_at_ms=1795118636257 buffer_depth=89 capacity=10800
+2026-11-20 01:48:56,258 WARNING jalsanket.mqtt: OFFLINE - BUFFERING node=node-02 id=89 acquisition_ms=1795118636257 buffer_depth=89/10800
+2026-11-20 01:48:56,304 WARNING jalsanket.mqtt: OFFLINE - CELLULAR/MQTT LINK LOST (rc=128); generation continues, rows are buffering. buffer_depth=87
+2026-11-20 01:48:56,624 INFO    jalsanket.storage: STORED node=node-03 id=88 acquisition_ms=1795118636623 stored_at_ms=1795118636623 buffer_depth=88 capacity=10800
+2026-11-20 01:48:56,624 WARNING jalsanket.mqtt: OFFLINE - BUFFERING node=node-03 id=88 acquisition_ms=1795118636623 buffer_depth=88/10800
+2026-11-20 01:48:56,813 INFO    jalsanket.mqtt: RECONNECT ATTEMPT #1 in 2.2s (auth_failure=False, last_error=disconnected rc=128)
+2026-11-20 01:48:57,188 INFO    jalsanket.mqtt: RECONNECT ATTEMPT #1 in 2.0s (auth_failure=False, last_error=disconnected rc=128)
+2026-11-20 01:48:57,539 INFO    jalsanket.mqtt: SUCCESSFUL RECONNECT attempt=0 buffered_rows=89
+2026-11-20 01:48:57,541 INFO    jalsanket.mqtt: REPLAY BATCH PUBLISHED rows=20 batch_size=20 oldest_acq_ms=1795118214058 newest_acq_ms=1795118252064 buffer_depth=89
+2026-11-20 01:48:57,541 INFO    jalsanket.mqtt: RECONNECT ATTEMPT #1 in 2.1s (auth_failure=False, last_error=disconnected rc=128)
+2026-11-20 01:48:57,944 INFO    jalsanket.storage: STORED node=node-01 id=90 acquisition_ms=1795118637942 stored_at_ms=1795118637942 buffer_depth=90 capacity=10800
+2026-11-20 01:48:57,944 WARNING jalsanket.mqtt: OFFLINE - BUFFERING node=node-01 id=90 acquisition_ms=1795118637942 buffer_depth=90/10800
+2026-11-20 01:48:57,944 INFO    jalsanket.mqtt: SUCCESSFUL RECONNECT attempt=0 buffered_rows=90
+2026-11-20 01:48:57,946 INFO    jalsanket.mqtt: REPLAY BATCH PUBLISHED rows=20 batch_size=20 oldest_acq_ms=1795118214057 newest_acq_ms=1795118252063 buffer_depth=90
+2026-11-20 01:48:57,947 WARNING jalsanket.mqtt: OFFLINE - CELLULAR/MQTT LINK LOST (rc=128); generation continues, rows are buffering. buffer_depth=89
+2026-11-20 01:48:58,134 WARNING jalsanket.mqtt: OFFLINE - CELLULAR/MQTT LINK LOST (rc=128); generation continues, rows are buffering. buffer_depth=90
+2026-11-20 01:48:58,250 INFO    jalsanket.storage: STORED node=node-02 id=90 acquisition_ms=1795118638249 stored_at_ms=1795118638250 buffer_depth=90 capacity=10800
+2026-11-20 01:48:58,250 WARNING jalsanket.mqtt: OFFLINE - BUFFERING node=node-02 id=90 acquisition_ms=1795118638249 buffer_depth=90/10800
+2026-11-20 01:48:58,325 INFO    jalsanket.mqtt: SUCCESSFUL RECONNECT attempt=0 buffered_rows=88
+2026-11-20 01:48:58,326 INFO    jalsanket.mqtt: REPLAY BATCH PUBLISHED rows=20 batch_size=20 oldest_acq_ms=1795118214058 newest_acq_ms=1795118252065 buffer_depth=88
+2026-11-20 01:48:58,512 WARNING jalsanket.mqtt: OFFLINE - CELLULAR/MQTT LINK LOST (rc=128); generation continues, rows are buffering. buffer_depth=88
+2026-11-20 01:48:58,610 INFO    jalsanket.storage: STORED node=node-03 id=89 acquisition_ms=1795118638609 stored_at_ms=1795118638609 buffer_depth=89 capacity=10800
+2026-11-20 01:48:58,611 WARNING jalsanket.mqtt: OFFLINE - BUFFERING node=node-03 id=89 acquisition_ms=1795118638609 buffer_depth=89/10800
+2026-11-20 01:48:59,022 INFO    jalsanket.mqtt: RECONNECT ATTEMPT #1 in 2.0s (auth_failure=False, last_error=disconnected rc=128)
+2026-11-20 01:48:59,412 INFO    jalsanket.mqtt: RECONNECT ATTEMPT #1 in 2.1s (auth_failure=False, last_error=disconnected rc=128)
+2026-11-20 01:48:59,765 INFO    jalsanket.mqtt: RECONNECT ATTEMPT #1 in 2.0s (auth_failure=False, last_error=disconnected rc=128)
+2026-11-20 01:49:00,144 INFO    jalsanket.storage: STORED node=node-01 id=91 acquisition_ms=1795118640142 stored_at_ms=1795118640143 buffer_depth=91 capacity=10800
+2026-11-20 01:49:00,144 WARNING jalsanket.mqtt: OFFLINE - BUFFERING node=node-01 id=91 acquisition_ms=1795118640142 buffer_depth=91/10800
+2026-11-20 01:49:00,144 INFO    jalsanket.mqtt: SUCCESSFUL RECONNECT attempt=0 buffered_rows=91
+2026-11-20 01:49:00,162 WARNING jalsanket.mqtt: OFFLINE - CELLULAR/MQTT LINK LOST (rc=128); generation continues, rows are buffering. buffer_depth=91
+2026-11-20 01:49:00,162 INFO    jalsanket.mqtt: SUCCESSFUL RECONNECT attempt=0 buffered_rows=90
+2026-11-20 01:49:00,163 INFO    jalsanket.mqtt: REPLAY BATCH PUBLISHED rows=20 batch_size=20 oldest_acq_ms=1795118214058 newest_acq_ms=1795118252064 buffer_depth=90
+2026-11-20 01:49:00,258 INFO    jalsanket.storage: STORED node=node-02 id=91 acquisition_ms=1795118640257 stored_at_ms=1795118640257 buffer_depth=91 capacity=10800
+2026-11-20 01:49:00,353 WARNING jalsanket.mqtt: OFFLINE - CELLULAR/MQTT LINK LOST (rc=128); generation continues, rows are buffering. buffer_depth=91
+2026-11-20 01:49:00,494 INFO    jalsanket.mqtt: SUCCESSFUL RECONNECT attempt=0 buffered_rows=89
+2026-11-20 01:49:00,495 INFO    jalsanket.mqtt: REPLAY BATCH PUBLISHED rows=20 batch_size=20 oldest_acq_ms=1795118214058 newest_acq_ms=1795118252065 buffer_depth=89
+2026-11-20 01:49:00,611 INFO    jalsanket.storage: STORED node=node-03 id=90 acquisition_ms=1795118640610 stored_at_ms=1795118640610 buffer_depth=90 capacity=10800
+2026-11-20 01:49:00,681 WARNING jalsanket.mqtt: OFFLINE - CELLULAR/MQTT LINK LOST (rc=128); generation continues, rows are buffering. buffer_depth=90
+2026-11-20 01:49:01,060 INFO    jalsanket.mqtt: RECONNECT ATTEMPT #1 in 2.0s (auth_failure=False, last_error=disconnected rc=128)
+2026-11-20 01:49:01,513 INFO    jalsanket.mqtt: RECONNECT ATTEMPT #1 in 2.0s (auth_failure=False, last_error=disconnected rc=128)
+2026-11-20 01:49:01,868 INFO    jalsanket.mqtt: SUCCESSFUL RECONNECT attempt=0 buffered_rows=91
+2026-11-20 01:49:01,870 INFO    jalsanket.mqtt: REPLAY BATCH PUBLISHED rows=20 batch_size=20 oldest_acq_ms=1795118214058 newest_acq_ms=1795118252064 buffer_depth=91
+2026-11-20 01:49:01,870 INFO    jalsanket.mqtt: RECONNECT ATTEMPT #1 in 2.2s (auth_failure=False, last_error=disconnected rc=128)
+2026-11-20 01:49:02,244 INFO    jalsanket.storage: STORED node=node-01 id=92 acquisition_ms=1795118642243 stored_at_ms=1795118642243 buffer_depth=92 capacity=10800
+2026-11-20 01:49:02,244 WARNING jalsanket.mqtt: OFFLINE - BUFFERING node=node-01 id=92 acquisition_ms=1795118642243 buffer_depth=92/10800
+2026-11-20 01:49:02,245 INFO    jalsanket.mqtt: SUCCESSFUL RECONNECT attempt=0 buffered_rows=92
+2026-11-20 01:49:02,247 INFO    jalsanket.mqtt: REPLAY BATCH PUBLISHED rows=20 batch_size=20 oldest_acq_ms=1795118214057 newest_acq_ms=1795118252063 buffer_depth=92
+2026-11-20 01:49:02,248 WARNING jalsanket.mqtt: OFFLINE - CELLULAR/MQTT LINK LOST (rc=128); generation continues, rows are buffering. buffer_depth=91
+2026-11-20 01:49:02,270 INFO    jalsanket.storage: STORED node=node-02 id=92 acquisition_ms=1795118642270 stored_at_ms=1795118642270 buffer_depth=92 capacity=10800
+2026-11-20 01:49:02,271 WARNING jalsanket.mqtt: OFFLINE - BUFFERING node=node-02 id=92 acquisition_ms=1795118642270 buffer_depth=92/10800
+2026-11-20 01:49:02,445 WARNING jalsanket.mqtt: OFFLINE - CELLULAR/MQTT LINK LOST (rc=128); generation continues, rows are buffering. buffer_depth=92
+2026-11-20 01:49:02,589 INFO    jalsanket.mqtt: SUCCESSFUL RECONNECT attempt=0 buffered_rows=90
+2026-11-20 01:49:02,590 INFO    jalsanket.mqtt: REPLAY BATCH PUBLISHED rows=20 batch_size=20 oldest_acq_ms=1795118214058 newest_acq_ms=1795118252065 buffer_depth=90
+2026-11-20 01:49:02,612 INFO    jalsanket.storage: STORED node=node-03 id=91 acquisition_ms=1795118642611 stored_at_ms=1795118642611 buffer_depth=91 capacity=10800
+2026-11-20 01:49:02,771 WARNING jalsanket.mqtt: OFFLINE - CELLULAR/MQTT LINK LOST (rc=128); generation continues, rows are buffering. buffer_depth=91
+2026-11-20 01:49:03,071 INFO    jalsanket.mqtt: RECONNECT ATTEMPT #1 in 2.0s (auth_failure=False, last_error=disconnected rc=128)
+2026-11-20 01:49:03,535 INFO    jalsanket.mqtt: RECONNECT ATTEMPT #1 in 2.1s (auth_failure=False, last_error=disconnected rc=128)
+2026-11-20 01:49:03,893 INFO    jalsanket.mqtt: SUCCESSFUL RECONNECT attempt=0 buffered_rows=92
+2026-11-20 01:49:03,894 INFO    jalsanket.mqtt: REPLAY BATCH PUBLISHED rows=20 batch_size=20 oldest_acq_ms=1795118214058 newest_acq_ms=1795118252064 buffer_depth=92
+2026-11-20 01:49:03,919 INFO    jalsanket.storage: STORED node=node-01 id=93 acquisition_ms=1795118643918 stored_at_ms=1795118643918 buffer_depth=93 capacity=10800
+2026-11-20 01:49:03,919 WARNING jalsanket.mqtt: OFFLINE - BUFFERING node=node-01 id=93 acquisition_ms=1795118643918 buffer_depth=93/10800
+2026-11-20 01:49:04,082 WARNING jalsanket.mqtt: OFFLINE - CELLULAR/MQTT LINK LOST (rc=128); generation continues, rows are buffering. buffer_depth=92
+2026-11-20 01:49:04,083 INFO    jalsanket.mqtt: RECONNECT ATTEMPT #1 in 2.0s (auth_failure=False, last_error=disconnected rc=128)
+2026-11-20 01:49:04,463 INFO    jalsanket.mqtt: SUCCESSFUL RECONNECT attempt=0 buffered_rows=93
+2026-11-20 01:49:04,464 WARNING jalsanket.mqtt: OFFLINE - CELLULAR/MQTT LINK LOST (rc=128); generation continues, rows are buffering. buffer_depth=93
+2026-11-20 01:49:04,465 INFO    jalsanket.storage: STORED node=node-02 id=93 acquisition_ms=1795118644464 stored_at_ms=1795118644464 buffer_depth=93 capacity=10800
+2026-11-20 01:49:04,465 WARNING jalsanket.mqtt: OFFLINE - BUFFERING node=node-02 id=93 acquisition_ms=1795118644464 buffer_depth=93/10800
+2026-11-20 01:49:04,624 INFO    jalsanket.storage: STORED node=node-03 id=92 acquisition_ms=1795118644623 stored_at_ms=1795118644623 buffer_depth=92 capacity=10800
+2026-11-20 01:49:04,624 WARNING jalsanket.mqtt: OFFLINE - BUFFERING node=node-03 id=92 acquisition_ms=1795118644623 buffer_depth=92/10800
+2026-11-20 01:49:04,836 INFO    jalsanket.mqtt: SUCCESSFUL RECONNECT attempt=0 buffered_rows=92
+2026-11-20 01:49:04,837 INFO    jalsanket.mqtt: REPLAY BATCH PUBLISHED rows=20 batch_size=20 oldest_acq_ms=1795118214058 newest_acq_ms=1795118252065 buffer_depth=92
+2026-11-20 01:49:05,030 WARNING jalsanket.mqtt: OFFLINE - CELLULAR/MQTT LINK LOST (rc=128); generation continues, rows are buffering. buffer_depth=92
+2026-11-20 01:49:05,079 INFO    jalsanket.mqtt: RECONNECT ATTEMPT #1 in 2.0s (auth_failure=False, last_error=disconnected rc=128)
+2026-11-20 01:49:05,661 INFO    jalsanket.mqtt: RECONNECT ATTEMPT #1 in 2.0s (auth_failure=False, last_error=disconnected rc=128)
+2026-11-20 01:49:06,023 INFO    jalsanket.mqtt: SUCCESSFUL RECONNECT attempt=0 buffered_rows=93
+2026-11-20 01:49:06,024 INFO    jalsanket.mqtt: REPLAY BATCH PUBLISHED rows=20 batch_size=20 oldest_acq_ms=1795118214058 newest_acq_ms=1795118252064 buffer_depth=93
+2026-11-20 01:49:06,046 INFO    jalsanket.storage: STORED node=node-01 id=94 acquisition_ms=1795118646045 stored_at_ms=1795118646045 buffer_depth=94 capacity=10800
+2026-11-20 01:49:06,046 WARNING jalsanket.mqtt: OFFLINE - BUFFERING node=node-01 id=94 acquisition_ms=1795118646045 buffer_depth=94/10800
+2026-11-20 01:49:06,096 INFO    jalsanket.mqtt: RECONNECT ATTEMPT #1 in 2.0s (auth_failure=False, last_error=disconnected rc=128)
+2026-11-20 01:49:06,490 INFO    jalsanket.mqtt: SUCCESSFUL RECONNECT attempt=0 buffered_rows=94
+2026-11-20 01:49:06,493 INFO    jalsanket.mqtt: REPLAY BATCH PUBLISHED rows=20 batch_size=20 oldest_acq_ms=1795118214057 newest_acq_ms=1795118252063 buffer_depth=94
+2026-11-20 01:49:06,494 INFO    jalsanket.storage: STORED node=node-02 id=94 acquisition_ms=1795118646493 stored_at_ms=1795118646493 buffer_depth=94 capacity=10800
+2026-11-20 01:49:06,495 WARNING jalsanket.mqtt: OFFLINE - CELLULAR/MQTT LINK LOST (rc=128); generation continues, rows are buffering. buffer_depth=94
+2026-11-20 01:49:06,495 ERROR   jalsanket.mqtt: PUBLISH FAILED (rc=7); rows remain unsynchronized
+2026-11-20 01:49:06,496 WARNING jalsanket.mqtt: OFFLINE - CELLULAR/MQTT LINK LOST (rc=128); generation continues, rows are buffering. buffer_depth=92
+2026-11-20 01:49:06,521 WARNING jalsanket.mqtt: OFFLINE - CELLULAR/MQTT LINK LOST (rc=128); generation continues, rows are buffering. buffer_depth=94
+2026-11-20 01:49:06,613 INFO    jalsanket.storage: STORED node=node-03 id=93 acquisition_ms=1795118646612 stored_at_ms=1795118646612 buffer_depth=93 capacity=10800
+2026-11-20 01:49:06,613 WARNING jalsanket.mqtt: OFFLINE - BUFFERING node=node-03 id=93 acquisition_ms=1795118646612 buffer_depth=93/10800
+2026-11-20 01:49:07,100 INFO    jalsanket.mqtt: RECONNECT ATTEMPT #1 in 2.1s (auth_failure=False, last_error=disconnected rc=128)
+2026-11-20 01:49:07,663 INFO    jalsanket.mqtt: RECONNECT ATTEMPT #1 in 2.1s (auth_failure=False, last_error=disconnected rc=128)
+2026-11-20 01:49:08,018 INFO    jalsanket.mqtt: SUCCESSFUL RECONNECT attempt=0 buffered_rows=94
+2026-11-20 01:49:08,019 INFO    jalsanket.mqtt: REPLAY BATCH PUBLISHED rows=20 batch_size=20 oldest_acq_ms=1795118214058 newest_acq_ms=1795118252064 buffer_depth=94
+2026-11-20 01:49:08,046 INFO    jalsanket.storage: STORED node=node-01 id=95 acquisition_ms=1795118648045 stored_at_ms=1795118648045 buffer_depth=95 capacity=10800
+2026-11-20 01:49:08,046 WARNING jalsanket.mqtt: OFFLINE - BUFFERING node=node-01 id=95 acquisition_ms=1795118648045 buffer_depth=95/10800
+2026-11-20 01:49:08,096 INFO    jalsanket.mqtt: RECONNECT ATTEMPT #2 in 3.8s (auth_failure=False, last_error=disconnected rc=128)
+2026-11-20 01:49:08,471 INFO    jalsanket.mqtt: SUCCESSFUL RECONNECT attempt=0 buffered_rows=95
+2026-11-20 01:49:08,472 INFO    jalsanket.mqtt: REPLAY BATCH PUBLISHED rows=20 batch_size=20 oldest_acq_ms=1795118214057 newest_acq_ms=1795118252063 buffer_depth=95
+2026-11-20 01:49:08,475 INFO    jalsanket.storage: STORED node=node-02 id=95 acquisition_ms=1795118648473 stored_at_ms=1795118648473 buffer_depth=95 capacity=10800
+2026-11-20 01:49:08,477 WARNING jalsanket.mqtt: OFFLINE - CELLULAR/MQTT LINK LOST (rc=128); generation continues, rows are buffering. buffer_depth=95
+2026-11-20 01:49:08,619 INFO    jalsanket.storage: STORED node=node-03 id=94 acquisition_ms=1795118648619 stored_at_ms=1795118648619 buffer_depth=94 capacity=10800
+2026-11-20 01:49:08,620 WARNING jalsanket.mqtt: OFFLINE - BUFFERING node=node-03 id=94 acquisition_ms=1795118648619 buffer_depth=94/10800
+2026-11-20 01:49:08,669 WARNING jalsanket.mqtt: OFFLINE - CELLULAR/MQTT LINK LOST (rc=128); generation continues, rows are buffering. buffer_depth=95
+2026-11-20 01:49:08,832 INFO    jalsanket.mqtt: SUCCESSFUL RECONNECT attempt=0 buffered_rows=94
+2026-11-20 01:49:08,834 INFO    jalsanket.mqtt: REPLAY BATCH PUBLISHED rows=20 batch_size=20 oldest_acq_ms=1795118214058 newest_acq_ms=1795118252065 buffer_depth=94
+2026-11-20 01:49:09,019 WARNING jalsanket.mqtt: OFFLINE - CELLULAR/MQTT LINK LOST (rc=128); generation continues, rows are buffering. buffer_depth=94
+2026-11-20 01:49:09,248 INFO    jalsanket.mqtt: RECONNECT ATTEMPT #1 in 2.1s (auth_failure=False, last_error=disconnected rc=128)
+2026-11-20 01:49:09,780 INFO    jalsanket.mqtt: RECONNECT ATTEMPT #1 in 2.0s (auth_failure=False, last_error=disconnected rc=128)
+2026-11-20 01:49:10,155 INFO    jalsanket.mqtt: SUCCESSFUL RECONNECT attempt=0 buffered_rows=95
+2026-11-20 01:49:10,156 INFO    jalsanket.mqtt: REPLAY BATCH PUBLISHED rows=20 batch_size=20 oldest_acq_ms=1795118214058 newest_acq_ms=1795118252064 buffer_depth=95
+2026-11-20 01:49:10,180 INFO    jalsanket.storage: STORED node=node-01 id=96 acquisition_ms=1795118650179 stored_at_ms=1795118650179 buffer_depth=96 capacity=10800
+2026-11-20 01:49:10,180 WARNING jalsanket.mqtt: OFFLINE - BUFFERING node=node-01 id=96 acquisition_ms=1795118650179 buffer_depth=96/10800
+2026-11-20 01:49:10,252 INFO    jalsanket.storage: STORED node=node-02 id=96 acquisition_ms=1795118650251 stored_at_ms=1795118650251 buffer_depth=96 capacity=10800
+2026-11-20 01:49:10,348 WARNING jalsanket.mqtt: OFFLINE - CELLULAR/MQTT LINK LOST (rc=128); generation continues, rows are buffering. buffer_depth=96
+2026-11-20 01:49:10,555 INFO    jalsanket.mqtt: SUCCESSFUL RECONNECT attempt=0 buffered_rows=96
+2026-11-20 01:49:10,556 INFO    jalsanket.mqtt: REPLAY BATCH PUBLISHED rows=20 batch_size=20 oldest_acq_ms=1795118214057 newest_acq_ms=1795118252063 buffer_depth=96
+2026-11-20 01:49:10,629 INFO    jalsanket.storage: STORED node=node-03 id=95 acquisition_ms=1795118650628 stored_at_ms=1795118650628 buffer_depth=95 capacity=10800
+2026-11-20 01:49:10,629 WARNING jalsanket.mqtt: OFFLINE - BUFFERING node=node-03 id=95 acquisition_ms=1795118650628 buffer_depth=95/10800
+2026-11-20 01:49:10,747 WARNING jalsanket.mqtt: OFFLINE - CELLULAR/MQTT LINK LOST (rc=128); generation continues, rows are buffering. buffer_depth=96
+2026-11-20 01:49:11,351 INFO    jalsanket.mqtt: RECONNECT ATTEMPT #1 in 2.1s (auth_failure=False, last_error=disconnected rc=128)
+2026-11-20 01:49:11,820 INFO    jalsanket.mqtt: RECONNECT ATTEMPT #1 in 2.1s (auth_failure=False, last_error=disconnected rc=128)
+2026-11-20 01:49:12,175 INFO    jalsanket.mqtt: SUCCESSFUL RECONNECT attempt=0 buffered_rows=96
+2026-11-20 01:49:12,176 INFO    jalsanket.mqtt: REPLAY BATCH PUBLISHED rows=20 batch_size=20 oldest_acq_ms=1795118214058 newest_acq_ms=1795118252064 buffer_depth=96
+2026-11-20 01:49:12,176 INFO    jalsanket.mqtt: RECONNECT ATTEMPT #1 in 2.0s (auth_failure=False, last_error=disconnected rc=128)
+2026-11-20 01:49:12,575 INFO    jalsanket.storage: STORED node=node-01 id=97 acquisition_ms=1795118652574 stored_at_ms=1795118652574 buffer_depth=97 capacity=10800
+2026-11-20 01:49:12,575 WARNING jalsanket.mqtt: OFFLINE - BUFFERING node=node-01 id=97 acquisition_ms=1795118652574 buffer_depth=97/10800
+2026-11-20 01:49:12,576 INFO    jalsanket.mqtt: SUCCESSFUL RECONNECT attempt=0 buffered_rows=97
+2026-11-20 01:49:12,578 INFO    jalsanket.mqtt: REPLAY BATCH PUBLISHED rows=20 batch_size=20 oldest_acq_ms=1795118214057 newest_acq_ms=1795118252063 buffer_depth=97
+2026-11-20 01:49:12,579 INFO    jalsanket.storage: STORED node=node-02 id=97 acquisition_ms=1795118652578 stored_at_ms=1795118652579 buffer_depth=97 capacity=10800
+2026-11-20 01:49:12,580 WARNING jalsanket.mqtt: OFFLINE - CELLULAR/MQTT LINK LOST (rc=128); generation continues, rows are buffering. buffer_depth=97
+2026-11-20 01:49:12,580 ERROR   jalsanket.mqtt: PUBLISH FAILED (rc=7); rows remain unsynchronized
+2026-11-20 01:49:12,580 WARNING jalsanket.mqtt: OFFLINE - CELLULAR/MQTT LINK LOST (rc=128); generation continues, rows are buffering. buffer_depth=95
+2026-11-20 01:49:12,606 WARNING jalsanket.mqtt: OFFLINE - CELLULAR/MQTT LINK LOST (rc=128); generation continues, rows are buffering. buffer_depth=97
+2026-11-20 01:49:12,629 INFO    jalsanket.storage: STORED node=node-03 id=96 acquisition_ms=1795118652628 stored_at_ms=1795118652628 buffer_depth=96 capacity=10800
+2026-11-20 01:49:12,629 WARNING jalsanket.mqtt: OFFLINE - BUFFERING node=node-03 id=96 acquisition_ms=1795118652628 buffer_depth=96/10800
+2026-11-20 01:49:13,455 INFO    jalsanket.mqtt: RECONNECT ATTEMPT #1 in 2.0s (auth_failure=False, last_error=disconnected rc=128)
+2026-11-20 01:49:13,886 INFO    jalsanket.storage: STORED node=node-01 id=98 acquisition_ms=1795118653885 stored_at_ms=1795118653885 buffer_depth=98 capacity=10800
+2026-11-20 01:49:13,886 WARNING jalsanket.mqtt: OFFLINE - BUFFERING node=node-01 id=98 acquisition_ms=1795118653885 buffer_depth=98/10800
+2026-11-20 01:49:13,973 INFO    jalsanket.mqtt: RECONNECT ATTEMPT #1 in 2.2s (auth_failure=False, last_error=disconnected rc=128)
+2026-11-20 01:49:14,348 INFO    jalsanket.mqtt: SUCCESSFUL RECONNECT attempt=0 buffered_rows=97
+2026-11-20 01:49:14,350 INFO    jalsanket.mqtt: REPLAY BATCH PUBLISHED rows=20 batch_size=20 oldest_acq_ms=1795118214058 newest_acq_ms=1795118252064 buffer_depth=97
+2026-11-20 01:49:14,351 INFO    jalsanket.mqtt: RECONNECT ATTEMPT #2 in 4.4s (auth_failure=False, last_error=disconnected rc=128)
+2026-11-20 01:49:14,735 INFO    jalsanket.mqtt: SUCCESSFUL RECONNECT attempt=0 buffered_rows=98
+2026-11-20 01:49:14,736 INFO    jalsanket.mqtt: REPLAY BATCH PUBLISHED rows=20 batch_size=20 oldest_acq_ms=1795118214057 newest_acq_ms=1795118252063 buffer_depth=98
+2026-11-20 01:49:14,737 INFO    jalsanket.storage: STORED node=node-02 id=98 acquisition_ms=1795118654737 stored_at_ms=1795118654737 buffer_depth=98 capacity=10800
+2026-11-20 01:49:14,738 WARNING jalsanket.mqtt: OFFLINE - CELLULAR/MQTT LINK LOST (rc=128); generation continues, rows are buffering. buffer_depth=98
+2026-11-20 01:49:14,739 ERROR   jalsanket.mqtt: PUBLISH FAILED (rc=7); rows remain unsynchronized
+2026-11-20 01:49:14,739 INFO    jalsanket.storage: STORED node=node-03 id=97 acquisition_ms=1795118654739 stored_at_ms=1795118654739 buffer_depth=97 capacity=10800
+2026-11-20 01:49:14,739 WARNING jalsanket.mqtt: OFFLINE - BUFFERING node=node-03 id=97 acquisition_ms=1795118654739 buffer_depth=97/10800
+2026-11-20 01:49:14,739 WARNING jalsanket.mqtt: OFFLINE - CELLULAR/MQTT LINK LOST (rc=128); generation continues, rows are buffering. buffer_depth=97
+2026-11-20 01:49:14,761 WARNING jalsanket.mqtt: OFFLINE - CELLULAR/MQTT LINK LOST (rc=128); generation continues, rows are buffering. buffer_depth=98
+2026-11-20 01:49:15,470 INFO    jalsanket.mqtt: RECONNECT ATTEMPT #1 in 2.0s (auth_failure=False, last_error=disconnected rc=128)
+2026-11-20 01:49:15,878 INFO    jalsanket.storage: STORED node=node-01 id=99 acquisition_ms=1795118655877 stored_at_ms=1795118655877 buffer_depth=99 capacity=10800
+2026-11-20 01:49:15,878 WARNING jalsanket.mqtt: OFFLINE - BUFFERING node=node-01 id=99 acquisition_ms=1795118655877 buffer_depth=99/10800
+2026-11-20 01:49:16,154 INFO    jalsanket.mqtt: RECONNECT ATTEMPT #1 in 2.1s (auth_failure=False, last_error=disconnected rc=128)
+2026-11-20 01:49:16,511 INFO    jalsanket.mqtt: SUCCESSFUL RECONNECT attempt=0 buffered_rows=98
+2026-11-20 01:49:16,513 INFO    jalsanket.mqtt: REPLAY BATCH PUBLISHED rows=20 batch_size=20 oldest_acq_ms=1795118214058 newest_acq_ms=1795118252064 buffer_depth=98
+2026-11-20 01:49:16,540 INFO    jalsanket.storage: STORED node=node-02 id=99 acquisition_ms=1795118656539 stored_at_ms=1795118656539 buffer_depth=99 capacity=10800
+2026-11-20 01:49:16,609 INFO    jalsanket.storage: STORED node=node-03 id=98 acquisition_ms=1795118656607 stored_at_ms=1795118656607 buffer_depth=98 capacity=10800
+2026-11-20 01:49:16,609 WARNING jalsanket.mqtt: OFFLINE - BUFFERING node=node-03 id=98 acquisition_ms=1795118656607 buffer_depth=98/10800
+2026-11-20 01:49:16,703 WARNING jalsanket.mqtt: OFFLINE - CELLULAR/MQTT LINK LOST (rc=128); generation continues, rows are buffering. buffer_depth=99
+2026-11-20 01:49:16,890 INFO    jalsanket.mqtt: SUCCESSFUL RECONNECT attempt=0 buffered_rows=99
+2026-11-20 01:49:16,893 INFO    jalsanket.mqtt: REPLAY BATCH PUBLISHED rows=20 batch_size=20 oldest_acq_ms=1795118214057 newest_acq_ms=1795118252063 buffer_depth=99
+2026-11-20 01:49:17,086 WARNING jalsanket.mqtt: OFFLINE - CELLULAR/MQTT LINK LOST (rc=128); generation continues, rows are buffering. buffer_depth=99
+2026-11-20 01:49:17,492 INFO    jalsanket.mqtt: RECONNECT ATTEMPT #1 in 2.0s (auth_failure=False, last_error=disconnected rc=128)
+2026-11-20 01:49:17,894 INFO    jalsanket.storage: STORED node=node-01 id=100 acquisition_ms=1795118657893 stored_at_ms=1795118657893 buffer_depth=100 capacity=10800
+2026-11-20 01:49:17,894 WARNING jalsanket.mqtt: OFFLINE - BUFFERING node=node-01 id=100 acquisition_ms=1795118657893 buffer_depth=100/10800
+2026-11-20 01:49:18,209 INFO    jalsanket.mqtt: SUCCESSFUL RECONNECT attempt=0 buffered_rows=99
+2026-11-20 01:49:18,212 INFO    jalsanket.mqtt: REPLAY BATCH PUBLISHED rows=20 batch_size=20 oldest_acq_ms=1795118214058 newest_acq_ms=1795118252064 buffer_depth=99
+2026-11-20 01:49:18,262 INFO    jalsanket.storage: STORED node=node-02 id=100 acquisition_ms=1795118658261 stored_at_ms=1795118658261 buffer_depth=100 capacity=10800
+2026-11-20 01:49:18,308 INFO    jalsanket.mqtt: RECONNECT ATTEMPT #1 in 2.0s (auth_failure=False, last_error=disconnected rc=128)
+2026-11-20 01:49:18,651 WARNING jalsanket.mqtt: OFFLINE - CELLULAR/MQTT LINK LOST (rc=128); generation continues, rows are buffering. buffer_depth=100
+2026-11-20 01:49:18,677 INFO    jalsanket.storage: STORED node=node-03 id=99 acquisition_ms=1795118658676 stored_at_ms=1795118658676 buffer_depth=99 capacity=10800
+2026-11-20 01:49:18,677 WARNING jalsanket.mqtt: OFFLINE - BUFFERING node=node-03 id=99 acquisition_ms=1795118658676 buffer_depth=99/10800
+2026-11-20 01:49:18,722 INFO    jalsanket.mqtt: RECONNECT ATTEMPT #3 in 7.8s (auth_failure=False, last_error=disconnected rc=128)
+2026-11-20 01:49:19,104 INFO    jalsanket.mqtt: SUCCESSFUL RECONNECT attempt=0 buffered_rows=100
+2026-11-20 01:49:19,106 INFO    jalsanket.mqtt: REPLAY BATCH PUBLISHED rows=20 batch_size=20 oldest_acq_ms=1795118214057 newest_acq_ms=1795118252063 buffer_depth=100
+2026-11-20 01:49:19,293 WARNING jalsanket.mqtt: OFFLINE - CELLULAR/MQTT LINK LOST (rc=128); generation continues, rows are buffering. buffer_depth=100
+2026-11-20 01:49:19,457 INFO    jalsanket.mqtt: SUCCESSFUL RECONNECT attempt=0 buffered_rows=99
+2026-11-20 01:49:19,459 INFO    jalsanket.mqtt: REPLAY BATCH PUBLISHED rows=20 batch_size=20 oldest_acq_ms=1795118214058 newest_acq_ms=1795118252065 buffer_depth=99
+2026-11-20 01:49:19,508 INFO    jalsanket.mqtt: RECONNECT ATTEMPT #1 in 2.0s (auth_failure=False, last_error=disconnected rc=128)
+2026-11-20 01:49:19,864 WARNING jalsanket.mqtt: OFFLINE - CELLULAR/MQTT LINK LOST (rc=128); generation continues, rows are buffering. buffer_depth=99
+2026-11-20 01:49:19,890 INFO    jalsanket.storage: STORED node=node-01 id=101 acquisition_ms=1795118659889 stored_at_ms=1795118659889 buffer_depth=101 capacity=10800
+2026-11-20 01:49:19,890 WARNING jalsanket.mqtt: OFFLINE - BUFFERING node=node-01 id=101 acquisition_ms=1795118659889 buffer_depth=101/10800
+2026-11-20 01:49:20,236 INFO    jalsanket.mqtt: SUCCESSFUL RECONNECT attempt=0 buffered_rows=100
+2026-11-20 01:49:20,239 INFO    jalsanket.mqtt: REPLAY BATCH PUBLISHED rows=20 batch_size=20 oldest_acq_ms=1795118214058 newest_acq_ms=1795118252064 buffer_depth=100
+2026-11-20 01:49:20,265 INFO    jalsanket.storage: STORED node=node-02 id=101 acquisition_ms=1795118660264 stored_at_ms=1795118660264 buffer_depth=101 capacity=10800
+2026-11-20 01:49:20,314 INFO    jalsanket.mqtt: RECONNECT ATTEMPT #1 in 2.1s (auth_failure=False, last_error=disconnected rc=128)
+2026-11-20 01:49:20,678 WARNING jalsanket.mqtt: OFFLINE - CELLULAR/MQTT LINK LOST (rc=128); generation continues, rows are buffering. buffer_depth=101
+2026-11-20 01:49:20,703 INFO    jalsanket.storage: STORED node=node-03 id=100 acquisition_ms=1795118660702 stored_at_ms=1795118660702 buffer_depth=100 capacity=10800
+2026-11-20 01:49:20,703 WARNING jalsanket.mqtt: OFFLINE - BUFFERING node=node-03 id=100 acquisition_ms=1795118660702 buffer_depth=100/10800
+2026-11-20 01:49:21,048 INFO    jalsanket.mqtt: SUCCESSFUL RECONNECT attempt=0 buffered_rows=101
+2026-11-20 01:49:21,049 INFO    jalsanket.mqtt: REPLAY BATCH PUBLISHED rows=20 batch_size=20 oldest_acq_ms=1795118214057 newest_acq_ms=1795118252063 buffer_depth=101
+2026-11-20 01:49:21,235 WARNING jalsanket.mqtt: OFFLINE - CELLULAR/MQTT LINK LOST (rc=128); generation continues, rows are buffering. buffer_depth=101
+2026-11-20 01:49:21,515 INFO    jalsanket.mqtt: RECONNECT ATTEMPT #1 in 2.0s (auth_failure=False, last_error=disconnected rc=128)
+2026-11-20 01:49:21,886 INFO    jalsanket.storage: STORED node=node-01 id=102 acquisition_ms=1795118661885 stored_at_ms=1795118661885 buffer_depth=102 capacity=10800
+2026-11-20 01:49:21,886 WARNING jalsanket.mqtt: OFFLINE - BUFFERING node=node-01 id=102 acquisition_ms=1795118661885 buffer_depth=102/10800
+2026-11-20 01:49:21,886 WARNING jalsanket.mqtt: SIMULATED CELLULAR OUTAGE - dropping MQTT link
+2026-11-20 01:49:22,248 INFO    jalsanket.storage: STORED node=node-02 id=102 acquisition_ms=1795118662247 stored_at_ms=1795118662247 buffer_depth=102 capacity=10800
+2026-11-20 01:49:22,248 WARNING jalsanket.mqtt: OFFLINE - BUFFERING node=node-02 id=102 acquisition_ms=1795118662247 buffer_depth=102/10800
+2026-11-20 01:49:22,249 INFO    jalsanket.mqtt: SUCCESSFUL RECONNECT attempt=0 buffered_rows=102
+2026-11-20 01:49:22,250 INFO    jalsanket.mqtt: REPLAY BATCH PUBLISHED rows=20 batch_size=20 oldest_acq_ms=1795118214058 newest_acq_ms=1795118252064 buffer_depth=102
+2026-11-20 01:49:22,250 WARNING jalsanket.mqtt: SIMULATED CELLULAR OUTAGE - dropping MQTT link
+2026-11-20 01:49:22,251 WARNING jalsanket.mqtt: OFFLINE - CELLULAR/MQTT LINK LOST (rc=0); generation continues, rows are buffering. buffer_depth=102
+2026-11-20 01:49:22,459 INFO    jalsanket.mqtt: RECONNECT ATTEMPT #1 in 2.0s (auth_failure=False, last_error=disconnected rc=128)
+2026-11-20 01:49:22,857 INFO    jalsanket.storage: STORED node=node-03 id=101 acquisition_ms=1795118662856 stored_at_ms=1795118662856 buffer_depth=101 capacity=10800
+2026-11-20 01:49:22,857 WARNING jalsanket.mqtt: OFFLINE - BUFFERING node=node-03 id=101 acquisition_ms=1795118662856 buffer_depth=101/10800
+2026-11-20 01:49:22,857 WARNING jalsanket.mqtt: SIMULATED CELLULAR OUTAGE - dropping MQTT link
+2026-11-20 01:49:23,230 INFO    jalsanket.mqtt: SUCCESSFUL RECONNECT attempt=0 buffered_rows=102
+2026-11-20 01:49:23,232 INFO    jalsanket.mqtt: REPLAY BATCH PUBLISHED rows=20 batch_size=20 oldest_acq_ms=1795118214057 newest_acq_ms=1795118252063 buffer_depth=102
+2026-11-20 01:49:23,420 WARNING jalsanket.mqtt: OFFLINE - CELLULAR/MQTT LINK LOST (rc=128); generation continues, rows are buffering. buffer_depth=102
+2026-11-20 01:49:23,538 INFO    jalsanket.mqtt: RECONNECT ATTEMPT #1 in 2.2s (auth_failure=False, last_error=disconnected rc=0)
+2026-11-20 01:49:23,934 INFO    jalsanket.storage: STORED node=node-01 id=103 acquisition_ms=1795118663933 stored_at_ms=1795118663933 buffer_depth=103 capacity=10800
+2026-11-20 01:49:23,934 WARNING jalsanket.mqtt: OFFLINE - BUFFERING node=node-01 id=103 acquisition_ms=1795118663933 buffer_depth=103/10800
+2026-11-20 01:49:24,260 INFO    jalsanket.storage: STORED node=node-02 id=103 acquisition_ms=1795118664260 stored_at_ms=1795118664260 buffer_depth=103 capacity=10800
+2026-11-20 01:49:24,261 WARNING jalsanket.mqtt: OFFLINE - BUFFERING node=node-02 id=103 acquisition_ms=1795118664260 buffer_depth=103/10800
+2026-11-20 01:49:24,306 INFO    jalsanket.mqtt: SUCCESSFUL RECONNECT attempt=0 buffered_rows=103
+2026-11-20 01:49:24,308 INFO    jalsanket.mqtt: REPLAY BATCH PUBLISHED rows=20 batch_size=20 oldest_acq_ms=1795118214058 newest_acq_ms=1795118252064 buffer_depth=103
+2026-11-20 01:49:24,495 WARNING jalsanket.mqtt: OFFLINE - CELLULAR/MQTT LINK LOST (rc=128); generation continues, rows are buffering. buffer_depth=103
+2026-11-20 01:49:24,517 INFO    jalsanket.mqtt: RECONNECT ATTEMPT #1 in 2.1s (auth_failure=False, last_error=disconnected rc=128)
+2026-11-20 01:49:24,890 INFO    jalsanket.storage: STORED node=node-03 id=102 acquisition_ms=1795118664889 stored_at_ms=1795118664889 buffer_depth=102 capacity=10800
+2026-11-20 01:49:24,890 WARNING jalsanket.mqtt: OFFLINE - BUFFERING node=node-03 id=102 acquisition_ms=1795118664889 buffer_depth=102/10800
+2026-11-20 01:49:25,223 INFO    jalsanket.mqtt: SUCCESSFUL RECONNECT attempt=0 buffered_rows=103
+2026-11-20 01:49:25,226 INFO    jalsanket.mqtt: REPLAY BATCH PUBLISHED rows=20 batch_size=20 oldest_acq_ms=1795118214057 newest_acq_ms=1795118252063 buffer_depth=103
+2026-11-20 01:49:25,407 WARNING jalsanket.mqtt: OFFLINE - CELLULAR/MQTT LINK LOST (rc=128); generation continues, rows are buffering. buffer_depth=103
+2026-11-20 01:49:25,718 INFO    jalsanket.mqtt: RECONNECT ATTEMPT #1 in 2.0s (auth_failure=False, last_error=disconnected rc=128)
+2026-11-20 01:49:26,093 INFO    jalsanket.storage: STORED node=node-01 id=104 acquisition_ms=1795118666093 stored_at_ms=1795118666093 buffer_depth=104 capacity=10800
+2026-11-20 01:49:26,094 WARNING jalsanket.mqtt: OFFLINE - BUFFERING node=node-01 id=104 acquisition_ms=1795118666093 buffer_depth=104/10800
+2026-11-20 01:49:26,255 INFO    jalsanket.storage: STORED node=node-02 id=104 acquisition_ms=1795118666254 stored_at_ms=1795118666254 buffer_depth=104 capacity=10800
+2026-11-20 01:49:26,255 WARNING jalsanket.mqtt: OFFLINE - BUFFERING node=node-02 id=104 acquisition_ms=1795118666254 buffer_depth=104/10800
+2026-11-20 01:49:26,448 INFO    jalsanket.mqtt: SUCCESSFUL RECONNECT attempt=0 buffered_rows=104
+2026-11-20 01:49:26,450 INFO    jalsanket.mqtt: REPLAY BATCH PUBLISHED rows=20 batch_size=20 oldest_acq_ms=1795118214058 newest_acq_ms=1795118252064 buffer_depth=104
+2026-11-20 01:49:26,571 INFO    jalsanket.mqtt: RECONNECT ATTEMPT #1 in 2.1s (auth_failure=False, last_error=disconnected rc=128)
+2026-11-20 01:49:26,953 INFO    jalsanket.mqtt: RECONNECT ATTEMPT #1 in 2.1s (auth_failure=False, last_error=disconnected rc=128)
+2026-11-20 01:49:27,311 WARNING jalsanket.mqtt: OFFLINE - CELLULAR/MQTT LINK LOST (rc=128); generation continues, rows are buffering. buffer_depth=104
+2026-11-20 01:49:27,311 INFO    jalsanket.storage: STORED node=node-03 id=103 acquisition_ms=1795118667311 stored_at_ms=1795118667311 buffer_depth=103 capacity=10800
+2026-11-20 01:49:27,312 WARNING jalsanket.mqtt: OFFLINE - BUFFERING node=node-03 id=103 acquisition_ms=1795118667311 buffer_depth=103/10800
+2026-11-20 01:49:27,312 INFO    jalsanket.mqtt: SUCCESSFUL RECONNECT attempt=0 buffered_rows=103
+2026-11-20 01:49:27,313 INFO    jalsanket.mqtt: REPLAY BATCH PUBLISHED rows=20 batch_size=20 oldest_acq_ms=1795118214058 newest_acq_ms=1795118252065 buffer_depth=103
+2026-11-20 01:49:27,500 WARNING jalsanket.mqtt: OFFLINE - CELLULAR/MQTT LINK LOST (rc=128); generation continues, rows are buffering. buffer_depth=103
+2026-11-20 01:49:27,695 INFO    jalsanket.mqtt: SUCCESSFUL RECONNECT attempt=0 buffered_rows=104
+2026-11-20 01:49:27,697 INFO    jalsanket.mqtt: REPLAY BATCH PUBLISHED rows=20 batch_size=20 oldest_acq_ms=1795118214057 newest_acq_ms=1795118252063 buffer_depth=104
+2026-11-20 01:49:27,769 INFO    jalsanket.mqtt: RECONNECT ATTEMPT #1 in 2.0s (auth_failure=False, last_error=disconnected rc=128)
+2026-11-20 01:49:28,137 INFO    jalsanket.storage: STORED node=node-01 id=105 acquisition_ms=1795118668136 stored_at_ms=1795118668136 buffer_depth=105 capacity=10800
+2026-11-20 01:49:28,138 WARNING jalsanket.mqtt: OFFLINE - CELLULAR/MQTT LINK LOST (rc=128); generation continues, rows are buffering. buffer_depth=105
+2026-11-20 01:49:28,138 ERROR   jalsanket.mqtt: PUBLISH FAILED (rc=7); rows remain unsynchronized
+2026-11-20 01:49:28,139 WARNING jalsanket.mqtt: OFFLINE - CELLULAR/MQTT LINK LOST (rc=128); generation continues, rows are buffering. buffer_depth=104
+2026-11-20 01:49:28,255 INFO    jalsanket.storage: STORED node=node-02 id=105 acquisition_ms=1795118668255 stored_at_ms=1795118668255 buffer_depth=105 capacity=10800
+2026-11-20 01:49:28,256 WARNING jalsanket.mqtt: OFFLINE - BUFFERING node=node-02 id=105 acquisition_ms=1795118668255 buffer_depth=105/10800
+2026-11-20 01:49:28,616 INFO    jalsanket.storage: STORED node=node-03 id=104 acquisition_ms=1795118668615 stored_at_ms=1795118668615 buffer_depth=104 capacity=10800
+2026-11-20 01:49:28,616 WARNING jalsanket.mqtt: OFFLINE - BUFFERING node=node-03 id=104 acquisition_ms=1795118668615 buffer_depth=104/10800
+2026-11-20 01:49:28,689 INFO    jalsanket.mqtt: RECONNECT ATTEMPT #1 in 2.0s (auth_failure=False, last_error=disconnected rc=128)
+2026-11-20 01:49:29,093 INFO    jalsanket.mqtt: RECONNECT ATTEMPT #1 in 2.2s (auth_failure=False, last_error=disconnected rc=128)
+2026-11-20 01:49:29,453 INFO    jalsanket.mqtt: SUCCESSFUL RECONNECT attempt=0 buffered_rows=104
+2026-11-20 01:49:29,455 INFO    jalsanket.mqtt: REPLAY BATCH PUBLISHED rows=20 batch_size=20 oldest_acq_ms=1795118214058 newest_acq_ms=1795118252065 buffer_depth=104
+2026-11-20 01:49:29,644 WARNING jalsanket.mqtt: OFFLINE - CELLULAR/MQTT LINK LOST (rc=128); generation continues, rows are buffering. buffer_depth=104
+2026-11-20 01:49:29,783 INFO    jalsanket.mqtt: RECONNECT ATTEMPT #2 in 3.9s (auth_failure=False, last_error=disconnected rc=128)
+2026-11-20 01:49:30,146 INFO    jalsanket.storage: STORED node=node-01 id=106 acquisition_ms=1795118670145 stored_at_ms=1795118670145 buffer_depth=106 capacity=10800
+2026-11-20 01:49:30,146 WARNING jalsanket.mqtt: OFFLINE - BUFFERING node=node-01 id=106 acquisition_ms=1795118670145 buffer_depth=106/10800
+2026-11-20 01:49:30,146 INFO    jalsanket.mqtt: SUCCESSFUL RECONNECT attempt=0 buffered_rows=106
+2026-11-20 01:49:30,148 INFO    jalsanket.mqtt: REPLAY BATCH PUBLISHED rows=20 batch_size=20 oldest_acq_ms=1795118214057 newest_acq_ms=1795118252063 buffer_depth=106
+2026-11-20 01:49:30,248 INFO    jalsanket.storage: STORED node=node-02 id=106 acquisition_ms=1795118670247 stored_at_ms=1795118670247 buffer_depth=106 capacity=10800
+2026-11-20 01:49:30,248 WARNING jalsanket.mqtt: OFFLINE - BUFFERING node=node-02 id=106 acquisition_ms=1795118670247 buffer_depth=106/10800
+2026-11-20 01:49:30,325 WARNING jalsanket.mqtt: OFFLINE - CELLULAR/MQTT LINK LOST (rc=128); generation continues, rows are buffering. buffer_depth=106
+2026-11-20 01:49:30,486 INFO    jalsanket.mqtt: SUCCESSFUL RECONNECT attempt=0 buffered_rows=106
+2026-11-20 01:49:30,489 INFO    jalsanket.mqtt: REPLAY BATCH PUBLISHED rows=20 batch_size=20 oldest_acq_ms=1795118214058 newest_acq_ms=1795118252064 buffer_depth=106
+2026-11-20 01:49:30,609 INFO    jalsanket.storage: STORED node=node-03 id=105 acquisition_ms=1795118670608 stored_at_ms=1795118670608 buffer_depth=105 capacity=10800
+2026-11-20 01:49:30,609 WARNING jalsanket.mqtt: OFFLINE - BUFFERING node=node-03 id=105 acquisition_ms=1795118670608 buffer_depth=105/10800
+2026-11-20 01:49:30,681 WARNING jalsanket.mqtt: OFFLINE - CELLULAR/MQTT LINK LOST (rc=128); generation continues, rows are buffering. buffer_depth=106
+2026-11-20 01:49:30,702 INFO    jalsanket.mqtt: RECONNECT ATTEMPT #1 in 2.0s (auth_failure=False, last_error=disconnected rc=128)
+2026-11-20 01:49:31,293 INFO    jalsanket.mqtt: RECONNECT ATTEMPT #1 in 2.0s (auth_failure=False, last_error=disconnected rc=128)
+2026-11-20 01:49:31,648 INFO    jalsanket.mqtt: SUCCESSFUL RECONNECT attempt=0 buffered_rows=105
+2026-11-20 01:49:31,650 INFO    jalsanket.mqtt: REPLAY BATCH PUBLISHED rows=20 batch_size=20 oldest_acq_ms=1795118214058 newest_acq_ms=1795118252065 buffer_depth=105
+2026-11-20 01:49:31,842 WARNING jalsanket.mqtt: OFFLINE - CELLULAR/MQTT LINK LOST (rc=128); generation continues, rows are buffering. buffer_depth=105
+2026-11-20 01:49:31,893 INFO    jalsanket.storage: STORED node=node-01 id=107 acquisition_ms=1795118671892 stored_at_ms=1795118671893 buffer_depth=107 capacity=10800
+2026-11-20 01:49:31,894 WARNING jalsanket.mqtt: OFFLINE - BUFFERING node=node-01 id=107 acquisition_ms=1795118671892 buffer_depth=107/10800
+2026-11-20 01:49:32,028 INFO    jalsanket.mqtt: SUCCESSFUL RECONNECT attempt=0 buffered_rows=107
+2026-11-20 01:49:32,029 INFO    jalsanket.mqtt: REPLAY BATCH PUBLISHED rows=20 batch_size=20 oldest_acq_ms=1795118214057 newest_acq_ms=1795118252063 buffer_depth=107
+2026-11-20 01:49:32,222 WARNING jalsanket.mqtt: OFFLINE - CELLULAR/MQTT LINK LOST (rc=128); generation continues, rows are buffering. buffer_depth=107
+2026-11-20 01:49:32,266 INFO    jalsanket.storage: STORED node=node-02 id=107 acquisition_ms=1795118672264 stored_at_ms=1795118672264 buffer_depth=107 capacity=10800
+2026-11-20 01:49:32,266 WARNING jalsanket.mqtt: OFFLINE - BUFFERING node=node-02 id=107 acquisition_ms=1795118672264 buffer_depth=107/10800
+2026-11-20 01:49:32,610 INFO    jalsanket.storage: STORED node=node-03 id=106 acquisition_ms=1795118672610 stored_at_ms=1795118672610 buffer_depth=106 capacity=10800
+2026-11-20 01:49:32,611 WARNING jalsanket.mqtt: OFFLINE - BUFFERING node=node-03 id=106 acquisition_ms=1795118672610 buffer_depth=106/10800
+2026-11-20 01:49:32,704 INFO    jalsanket.mqtt: RECONNECT ATTEMPT #1 in 2.0s (auth_failure=False, last_error=disconnected rc=128)
+2026-11-20 01:49:33,295 INFO    jalsanket.mqtt: RECONNECT ATTEMPT #1 in 2.0s (auth_failure=False, last_error=disconnected rc=128)
+2026-11-20 01:49:33,645 INFO    jalsanket.mqtt: SUCCESSFUL RECONNECT attempt=0 buffered_rows=106
+2026-11-20 01:49:33,646 INFO    jalsanket.mqtt: REPLAY BATCH PUBLISHED rows=20 batch_size=20 oldest_acq_ms=1795118214058 newest_acq_ms=1795118252065 buffer_depth=106
+2026-11-20 01:49:33,721 INFO    jalsanket.mqtt: RECONNECT ATTEMPT #1 in 2.0s (auth_failure=False, last_error=disconnected rc=128)
+2026-11-20 01:49:34,079 WARNING jalsanket.mqtt: OFFLINE - CELLULAR/MQTT LINK LOST (rc=128); generation continues, rows are buffering. buffer_depth=106
+2026-11-20 01:49:34,105 INFO    jalsanket.storage: STORED node=node-01 id=108 acquisition_ms=1795118674104 stored_at_ms=1795118674104 buffer_depth=108 capacity=10800
+2026-11-20 01:49:34,106 WARNING jalsanket.mqtt: OFFLINE - BUFFERING node=node-01 id=108 acquisition_ms=1795118674104 buffer_depth=108/10800
+2026-11-20 01:49:34,106 INFO    jalsanket.mqtt: SUCCESSFUL RECONNECT attempt=0 buffered_rows=108
+2026-11-20 01:49:34,108 INFO    jalsanket.mqtt: REPLAY BATCH PUBLISHED rows=20 batch_size=20 oldest_acq_ms=1795118214057 newest_acq_ms=1795118252063 buffer_depth=108
+2026-11-20 01:49:34,251 INFO    jalsanket.storage: STORED node=node-02 id=108 acquisition_ms=1795118674251 stored_at_ms=1795118674251 buffer_depth=108 capacity=10800
+2026-11-20 01:49:34,252 WARNING jalsanket.mqtt: OFFLINE - BUFFERING node=node-02 id=108 acquisition_ms=1795118674251 buffer_depth=108/10800
+2026-11-20 01:49:34,300 WARNING jalsanket.mqtt: OFFLINE - CELLULAR/MQTT LINK LOST (rc=128); generation continues, rows are buffering. buffer_depth=108
+2026-11-20 01:49:34,450 INFO    jalsanket.mqtt: SUCCESSFUL RECONNECT attempt=0 buffered_rows=108
+2026-11-20 01:49:34,453 INFO    jalsanket.mqtt: REPLAY BATCH PUBLISHED rows=20 batch_size=20 oldest_acq_ms=1795118214058 newest_acq_ms=1795118252064 buffer_depth=108
+2026-11-20 01:49:34,623 INFO    jalsanket.storage: STORED node=node-03 id=107 acquisition_ms=1795118674622 stored_at_ms=1795118674622 buffer_depth=107 capacity=10800
+2026-11-20 01:49:34,623 WARNING jalsanket.mqtt: OFFLINE - BUFFERING node=node-03 id=107 acquisition_ms=1795118674622 buffer_depth=107/10800
+2026-11-20 01:49:34,649 WARNING jalsanket.mqtt: OFFLINE - CELLULAR/MQTT LINK LOST (rc=128); generation continues, rows are buffering. buffer_depth=108
+2026-11-20 01:49:34,744 INFO    jalsanket.mqtt: RECONNECT ATTEMPT #1 in 2.2s (auth_failure=False, last_error=disconnected rc=128)
+2026-11-20 01:49:35,341 INFO    jalsanket.mqtt: RECONNECT ATTEMPT #1 in 2.1s (auth_failure=False, last_error=disconnected rc=128)
+2026-11-20 01:49:35,691 INFO    jalsanket.mqtt: SUCCESSFUL RECONNECT attempt=0 buffered_rows=107
+2026-11-20 01:49:35,693 INFO    jalsanket.mqtt: REPLAY BATCH PUBLISHED rows=20 batch_size=20 oldest_acq_ms=1795118214058 newest_acq_ms=1795118252065 buffer_depth=107
+2026-11-20 01:49:35,764 INFO    jalsanket.mqtt: RECONNECT ATTEMPT #1 in 2.2s (auth_failure=False, last_error=disconnected rc=128)
+2026-11-20 01:49:36,119 WARNING jalsanket.mqtt: OFFLINE - CELLULAR/MQTT LINK LOST (rc=128); generation continues, rows are buffering. buffer_depth=107
+2026-11-20 01:49:36,145 INFO    jalsanket.storage: STORED node=node-01 id=109 acquisition_ms=1795118676144 stored_at_ms=1795118676144 buffer_depth=109 capacity=10800
+2026-11-20 01:49:36,145 WARNING jalsanket.mqtt: OFFLINE - BUFFERING node=node-01 id=109 acquisition_ms=1795118676144 buffer_depth=109/10800
+2026-11-20 01:49:36,146 INFO    jalsanket.mqtt: SUCCESSFUL RECONNECT attempt=0 buffered_rows=109
+2026-11-20 01:49:36,147 INFO    jalsanket.mqtt: REPLAY BATCH PUBLISHED rows=20 batch_size=20 oldest_acq_ms=1795118214057 newest_acq_ms=1795118252063 buffer_depth=109
+2026-11-20 01:49:36,264 INFO    jalsanket.storage: STORED node=node-02 id=109 acquisition_ms=1795118676263 stored_at_ms=1795118676263 buffer_depth=109 capacity=10800
+2026-11-20 01:49:36,264 WARNING jalsanket.mqtt: OFFLINE - BUFFERING node=node-02 id=109 acquisition_ms=1795118676263 buffer_depth=109/10800
+2026-11-20 01:49:36,331 WARNING jalsanket.mqtt: OFFLINE - CELLULAR/MQTT LINK LOST (rc=128); generation continues, rows are buffering. buffer_depth=109
+2026-11-20 01:49:36,504 INFO    jalsanket.mqtt: SUCCESSFUL RECONNECT attempt=0 buffered_rows=109
+2026-11-20 01:49:36,506 INFO    jalsanket.mqtt: REPLAY BATCH PUBLISHED rows=20 batch_size=20 oldest_acq_ms=1795118214058 newest_acq_ms=1795118252064 buffer_depth=109
+2026-11-20 01:49:36,623 INFO    jalsanket.storage: STORED node=node-03 id=108 acquisition_ms=1795118676621 stored_at_ms=1795118676622 buffer_depth=108 capacity=10800
+2026-11-20 01:49:36,623 WARNING jalsanket.mqtt: OFFLINE - BUFFERING node=node-03 id=108 acquisition_ms=1795118676621 buffer_depth=108/10800
+2026-11-20 01:49:36,694 WARNING jalsanket.mqtt: OFFLINE - CELLULAR/MQTT LINK LOST (rc=128); generation continues, rows are buffering. buffer_depth=109
+2026-11-20 01:49:36,929 INFO    jalsanket.mqtt: RECONNECT ATTEMPT #1 in 2.1s (auth_failure=False, last_error=disconnected rc=128)
+2026-11-20 01:49:37,494 INFO    jalsanket.mqtt: RECONNECT ATTEMPT #1 in 2.2s (auth_failure=False, last_error=disconnected rc=128)
+2026-11-20 01:49:37,863 INFO    jalsanket.mqtt: SUCCESSFUL RECONNECT attempt=0 buffered_rows=108
+2026-11-20 01:49:37,864 INFO    jalsanket.mqtt: REPLAY BATCH PUBLISHED rows=20 batch_size=20 oldest_acq_ms=1795118214058 newest_acq_ms=1795118252065 buffer_depth=108
+2026-11-20 01:49:37,890 INFO    jalsanket.storage: STORED node=node-01 id=110 acquisition_ms=1795118677889 stored_at_ms=1795118677889 buffer_depth=110 capacity=10800
+2026-11-20 01:49:37,890 WARNING jalsanket.mqtt: OFFLINE - BUFFERING node=node-01 id=110 acquisition_ms=1795118677889 buffer_depth=110/10800
+2026-11-20 01:49:37,938 INFO    jalsanket.mqtt: RECONNECT ATTEMPT #1 in 2.0s (auth_failure=False, last_error=disconnected rc=128)
+2026-11-20 01:49:38,297 WARNING jalsanket.mqtt: OFFLINE - CELLULAR/MQTT LINK LOST (rc=128); generation continues, rows are buffering. buffer_depth=108
+2026-11-20 01:49:38,323 INFO    jalsanket.mqtt: SUCCESSFUL RECONNECT attempt=0 buffered_rows=110
+2026-11-20 01:49:38,326 INFO    jalsanket.mqtt: REPLAY BATCH PUBLISHED rows=20 batch_size=20 oldest_acq_ms=1795118214057 newest_acq_ms=1795118252063 buffer_depth=110
+2026-11-20 01:49:38,326 INFO    jalsanket.storage: STORED node=node-02 id=110 acquisition_ms=1795118678326 stored_at_ms=1795118678326 buffer_depth=110 capacity=10800
+2026-11-20 01:49:38,327 WARNING jalsanket.mqtt: OFFLINE - BUFFERING node=node-02 id=110 acquisition_ms=1795118678326 buffer_depth=110/10800
+2026-11-20 01:49:38,515 WARNING jalsanket.mqtt: OFFLINE - CELLULAR/MQTT LINK LOST (rc=128); generation continues, rows are buffering. buffer_depth=110
+2026-11-20 01:49:38,609 INFO    jalsanket.storage: STORED node=node-03 id=109 acquisition_ms=1795118678609 stored_at_ms=1795118678609 buffer_depth=109 capacity=10800
+2026-11-20 01:49:38,610 WARNING jalsanket.mqtt: OFFLINE - BUFFERING node=node-03 id=109 acquisition_ms=1795118678609 buffer_depth=109/10800
+2026-11-20 01:49:38,678 INFO    jalsanket.mqtt: SUCCESSFUL RECONNECT attempt=0 buffered_rows=110
+2026-11-20 01:49:38,680 INFO    jalsanket.mqtt: REPLAY BATCH PUBLISHED rows=20 batch_size=20 oldest_acq_ms=1795118214058 newest_acq_ms=1795118252064 buffer_depth=110
+2026-11-20 01:49:38,872 WARNING jalsanket.mqtt: OFFLINE - CELLULAR/MQTT LINK LOST (rc=128); generation continues, rows are buffering. buffer_depth=110
+2026-11-20 01:49:39,042 INFO    jalsanket.mqtt: RECONNECT ATTEMPT #1 in 2.0s (auth_failure=False, last_error=disconnected rc=128)
+2026-11-20 01:49:39,676 INFO    jalsanket.mqtt: RECONNECT ATTEMPT #1 in 2.2s (auth_failure=False, last_error=disconnected rc=128)
+2026-11-20 01:49:40,030 INFO    jalsanket.mqtt: RECONNECT ATTEMPT #1 in 2.0s (auth_failure=False, last_error=disconnected rc=128)
+2026-11-20 01:49:40,388 INFO    jalsanket.mqtt: SUCCESSFUL RECONNECT attempt=0 buffered_rows=109
+2026-11-20 01:49:40,390 INFO    jalsanket.mqtt: REPLAY BATCH PUBLISHED rows=20 batch_size=20 oldest_acq_ms=1795118214058 newest_acq_ms=1795118252065 buffer_depth=109
+2026-11-20 01:49:40,413 INFO    jalsanket.storage: STORED node=node-01 id=111 acquisition_ms=1795118680412 stored_at_ms=1795118680412 buffer_depth=111 capacity=10800
+2026-11-20 01:49:40,413 WARNING jalsanket.mqtt: OFFLINE - BUFFERING node=node-01 id=111 acquisition_ms=1795118680412 buffer_depth=111/10800
+2026-11-20 01:49:40,414 INFO    jalsanket.mqtt: SUCCESSFUL RECONNECT attempt=0 buffered_rows=111
+2026-11-20 01:49:40,416 INFO    jalsanket.mqtt: REPLAY BATCH PUBLISHED rows=20 batch_size=20 oldest_acq_ms=1795118214057 newest_acq_ms=1795118252063 buffer_depth=111
+2026-11-20 01:49:40,417 INFO    jalsanket.storage: STORED node=node-02 id=111 acquisition_ms=1795118680416 stored_at_ms=1795118680416 buffer_depth=111 capacity=10800
+2026-11-20 01:49:40,417 WARNING jalsanket.mqtt: OFFLINE - BUFFERING node=node-02 id=111 acquisition_ms=1795118680416 buffer_depth=111/10800
+2026-11-20 01:49:40,586 WARNING jalsanket.mqtt: OFFLINE - CELLULAR/MQTT LINK LOST (rc=128); generation continues, rows are buffering. buffer_depth=109
+2026-11-20 01:49:40,608 WARNING jalsanket.mqtt: OFFLINE - CELLULAR/MQTT LINK LOST (rc=128); generation continues, rows are buffering. buffer_depth=111
+2026-11-20 01:49:40,609 INFO    jalsanket.storage: STORED node=node-03 id=110 acquisition_ms=1795118680609 stored_at_ms=1795118680609 buffer_depth=110 capacity=10800
+2026-11-20 01:49:40,609 WARNING jalsanket.mqtt: OFFLINE - BUFFERING node=node-03 id=110 acquisition_ms=1795118680609 buffer_depth=110/10800
+2026-11-20 01:49:40,770 INFO    jalsanket.mqtt: SUCCESSFUL RECONNECT attempt=0 buffered_rows=111
+2026-11-20 01:49:40,772 INFO    jalsanket.mqtt: REPLAY BATCH PUBLISHED rows=20 batch_size=20 oldest_acq_ms=1795118214058 newest_acq_ms=1795118252064 buffer_depth=111
+2026-11-20 01:49:40,963 WARNING jalsanket.mqtt: OFFLINE - CELLULAR/MQTT LINK LOST (rc=128); generation continues, rows are buffering. buffer_depth=111
+2026-11-20 01:49:41,060 INFO    jalsanket.mqtt: RECONNECT ATTEMPT #1 in 2.1s (auth_failure=False, last_error=disconnected rc=128)
+2026-11-20 01:49:41,791 INFO    jalsanket.mqtt: SUCCESSFUL RECONNECT attempt=0 buffered_rows=110
+2026-11-20 01:49:41,793 INFO    jalsanket.mqtt: REPLAY BATCH PUBLISHED rows=20 batch_size=20 oldest_acq_ms=1795118214058 newest_acq_ms=1795118252065 buffer_depth=110
+2026-11-20 01:49:41,862 INFO    jalsanket.mqtt: RECONNECT ATTEMPT #1 in 2.1s (auth_failure=False, last_error=disconnected rc=128)
+2026-11-20 01:49:42,216 INFO    jalsanket.mqtt: RECONNECT ATTEMPT #1 in 2.0s (auth_failure=False, last_error=disconnected rc=128)
+2026-11-20 01:49:42,563 WARNING jalsanket.mqtt: OFFLINE - CELLULAR/MQTT LINK LOST (rc=128); generation continues, rows are buffering. buffer_depth=110
+2026-11-20 01:49:42,589 INFO    jalsanket.storage: STORED node=node-01 id=112 acquisition_ms=1795118682589 stored_at_ms=1795118682589 buffer_depth=112 capacity=10800
+2026-11-20 01:49:42,589 WARNING jalsanket.mqtt: OFFLINE - BUFFERING node=node-01 id=112 acquisition_ms=1795118682589 buffer_depth=112/10800
+2026-11-20 01:49:42,590 INFO    jalsanket.mqtt: SUCCESSFUL RECONNECT attempt=0 buffered_rows=112
+2026-11-20 01:49:42,593 INFO    jalsanket.mqtt: REPLAY BATCH PUBLISHED rows=20 batch_size=20 oldest_acq_ms=1795118214057 newest_acq_ms=1795118252063 buffer_depth=112
+2026-11-20 01:49:42,593 INFO    jalsanket.storage: STORED node=node-02 id=112 acquisition_ms=1795118682593 stored_at_ms=1795118682593 buffer_depth=112 capacity=10800
+2026-11-20 01:49:42,594 WARNING jalsanket.mqtt: OFFLINE - BUFFERING node=node-02 id=112 acquisition_ms=1795118682593 buffer_depth=112/10800
+2026-11-20 01:49:42,619 INFO    jalsanket.storage: STORED node=node-03 id=111 acquisition_ms=1795118682619 stored_at_ms=1795118682619 buffer_depth=111 capacity=10800
+2026-11-20 01:49:42,620 WARNING jalsanket.mqtt: OFFLINE - BUFFERING node=node-03 id=111 acquisition_ms=1795118682619 buffer_depth=111/10800
+2026-11-20 01:49:42,779 WARNING jalsanket.mqtt: OFFLINE - CELLULAR/MQTT LINK LOST (rc=128); generation continues, rows are buffering. buffer_depth=112
+2026-11-20 01:49:42,941 INFO    jalsanket.mqtt: SUCCESSFUL RECONNECT attempt=0 buffered_rows=112
+2026-11-20 01:49:42,943 INFO    jalsanket.mqtt: REPLAY BATCH PUBLISHED rows=20 batch_size=20 oldest_acq_ms=1795118214058 newest_acq_ms=1795118252064 buffer_depth=112
+2026-11-20 01:49:43,130 WARNING jalsanket.mqtt: OFFLINE - CELLULAR/MQTT LINK LOST (rc=128); generation continues, rows are buffering. buffer_depth=112
+2026-11-20 01:49:43,155 INFO    jalsanket.mqtt: RECONNECT ATTEMPT #1 in 2.0s (auth_failure=False, last_error=disconnected rc=128)
+2026-11-20 01:49:43,869 INFO    jalsanket.mqtt: SUCCESSFUL RECONNECT attempt=0 buffered_rows=111
+2026-11-20 01:49:43,871 INFO    jalsanket.mqtt: REPLAY BATCH PUBLISHED rows=20 batch_size=20 oldest_acq_ms=1795118214058 newest_acq_ms=1795118252065 buffer_depth=111
+2026-11-20 01:49:43,897 INFO    jalsanket.storage: STORED node=node-01 id=113 acquisition_ms=1795118683896 stored_at_ms=1795118683896 buffer_depth=113 capacity=10800
+2026-11-20 01:49:43,897 WARNING jalsanket.mqtt: OFFLINE - BUFFERING node=node-01 id=113 acquisition_ms=1795118683896 buffer_depth=113/10800
+2026-11-20 01:49:44,018 INFO    jalsanket.mqtt: RECONNECT ATTEMPT #1 in 2.2s (auth_failure=False, last_error=disconnected rc=128)
+2026-11-20 01:49:44,387 INFO    jalsanket.mqtt: RECONNECT ATTEMPT #1 in 2.0s (auth_failure=False, last_error=disconnected rc=128)
+2026-11-20 01:49:44,767 WARNING jalsanket.mqtt: OFFLINE - CELLULAR/MQTT LINK LOST (rc=128); generation continues, rows are buffering. buffer_depth=111
+2026-11-20 01:49:44,792 INFO    jalsanket.mqtt: SUCCESSFUL RECONNECT attempt=0 buffered_rows=113
+2026-11-20 01:49:44,795 INFO    jalsanket.mqtt: REPLAY BATCH PUBLISHED rows=20 batch_size=20 oldest_acq_ms=1795118214057 newest_acq_ms=1795118252063 buffer_depth=113
+2026-11-20 01:49:44,796 INFO    jalsanket.storage: STORED node=node-02 id=113 acquisition_ms=1795118684795 stored_at_ms=1795118684795 buffer_depth=113 capacity=10800
+2026-11-20 01:49:44,796 WARNING jalsanket.mqtt: OFFLINE - BUFFERING node=node-02 id=113 acquisition_ms=1795118684795 buffer_depth=113/10800
+2026-11-20 01:49:44,796 INFO    jalsanket.storage: STORED node=node-03 id=112 acquisition_ms=1795118684796 stored_at_ms=1795118684796 buffer_depth=112 capacity=10800
+2026-11-20 01:49:44,796 WARNING jalsanket.mqtt: OFFLINE - BUFFERING node=node-03 id=112 acquisition_ms=1795118684796 buffer_depth=112/10800
+2026-11-20 01:49:44,982 WARNING jalsanket.mqtt: OFFLINE - CELLULAR/MQTT LINK LOST (rc=128); generation continues, rows are buffering. buffer_depth=113
+2026-11-20 01:49:45,148 INFO    jalsanket.mqtt: SUCCESSFUL RECONNECT attempt=0 buffered_rows=113
+2026-11-20 01:49:45,151 INFO    jalsanket.mqtt: REPLAY BATCH PUBLISHED rows=20 batch_size=20 oldest_acq_ms=1795118214058 newest_acq_ms=1795118252064 buffer_depth=113
+2026-11-20 01:49:45,172 INFO    jalsanket.mqtt: RECONNECT ATTEMPT #1 in 2.1s (auth_failure=False, last_error=disconnected rc=128)
+2026-11-20 01:49:45,540 WARNING jalsanket.mqtt: OFFLINE - CELLULAR/MQTT LINK LOST (rc=128); generation continues, rows are buffering. buffer_depth=113
+2026-11-20 01:49:45,889 INFO    jalsanket.storage: STORED node=node-01 id=114 acquisition_ms=1795118685888 stored_at_ms=1795118685888 buffer_depth=114 capacity=10800
+2026-11-20 01:49:45,889 WARNING jalsanket.mqtt: OFFLINE - BUFFERING node=node-01 id=114 acquisition_ms=1795118685888 buffer_depth=114/10800
+2026-11-20 01:49:45,889 INFO    jalsanket.mqtt: SUCCESSFUL RECONNECT attempt=0 buffered_rows=112
+2026-11-20 01:49:45,891 INFO    jalsanket.mqtt: REPLAY BATCH PUBLISHED rows=20 batch_size=20 oldest_acq_ms=1795118214058 newest_acq_ms=1795118252065 buffer_depth=112
+2026-11-20 01:49:46,064 WARNING jalsanket.mqtt: OFFLINE - CELLULAR/MQTT LINK LOST (rc=128); generation continues, rows are buffering. buffer_depth=112
+2026-11-20 01:49:46,213 INFO    jalsanket.mqtt: RECONNECT ATTEMPT #1 in 2.0s (auth_failure=False, last_error=disconnected rc=128)
+2026-11-20 01:49:46,568 INFO    jalsanket.mqtt: RECONNECT ATTEMPT #1 in 2.1s (auth_failure=False, last_error=disconnected rc=128)
+2026-11-20 01:49:46,939 INFO    jalsanket.mqtt: SUCCESSFUL RECONNECT attempt=0 buffered_rows=114
+2026-11-20 01:49:46,941 INFO    jalsanket.mqtt: REPLAY BATCH PUBLISHED rows=20 batch_size=20 oldest_acq_ms=1795118214057 newest_acq_ms=1795118252063 buffer_depth=114
+2026-11-20 01:49:46,942 INFO    jalsanket.storage: STORED node=node-02 id=114 acquisition_ms=1795118686941 stored_at_ms=1795118686941 buffer_depth=114 capacity=10800
+2026-11-20 01:49:46,942 WARNING jalsanket.mqtt: OFFLINE - BUFFERING node=node-02 id=114 acquisition_ms=1795118686941 buffer_depth=114/10800
+2026-11-20 01:49:46,942 INFO    jalsanket.storage: STORED node=node-03 id=113 acquisition_ms=1795118686942 stored_at_ms=1795118686942 buffer_depth=113 capacity=10800
+2026-11-20 01:49:46,942 WARNING jalsanket.mqtt: OFFLINE - BUFFERING node=node-03 id=113 acquisition_ms=1795118686942 buffer_depth=113/10800
+2026-11-20 01:49:47,132 WARNING jalsanket.mqtt: OFFLINE - CELLULAR/MQTT LINK LOST (rc=128); generation continues, rows are buffering. buffer_depth=114
+2026-11-20 01:49:47,272 INFO    jalsanket.mqtt: SUCCESSFUL RECONNECT attempt=0 buffered_rows=114
+2026-11-20 01:49:47,275 INFO    jalsanket.mqtt: REPLAY BATCH PUBLISHED rows=20 batch_size=20 oldest_acq_ms=1795118214058 newest_acq_ms=1795118252064 buffer_depth=114
+2026-11-20 01:49:47,300 INFO    jalsanket.mqtt: RECONNECT ATTEMPT #1 in 2.1s (auth_failure=False, last_error=disconnected rc=128)
+2026-11-20 01:49:47,705 WARNING jalsanket.mqtt: OFFLINE - CELLULAR/MQTT LINK LOST (rc=128); generation continues, rows are buffering. buffer_depth=114
+2026-11-20 01:49:47,888 INFO    jalsanket.storage: STORED node=node-01 id=115 acquisition_ms=1795118687887 stored_at_ms=1795118687887 buffer_depth=115 capacity=10800
+2026-11-20 01:49:47,888 WARNING jalsanket.mqtt: OFFLINE - BUFFERING node=node-01 id=115 acquisition_ms=1795118687887 buffer_depth=115/10800
+2026-11-20 01:49:48,092 INFO    jalsanket.mqtt: SUCCESSFUL RECONNECT attempt=0 buffered_rows=113
+2026-11-20 01:49:48,094 INFO    jalsanket.mqtt: REPLAY BATCH PUBLISHED rows=20 batch_size=20 oldest_acq_ms=1795118214058 newest_acq_ms=1795118252065 buffer_depth=113
+2026-11-20 01:49:48,214 INFO    jalsanket.mqtt: RECONNECT ATTEMPT #1 in 2.2s (auth_failure=False, last_error=disconnected rc=128)
+2026-11-20 01:49:48,573 WARNING jalsanket.mqtt: OFFLINE - CELLULAR/MQTT LINK LOST (rc=128); generation continues, rows are buffering. buffer_depth=113
+2026-11-20 01:49:48,595 INFO    jalsanket.storage: STORED node=node-02 id=115 acquisition_ms=1795118688595 stored_at_ms=1795118688595 buffer_depth=115 capacity=10800
+2026-11-20 01:49:48,596 WARNING jalsanket.mqtt: OFFLINE - BUFFERING node=node-02 id=115 acquisition_ms=1795118688595 buffer_depth=115/10800
+2026-11-20 01:49:48,622 INFO    jalsanket.storage: STORED node=node-03 id=114 acquisition_ms=1795118688621 stored_at_ms=1795118688621 buffer_depth=114 capacity=10800
+2026-11-20 01:49:48,622 WARNING jalsanket.mqtt: OFFLINE - BUFFERING node=node-03 id=114 acquisition_ms=1795118688621 buffer_depth=114/10800
+2026-11-20 01:49:48,693 INFO    jalsanket.mqtt: RECONNECT ATTEMPT #1 in 2.1s (auth_failure=False, last_error=disconnected rc=128)
+2026-11-20 01:49:49,064 INFO    jalsanket.mqtt: SUCCESSFUL RECONNECT attempt=0 buffered_rows=115
+2026-11-20 01:49:49,066 INFO    jalsanket.mqtt: REPLAY BATCH PUBLISHED rows=20 batch_size=20 oldest_acq_ms=1795118214057 newest_acq_ms=1795118252063 buffer_depth=115
+2026-11-20 01:49:49,254 WARNING jalsanket.mqtt: OFFLINE - CELLULAR/MQTT LINK LOST (rc=128); generation continues, rows are buffering. buffer_depth=115
+2026-11-20 01:49:49,374 INFO    jalsanket.mqtt: RECONNECT ATTEMPT #1 in 2.0s (auth_failure=False, last_error=disconnected rc=128)
