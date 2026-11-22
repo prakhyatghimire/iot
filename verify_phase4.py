@@ -342,14 +342,25 @@ def main() -> int:
 
         main_dash = json.loads(written["dashboard"].read_text())
         tw = main_dash["configuration"]["timewindow"]
-        check("time-series timewindow has aggregation limit and quick interval",
+        buckets = tw["realtime"]["timewindowMs"] // tw["realtime"]["interval"]
+        check("time-series timewindow uses a valid aggregation query",
               tw["selectedTab"] == 0
               and tw["realtime"]["realtimeType"] == 0
               and tw["realtime"]["quickInterval"] == "CURRENT_DAY"
-              and tw["aggregation"] == {"type": "AVG", "limit": 25000}, str(tw))
-        check("both time-series widgets use the dashboard timewindow",
+              and tw["aggregation"] == {"type": "AVG", "limit": 25000}
+              and buckets <= 600, str(tw))
+        check("time-series widgets use the dashboard timewindow",
               all(main_dash["configuration"]["widgets"][k]["config"]["useDashboardTimewindow"]
-                  is True for k in ("multi_series", "temp_flow")))
+                  is True for k in ("turbidity_series", "ph_series",
+                                    "tds_series", "temp_flow")))
+        check("per-metric charts each carry one key",
+              all(len(main_dash["configuration"]["widgets"][k]["config"]["datasources"][0]["dataKeys"]) == 1
+                  for k in ("turbidity_series", "ph_series", "tds_series")))
+        main_layout = main_dash["configuration"]["states"]["default"]["layouts"]["main"]["widgets"]
+        check("dashboard layout has no stale multi_series widget",
+              "multi_series" not in main_layout
+              and all(k in main_layout for k in ("turbidity_series", "ph_series",
+                                                  "tds_series")))
         gauges = [w for w in main_dash["configuration"]["widgets"].values()
                   if w["typeFullFqn"] == "system.digital_gauges.gauge_justgage"]
         check("three monitoring gauges hide the canvas label",

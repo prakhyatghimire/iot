@@ -797,7 +797,7 @@
       "selectedTab": 0,
       "realtime": {
         "realtimeType": 0,
-        "interval": 5000,
+        "interval": 10000,
         "timewindowMs": 3600000,
         "quickInterval": "CURRENT_DAY"
       },

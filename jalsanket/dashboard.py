@@ -179,7 +179,9 @@ CLOUD_WIDGET_FQNS: dict[str, tuple[str, str]] = {
     "ph_gauge": ("digital_gauges.gauge_justgage", "latest"),
     "turbidity_gauge": ("digital_gauges.gauge_justgage", "latest"),
     "tds_gauge": ("digital_gauges.gauge_justgage", "latest"),
-    "multi_series": ("time_series_chart", "timeseries"),
+    "turbidity_series": ("time_series_chart", "timeseries"),
+    "ph_series": ("time_series_chart", "timeseries"),
+    "tds_series": ("time_series_chart", "timeseries"),
     "temp_flow": ("time_series_chart", "timeseries"),
     "node_map": ("maps_v2.openstreetmap", "latest"),
     "alarms": ("alarm_widgets.alarms_table", "alarm"),
@@ -430,16 +432,32 @@ def build_cloud_dashboard(device_ids: Optional[list[str]] = None,
             "useDashboardTimewindow": False,
         })
 
-    for widget_id, title, key_names, size_y, row in (
-        ("multi_series", "Turbidity / pH / TDS time series",
-         ("turbidity_ntu", "ph", "tds_ppm"), 6, 11),
-        ("temp_flow", "Water temperature and flow",
-         ("water_temp_c", "flow_lpm"), 5, 17),
+    # One chart per metric: turbidity (0-300 NTU), pH (0-14) and TDS (0-1000 ppm)
+    # have very different scales. Sharing one y-axis made pH look flat even
+    # during a contamination event, so each signal gets its own axis now.
+    for widget_id, title, key_name, color, row, col in (
+        ("turbidity_series", "Turbidity by source (NTU)", "turbidity_ntu",
+         "#2196f3", 11, 0),
+        ("ph_series", "pH by source", "ph", "#f44336", 11, 8),
+        ("tds_series", "TDS by source (ppm)", "tds_ppm", "#4caf50", 11, 16),
     ):
-        add(widget_id, title, 24, size_y, row, 0, {
+        key = _cloud_key(key_name, "timeseries", key_name, color, 2)
+        key["label"] = f"{key_name} - ${{deviceName}}"
+        add(widget_id, title, 8, 6, row, col, {
+            "datasources": _cloud_datasource([key]),
+            "settings": {"showLegend": True, "legendConfig": {"show": True}},
+            "showTitle": True,
+            "title": title,
+            "useDashboardTimewindow": True,
+        })
+
+    for widget_id, title, key_names in (
+        ("temp_flow", "Water temperature and flow", ("water_temp_c", "flow_lpm")),
+    ):
+        add(widget_id, title, 24, 5, 17, 0, {
             "datasources": _cloud_datasource([
                 _cloud_key(name, "timeseries", name, color, 2)
-                for name, color in zip(key_names, ("#2196f3", "#f44336", "#4caf50"))
+                for name, color in zip(key_names, ("#2196f3", "#f44336"))
             ]),
             "settings": {"showLegend": True, "legendConfig": {"show": True}},
             "showTitle": True,
@@ -538,7 +556,10 @@ def build_cloud_dashboard(device_ids: Optional[list[str]] = None,
                 "selectedTab": 0,
                 "realtime": {
                     "realtimeType": 0,
-                    "interval": 5000,
+                    # ThingsBoard rejects a query with more than ~600 buckets;
+                    # 5 s over a 1 h window is 720 and returned HTTP 400, which
+                    # left every time-series chart (and its CSV export) empty.
+                    "interval": 10000,
                     "timewindowMs": 3600000,
                     "quickInterval": "CURRENT_DAY",
                 },

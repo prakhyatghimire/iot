@@ -303,10 +303,17 @@ both dashboards. No admin password is invented or required for the Cloud tenant.
 
 The dashboard answers "Which water source is unsafe right now?" with: a
 fleet-health/safety table, pH and turbidity gauges, a TDS digital gauge,
-turbidity/pH/TDS and temperature/flow time-series charts, an
-OpenStreetMap node map, and an alarms table. Every monitoring widget is bound
+separate turbidity, pH and TDS time-series charts (one y-axis per metric,
+because the three scales differ by orders of magnitude), a
+temperature/flow chart, an OpenStreetMap node map, and an alarms table.
+Every monitoring widget is bound
 to a single fleet alias, so each measurement is labelled with its device/source
-name. Demo controls live on a second, compact dashboard titled
+name. To export data, open a chart's three-dot menu and choose
+**Export data to CSV**; the CSV contains one row per timestamp and entity.
+The dashboard timewindow uses a 10 s aggregation interval over the last hour
+(360 buckets), which stays inside ThingsBoard's per-query bucket limit — a
+5 s interval produced 720 buckets, HTTP 400 and empty chart/CSV exports.
+Demo controls live on a second, compact dashboard titled
 **JalSanket - Demo Controls** so the monitoring view stays uncluttered. It has
 twelve small RPC Button widgets in a 4 x 3 grid: **Trigger Contamination**,
 **Supply Interruption ON**, **Supply Interruption OFF**, and **Reset** for each

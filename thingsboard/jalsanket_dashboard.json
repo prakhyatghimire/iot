@@ -291,10 +291,10 @@
         "col": 16,
         "id": "tds_gauge"
       },
-      "multi_series": {
+      "turbidity_series": {
         "typeFullFqn": "system.time_series_chart",
         "type": "timeseries",
-        "sizeX": 24,
+        "sizeX": 8,
         "sizeY": 6,
         "config": {
           "datasources": [
@@ -307,27 +307,97 @@
                 {
                   "name": "turbidity_ntu",
                   "type": "timeseries",
-                  "label": "turbidity_ntu",
+                  "label": "turbidity_ntu - ${deviceName}",
                   "color": "#2196f3",
                   "settings": {},
                   "aggregationType": null,
                   "units": null,
                   "decimals": 2
-                },
+                }
+              ],
+              "alarmFilterConfig": {
+                "statusList": [
+                  "ACTIVE"
+                ]
+              }
+            }
+          ],
+          "settings": {
+            "showLegend": true,
+            "legendConfig": {
+              "show": true
+            }
+          },
+          "showTitle": true,
+          "title": "Turbidity by source (NTU)",
+          "useDashboardTimewindow": true
+        },
+        "row": 11,
+        "col": 0,
+        "id": "turbidity_series"
+      },
+      "ph_series": {
+        "typeFullFqn": "system.time_series_chart",
+        "type": "timeseries",
+        "sizeX": 8,
+        "sizeY": 6,
+        "config": {
+          "datasources": [
+            {
+              "type": "entity",
+              "name": "",
+              "entityAliasId": "fleet",
+              "filterId": null,
+              "dataKeys": [
                 {
                   "name": "ph",
                   "type": "timeseries",
-                  "label": "ph",
+                  "label": "ph - ${deviceName}",
                   "color": "#f44336",
                   "settings": {},
                   "aggregationType": null,
                   "units": null,
                   "decimals": 2
-                },
+                }
+              ],
+              "alarmFilterConfig": {
+                "statusList": [
+                  "ACTIVE"
+                ]
+              }
+            }
+          ],
+          "settings": {
+            "showLegend": true,
+            "legendConfig": {
+              "show": true
+            }
+          },
+          "showTitle": true,
+          "title": "pH by source",
+          "useDashboardTimewindow": true
+        },
+        "row": 11,
+        "col": 8,
+        "id": "ph_series"
+      },
+      "tds_series": {
+        "typeFullFqn": "system.time_series_chart",
+        "type": "timeseries",
+        "sizeX": 8,
+        "sizeY": 6,
+        "config": {
+          "datasources": [
+            {
+              "type": "entity",
+              "name": "",
+              "entityAliasId": "fleet",
+              "filterId": null,
+              "dataKeys": [
                 {
                   "name": "tds_ppm",
                   "type": "timeseries",
-                  "label": "tds_ppm",
+                  "label": "tds_ppm - ${deviceName}",
                   "color": "#4caf50",
                   "settings": {},
                   "aggregationType": null,
@@ -349,12 +419,12 @@
             }
           },
           "showTitle": true,
-          "title": "Turbidity / pH / TDS time series",
+          "title": "TDS by source (ppm)",
           "useDashboardTimewindow": true
         },
         "row": 11,
-        "col": 0,
-        "id": "multi_series"
+        "col": 16,
+        "id": "tds_series"
       },
       "temp_flow": {
         "typeFullFqn": "system.time_series_chart",
@@ -696,11 +766,23 @@
                 "row": 6,
                 "col": 16
               },
-              "multi_series": {
-                "sizeX": 24,
+              "turbidity_series": {
+                "sizeX": 8,
                 "sizeY": 6,
                 "row": 11,
                 "col": 0
+              },
+              "ph_series": {
+                "sizeX": 8,
+                "sizeY": 6,
+                "row": 11,
+                "col": 8
+              },
+              "tds_series": {
+                "sizeX": 8,
+                "sizeY": 6,
+                "row": 11,
+                "col": 16
               },
               "temp_flow": {
                 "sizeX": 24,
@@ -759,7 +841,7 @@
       "selectedTab": 0,
       "realtime": {
         "realtimeType": 0,
-        "interval": 5000,
+        "interval": 10000,
         "timewindowMs": 3600000,
         "quickInterval": "CURRENT_DAY"
       },
