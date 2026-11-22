@@ -25,6 +25,7 @@ from jalsanket.fleet import DEFAULT_NODE_SPECS
 from jalsanket.dashboard import (
     DEMO_CONTROLS_DASHBOARD_ID,
     MONITORING_DASHBOARD_ID,
+    RPC_BUTTON_COLORS,
     build_dashboard,
     write_artifacts,
 )
@@ -323,6 +324,18 @@ def main() -> int:
                        if w["typeFullFqn"] == "system.control_widgets.rpcbutton"]
         check("demo controls dashboard has twelve RPC buttons",
               len(rpc_widgets) == 12)
+        expected_colors = {
+            "Trigger Contamination": RPC_BUTTON_COLORS[0],
+            "Supply Interruption ON": RPC_BUTTON_COLORS[1],
+            "Supply Interruption OFF": RPC_BUTTON_COLORS[2],
+            "Reset": RPC_BUTTON_COLORS[3],
+        }
+        colors_ok = all(
+            w["config"]["settings"]["styleButton"]["bgColor"]
+            == expected_colors[w["config"]["settings"]["buttonText"]]
+            for w in rpc_widgets
+        )
+        check("demo buttons are colour-coded by action", colors_ok)
         demo_layout = demo_dash["configuration"]["states"]["default"]["layouts"]["main"]["widgets"]
         demo_rows = {demo_layout[w["id"]]["row"] for w in rpc_widgets}
         check("demo controls use three compact rows", demo_rows == {0, 2, 4}, str(demo_rows))

@@ -170,6 +170,9 @@ RPC_BUTTON_COMMANDS: tuple[tuple[str, str, str, str], ...] = (
     ("Reset", "Reset", "reset", "{}"),
 )
 
+# Consistent action colors across all three nodes in the demo-controls dashboard.
+RPC_BUTTON_COLORS: tuple[str, ...] = ("#d32f2f", "#f57c00", "#1976d2", "#616161")
+
 CLOUD_WIDGET_FQNS: dict[str, tuple[str, str]] = {
     "summary": ("cards.markdown_card", "latest"),
     "fleet_health": ("cards.entities_table", "latest"),
@@ -576,10 +579,10 @@ def build_demo_controls_dashboard(device_ids: Optional[list[str]] = None,
                         "requestTimeout": 5000,
                         "showError": False,
                         "styleButton": {
-                            "bgColor": None,
+                            "bgColor": RPC_BUTTON_COLORS[command_index],
                             "isPrimary": False,
-                            "isRaised": False,
-                            "textColor": None,
+                            "isRaised": True,
+                            "textColor": "#ffffff",
                         },
                         "title": title,
                     },

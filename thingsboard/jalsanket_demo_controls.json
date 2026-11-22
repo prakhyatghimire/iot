@@ -29,10 +29,10 @@
             "requestTimeout": 5000,
             "showError": false,
             "styleButton": {
-              "bgColor": null,
+              "bgColor": "#d32f2f",
               "isPrimary": false,
-              "isRaised": false,
-              "textColor": null
+              "isRaised": true,
+              "textColor": "#ffffff"
             },
             "title": "Node-01 - Flood Contamination"
           },
@@ -77,10 +77,10 @@
             "requestTimeout": 5000,
             "showError": false,
             "styleButton": {
-              "bgColor": null,
+              "bgColor": "#f57c00",
               "isPrimary": false,
-              "isRaised": false,
-              "textColor": null
+              "isRaised": true,
+              "textColor": "#ffffff"
             },
             "title": "Node-01 - Supply Interruption ON"
           },
@@ -125,10 +125,10 @@
             "requestTimeout": 5000,
             "showError": false,
             "styleButton": {
-              "bgColor": null,
+              "bgColor": "#1976d2",
               "isPrimary": false,
-              "isRaised": false,
-              "textColor": null
+              "isRaised": true,
+              "textColor": "#ffffff"
             },
             "title": "Node-01 - Supply Interruption OFF"
           },
@@ -173,10 +173,10 @@
             "requestTimeout": 5000,
             "showError": false,
             "styleButton": {
-              "bgColor": null,
+              "bgColor": "#616161",
               "isPrimary": false,
-              "isRaised": false,
-              "textColor": null
+              "isRaised": true,
+              "textColor": "#ffffff"
             },
             "title": "Node-01 - Reset"
           },
@@ -221,10 +221,10 @@
             "requestTimeout": 5000,
             "showError": false,
             "styleButton": {
-              "bgColor": null,
+              "bgColor": "#d32f2f",
               "isPrimary": false,
-              "isRaised": false,
-              "textColor": null
+              "isRaised": true,
+              "textColor": "#ffffff"
             },
             "title": "Node-02 - Flood Contamination"
           },
@@ -269,10 +269,10 @@
             "requestTimeout": 5000,
             "showError": false,
             "styleButton": {
-              "bgColor": null,
+              "bgColor": "#f57c00",
               "isPrimary": false,
-              "isRaised": false,
-              "textColor": null
+              "isRaised": true,
+              "textColor": "#ffffff"
             },
             "title": "Node-02 - Supply Interruption ON"
           },
@@ -317,10 +317,10 @@
             "requestTimeout": 5000,
             "showError": false,
             "styleButton": {
-              "bgColor": null,
+              "bgColor": "#1976d2",
               "isPrimary": false,
-              "isRaised": false,
-              "textColor": null
+              "isRaised": true,
+              "textColor": "#ffffff"
             },
             "title": "Node-02 - Supply Interruption OFF"
           },
@@ -365,10 +365,10 @@
             "requestTimeout": 5000,
             "showError": false,
             "styleButton": {
-              "bgColor": null,
+              "bgColor": "#616161",
               "isPrimary": false,
-              "isRaised": false,
-              "textColor": null
+              "isRaised": true,
+              "textColor": "#ffffff"
             },
             "title": "Node-02 - Reset"
           },
@@ -413,10 +413,10 @@
             "requestTimeout": 5000,
             "showError": false,
             "styleButton": {
-              "bgColor": null,
+              "bgColor": "#d32f2f",
               "isPrimary": false,
-              "isRaised": false,
-              "textColor": null
+              "isRaised": true,
+              "textColor": "#ffffff"
             },
             "title": "Node-03 - Flood Contamination"
           },
@@ -461,10 +461,10 @@
             "requestTimeout": 5000,
             "showError": false,
             "styleButton": {
-              "bgColor": null,
+              "bgColor": "#f57c00",
               "isPrimary": false,
-              "isRaised": false,
-              "textColor": null
+              "isRaised": true,
+              "textColor": "#ffffff"
             },
             "title": "Node-03 - Supply Interruption ON"
           },
@@ -509,10 +509,10 @@
             "requestTimeout": 5000,
             "showError": false,
             "styleButton": {
-              "bgColor": null,
+              "bgColor": "#1976d2",
               "isPrimary": false,
-              "isRaised": false,
-              "textColor": null
+              "isRaised": true,
+              "textColor": "#ffffff"
             },
             "title": "Node-03 - Supply Interruption OFF"
           },
@@ -557,10 +557,10 @@
             "requestTimeout": 5000,
             "showError": false,
             "styleButton": {
-              "bgColor": null,
+              "bgColor": "#616161",
               "isPrimary": false,
-              "isRaised": false,
-              "textColor": null
+              "isRaised": true,
+              "textColor": "#ffffff"
             },
             "title": "Node-03 - Reset"
           },
