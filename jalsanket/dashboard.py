@@ -369,7 +369,7 @@ def build_cloud_dashboard(device_ids: Optional[list[str]] = None,
             RPC_BUTTON_COMMANDS
         ):
             widget_id = f"rpc_{node.node_id}_{method}_{command_index}"
-            button_title = f"{node.device_name} - {short_title}"
+            button_title = f"{node.node_id.replace('node-', 'Node-')} - {short_title}"
             add(widget_id, button_title, 6, 2, 29 + command_index,
                 node_index * 6, {
                     "actions": {},

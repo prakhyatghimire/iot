@@ -32,3 +32,6 @@ metrics/
 
 # macOS
 .DS_Store
+
+# Microsoft Office owner/lock files
+~$*
