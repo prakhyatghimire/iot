@@ -346,6 +346,12 @@ def main() -> int:
         check("three monitoring gauges hide the canvas label",
               len(gauges) == 3 and all(w["config"]["settings"]["showTitle"] is False
                                        for w in gauges))
+        check("monitoring gauges use compact canvas fonts",
+              len(gauges) == 3 and all(
+                  w["config"]["settings"]["valueFont"]["size"] == 24
+                  and w["config"]["settings"]["titleFont"]["size"] == 9
+                  and w["config"]["settings"]["minMaxFont"]["size"] == 9
+                  for w in gauges))
         main_navs = [w for w in main_dash["configuration"]["widgets"].values()
                      if w["typeFullFqn"] == "system.action_button"]
         demo_navs = [w for w in demo_widgets.values()

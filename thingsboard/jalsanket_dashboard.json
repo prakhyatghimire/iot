@@ -121,7 +121,34 @@
             "decimals": 2,
             "units": "pH",
             "showTitle": false,
-            "showMinMax": true
+            "showMinMax": true,
+            "titleFont": {
+              "family": "Roboto",
+              "size": 9,
+              "style": "normal",
+              "weight": "500",
+              "color": "#999999"
+            },
+            "valueFont": {
+              "family": "Roboto",
+              "size": 24,
+              "style": "normal",
+              "weight": "500",
+              "color": "#666666"
+            },
+            "minMaxFont": {
+              "family": "Roboto",
+              "size": 9,
+              "style": "normal",
+              "weight": "500",
+              "color": "#666666"
+            },
+            "labelFont": {
+              "family": "Roboto",
+              "size": 8,
+              "style": "normal",
+              "weight": "500"
+            }
           },
           "showTitle": true,
           "title": "pH (all sources)"
@@ -167,7 +194,34 @@
             "decimals": 1,
             "units": "NTU",
             "showTitle": false,
-            "showMinMax": true
+            "showMinMax": true,
+            "titleFont": {
+              "family": "Roboto",
+              "size": 9,
+              "style": "normal",
+              "weight": "500",
+              "color": "#999999"
+            },
+            "valueFont": {
+              "family": "Roboto",
+              "size": 24,
+              "style": "normal",
+              "weight": "500",
+              "color": "#666666"
+            },
+            "minMaxFont": {
+              "family": "Roboto",
+              "size": 9,
+              "style": "normal",
+              "weight": "500",
+              "color": "#666666"
+            },
+            "labelFont": {
+              "family": "Roboto",
+              "size": 8,
+              "style": "normal",
+              "weight": "500"
+            }
           },
           "showTitle": true,
           "title": "Turbidity (all sources)"
@@ -213,7 +267,34 @@
             "decimals": 1,
             "units": "ppm",
             "showTitle": false,
-            "showMinMax": true
+            "showMinMax": true,
+            "titleFont": {
+              "family": "Roboto",
+              "size": 9,
+              "style": "normal",
+              "weight": "500",
+              "color": "#999999"
+            },
+            "valueFont": {
+              "family": "Roboto",
+              "size": 24,
+              "style": "normal",
+              "weight": "500",
+              "color": "#666666"
+            },
+            "minMaxFont": {
+              "family": "Roboto",
+              "size": 9,
+              "style": "normal",
+              "weight": "500",
+              "color": "#666666"
+            },
+            "labelFont": {
+              "family": "Roboto",
+              "size": 8,
+              "style": "normal",
+              "weight": "500"
+            }
           },
           "showTitle": true,
           "title": "TDS (all sources)"

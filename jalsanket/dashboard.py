@@ -392,6 +392,16 @@ def build_cloud_dashboard(device_ids: Optional[list[str]] = None,
                 # numeric value. Keep the header, hide only the canvas label.
                 "showTitle": False,
                 "showMinMax": True,
+                # Smaller canvas fonts keep the value, unit suffix and min/max
+                # marks from crowding each other in the compact gauge card.
+                "titleFont": {"family": "Roboto", "size": 9,
+                              "style": "normal", "weight": "500", "color": "#999999"},
+                "valueFont": {"family": "Roboto", "size": 24,
+                              "style": "normal", "weight": "500", "color": "#666666"},
+                "minMaxFont": {"family": "Roboto", "size": 9,
+                               "style": "normal", "weight": "500", "color": "#666666"},
+                "labelFont": {"family": "Roboto", "size": 8,
+                              "style": "normal", "weight": "500"},
             },
             "showTitle": True,
             "title": title,
