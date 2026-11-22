@@ -152,6 +152,19 @@ def build_dashboard() -> dict:
     }
 
 
+RPC_BUTTON_FQN: tuple[str, str] = ("control_widgets.rpcbutton", "rpc")
+
+# Live demo controls. Each ThingsBoard RPC Button targets exactly one device,
+# so every command is emitted once per node rather than injecting readings.
+RPC_BUTTON_COMMANDS: tuple[tuple[str, str, str, str], ...] = (
+    ("Flood Contamination", "Trigger Contamination", "trigger_contamination", "{}"),
+    ("Supply Interruption ON", "Supply Interruption ON", "set_supply_interrupted",
+     '{"interrupted": true}'),
+    ("Supply Interruption OFF", "Supply Interruption OFF", "set_supply_interrupted",
+     '{"interrupted": false}'),
+    ("Reset", "Reset", "reset", "{}"),
+)
+
 CLOUD_WIDGET_FQNS: dict[str, tuple[str, str]] = {
     "summary": ("cards.markdown_card", "latest"),
     "fleet_health": ("cards.entities_table", "latest"),
@@ -200,6 +213,7 @@ def build_cloud_dashboard(device_ids: Optional[list[str]] = None,
     explicit entity list. Otherwise it selects the three exact device names so
     the artifact never depends on a mutable device-type filter.
     """
+    nodes = fleet_config.nodes if fleet_config else DEFAULT_NODE_SPECS
     if device_ids:
         alias_filter: dict = {
             "type": "entityList",
@@ -207,7 +221,6 @@ def build_cloud_dashboard(device_ids: Optional[list[str]] = None,
             "entityList": list(device_ids),
         }
     else:
-        nodes = fleet_config.nodes if fleet_config else DEFAULT_NODE_SPECS
         pattern = "(" + "|".join(re.escape(node.device_name) for node in nodes) + ")"
         alias_filter = {
             "type": "entityName",
@@ -219,8 +232,9 @@ def build_cloud_dashboard(device_ids: Optional[list[str]] = None,
     layout: dict[str, dict] = {}
 
     def add(widget_id: str, title: str, size_x: int, size_y: int,
-            row: int, col: int, config: dict) -> None:
-        fqn, widget_type = CLOUD_WIDGET_FQNS[widget_id]
+            row: int, col: int, config: dict,
+            fqn_override: Optional[tuple[str, str]] = None) -> None:
+        fqn, widget_type = fqn_override or CLOUD_WIDGET_FQNS[widget_id]
         widgets[widget_id] = {
             "typeFullFqn": f"system.{fqn}",
             "type": widget_type,
@@ -345,6 +359,51 @@ def build_cloud_dashboard(device_ids: Optional[list[str]] = None,
         "title": "Active alarms",
         "useDashboardTimewindow": False,
     })
+
+    # Four scenario commands per node (12 buttons). A single RPC Button widget
+    # resolves one target device, so the fleet-wide action is expressed as three
+    # explicit device-targeted controls per command.
+    for node_index, node in enumerate(nodes):
+        target_id = device_ids[node_index] if device_ids and node_index < len(device_ids) else ""
+        for command_index, (short_title, button_text, method, params) in enumerate(
+            RPC_BUTTON_COMMANDS
+        ):
+            widget_id = f"rpc_{node.node_id}_{method}_{command_index}"
+            button_title = f"{node.device_name} - {short_title}"
+            add(widget_id, button_title, 6, 2, 29 + command_index,
+                node_index * 6, {
+                    "actions": {},
+                    "backgroundColor": "#e6e7e8",
+                    "color": "rgba(0, 0, 0, 0.87)",
+                    "datasources": [],
+                    "dropShadow": True,
+                    "enableFullscreen": False,
+                    "padding": "0px",
+                    "settings": {
+                        "buttonText": button_text,
+                        "methodName": method,
+                        "methodParams": params,
+                        "oneWayElseTwoWay": False,
+                        "persistentPollingInterval": 5000,
+                        "requestPersistent": False,
+                        "requestTimeout": 5000,
+                        "showError": False,
+                        "styleButton": {
+                            "bgColor": None,
+                            "isPrimary": False,
+                            "isRaised": True,
+                            "textColor": None,
+                        },
+                        "title": button_title,
+                    },
+                    "showLegend": False,
+                    "showTitle": False,
+                    "targetDevice": {"deviceId": target_id, "type": "device"},
+                    "targetDeviceAliases": [],
+                    "title": "RPC Button",
+                    "titleStyle": {"fontSize": "16px", "fontWeight": 400},
+                    "widgetStyle": {},
+                }, fqn_override=RPC_BUTTON_FQN)
 
     return {
         "title": DASHBOARD_TITLE,
