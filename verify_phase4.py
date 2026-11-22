@@ -346,6 +346,13 @@ def main() -> int:
         check("three monitoring gauges hide the canvas label",
               len(gauges) == 3 and all(w["config"]["settings"]["showTitle"] is False
                                        for w in gauges))
+        expected_gauge_titles = {
+            "ph_gauge": "pH (Node-01)",
+            "turbidity_gauge": "Turbidity (Node-01)",
+            "tds_gauge": "TDS (Node-01)",
+        }
+        check("monitoring gauges are labelled Node-01",
+              {w["id"]: w["config"]["title"] for w in gauges} == expected_gauge_titles)
         check("monitoring gauges use compact canvas fonts",
               len(gauges) == 3 and all(
                   w["config"]["settings"]["valueFont"]["size"] == 24

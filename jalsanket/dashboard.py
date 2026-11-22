@@ -88,21 +88,21 @@ def build_dashboard() -> dict:
         data_type="latest",
     ))
     add("ph_gauge", 0, 6, 4, 5, _widget(
-        "pH (all sources)",
+        "pH (Node-01)",
         "Analog Gauge",
         _data_keys(("ph",)),
         {"minValue": 0, "maxValue": 14, "units": "pH", "decimals": 2},
         data_type="latest",
     ))
     add("turbidity_gauge", 4, 6, 4, 5, _widget(
-        "Turbidity (all sources)",
+        "Turbidity (Node-01)",
         "Analog Gauge",
         _data_keys(("turbidity_ntu",)),
         {"minValue": 0, "maxValue": 300, "units": "NTU", "decimals": 1},
         data_type="latest",
     ))
     add("tds_gauge", 8, 6, 4, 5, _widget(
-        "TDS (all sources)",
+        "TDS (Node-01)",
         "Digital Gauge",
         _data_keys(("tds_ppm",)),
         {"units": "ppm", "decimals": 1},
@@ -374,9 +374,9 @@ def build_cloud_dashboard(device_ids: Optional[list[str]] = None,
     })
 
     for widget_id, title, key_name, maximum, units, decimals, col in (
-        ("ph_gauge", "pH (all sources)", "ph", 14, "pH", 2, 0),
-        ("turbidity_gauge", "Turbidity (all sources)", "turbidity_ntu", 300, "NTU", 1, 8),
-        ("tds_gauge", "TDS (all sources)", "tds_ppm", 1000, "ppm", 1, 16),
+        ("ph_gauge", "pH (Node-01)", "ph", 14, "pH", 2, 0),
+        ("turbidity_gauge", "Turbidity (Node-01)", "turbidity_ntu", 300, "NTU", 1, 8),
+        ("tds_gauge", "TDS (Node-01)", "tds_ppm", 1000, "ppm", 1, 16),
     ):
         add(widget_id, title, 8, 5, 6, col, {
             "datasources": _cloud_datasource([

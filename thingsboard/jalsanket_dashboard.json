@@ -100,7 +100,7 @@
                 {
                   "name": "ph",
                   "type": "timeseries",
-                  "label": "pH (all sources)",
+                  "label": "pH (Node-01)",
                   "color": "#2196f3",
                   "settings": {},
                   "aggregationType": null,
@@ -151,7 +151,7 @@
             }
           },
           "showTitle": true,
-          "title": "pH (all sources)"
+          "title": "pH (Node-01)"
         },
         "row": 6,
         "col": 0,
@@ -173,7 +173,7 @@
                 {
                   "name": "turbidity_ntu",
                   "type": "timeseries",
-                  "label": "Turbidity (all sources)",
+                  "label": "Turbidity (Node-01)",
                   "color": "#2196f3",
                   "settings": {},
                   "aggregationType": null,
@@ -224,7 +224,7 @@
             }
           },
           "showTitle": true,
-          "title": "Turbidity (all sources)"
+          "title": "Turbidity (Node-01)"
         },
         "row": 6,
         "col": 8,
@@ -246,7 +246,7 @@
                 {
                   "name": "tds_ppm",
                   "type": "timeseries",
-                  "label": "TDS (all sources)",
+                  "label": "TDS (Node-01)",
                   "color": "#2196f3",
                   "settings": {},
                   "aggregationType": null,
@@ -297,7 +297,7 @@
             }
           },
           "showTitle": true,
-          "title": "TDS (all sources)"
+          "title": "TDS (Node-01)"
         },
         "row": 6,
         "col": 16,
