@@ -578,6 +578,119 @@
           },
           "widgetStyle": {}
         }
+      },
+      "nav_to_monitoring": {
+        "id": "nav_to_monitoring",
+        "col": 9,
+        "row": 6,
+        "sizeX": 6,
+        "sizeY": 1,
+        "type": "latest",
+        "typeFullFqn": "system.action_button",
+        "config": {
+          "actions": {
+            "click": [
+              {
+                "icon": "more_horiz",
+                "id": "action_nav_to_monitoring",
+                "name": "onClick",
+                "openInPopover": false,
+                "openInSeparateDialog": false,
+                "openNewBrowserTab": false,
+                "setEntityId": true,
+                "stateEntityParamName": null,
+                "targetDashboardId": "8626a700-e451-11f1-8c2a-39d8a38c3af6",
+                "targetDashboardStateId": "",
+                "type": "openDashboard"
+              }
+            ]
+          },
+          "backgroundColor": "#FFFFFF01",
+          "borderRadius": "4px",
+          "color": "rgba(0, 0, 0, 0.87)",
+          "configMode": "basic",
+          "datasources": [],
+          "dropShadow": false,
+          "enableDataExport": false,
+          "enableFullscreen": false,
+          "iconColor": "rgba(0, 0, 0, 0.87)",
+          "iconSize": "24px",
+          "noDataDisplayMessage": "",
+          "padding": "0px",
+          "pageSize": 1024,
+          "settings": {
+            "activatedState": {
+              "action": "DO_NOTHING",
+              "dataToValue": {
+                "compareToValue": true,
+                "dataToValueFunction": "/* Should return boolean value */\nreturn data;",
+                "type": "NONE"
+              },
+              "defaultValue": false,
+              "getAlarmStatus": {
+                "severityList": null,
+                "typeList": null
+              },
+              "getAttribute": {
+                "key": "state",
+                "scope": null
+              },
+              "getTimeSeries": {
+                "key": "state"
+              }
+            },
+            "appearance": {
+              "autoScale": true,
+              "backgroundColor": "#FFFFFF",
+              "customStyle": {
+                "activated": null,
+                "disabled": null,
+                "enabled": null,
+                "hovered": null,
+                "pressed": null
+              },
+              "icon": "home",
+              "iconSize": 24,
+              "iconSizeUnit": "px",
+              "label": "Go to Monitoring Dashboard",
+              "mainColor": "var(--tb-primary-500)",
+              "showIcon": true,
+              "showLabel": true,
+              "type": "outlined"
+            },
+            "disabledState": {
+              "action": "DO_NOTHING",
+              "dataToValue": {
+                "compareToValue": true,
+                "dataToValueFunction": "/* Should return boolean value */\nreturn data;",
+                "type": "NONE"
+              },
+              "defaultValue": false,
+              "getAlarmStatus": {
+                "severityList": null,
+                "typeList": null
+              },
+              "getAttribute": {
+                "key": "state",
+                "scope": null
+              },
+              "getTimeSeries": {
+                "key": "state"
+              }
+            }
+          },
+          "showLegend": false,
+          "showTitle": false,
+          "showTitleIcon": false,
+          "title": "Action button",
+          "titleStyle": {
+            "fontSize": "16px",
+            "fontWeight": 400
+          },
+          "titleTooltip": "",
+          "widgetCss": "",
+          "widgetStyle": {}
+        }
       }
     },
     "states": {
@@ -658,6 +771,12 @@
                 "row": 4,
                 "sizeX": 6,
                 "sizeY": 2
+              },
+              "nav_to_monitoring": {
+                "col": 9,
+                "row": 6,
+                "sizeX": 6,
+                "sizeY": 1
               }
             },
             "gridSettings": {

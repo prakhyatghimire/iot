@@ -293,8 +293,9 @@ The live tenant was configured in the logged-in Cloud browser session: device
 profile `JalSanket Water Quality Node`, devices `JalSanket-Node-01/02/03`,
 three distinct access tokens, a `60000` ms `inactivityTimeout` SERVER_SCOPE
 attribute on each device, six Alarm Rules 2.0 definitions bound to the profile,
-and two dashboards: the nine-widget duty-officer monitoring dashboard and a
-separate twelve-button demo-controls dashboard. REST uses HTTPS/443 via
+and two dashboards: the duty-officer monitoring dashboard (nine monitoring
+widgets) and a separate twelve-button demo-controls dashboard. Each dashboard
+has a small **Action button** that switches to the other. REST uses HTTPS/443 via
 `TB_REST_HOST`, `TB_HTTP_SCHEME` and `TB_HTTP_PORT`; MQTT remains TLS/8883 via
 `TB_HOST`. `--provision` accepts `TB_REST_JWT` (or self-hosted admin credentials)
 and applies the Cloud-shaped profile, credentials, attributes, alarm rules and

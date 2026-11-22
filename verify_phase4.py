@@ -22,7 +22,12 @@ from verify_phase3 import FakeMqttClient
 from jalsanket import AlarmEvaluator, Fleet, FleetConfig, NodeConfig, Reading
 from jalsanket.alarm_rules import device_profile_alarm_config, rule_chain_document
 from jalsanket.fleet import DEFAULT_NODE_SPECS
-from jalsanket.dashboard import build_dashboard, write_artifacts
+from jalsanket.dashboard import (
+    DEMO_CONTROLS_DASHBOARD_ID,
+    MONITORING_DASHBOARD_ID,
+    build_dashboard,
+    write_artifacts,
+)
 from jalsanket.provisioning import (
     DEVICE_PROFILE_NAME,
     INACTIVITY_TIMEOUT_MS,
@@ -314,13 +319,28 @@ def main() -> int:
 
         demo_dash = json.loads(written["demo_controls"].read_text())
         demo_widgets = demo_dash["configuration"]["widgets"]
+        rpc_widgets = [w for w in demo_widgets.values()
+                       if w["typeFullFqn"] == "system.control_widgets.rpcbutton"]
         check("demo controls dashboard has twelve RPC buttons",
-              len(demo_widgets) == 12
-              and all(w["typeFullFqn"] == "system.control_widgets.rpcbutton"
-                      for w in demo_widgets.values()))
-        demo_rows = {pos["row"] for pos in
-                     demo_dash["configuration"]["states"]["default"]["layouts"]["main"]["widgets"].values()}
+              len(rpc_widgets) == 12)
+        demo_layout = demo_dash["configuration"]["states"]["default"]["layouts"]["main"]["widgets"]
+        demo_rows = {demo_layout[w["id"]]["row"] for w in rpc_widgets}
         check("demo controls use three compact rows", demo_rows == {0, 2, 4}, str(demo_rows))
+
+        main_dash = json.loads(written["dashboard"].read_text())
+        main_navs = [w for w in main_dash["configuration"]["widgets"].values()
+                     if w["typeFullFqn"] == "system.action_button"]
+        demo_navs = [w for w in demo_widgets.values()
+                     if w["typeFullFqn"] == "system.action_button"]
+        check("both dashboards have a navigation button",
+              len(main_navs) == 1 and len(demo_navs) == 1)
+        if main_navs and demo_navs:
+            main_target = main_navs[0]["config"]["actions"]["click"][0]["targetDashboardId"]
+            demo_target = demo_navs[0]["config"]["actions"]["click"][0]["targetDashboardId"]
+            check("navigation buttons point to each other",
+                  main_target == DEMO_CONTROLS_DASHBOARD_ID
+                  and demo_target == MONITORING_DASHBOARD_ID,
+                  f"{main_target} / {demo_target}")
 
         # --------------------------------------------------- default locations
         section("7b. Default node coordinates (Rasuwa scenario)")

@@ -22,6 +22,10 @@ DASHBOARD_TITLE = "JalSanket - Municipal Water Safety"
 DEMO_CONTROLS_TITLE = "JalSanket - Demo Controls"
 FLEET_ALIAS = "fleet"
 
+# Live tenant dashboard IDs used by the cross-dashboard navigation buttons.
+MONITORING_DASHBOARD_ID = "8626a700-e451-11f1-8c2a-39d8a38c3af6"
+DEMO_CONTROLS_DASHBOARD_ID = "19cf5c70-e69d-11f1-855e-4d781d6baffc"
+
 
 def _data_keys(names: tuple[str, ...] | list[str], key_type: str = "timeseries") -> list[dict]:
     return [
@@ -177,6 +181,94 @@ CLOUD_WIDGET_FQNS: dict[str, tuple[str, str]] = {
     "node_map": ("maps_v2.openstreetmap", "latest"),
     "alarms": ("alarm_widgets.alarms_table", "alarm"),
 }
+
+
+def _navigation_button(widget_id: str, label: str, icon: str,
+                       target_dashboard_id: str, row: int, col: int) -> dict:
+    """Build the stock Action button that switches between the two dashboards."""
+    return {
+        "id": widget_id,
+        "col": col,
+        "row": row,
+        "sizeX": 6,
+        "sizeY": 1,
+        "type": "latest",
+        "typeFullFqn": "system.action_button",
+        "config": {
+            "actions": {
+                "click": [{
+                    "icon": "more_horiz",
+                    "id": f"action_{widget_id}",
+                    "name": "onClick",
+                    "openInPopover": False,
+                    "openInSeparateDialog": False,
+                    "openNewBrowserTab": False,
+                    "setEntityId": True,
+                    "stateEntityParamName": None,
+                    "targetDashboardId": target_dashboard_id,
+                    "targetDashboardStateId": "",
+                    "type": "openDashboard",
+                }]
+            },
+            "backgroundColor": "#FFFFFF01",
+            "borderRadius": "4px",
+            "color": "rgba(0, 0, 0, 0.87)",
+            "configMode": "basic",
+            "datasources": [],
+            "dropShadow": False,
+            "enableDataExport": False,
+            "enableFullscreen": False,
+            "iconColor": "rgba(0, 0, 0, 0.87)",
+            "iconSize": "24px",
+            "noDataDisplayMessage": "",
+            "padding": "0px",
+            "pageSize": 1024,
+            "settings": {
+                "activatedState": {
+                    "action": "DO_NOTHING",
+                    "dataToValue": {"compareToValue": True,
+                                    "dataToValueFunction": "/* Should return boolean value */\nreturn data;",
+                                    "type": "NONE"},
+                    "defaultValue": False,
+                    "getAlarmStatus": {"severityList": None, "typeList": None},
+                    "getAttribute": {"key": "state", "scope": None},
+                    "getTimeSeries": {"key": "state"},
+                },
+                "appearance": {
+                    "autoScale": True,
+                    "backgroundColor": "#FFFFFF",
+                    "customStyle": {"activated": None, "disabled": None,
+                                    "enabled": None, "hovered": None, "pressed": None},
+                    "icon": icon,
+                    "iconSize": 24,
+                    "iconSizeUnit": "px",
+                    "label": label,
+                    "mainColor": "var(--tb-primary-500)",
+                    "showIcon": True,
+                    "showLabel": True,
+                    "type": "outlined",
+                },
+                "disabledState": {
+                    "action": "DO_NOTHING",
+                    "dataToValue": {"compareToValue": True,
+                                    "dataToValueFunction": "/* Should return boolean value */\nreturn data;",
+                                    "type": "NONE"},
+                    "defaultValue": False,
+                    "getAlarmStatus": {"severityList": None, "typeList": None},
+                    "getAttribute": {"key": "state", "scope": None},
+                    "getTimeSeries": {"key": "state"},
+                },
+            },
+            "showLegend": False,
+            "showTitle": False,
+            "showTitleIcon": False,
+            "title": "Action button",
+            "titleStyle": {"fontSize": "16px", "fontWeight": 400},
+            "titleTooltip": "",
+            "widgetCss": "",
+            "widgetStyle": {},
+        },
+    }
 
 
 def _cloud_key(name: str, key_type: str, label: str, color: str,
@@ -360,6 +452,14 @@ def build_cloud_dashboard(device_ids: Optional[list[str]] = None,
         "useDashboardTimewindow": False,
     })
 
+    nav = _navigation_button(
+        "nav_to_demo_controls", "Go to Demo Controls", "arrow_forward",
+        DEMO_CONTROLS_DASHBOARD_ID, 29, 9,
+    )
+    widgets[nav["id"]] = nav
+    layout[nav["id"]] = {"col": nav["col"], "row": nav["row"],
+                         "sizeX": nav["sizeX"], "sizeY": nav["sizeY"]}
+
     return {
         "title": DASHBOARD_TITLE,
         "configuration": {
@@ -494,6 +594,14 @@ def build_demo_controls_dashboard(device_ids: Optional[list[str]] = None,
             }
             layout[widget_id] = {"col": col, "row": row, "sizeX": 6, "sizeY": 2}
             index += 1
+
+    nav = _navigation_button(
+        "nav_to_monitoring", "Go to Monitoring Dashboard", "home",
+        MONITORING_DASHBOARD_ID, 6, 9,
+    )
+    widgets[nav["id"]] = nav
+    layout[nav["id"]] = {"col": nav["col"], "row": nav["row"],
+                         "sizeX": nav["sizeX"], "sizeY": nav["sizeY"]}
 
     states = json.loads(json.dumps(source["states"]))
     main_layout = states["default"]["layouts"]["main"]
