@@ -341,6 +341,15 @@ def main() -> int:
         check("demo controls use three compact rows", demo_rows == {0, 2, 4}, str(demo_rows))
 
         main_dash = json.loads(written["dashboard"].read_text())
+        tw = main_dash["configuration"]["timewindow"]
+        check("time-series timewindow has aggregation limit and quick interval",
+              tw["selectedTab"] == 0
+              and tw["realtime"]["realtimeType"] == 0
+              and tw["realtime"]["quickInterval"] == "CURRENT_DAY"
+              and tw["aggregation"] == {"type": "AVG", "limit": 25000}, str(tw))
+        check("both time-series widgets use the dashboard timewindow",
+              all(main_dash["configuration"]["widgets"][k]["config"]["useDashboardTimewindow"]
+                  is True for k in ("multi_series", "temp_flow")))
         gauges = [w for w in main_dash["configuration"]["widgets"].values()
                   if w["typeFullFqn"] == "system.digital_gauges.gauge_justgage"]
         check("three monitoring gauges hide the canvas label",
