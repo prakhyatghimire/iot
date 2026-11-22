@@ -120,7 +120,7 @@
             "maxValue": 14,
             "decimals": 2,
             "units": "pH",
-            "showTitle": true,
+            "showTitle": false,
             "showMinMax": true
           },
           "showTitle": true,
@@ -166,7 +166,7 @@
             "maxValue": 300,
             "decimals": 1,
             "units": "NTU",
-            "showTitle": true,
+            "showTitle": false,
             "showMinMax": true
           },
           "showTitle": true,
@@ -212,7 +212,7 @@
             "maxValue": 1000,
             "decimals": 1,
             "units": "ppm",
-            "showTitle": true,
+            "showTitle": false,
             "showMinMax": true
           },
           "showTitle": true,

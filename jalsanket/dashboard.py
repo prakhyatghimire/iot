@@ -387,7 +387,10 @@ def build_cloud_dashboard(device_ids: Optional[list[str]] = None,
                 "maxValue": maximum,
                 "decimals": decimals,
                 "units": units,
-                "showTitle": True,
+                # ThingsBoard draws this label inside the gauge canvas; with the
+                # widget header already showing the metric name, it overlaps the
+                # numeric value. Keep the header, hide only the canvas label.
+                "showTitle": False,
                 "showMinMax": True,
             },
             "showTitle": True,

@@ -341,6 +341,11 @@ def main() -> int:
         check("demo controls use three compact rows", demo_rows == {0, 2, 4}, str(demo_rows))
 
         main_dash = json.loads(written["dashboard"].read_text())
+        gauges = [w for w in main_dash["configuration"]["widgets"].values()
+                  if w["typeFullFqn"] == "system.digital_gauges.gauge_justgage"]
+        check("three monitoring gauges hide the canvas label",
+              len(gauges) == 3 and all(w["config"]["settings"]["showTitle"] is False
+                                       for w in gauges))
         main_navs = [w for w in main_dash["configuration"]["widgets"].values()
                      if w["typeFullFqn"] == "system.action_button"]
         demo_navs = [w for w in demo_widgets.values()
