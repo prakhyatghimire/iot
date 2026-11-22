@@ -355,10 +355,21 @@ def main() -> int:
               {w["id"]: w["config"]["title"] for w in gauges} == expected_gauge_titles)
         check("monitoring gauges use compact canvas fonts",
               len(gauges) == 3 and all(
-                  w["config"]["settings"]["valueFont"]["size"] == 24
-                  and w["config"]["settings"]["titleFont"]["size"] == 9
-                  and w["config"]["settings"]["minMaxFont"]["size"] == 9
+                  w["config"]["settings"]["fontValueSize"] == 24
+                  and w["config"]["settings"]["fontTitleSize"] == 9
+                  and w["config"]["settings"]["fontMinMaxSize"] == 9
+                  and w["config"]["settings"]["fontLabelSize"] == 8
                   for w in gauges))
+        import_artifact = json.loads(
+            (Path(__file__).parent / "thingsboard" / "jalsanket_dashboard.json").read_text())
+        import_gauges = [w for w in import_artifact["configuration"]["widgets"].values()
+                         if w["typeFullFqn"] == "system.digital_gauges.gauge_justgage"]
+        check("monitoring gauges are pinned to Node-01 in the import artifact",
+              len(import_gauges) == 3 and all(
+                  w["config"]["datasources"][0].get("entityId")
+                  == "737cbce0-e44f-11f1-8c2a-39d8a38c3af6"
+                  and "entityAliasId" not in w["config"]["datasources"][0]
+                  for w in import_gauges))
         main_navs = [w for w in main_dash["configuration"]["widgets"].values()
                      if w["typeFullFqn"] == "system.action_button"]
         demo_navs = [w for w in demo_widgets.values()

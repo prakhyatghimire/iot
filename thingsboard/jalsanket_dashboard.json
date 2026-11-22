@@ -93,8 +93,7 @@
           "datasources": [
             {
               "type": "entity",
-              "name": "",
-              "entityAliasId": "fleet",
+              "name": "JalSanket-Node-01",
               "filterId": null,
               "dataKeys": [
                 {
@@ -112,7 +111,10 @@
                 "statusList": [
                   "ACTIVE"
                 ]
-              }
+              },
+              "entityId": "737cbce0-e44f-11f1-8c2a-39d8a38c3af6",
+              "entityType": "DEVICE",
+              "entityName": "JalSanket-Node-01"
             }
           ],
           "settings": {
@@ -122,36 +124,30 @@
             "units": "pH",
             "showTitle": false,
             "showMinMax": true,
-            "titleFont": {
-              "family": "Roboto",
-              "size": 9,
-              "style": "normal",
-              "weight": "500",
-              "color": "#999999"
-            },
-            "valueFont": {
-              "family": "Roboto",
-              "size": 24,
-              "style": "normal",
-              "weight": "500",
-              "color": "#666666"
-            },
-            "minMaxFont": {
-              "family": "Roboto",
-              "size": 9,
-              "style": "normal",
-              "weight": "500",
-              "color": "#666666"
-            },
-            "labelFont": {
-              "family": "Roboto",
-              "size": 8,
-              "style": "normal",
-              "weight": "500"
-            }
+            "fontTitle": "Roboto",
+            "fontTitleSize": 9,
+            "fontTitleStyle": "normal",
+            "fontTitleWeight": "500",
+            "colorTitle": "#999999",
+            "fontValue": "Roboto",
+            "fontValueSize": 24,
+            "fontValueStyle": "normal",
+            "fontValueWeight": "500",
+            "colorValue": "#666666",
+            "fontMinMax": "Roboto",
+            "fontMinMaxSize": 9,
+            "fontMinMaxStyle": "normal",
+            "fontMinMaxWeight": "500",
+            "colorMinMax": "#666666",
+            "fontLabel": "Roboto",
+            "fontLabelSize": 8,
+            "fontLabelStyle": "normal",
+            "fontLabelWeight": "500",
+            "colorLabel": "#999999"
           },
           "showTitle": true,
-          "title": "pH (Node-01)"
+          "title": "pH (Node-01)",
+          "useDashboardTimewindow": false
         },
         "row": 6,
         "col": 0,
@@ -166,8 +162,7 @@
           "datasources": [
             {
               "type": "entity",
-              "name": "",
-              "entityAliasId": "fleet",
+              "name": "JalSanket-Node-01",
               "filterId": null,
               "dataKeys": [
                 {
@@ -185,7 +180,10 @@
                 "statusList": [
                   "ACTIVE"
                 ]
-              }
+              },
+              "entityId": "737cbce0-e44f-11f1-8c2a-39d8a38c3af6",
+              "entityType": "DEVICE",
+              "entityName": "JalSanket-Node-01"
             }
           ],
           "settings": {
@@ -195,36 +193,30 @@
             "units": "NTU",
             "showTitle": false,
             "showMinMax": true,
-            "titleFont": {
-              "family": "Roboto",
-              "size": 9,
-              "style": "normal",
-              "weight": "500",
-              "color": "#999999"
-            },
-            "valueFont": {
-              "family": "Roboto",
-              "size": 24,
-              "style": "normal",
-              "weight": "500",
-              "color": "#666666"
-            },
-            "minMaxFont": {
-              "family": "Roboto",
-              "size": 9,
-              "style": "normal",
-              "weight": "500",
-              "color": "#666666"
-            },
-            "labelFont": {
-              "family": "Roboto",
-              "size": 8,
-              "style": "normal",
-              "weight": "500"
-            }
+            "fontTitle": "Roboto",
+            "fontTitleSize": 9,
+            "fontTitleStyle": "normal",
+            "fontTitleWeight": "500",
+            "colorTitle": "#999999",
+            "fontValue": "Roboto",
+            "fontValueSize": 24,
+            "fontValueStyle": "normal",
+            "fontValueWeight": "500",
+            "colorValue": "#666666",
+            "fontMinMax": "Roboto",
+            "fontMinMaxSize": 9,
+            "fontMinMaxStyle": "normal",
+            "fontMinMaxWeight": "500",
+            "colorMinMax": "#666666",
+            "fontLabel": "Roboto",
+            "fontLabelSize": 8,
+            "fontLabelStyle": "normal",
+            "fontLabelWeight": "500",
+            "colorLabel": "#999999"
           },
           "showTitle": true,
-          "title": "Turbidity (Node-01)"
+          "title": "Turbidity (Node-01)",
+          "useDashboardTimewindow": false
         },
         "row": 6,
         "col": 8,
@@ -239,8 +231,7 @@
           "datasources": [
             {
               "type": "entity",
-              "name": "",
-              "entityAliasId": "fleet",
+              "name": "JalSanket-Node-01",
               "filterId": null,
               "dataKeys": [
                 {
@@ -258,7 +249,10 @@
                 "statusList": [
                   "ACTIVE"
                 ]
-              }
+              },
+              "entityId": "737cbce0-e44f-11f1-8c2a-39d8a38c3af6",
+              "entityType": "DEVICE",
+              "entityName": "JalSanket-Node-01"
             }
           ],
           "settings": {
@@ -268,36 +262,30 @@
             "units": "ppm",
             "showTitle": false,
             "showMinMax": true,
-            "titleFont": {
-              "family": "Roboto",
-              "size": 9,
-              "style": "normal",
-              "weight": "500",
-              "color": "#999999"
-            },
-            "valueFont": {
-              "family": "Roboto",
-              "size": 24,
-              "style": "normal",
-              "weight": "500",
-              "color": "#666666"
-            },
-            "minMaxFont": {
-              "family": "Roboto",
-              "size": 9,
-              "style": "normal",
-              "weight": "500",
-              "color": "#666666"
-            },
-            "labelFont": {
-              "family": "Roboto",
-              "size": 8,
-              "style": "normal",
-              "weight": "500"
-            }
+            "fontTitle": "Roboto",
+            "fontTitleSize": 9,
+            "fontTitleStyle": "normal",
+            "fontTitleWeight": "500",
+            "colorTitle": "#999999",
+            "fontValue": "Roboto",
+            "fontValueSize": 24,
+            "fontValueStyle": "normal",
+            "fontValueWeight": "500",
+            "colorValue": "#666666",
+            "fontMinMax": "Roboto",
+            "fontMinMaxSize": 9,
+            "fontMinMaxStyle": "normal",
+            "fontMinMaxWeight": "500",
+            "colorMinMax": "#666666",
+            "fontLabel": "Roboto",
+            "fontLabelSize": 8,
+            "fontLabelStyle": "normal",
+            "fontLabelWeight": "500",
+            "colorLabel": "#999999"
           },
           "showTitle": true,
-          "title": "TDS (Node-01)"
+          "title": "TDS (Node-01)",
+          "useDashboardTimewindow": false
         },
         "row": 6,
         "col": 16,

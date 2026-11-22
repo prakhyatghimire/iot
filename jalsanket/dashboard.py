@@ -301,6 +301,23 @@ def _cloud_datasource(keys: list[dict]) -> list[dict]:
     }]
 
 
+def _cloud_device_datasource(device_id: Optional[str], keys: list[dict]) -> list[dict]:
+    """Single-device datasource for widgets that only accept one entity.
+
+    The JustGage widgets declare ``maxDatasources: 1`` / ``singleEntity: true``.
+    Binding them to the multi-device fleet alias makes their subscription
+    ambiguous, so the three compact gauges are pinned to Node-01 explicitly.
+    """
+    ds = _cloud_datasource(keys)[0]
+    if device_id:
+        ds["entityId"] = device_id
+        ds["entityType"] = "DEVICE"
+        ds["entityName"] = "JalSanket-Node-01"
+        ds["name"] = "JalSanket-Node-01"
+        ds.pop("entityAliasId", None)
+    return [ds]
+
+
 def build_cloud_dashboard(device_ids: Optional[list[str]] = None,
                           fleet_config: Optional[FleetConfig] = None) -> dict:
     """Build the importable ThingsBoard Cloud dashboard document.
@@ -373,13 +390,14 @@ def build_cloud_dashboard(device_ids: Optional[list[str]] = None,
         "useDashboardTimewindow": False,
     })
 
+    node01_id = device_ids[0] if device_ids else None
     for widget_id, title, key_name, maximum, units, decimals, col in (
         ("ph_gauge", "pH (Node-01)", "ph", 14, "pH", 2, 0),
         ("turbidity_gauge", "Turbidity (Node-01)", "turbidity_ntu", 300, "NTU", 1, 8),
         ("tds_gauge", "TDS (Node-01)", "tds_ppm", 1000, "ppm", 1, 16),
     ):
         add(widget_id, title, 8, 5, 6, col, {
-            "datasources": _cloud_datasource([
+            "datasources": _cloud_device_datasource(node01_id, [
                 _cloud_key(key_name, "timeseries", title, "#2196f3", decimals),
             ]),
             "settings": {
@@ -392,19 +410,24 @@ def build_cloud_dashboard(device_ids: Optional[list[str]] = None,
                 # numeric value. Keep the header, hide only the canvas label.
                 "showTitle": False,
                 "showMinMax": True,
-                # Smaller canvas fonts keep the value, unit suffix and min/max
-                # marks from crowding each other in the compact gauge card.
-                "titleFont": {"family": "Roboto", "size": 9,
-                              "style": "normal", "weight": "500", "color": "#999999"},
-                "valueFont": {"family": "Roboto", "size": 24,
-                              "style": "normal", "weight": "500", "color": "#666666"},
-                "minMaxFont": {"family": "Roboto", "size": 9,
-                               "style": "normal", "weight": "500", "color": "#666666"},
-                "labelFont": {"family": "Roboto", "size": 8,
-                              "style": "normal", "weight": "500"},
+                # JustGage reads flat font keys (fontValueSize, fontTitleSize,
+                # ...). Object-shaped keys are ignored by the renderer.
+                "fontTitle": "Roboto", "fontTitleSize": 9,
+                "fontTitleStyle": "normal", "fontTitleWeight": "500",
+                "colorTitle": "#999999",
+                "fontValue": "Roboto", "fontValueSize": 24,
+                "fontValueStyle": "normal", "fontValueWeight": "500",
+                "colorValue": "#666666",
+                "fontMinMax": "Roboto", "fontMinMaxSize": 9,
+                "fontMinMaxStyle": "normal", "fontMinMaxWeight": "500",
+                "colorMinMax": "#666666",
+                "fontLabel": "Roboto", "fontLabelSize": 8,
+                "fontLabelStyle": "normal", "fontLabelWeight": "500",
+                "colorLabel": "#999999",
             },
             "showTitle": True,
             "title": title,
+            "useDashboardTimewindow": False,
         })
 
     for widget_id, title, key_names, size_y, row in (
