@@ -309,8 +309,18 @@ def main() -> int:
         check("profile lists telemetry keys", profile["profileData"]["telemetryKeys"] == list(TELEMETRY_KEYS))
 
         written = write_artifacts(str(Path(tmp) / "artifacts"), fleet_config)
-        check("four artifact files written", len(written) == 4
+        check("five artifact files written", len(written) == 5
               and all(p.exists() and json.loads(p.read_text()) for p in written.values()))
+
+        demo_dash = json.loads(written["demo_controls"].read_text())
+        demo_widgets = demo_dash["configuration"]["widgets"]
+        check("demo controls dashboard has twelve RPC buttons",
+              len(demo_widgets) == 12
+              and all(w["typeFullFqn"] == "system.control_widgets.rpcbutton"
+                      for w in demo_widgets.values()))
+        demo_rows = {pos["row"] for pos in
+                     demo_dash["configuration"]["states"]["default"]["layouts"]["main"]["widgets"].values()}
+        check("demo controls use three compact rows", demo_rows == {0, 2, 4}, str(demo_rows))
 
         # --------------------------------------------------- default locations
         section("7b. Default node coordinates (Rasuwa scenario)")

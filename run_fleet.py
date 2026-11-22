@@ -66,7 +66,8 @@ def main() -> int:
     logging.getLogger("jalsanket.demo").info("Wrote artifacts: %s", list(str(p) for p in artifacts.values()))
 
     if provisioner is not None:
-        provisioner.import_dashboard(artifacts_dashboard(artifacts))
+        for key in ("dashboard", "demo_controls"):
+            provisioner.import_dashboard(artifacts_dashboard(artifacts, key))
         logging.getLogger("jalsanket.demo").info(
             "Provisioning summary: %s", provisioner.provisioning_summary()
         )
@@ -106,8 +107,8 @@ def main() -> int:
     return 0
 
 
-def artifacts_dashboard(artifacts: dict) -> dict:
-    return json.loads(artifacts["dashboard"].read_text(encoding="utf-8"))
+def artifacts_dashboard(artifacts: dict, key: str = "dashboard") -> dict:
+    return json.loads(artifacts[key].read_text(encoding="utf-8"))
 
 
 if __name__ == "__main__":

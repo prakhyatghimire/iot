@@ -19,6 +19,7 @@ from .fleet import DEFAULT_NODE_SPECS, FleetConfig
 from .provisioning import TELEMETRY_KEYS, device_document
 
 DASHBOARD_TITLE = "JalSanket - Municipal Water Safety"
+DEMO_CONTROLS_TITLE = "JalSanket - Demo Controls"
 FLEET_ALIAS = "fleet"
 
 
@@ -232,9 +233,8 @@ def build_cloud_dashboard(device_ids: Optional[list[str]] = None,
     layout: dict[str, dict] = {}
 
     def add(widget_id: str, title: str, size_x: int, size_y: int,
-            row: int, col: int, config: dict,
-            fqn_override: Optional[tuple[str, str]] = None) -> None:
-        fqn, widget_type = fqn_override or CLOUD_WIDGET_FQNS[widget_id]
+            row: int, col: int, config: dict) -> None:
+        fqn, widget_type = CLOUD_WIDGET_FQNS[widget_id]
         widgets[widget_id] = {
             "typeFullFqn": f"system.{fqn}",
             "type": widget_type,
@@ -360,51 +360,6 @@ def build_cloud_dashboard(device_ids: Optional[list[str]] = None,
         "useDashboardTimewindow": False,
     })
 
-    # Four scenario commands per node (12 buttons). A single RPC Button widget
-    # resolves one target device, so the fleet-wide action is expressed as three
-    # explicit device-targeted controls per command.
-    for node_index, node in enumerate(nodes):
-        target_id = device_ids[node_index] if device_ids and node_index < len(device_ids) else ""
-        for command_index, (short_title, button_text, method, params) in enumerate(
-            RPC_BUTTON_COMMANDS
-        ):
-            widget_id = f"rpc_{node.node_id}_{method}_{command_index}"
-            button_title = f"{node.node_id.replace('node-', 'Node-')} - {short_title}"
-            add(widget_id, button_title, 6, 2, 29 + command_index,
-                node_index * 6, {
-                    "actions": {},
-                    "backgroundColor": "#e6e7e8",
-                    "color": "rgba(0, 0, 0, 0.87)",
-                    "datasources": [],
-                    "dropShadow": True,
-                    "enableFullscreen": False,
-                    "padding": "0px",
-                    "settings": {
-                        "buttonText": button_text,
-                        "methodName": method,
-                        "methodParams": params,
-                        "oneWayElseTwoWay": False,
-                        "persistentPollingInterval": 5000,
-                        "requestPersistent": False,
-                        "requestTimeout": 5000,
-                        "showError": False,
-                        "styleButton": {
-                            "bgColor": None,
-                            "isPrimary": False,
-                            "isRaised": True,
-                            "textColor": None,
-                        },
-                        "title": button_title,
-                    },
-                    "showLegend": False,
-                    "showTitle": False,
-                    "targetDevice": {"deviceId": target_id, "type": "device"},
-                    "targetDeviceAliases": [],
-                    "title": "RPC Button",
-                    "titleStyle": {"fontSize": "16px", "fontWeight": 400},
-                    "widgetStyle": {},
-                }, fqn_override=RPC_BUTTON_FQN)
-
     return {
         "title": DASHBOARD_TITLE,
         "configuration": {
@@ -470,6 +425,99 @@ def build_cloud_dashboard(device_ids: Optional[list[str]] = None,
     }
 
 
+def build_demo_controls_dashboard(device_ids: Optional[list[str]] = None,
+                                  fleet_config: Optional[FleetConfig] = None) -> dict:
+    """Build a compact button-only dashboard for live scenario demos.
+
+    The main monitoring dashboard stays clean. These twelve controls are laid
+    out in a 4 x 3 grid with a smaller margin so every button is easy to click.
+    """
+    full = build_cloud_dashboard(device_ids, fleet_config)
+    source = full["configuration"]
+    nodes = fleet_config.nodes if fleet_config else DEFAULT_NODE_SPECS
+
+    widgets: dict[str, dict] = {}
+    layout: dict[str, dict] = {}
+    index = 0
+    for node_index, node in enumerate(nodes):
+        target_id = device_ids[node_index] if device_ids and node_index < len(device_ids) else ""
+        for command_index, (short_title, button_text, method, params) in enumerate(
+            RPC_BUTTON_COMMANDS
+        ):
+            widget_id = (
+                f"ctrl_{node.node_id.replace('-', '')}_{method}_{command_index}"
+            )
+            title = f"{node.node_id.replace('node-', 'Node-')} - {short_title}"
+            col = (index % 4) * 6
+            row = (index // 4) * 2
+            widgets[widget_id] = {
+                "id": widget_id,
+                "col": col,
+                "row": row,
+                "sizeX": 6,
+                "sizeY": 2,
+                "type": "rpc",
+                "typeFullFqn": f"system.{RPC_BUTTON_FQN[0]}",
+                "config": {
+                    "actions": {},
+                    "backgroundColor": "#f5f5f5",
+                    "color": "rgba(0, 0, 0, 0.87)",
+                    "datasources": [],
+                    "dropShadow": False,
+                    "enableFullscreen": False,
+                    "padding": "0px",
+                    "settings": {
+                        "buttonText": button_text,
+                        "methodName": method,
+                        "methodParams": params,
+                        "oneWayElseTwoWay": False,
+                        "persistentPollingInterval": 5000,
+                        "requestPersistent": False,
+                        "requestTimeout": 5000,
+                        "showError": False,
+                        "styleButton": {
+                            "bgColor": None,
+                            "isPrimary": False,
+                            "isRaised": False,
+                            "textColor": None,
+                        },
+                        "title": title,
+                    },
+                    "showLegend": False,
+                    "showTitle": False,
+                    "targetDevice": {"deviceId": target_id, "type": "device"},
+                    "targetDeviceAliases": [],
+                    "title": "RPC Button",
+                    "titleStyle": {"fontSize": "14px", "fontWeight": 400},
+                    "widgetStyle": {},
+                },
+            }
+            layout[widget_id] = {"col": col, "row": row, "sizeX": 6, "sizeY": 2}
+            index += 1
+
+    states = json.loads(json.dumps(source["states"]))
+    main_layout = states["default"]["layouts"]["main"]
+    main_layout["widgets"] = layout
+    main_layout["gridSettings"]["margin"] = 6
+    main_layout["gridSettings"]["columns"] = 24
+
+    return {
+        "title": DEMO_CONTROLS_TITLE,
+        "configuration": {
+            "description": (
+                "Compact RPC demo controls: Trigger Contamination, Supply "
+                "Interruption ON/OFF and Reset for each JalSanket node."
+            ),
+            "widgets": widgets,
+            "states": states,
+            "entityAliases": {},
+            "filters": {},
+            "timewindow": source["timewindow"],
+            "settings": source["settings"],
+        },
+    }
+
+
 def build_device_documents(fleet_config: FleetConfig) -> list[dict]:
     return [device_document(node) for node in fleet_config.nodes]
 
@@ -485,12 +533,14 @@ def write_artifacts(output_dir: str | Path, fleet_config: FleetConfig,
     directory.mkdir(parents=True, exist_ok=True)
     artifacts = {
         "dashboard": directory / "jalsanket_dashboard.json",
+        "demo_controls": directory / "jalsanket_demo_controls.json",
         "rule_chain": directory / "jalsanket_rule_chain.json",
         "alarm_config": directory / "jalsanket_alarm_config.json",
         "devices": directory / "jalsanket_devices.json",
     }
     documents = {
         "dashboard": build_cloud_dashboard(device_ids, fleet_config),
+        "demo_controls": build_demo_controls_dashboard(device_ids, fleet_config),
         "rule_chain": rule_chain_document(),
         "alarm_config": device_profile_alarm_config(),
         "devices": build_device_documents(fleet_config),
