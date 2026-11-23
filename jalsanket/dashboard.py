@@ -22,6 +22,14 @@ DASHBOARD_TITLE = "JalSanket - Municipal Water Safety"
 DEMO_CONTROLS_TITLE = "JalSanket - Demo Controls"
 FLEET_ALIAS = "fleet"
 
+# Duty-officer labels for the three existing devices. These are presentation
+# names only: device names, IDs, tokens and telemetry keys are never changed.
+NODE_LOCATIONS: dict[str, str] = {
+    "node-01": "Dhunche",
+    "node-02": "Syafrubesi",
+    "node-03": "Rasuwagadhi",
+}
+
 # Live tenant dashboard IDs used by the cross-dashboard navigation buttons.
 MONITORING_DASHBOARD_ID = "8626a700-e451-11f1-8c2a-39d8a38c3af6"
 DEMO_CONTROLS_DASHBOARD_ID = "19cf5c70-e69d-11f1-855e-4d781d6baffc"
@@ -174,8 +182,9 @@ RPC_BUTTON_COMMANDS: tuple[tuple[str, str, str, str], ...] = (
 RPC_BUTTON_COLORS: tuple[str, ...] = ("#d32f2f", "#f57c00", "#1976d2", "#616161")
 
 CLOUD_WIDGET_FQNS: dict[str, tuple[str, str]] = {
-    "summary": ("cards.markdown_card", "latest"),
-    "fleet_health": ("cards.entities_table", "latest"),
+    "system_status": ("cards.markdown_card", "latest"),
+    "node_status": ("cards.markdown_card", "latest"),
+    "measurements_header": ("cards.markdown_card", "latest"),
     "ph_gauge": ("digital_gauges.gauge_justgage", "latest"),
     "turbidity_gauge": ("digital_gauges.gauge_justgage", "latest"),
     "tds_gauge": ("digital_gauges.gauge_justgage", "latest"),
@@ -184,8 +193,195 @@ CLOUD_WIDGET_FQNS: dict[str, tuple[str, str]] = {
     "tds_series": ("time_series_chart", "timeseries"),
     "temp_flow": ("time_series_chart", "timeseries"),
     "node_map": ("maps_v2.openstreetmap", "latest"),
-    "alarms": ("alarm_widgets.alarms_table", "alarm"),
+    "active_alerts": ("alarm_widgets.alarms_table", "alarm"),
 }
+
+# A markdown card receives one row per resolved fleet device. The keys below
+# are read from existing Cloud attributes/telemetry; status labels are derived
+# from safetyStatus + active, never from invented readings or alarm records.
+_STATUS_COMMON_JS = r"""
+const places = {"JalSanket-Node-01": "Dhunche", "JalSanket-Node-02": "Syafrubesi", "JalSanket-Node-03": "Rasuwagadhi"};
+const order = ["Dhunche", "Syafrubesi", "Rasuwagadhi"];
+const rows = data.map(function (d) {
+  const location = places[d.deviceName || d.entityName] || d.entityName || "Unknown location";
+  const rawActive = d.active;
+  const active = rawActive === true || String(rawActive).toLowerCase() === "true";
+  const safety = String(d.safetyStatus || "").toUpperCase();
+  let status = "OFFLINE";
+  if (active) {
+    if (safety === "UNSAFE") status = "CRITICAL";
+    else if (safety === "WARNING") status = "WARNING";
+    else status = "SAFE";
+  }
+  return {location: location, status: status, safety: safety, active: active, flow: d.flow_lpm};
+}).sort(function (a, b) { return order.indexOf(a.location) - order.indexOf(b.location); });
+const count = function (s) { return rows.filter(function (r) { return r.status === s; }).length; };
+const critical = rows.filter(function (r) { return r.status === "CRITICAL"; });
+const warning = rows.filter(function (r) { return r.status === "WARNING"; });
+const offline = rows.filter(function (r) { return r.status === "OFFLINE"; });
+const clsFor = function (s) {
+  if (s === "CRITICAL") return "crit";
+  if (s === "WARNING") return "warn";
+  if (s === "OFFLINE") return "off";
+  return "safe";
+};
+"""
+
+SYSTEM_STATUS_JS = _STATUS_COMMON_JS + r"""
+let cls = "safe", level = "SAFE", headline = "All monitored locations normal";
+let detail = "No active warning or critical condition is reported.";
+if (critical.length) {
+  cls = "crit"; level = "CRITICAL"; headline = "Immediate attention required";
+  detail = critical.map(function (r) { return r.location; }).join(", ") +
+    " has an unsafe water status. Review the active alert below.";
+} else if (warning.length) {
+  cls = "warn"; level = "WARNING"; headline = "Attention required";
+  detail = warning.map(function (r) { return r.location; }).join(", ") +
+    " has an active warning condition.";
+} else if (offline.length === rows.length) {
+  cls = "off"; level = "OFFLINE"; headline = "No recent data from any location";
+  detail = "All three monitoring locations are offline. Confirm connectivity before relying on this view.";
+} else if (offline.length) {
+  cls = "warn"; level = "ATTENTION"; headline = offline.length + " monitoring location(s) offline";
+  detail = offline.map(function (r) { return r.location; }).join(", ") +
+    " has no recent data. The remaining locations report normal water status.";
+}
+const summary = rows.length + " locations · " + count("SAFE") + " safe · " +
+  count("WARNING") + " warning · " + count("CRITICAL") + " critical · " +
+  count("OFFLINE") + " offline";
+return '<div class="js-system ' + cls + '">' +
+  '<div class="js-system-level">SYSTEM STATUS: ' + level + '</div>' +
+  '<div class="js-system-headline">' + headline + '</div>' +
+  '<div class="js-system-detail">' + detail + '</div>' +
+  '<div class="js-system-summary">' + summary + '</div>' +
+  '</div>';
+"""
+
+NODE_STATUS_JS = _STATUS_COMMON_JS + r"""
+const cards = rows.map(function (r) {
+  const overall = r.status === "OFFLINE" ? "Unavailable" :
+    (r.safety || "UNKNOWN");
+  const alarm = r.status === "CRITICAL" ? "Critical condition active" :
+    r.status === "WARNING" ? "Warning condition active" :
+    r.status === "OFFLINE" ? "Not available while offline" : "None";
+  const flowNumber = Number(r.flow);
+  let flow;
+  if (!r.active && isFinite(flowNumber)) {
+    flow = "Last reading " + flowNumber.toFixed(1) + " L/min";
+  } else if (r.active && isFinite(flowNumber) && flowNumber > 0) {
+    flow = "Flowing · " + flowNumber.toFixed(1) + " L/min";
+  } else if (r.active && flowNumber === 0) {
+    flow = "No flow reported";
+  } else {
+    flow = "No recent reading";
+  }
+  const connectivity = r.active ? "Connected" : "No recent data";
+  return '<div class="js-node ' + clsFor(r.status) + '">' +
+    '<div class="js-node-head"><span class="js-node-name">' + r.location + '</span>' +
+    '<span class="js-node-status ' + clsFor(r.status) + '">' + r.status + '</span></div>' +
+    '<div class="js-node-row"><span>Overall water status</span><b>' + overall + '</b></div>' +
+    '<div class="js-node-row"><span>Active alarm</span><b>' + alarm + '</b></div>' +
+    '<div class="js-node-row"><span>Flow status</span><b>' + flow + '</b></div>' +
+    '<div class="js-node-row"><span>Connectivity</span><b>' + connectivity + '</b></div>' +
+    '</div>';
+}).join("");
+return '<div class="js-node-grid">' + cards + '</div>';
+"""
+
+SYSTEM_STATUS_CSS = r"""
+.js-system{padding:14px 18px;border-radius:6px;border-left:8px solid #2e7d32;background:#e8f5e9;color:#1b5e20;height:100%;box-sizing:border-box;display:flex;flex-direction:column;justify-content:center;}
+.js-system.crit{border-left-color:#c62828;background:#ffebee;color:#b71c1c;}
+.js-system.warn{border-left-color:#ef6c00;background:#fff3e0;color:#e65100;}
+.js-system.off{border-left-color:#607d8b;background:#eceff1;color:#37474f;}
+.js-system-level{font-size:22px;font-weight:700;letter-spacing:.3px;}
+.js-system-headline{font-size:16px;font-weight:600;margin-top:2px;}
+.js-system-detail{font-size:14px;margin-top:3px;}
+.js-system-summary{font-size:12px;opacity:.85;margin-top:5px;}
+"""
+
+NODE_STATUS_CSS = r"""
+.js-node-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:10px;padding:8px;box-sizing:border-box;}
+.js-node{border:1px solid #d9dee3;border-left:6px solid #2e7d32;border-radius:5px;background:#fff;padding:8px 10px;min-width:0;}
+.js-node.crit{border-left-color:#c62828;background:#fff6f6;}
+.js-node.warn{border-left-color:#ef6c00;background:#fffaf2;}
+.js-node.off{border-left-color:#607d8b;background:#f7f9fa;}
+.js-node-head{display:flex;align-items:center;justify-content:space-between;gap:8px;margin-bottom:6px;}
+.js-node-name{font-size:16px;font-weight:700;color:#263238;}
+.js-node-status{font-size:12px;font-weight:700;padding:3px 8px;border-radius:10px;background:#e8f5e9;color:#1b5e20;white-space:nowrap;}
+.js-node-status.crit{background:#ffebee;color:#b71c1c;}
+.js-node-status.warn{background:#fff3e0;color:#e65100;}
+.js-node-status.off{background:#eceff1;color:#37474f;}
+.js-node-row{display:flex;justify-content:space-between;gap:8px;font-size:12px;line-height:1.55;color:#546e7a;border-top:1px solid #eef1f3;padding-top:3px;}
+.js-node-row b{color:#263238;font-weight:600;text-align:right;}
+"""
+
+# Alarms table cell function: one human-readable line per active alarm. It uses
+# only fields already supplied by ThingsBoard's alarm datasource.
+ALERT_CELL_FUNCTION = r"""
+var places = {"JalSanket-Node-01": "Dhunche", "JalSanket-Node-02": "Syafrubesi", "JalSanket-Node-03": "Rasuwagadhi"};
+var problems = {
+  "High Turbidity Warning": "Turbidity above safe level",
+  "Gross Contamination Critical": "Turbidity critically high",
+  "pH Out of Range Critical": "pH outside safe range",
+  "High TDS Critical": "Dissolved solids too high",
+  "Supply Interruption Major": "Water supply interrupted",
+  "Node Inactive Critical": "No recent data from node"
+};
+var sev = String(alarm.severity || "INFO").toUpperCase();
+var place = places[alarm.originatorDisplayName] || alarm.originatorDisplayName || "Unknown location";
+var problem = problems[value] || value;
+var ts = alarm.createdTime || alarm.startTs || Date.now();
+var time = new Date(ts).toLocaleString();
+var style = "border-left:5px solid #1976d2;background:#e3f2fd;";
+var badge = "padding:2px 6px;border-radius:3px;background:#1976d2;color:#fff;font-size:10px;";
+if (sev === "CRITICAL") {
+  style = "border-left:5px solid #c62828;background:#ffebee;";
+  badge = "padding:3px 8px;border-radius:3px;background:#c62828;color:#fff;font-size:11px;font-weight:700;";
+} else if (sev === "MAJOR" || sev === "WARNING") {
+  style = "border-left:5px solid #ef6c00;background:#fff3e0;";
+  badge = "padding:2px 7px;border-radius:3px;background:#ef6c00;color:#fff;font-size:10px;font-weight:700;";
+}
+return '<div style="' + style + 'padding:6px 8px;border-radius:4px;min-width:280px;box-sizing:border-box;">' +
+  '<span style="' + badge + '">' + sev + '</span> ' +
+  '<b style="color:#263238;">' + place + '</b> — <span style="color:#37474f;">' + problem + '</span> ' +
+  '<small style="color:#78909c;">(' + time + ')</small></div>';
+"""
+
+# Map functions use the same existing attributes. The status word is part of
+# every marker label so severity is never communicated by colour alone.
+MAP_LABEL_FUNCTION = r"""
+var name = dsData[dsIndex]["entityName"] || dsData[dsIndex]["deviceName"] || "";
+var places = {"JalSanket-Node-01": "Dhunche", "JalSanket-Node-02": "Syafrubesi", "JalSanket-Node-03": "Rasuwagadhi"};
+var rawActive = dsData[dsIndex]["active"];
+var active = rawActive === true || String(rawActive).toLowerCase() === "true";
+var safety = String(dsData[dsIndex]["safetyStatus"] || "").toUpperCase();
+var status = !active ? "OFFLINE" : safety === "UNSAFE" ? "CRITICAL" : safety === "WARNING" ? "WARNING" : "SAFE";
+return (places[name] || name) + " — " + status;
+"""
+
+MAP_COLOR_FUNCTION = r"""
+var rawActive = dsData[dsIndex]["active"];
+var active = rawActive === true || String(rawActive).toLowerCase() === "true";
+var safety = String(dsData[dsIndex]["safetyStatus"] || "").toUpperCase();
+if (!active) return "#607d8b";
+if (safety === "UNSAFE") return "#c62828";
+if (safety === "WARNING") return "#ef6c00";
+return "#2e7d32";
+"""
+
+MAP_TOOLTIP_FUNCTION = r"""
+var d = dsData[dsIndex];
+var name = d["entityName"] || d["deviceName"] || "";
+var places = {"JalSanket-Node-01": "Dhunche", "JalSanket-Node-02": "Syafrubesi", "JalSanket-Node-03": "Rasuwagadhi"};
+var rawActive = d["active"];
+var active = rawActive === true || String(rawActive).toLowerCase() === "true";
+var safety = String(d["safetyStatus"] || "").toUpperCase();
+var status = !active ? "OFFLINE" : safety === "UNSAFE" ? "CRITICAL" : safety === "WARNING" ? "WARNING" : "SAFE";
+var lat = Number(d["latitude"]), lng = Number(d["longitude"]);
+return "<b>" + (places[name] || name) + "</b><br/>Status: " + status +
+  "<br/>Location: " + (isFinite(lat) ? lat.toFixed(4) : "n/a") + ", " +
+  (isFinite(lng) ? lng.toFixed(4) : "n/a");
+"""
 
 
 def _navigation_button(widget_id: str, label: str, icon: str,
@@ -320,6 +516,51 @@ def _cloud_device_datasource(device_id: Optional[str], keys: list[dict]) -> list
     return [ds]
 
 
+def _cloud_markdown_config(title: str, keys: list[dict], *,
+                           javascript: Optional[str] = None,
+                           markdown: str = "", css: str = "") -> dict:
+    """Build a markdown card config driven by an in-page JS function."""
+    settings: dict = {
+        "applyDefaultMarkdownStyle": True,
+        "markdownTextPattern": markdown,
+    }
+    if javascript is not None:
+        settings["useMarkdownTextFunction"] = True
+        settings["markdownTextFunction"] = javascript
+        settings["markdownCss"] = css
+    return {
+        "datasources": _cloud_datasource(keys) if keys else [],
+        "settings": settings,
+        "showTitle": True,
+        "title": title,
+    }
+
+
+def _cloud_location_datasources(device_ids: Optional[list[str]],
+                                key_name: str, color: str,
+                                decimals: int = 2) -> list[dict]:
+    """Per-location datasources give chart legends human-readable names."""
+    nodes = DEFAULT_NODE_SPECS
+    if device_ids and len(device_ids) == len(nodes):
+        sources = []
+        for node, device_id in zip(nodes, device_ids):
+            location = NODE_LOCATIONS.get(node.node_id, node.device_name)
+            sources.append({
+                "type": "entity",
+                "name": location,
+                "entityId": device_id,
+                "entityType": "DEVICE",
+                "entityName": node.device_name,
+                "filterId": None,
+                "dataKeys": [_cloud_key(key_name, "timeseries", location,
+                                        color, decimals)],
+            })
+        return sources
+    return _cloud_datasource([_cloud_key(
+        key_name, "timeseries", f"{key_name} - ${{deviceName}}", color, decimals
+    )])
+
+
 def build_cloud_dashboard(device_ids: Optional[list[str]] = None,
                           fleet_config: Optional[FleetConfig] = None) -> dict:
     """Build the importable ThingsBoard Cloud dashboard document.
@@ -366,41 +607,105 @@ def build_cloud_dashboard(device_ids: Optional[list[str]] = None,
             "col": col,
         }
 
-    add("summary", "Which water source is unsafe right now?", 24, 2, 0, 0, {
-        "datasources": [],
+    summary_keys = [
+        _cloud_key("deviceName", "attribute", "Location", "#607d8b"),
+        _cloud_key("safetyStatus", "attribute", "Water status", "#2e7d32"),
+        _cloud_key("active", "attribute", "Connectivity", "#607d8b"),
+        _cloud_key("flow_lpm", "timeseries", "Flow", "#1976d3", 1),
+    ]
+    add("system_status", "Overall system status", 24, 3, 0, 0,
+        _cloud_markdown_config(
+            "Overall system status", summary_keys,
+            javascript=SYSTEM_STATUS_JS, css=SYSTEM_STATUS_CSS,
+        ))
+    add("node_status", "Monitoring locations / node status", 24, 5, 3, 0,
+        _cloud_markdown_config(
+            "Monitoring locations / node status", summary_keys,
+            javascript=NODE_STATUS_JS, css=NODE_STATUS_CSS,
+        ))
+
+    alert_key = _cloud_key("type", "alarm", "Priority / location / problem", "#c62828")
+    alert_key["settings"] = {
+        "useCellContentFunction": True,
+        "cellContentFunction": ALERT_CELL_FUNCTION,
+        "useCellContentFunctionOnExport": True,
+    }
+    add("active_alerts", "Active alerts requiring attention", 12, 7, 8, 0, {
+        "alarmSource": {
+            "type": "entity",
+            "entityAliasId": FLEET_ALIAS,
+            "name": "alerts",
+            "dataKeys": [alert_key],
+        },
+        "alarmFilterConfig": {"statusList": ["ACTIVE"]},
+        "alarmStatusList": ["ACTIVE"],
+        "configMode": "advanced",
         "settings": {
-            "markdownTextPattern": (
-                "**Read the Fleet Health table below.** A source marked UNSAFE has an "
-                "active CRITICAL or MAJOR alarm; WARNING means the High Turbidity "
-                "Warning is active."
-            ),
-            "applyDefaultMarkdownStyle": True,
+            "alarmsTitle": "Active alerts",
+            "allowAcknowledgment": False,
+            "allowAssign": False,
+            "allowClear": False,
+            "defaultPageSize": 5,
+            "defaultSortOrder": "-severity",
+            "displayActivity": False,
+            "displayDetails": False,
+            "displayPagination": True,
+            "enableFilter": False,
+            "enableSearch": False,
+            "enableSelectColumnDisplay": False,
+            "enableSelection": False,
         },
         "showTitle": True,
-        "title": "Which water source is unsafe right now?",
-    })
-    add("fleet_health", "Fleet Health / Safety Status", 24, 4, 2, 0, {
-        "datasources": _cloud_datasource([
-            _cloud_key("safetyStatus", "attribute", "Safety status", "#4caf50"),
-            _cloud_key("deviceName", "attribute", "Source", "#2196f3"),
-            _cloud_key("bufferDepth", "attribute", "Buffer depth", "#ffc107", 0),
-        ]),
-        "settings": {"defaultPageSize": 10, "defaultSortOrder": "displayName",
-                     "enableSearch": True, "enableSelectColumnDisplay": True},
-        "showTitle": True,
-        "title": "Fleet Health / Safety Status",
+        "title": "Active alerts requiring attention",
         "useDashboardTimewindow": False,
     })
 
+    add("node_map", "Location overview (OpenStreetMap)", 12, 7, 8, 12, {
+        "datasources": _cloud_datasource([
+            _cloud_key("latitude", "timeseries", "latitude", "#2196f3", 7),
+            _cloud_key("longitude", "timeseries", "longitude", "#4caf50", 7),
+            _cloud_key("safetyStatus", "attribute", "safetyStatus", "#607d8b"),
+            _cloud_key("active", "attribute", "active", "#607d8b"),
+        ]),
+        "settings": {
+            "latKeyName": "latitude",
+            "lngKeyName": "longitude",
+            "label": "${entityName}",
+            "mapProvider": "OpenStreetMap.Mapnik",
+            "provider": "openstreet-map",
+            "fitMapBounds": True,
+            "useDefaultCenterPosition": False,
+            "showLabel": True,
+            "showTooltip": True,
+            "useLabelFunction": True,
+            "labelFunction": MAP_LABEL_FUNCTION,
+            "useColorFunction": True,
+            "colorFunction": MAP_COLOR_FUNCTION,
+            "useTooltipFunction": True,
+            "tooltipFunction": MAP_TOOLTIP_FUNCTION,
+        },
+        "showTitle": True,
+        "title": "Location overview (OpenStreetMap)",
+    })
+
+    add("measurements_header", "Water-quality and operational measurements", 24, 1, 15, 0,
+        _cloud_markdown_config(
+            "Water-quality and operational measurements", [],
+            markdown=(
+                "**Detailed values for Dhunche** — gauges show its latest reading. "
+                "The trend charts below cover all three locations."
+            ),
+        ))
+
     node01_id = device_ids[0] if device_ids else None
     for widget_id, title, key_name, maximum, units, decimals, col in (
-        ("ph_gauge", "pH (Node-01)", "ph", 14, "pH", 2, 0),
-        ("turbidity_gauge", "Turbidity (Node-01)", "turbidity_ntu", 300, "NTU", 1, 8),
-        ("tds_gauge", "TDS (Node-01)", "tds_ppm", 1000, "ppm", 1, 16),
+        ("ph_gauge", "pH — Dhunche", "ph", 14, "pH", 2, 0),
+        ("turbidity_gauge", "Turbidity — Dhunche", "turbidity_ntu", 300, "NTU", 1, 8),
+        ("tds_gauge", "TDS — Dhunche", "tds_ppm", 1000, "ppm", 1, 16),
     ):
-        add(widget_id, title, 8, 5, 6, col, {
+        add(widget_id, title, 8, 4, 16, col, {
             "datasources": _cloud_device_datasource(node01_id, [
-                _cloud_key(key_name, "timeseries", title, "#2196f3", decimals),
+                _cloud_key(key_name, "timeseries", "Dhunche", "#2196f3", decimals),
             ]),
             "settings": {
                 "minValue": 0,
@@ -435,16 +740,16 @@ def build_cloud_dashboard(device_ids: Optional[list[str]] = None,
     # One chart per metric: turbidity (0-300 NTU), pH (0-14) and TDS (0-1000 ppm)
     # have very different scales. Sharing one y-axis made pH look flat even
     # during a contamination event, so each signal gets its own axis now.
-    for widget_id, title, key_name, color, row, col in (
-        ("turbidity_series", "Turbidity by source (NTU)", "turbidity_ntu",
-         "#2196f3", 11, 0),
-        ("ph_series", "pH by source", "ph", "#f44336", 11, 8),
-        ("tds_series", "TDS by source (ppm)", "tds_ppm", "#4caf50", 11, 16),
+    for widget_id, title, key_name, color, col in (
+        ("turbidity_series", "Turbidity trend by location (NTU)", "turbidity_ntu",
+         "#2196f3", 0),
+        ("ph_series", "pH trend by location", "ph", "#f44336", 8),
+        ("tds_series", "TDS trend by location (ppm)", "tds_ppm", "#4caf50", 16),
     ):
-        key = _cloud_key(key_name, "timeseries", key_name, color, 2)
-        key["label"] = f"{key_name} - ${{deviceName}}"
-        add(widget_id, title, 8, 6, row, col, {
-            "datasources": _cloud_datasource([key]),
+        add(widget_id, title, 8, 5, 20, col, {
+            "datasources": _cloud_location_datasources(
+                device_ids, key_name, color, 2,
+            ),
             "settings": {"showLegend": True, "legendConfig": {"show": True}},
             "showTitle": True,
             "title": title,
@@ -454,7 +759,7 @@ def build_cloud_dashboard(device_ids: Optional[list[str]] = None,
     for widget_id, title, key_names in (
         ("temp_flow", "Water temperature and flow", ("water_temp_c", "flow_lpm")),
     ):
-        add(widget_id, title, 24, 5, 17, 0, {
+        add(widget_id, title, 24, 5, 25, 0, {
             "datasources": _cloud_datasource([
                 _cloud_key(name, "timeseries", name, color, 2)
                 for name, color in zip(key_names, ("#2196f3", "#f44336"))
@@ -465,53 +770,9 @@ def build_cloud_dashboard(device_ids: Optional[list[str]] = None,
             "useDashboardTimewindow": True,
         })
 
-    add("node_map", "Source locations (OpenStreetMap)", 16, 7, 22, 0, {
-        "datasources": _cloud_datasource([
-            _cloud_key("latitude", "timeseries", "latitude", "#2196f3", 7),
-            _cloud_key("longitude", "timeseries", "longitude", "#4caf50", 7),
-        ]),
-        "settings": {
-            "latKeyName": "latitude",
-            "lngKeyName": "longitude",
-            "label": "${entityName}",
-            "mapProvider": "OpenStreetMap.Mapnik",
-            "provider": "openstreet-map",
-            "fitMapBounds": True,
-            "useDefaultCenterPosition": False,
-            "showLabel": True,
-            "showTooltip": True,
-        },
-        "showTitle": True,
-        "title": "Source locations (OpenStreetMap)",
-    })
-    add("alarms", "Active alarms", 8, 7, 22, 16, {
-        "alarmSource": {
-            "type": "entity",
-            "entityAliasId": FLEET_ALIAS,
-            "name": "alarms",
-            "dataKeys": [
-                _cloud_key("createdTime", "alarm", "Created time", "#2196f3"),
-                _cloud_key("originatorDisplayName", "alarm", "Originator", "#4caf50"),
-                _cloud_key("type", "alarm", "Type", "#f44336"),
-                _cloud_key("severity", "alarm", "Severity", "#ffc107"),
-                _cloud_key("status", "alarm", "Status", "#607d8b"),
-            ],
-        },
-        "alarmStatusList": ["ACTIVE"],
-        "settings": {
-            "defaultPageSize": 10,
-            "defaultSortOrder": "-createdTime",
-            "enableSearch": True,
-            "enableSelection": True,
-        },
-        "showTitle": True,
-        "title": "Active alarms",
-        "useDashboardTimewindow": False,
-    })
-
     nav = _navigation_button(
         "nav_to_demo_controls", "Go to Demo Controls", "arrow_forward",
-        DEMO_CONTROLS_DASHBOARD_ID, 29, 9,
+        DEMO_CONTROLS_DASHBOARD_ID, 30, 9,
     )
     widgets[nav["id"]] = nav
     layout[nav["id"]] = {"col": nav["col"], "row": nav["row"],
@@ -714,5 +975,5 @@ def write_artifacts(output_dir: str | Path, fleet_config: FleetConfig,
         "devices": build_device_documents(fleet_config),
     }
     for key, path in artifacts.items():
-        path.write_text(json.dumps(documents[key], indent=2), encoding="utf-8")
+        path.write_text(json.dumps(documents[key], indent=2) + "\n", encoding="utf-8")
     return artifacts

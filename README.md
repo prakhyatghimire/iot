@@ -293,23 +293,30 @@ The live tenant was configured in the logged-in Cloud browser session: device
 profile `JalSanket Water Quality Node`, devices `JalSanket-Node-01/02/03`,
 three distinct access tokens, a `60000` ms `inactivityTimeout` SERVER_SCOPE
 attribute on each device, six Alarm Rules 2.0 definitions bound to the profile,
-and two dashboards: the duty-officer monitoring dashboard (nine monitoring
-widgets) and a separate twelve-button demo-controls dashboard. Each dashboard
-has a small **Action button** that switches to the other. REST uses HTTPS/443 via
+and two dashboards: a status-first duty-officer monitoring dashboard and a
+separate twelve-button demo-controls dashboard. Each dashboard has a small
+**Action button** that switches to the other. REST uses HTTPS/443 via
 `TB_REST_HOST`, `TB_HTTP_SCHEME` and `TB_HTTP_PORT`; MQTT remains TLS/8883 via
 `TB_HOST`. `--provision` accepts `TB_REST_JWT` (or self-hosted admin credentials)
 and applies the Cloud-shaped profile, credentials, attributes, alarm rules and
 both dashboards. No admin password is invented or required for the Cloud tenant.
 
-The dashboard answers "Which water source is unsafe right now?" with: a
-fleet-health/safety table, pH and turbidity gauges, a TDS digital gauge,
-separate turbidity, pH and TDS time-series charts (one y-axis per metric,
-because the three scales differ by orders of magnitude), a
-temperature/flow chart, an OpenStreetMap node map, and an alarms table.
-Every monitoring widget is bound
-to a single fleet alias, so each measurement is labelled with its device/source
-name. To export data, open a chart's three-dot menu and choose
-**Export data to CSV**; the CSV contains one row per timestamp and entity.
+The monitoring dashboard is arranged as a hierarchy: **Overall system status**
+→ **Monitoring locations / node status** → **Active alerts requiring attention**
+and **Location overview (OpenStreetMap)** → **Water-quality and operational
+measurements** → detailed trends. The first viewport answers whether the system
+is safe, which location has a problem, how serious it is and what needs
+attention. The system banner and three location cards derive SAFE / WARNING /
+CRITICAL / OFFLINE from the existing `safetyStatus` and `active` attributes;
+the cards show only overall water status, active alarm, flow status and
+connectivity. Alerts come from the stock ACTIVE alarms table, sorted by severity
+and rendered as `Critical — Syafrubesi — Turbidity critically high (time)`.
+Map markers use the human-readable names Dhunche, Syafrubesi and Rasuwagadhi,
+include the status word, and are coloured by severity. Detailed gauges are
+pinned to Dhunche (Node-01) and the turbidity, pH and TDS trend charts use one
+y-axis per metric (their scales differ by orders of magnitude) with
+per-location legends. To export data, open a chart's three-dot menu and choose
+**Export data to CSV**; the CSV contains one row per timestamp and location.
 The dashboard timewindow uses a 10 s aggregation interval over the last hour
 (360 buckets), which stays inside ThingsBoard's per-query bucket limit — a
 5 s interval produced 720 buckets, HTTP 400 and empty chart/CSV exports.

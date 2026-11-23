@@ -353,25 +353,65 @@ def main() -> int:
               all(main_dash["configuration"]["widgets"][k]["config"]["useDashboardTimewindow"]
                   is True for k in ("turbidity_series", "ph_series",
                                     "tds_series", "temp_flow")))
-        check("per-metric charts each carry one key",
-              all(len(main_dash["configuration"]["widgets"][k]["config"]["datasources"][0]["dataKeys"]) == 1
-                  for k in ("turbidity_series", "ph_series", "tds_series")))
+        check("per-metric chart datasources each carry one key",
+              all(len(ds["dataKeys"]) == 1
+                  for k in ("turbidity_series", "ph_series", "tds_series")
+                  for ds in main_dash["configuration"]["widgets"][k]["config"]["datasources"]))
         main_layout = main_dash["configuration"]["states"]["default"]["layouts"]["main"]["widgets"]
-        check("dashboard layout has no stale multi_series widget",
-              "multi_series" not in main_layout
+        check("dashboard layout has no stale multi_series or technical summary widget",
+              not {"multi_series", "summary", "fleet_health", "alarms"} & set(main_layout)
               and all(k in main_layout for k in ("turbidity_series", "ph_series",
                                                   "tds_series")))
+        rows = {
+            name: main_layout[name]["row"]
+            for name in ("system_status", "node_status", "active_alerts",
+                         "node_map", "measurements_header", "ph_gauge",
+                         "turbidity_series", "temp_flow")
+        }
+        check("dashboard follows status → locations → alerts/map → detail hierarchy",
+              rows["system_status"] < rows["node_status"]
+              < rows["active_alerts"] == rows["node_map"]
+              < rows["measurements_header"] < rows["ph_gauge"]
+              < rows["turbidity_series"] < rows["temp_flow"], str(rows))
+
+        status_widget = main_dash["configuration"]["widgets"]["system_status"]
+        status_keys = {k["name"] for ds in status_widget["config"]["datasources"]
+                       for k in ds["dataKeys"]}
+        check("status cards read existing location/flow/connectivity attributes",
+              {"deviceName", "safetyStatus", "active", "flow_lpm"} <= status_keys,
+              str(status_keys))
+        check("status card functions render explicit severity words",
+              "CRITICAL" in status_widget["config"]["settings"]["markdownTextFunction"]
+              and "OFFLINE" in main_dash["configuration"]["widgets"]["node_status"]["config"]["settings"]["markdownTextFunction"])
+
+        alert_cfg = main_dash["configuration"]["widgets"]["active_alerts"]["config"]
+        alert_key = alert_cfg["alarmSource"]["dataKeys"][0]
+        check("active alerts are prioritized and human-readable",
+              alert_cfg["alarmStatusList"] == ["ACTIVE"]
+              and alert_cfg["alarmFilterConfig"]["statusList"] == ["ACTIVE"]
+              and alert_cfg["settings"]["defaultSortOrder"] == "-severity"
+              and alert_key["settings"]["useCellContentFunction"] is True
+              and "Dhunche" in alert_key["settings"]["cellContentFunction"]
+              and "createdTime" in alert_key["settings"]["cellContentFunction"])
+
+        map_settings = main_dash["configuration"]["widgets"]["node_map"]["config"]["settings"]
+        check("map labels locations and status, not device IDs",
+              map_settings["useLabelFunction"] is True
+              and map_settings["useColorFunction"] is True
+              and all(place in map_settings["labelFunction"]
+                      for place in ("Dhunche", "Syafrubesi", "Rasuwagadhi")))
+
         gauges = [w for w in main_dash["configuration"]["widgets"].values()
                   if w["typeFullFqn"] == "system.digital_gauges.gauge_justgage"]
         check("three monitoring gauges hide the canvas label",
               len(gauges) == 3 and all(w["config"]["settings"]["showTitle"] is False
                                        for w in gauges))
         expected_gauge_titles = {
-            "ph_gauge": "pH (Node-01)",
-            "turbidity_gauge": "Turbidity (Node-01)",
-            "tds_gauge": "TDS (Node-01)",
+            "ph_gauge": "pH — Dhunche",
+            "turbidity_gauge": "Turbidity — Dhunche",
+            "tds_gauge": "TDS — Dhunche",
         }
-        check("monitoring gauges are labelled Node-01",
+        check("monitoring gauges use human-readable location titles",
               {w["id"]: w["config"]["title"] for w in gauges} == expected_gauge_titles)
         check("monitoring gauges use compact canvas fonts",
               len(gauges) == 3 and all(
@@ -390,6 +430,10 @@ def main() -> int:
                   == "737cbce0-e44f-11f1-8c2a-39d8a38c3af6"
                   and "entityAliasId" not in w["config"]["datasources"][0]
                   for w in import_gauges))
+        import_chart = import_artifact["configuration"]["widgets"]["turbidity_series"]
+        check("import artifact chart legends use location names",
+              [ds["name"] for ds in import_chart["config"]["datasources"]]
+              == ["Dhunche", "Syafrubesi", "Rasuwagadhi"])
         main_navs = [w for w in main_dash["configuration"]["widgets"].values()
                      if w["typeFullFqn"] == "system.action_button"]
         demo_navs = [w for w in demo_widgets.values()

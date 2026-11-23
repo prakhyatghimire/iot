@@ -3,29 +3,11 @@
   "configuration": {
     "description": "Municipal water-safety overview for three JalSanket Cloud nodes. Telemetry keys: ph, turbidity_ntu, tds_ppm, water_temp_c, flow_lpm, latitude, longitude.",
     "widgets": {
-      "summary": {
+      "system_status": {
         "typeFullFqn": "system.cards.markdown_card",
         "type": "latest",
         "sizeX": 24,
-        "sizeY": 2,
-        "config": {
-          "datasources": [],
-          "settings": {
-            "markdownTextPattern": "**Read the Fleet Health table below.** A source marked UNSAFE has an active CRITICAL or MAJOR alarm; WARNING means the High Turbidity Warning is active.",
-            "applyDefaultMarkdownStyle": true
-          },
-          "showTitle": true,
-          "title": "Which water source is unsafe right now?"
-        },
-        "row": 0,
-        "col": 0,
-        "id": "summary"
-      },
-      "fleet_health": {
-        "typeFullFqn": "system.cards.entities_table",
-        "type": "latest",
-        "sizeX": 24,
-        "sizeY": 4,
+        "sizeY": 3,
         "config": {
           "datasources": [
             {
@@ -35,32 +17,41 @@
               "filterId": null,
               "dataKeys": [
                 {
-                  "name": "safetyStatus",
-                  "type": "attribute",
-                  "label": "Safety status",
-                  "color": "#4caf50",
-                  "settings": {},
-                  "aggregationType": null,
-                  "units": null
-                },
-                {
                   "name": "deviceName",
                   "type": "attribute",
-                  "label": "Source",
-                  "color": "#2196f3",
+                  "label": "Location",
+                  "color": "#607d8b",
                   "settings": {},
                   "aggregationType": null,
                   "units": null
                 },
                 {
-                  "name": "bufferDepth",
+                  "name": "safetyStatus",
                   "type": "attribute",
-                  "label": "Buffer depth",
-                  "color": "#ffc107",
+                  "label": "Water status",
+                  "color": "#2e7d32",
+                  "settings": {},
+                  "aggregationType": null,
+                  "units": null
+                },
+                {
+                  "name": "active",
+                  "type": "attribute",
+                  "label": "Connectivity",
+                  "color": "#607d8b",
+                  "settings": {},
+                  "aggregationType": null,
+                  "units": null
+                },
+                {
+                  "name": "flow_lpm",
+                  "type": "timeseries",
+                  "label": "Flow",
+                  "color": "#1976d3",
                   "settings": {},
                   "aggregationType": null,
                   "units": null,
-                  "decimals": 0
+                  "decimals": 1
                 }
               ],
               "alarmFilterConfig": {
@@ -71,24 +62,255 @@
             }
           ],
           "settings": {
-            "defaultPageSize": 10,
-            "defaultSortOrder": "displayName",
-            "enableSearch": true,
-            "enableSelectColumnDisplay": true
+            "applyDefaultMarkdownStyle": true,
+            "markdownTextPattern": "",
+            "useMarkdownTextFunction": true,
+            "markdownTextFunction": "\nconst places = {\"JalSanket-Node-01\": \"Dhunche\", \"JalSanket-Node-02\": \"Syafrubesi\", \"JalSanket-Node-03\": \"Rasuwagadhi\"};\nconst order = [\"Dhunche\", \"Syafrubesi\", \"Rasuwagadhi\"];\nconst rows = data.map(function (d) {\n  const location = places[d.deviceName || d.entityName] || d.entityName || \"Unknown location\";\n  const rawActive = d.active;\n  const active = rawActive === true || String(rawActive).toLowerCase() === \"true\";\n  const safety = String(d.safetyStatus || \"\").toUpperCase();\n  let status = \"OFFLINE\";\n  if (active) {\n    if (safety === \"UNSAFE\") status = \"CRITICAL\";\n    else if (safety === \"WARNING\") status = \"WARNING\";\n    else status = \"SAFE\";\n  }\n  return {location: location, status: status, safety: safety, active: active, flow: d.flow_lpm};\n}).sort(function (a, b) { return order.indexOf(a.location) - order.indexOf(b.location); });\nconst count = function (s) { return rows.filter(function (r) { return r.status === s; }).length; };\nconst critical = rows.filter(function (r) { return r.status === \"CRITICAL\"; });\nconst warning = rows.filter(function (r) { return r.status === \"WARNING\"; });\nconst offline = rows.filter(function (r) { return r.status === \"OFFLINE\"; });\nconst clsFor = function (s) {\n  if (s === \"CRITICAL\") return \"crit\";\n  if (s === \"WARNING\") return \"warn\";\n  if (s === \"OFFLINE\") return \"off\";\n  return \"safe\";\n};\n\nlet cls = \"safe\", level = \"SAFE\", headline = \"All monitored locations normal\";\nlet detail = \"No active warning or critical condition is reported.\";\nif (critical.length) {\n  cls = \"crit\"; level = \"CRITICAL\"; headline = \"Immediate attention required\";\n  detail = critical.map(function (r) { return r.location; }).join(\", \") +\n    \" has an unsafe water status. Review the active alert below.\";\n} else if (warning.length) {\n  cls = \"warn\"; level = \"WARNING\"; headline = \"Attention required\";\n  detail = warning.map(function (r) { return r.location; }).join(\", \") +\n    \" has an active warning condition.\";\n} else if (offline.length === rows.length) {\n  cls = \"off\"; level = \"OFFLINE\"; headline = \"No recent data from any location\";\n  detail = \"All three monitoring locations are offline. Confirm connectivity before relying on this view.\";\n} else if (offline.length) {\n  cls = \"warn\"; level = \"ATTENTION\"; headline = offline.length + \" monitoring location(s) offline\";\n  detail = offline.map(function (r) { return r.location; }).join(\", \") +\n    \" has no recent data. The remaining locations report normal water status.\";\n}\nconst summary = rows.length + \" locations \u00b7 \" + count(\"SAFE\") + \" safe \u00b7 \" +\n  count(\"WARNING\") + \" warning \u00b7 \" + count(\"CRITICAL\") + \" critical \u00b7 \" +\n  count(\"OFFLINE\") + \" offline\";\nreturn '<div class=\"js-system ' + cls + '\">' +\n  '<div class=\"js-system-level\">SYSTEM STATUS: ' + level + '</div>' +\n  '<div class=\"js-system-headline\">' + headline + '</div>' +\n  '<div class=\"js-system-detail\">' + detail + '</div>' +\n  '<div class=\"js-system-summary\">' + summary + '</div>' +\n  '</div>';\n",
+            "markdownCss": "\n.js-system{padding:14px 18px;border-radius:6px;border-left:8px solid #2e7d32;background:#e8f5e9;color:#1b5e20;height:100%;box-sizing:border-box;display:flex;flex-direction:column;justify-content:center;}\n.js-system.crit{border-left-color:#c62828;background:#ffebee;color:#b71c1c;}\n.js-system.warn{border-left-color:#ef6c00;background:#fff3e0;color:#e65100;}\n.js-system.off{border-left-color:#607d8b;background:#eceff1;color:#37474f;}\n.js-system-level{font-size:22px;font-weight:700;letter-spacing:.3px;}\n.js-system-headline{font-size:16px;font-weight:600;margin-top:2px;}\n.js-system-detail{font-size:14px;margin-top:3px;}\n.js-system-summary{font-size:12px;opacity:.85;margin-top:5px;}\n"
           },
           "showTitle": true,
-          "title": "Fleet Health / Safety Status",
+          "title": "Overall system status"
+        },
+        "row": 0,
+        "col": 0,
+        "id": "system_status"
+      },
+      "node_status": {
+        "typeFullFqn": "system.cards.markdown_card",
+        "type": "latest",
+        "sizeX": 24,
+        "sizeY": 5,
+        "config": {
+          "datasources": [
+            {
+              "type": "entity",
+              "name": "",
+              "entityAliasId": "fleet",
+              "filterId": null,
+              "dataKeys": [
+                {
+                  "name": "deviceName",
+                  "type": "attribute",
+                  "label": "Location",
+                  "color": "#607d8b",
+                  "settings": {},
+                  "aggregationType": null,
+                  "units": null
+                },
+                {
+                  "name": "safetyStatus",
+                  "type": "attribute",
+                  "label": "Water status",
+                  "color": "#2e7d32",
+                  "settings": {},
+                  "aggregationType": null,
+                  "units": null
+                },
+                {
+                  "name": "active",
+                  "type": "attribute",
+                  "label": "Connectivity",
+                  "color": "#607d8b",
+                  "settings": {},
+                  "aggregationType": null,
+                  "units": null
+                },
+                {
+                  "name": "flow_lpm",
+                  "type": "timeseries",
+                  "label": "Flow",
+                  "color": "#1976d3",
+                  "settings": {},
+                  "aggregationType": null,
+                  "units": null,
+                  "decimals": 1
+                }
+              ],
+              "alarmFilterConfig": {
+                "statusList": [
+                  "ACTIVE"
+                ]
+              }
+            }
+          ],
+          "settings": {
+            "applyDefaultMarkdownStyle": true,
+            "markdownTextPattern": "",
+            "useMarkdownTextFunction": true,
+            "markdownTextFunction": "\nconst places = {\"JalSanket-Node-01\": \"Dhunche\", \"JalSanket-Node-02\": \"Syafrubesi\", \"JalSanket-Node-03\": \"Rasuwagadhi\"};\nconst order = [\"Dhunche\", \"Syafrubesi\", \"Rasuwagadhi\"];\nconst rows = data.map(function (d) {\n  const location = places[d.deviceName || d.entityName] || d.entityName || \"Unknown location\";\n  const rawActive = d.active;\n  const active = rawActive === true || String(rawActive).toLowerCase() === \"true\";\n  const safety = String(d.safetyStatus || \"\").toUpperCase();\n  let status = \"OFFLINE\";\n  if (active) {\n    if (safety === \"UNSAFE\") status = \"CRITICAL\";\n    else if (safety === \"WARNING\") status = \"WARNING\";\n    else status = \"SAFE\";\n  }\n  return {location: location, status: status, safety: safety, active: active, flow: d.flow_lpm};\n}).sort(function (a, b) { return order.indexOf(a.location) - order.indexOf(b.location); });\nconst count = function (s) { return rows.filter(function (r) { return r.status === s; }).length; };\nconst critical = rows.filter(function (r) { return r.status === \"CRITICAL\"; });\nconst warning = rows.filter(function (r) { return r.status === \"WARNING\"; });\nconst offline = rows.filter(function (r) { return r.status === \"OFFLINE\"; });\nconst clsFor = function (s) {\n  if (s === \"CRITICAL\") return \"crit\";\n  if (s === \"WARNING\") return \"warn\";\n  if (s === \"OFFLINE\") return \"off\";\n  return \"safe\";\n};\n\nconst cards = rows.map(function (r) {\n  const overall = r.status === \"OFFLINE\" ? \"Unavailable\" :\n    (r.safety || \"UNKNOWN\");\n  const alarm = r.status === \"CRITICAL\" ? \"Critical condition active\" :\n    r.status === \"WARNING\" ? \"Warning condition active\" :\n    r.status === \"OFFLINE\" ? \"Not available while offline\" : \"None\";\n  const flowNumber = Number(r.flow);\n  let flow;\n  if (!r.active && isFinite(flowNumber)) {\n    flow = \"Last reading \" + flowNumber.toFixed(1) + \" L/min\";\n  } else if (r.active && isFinite(flowNumber) && flowNumber > 0) {\n    flow = \"Flowing \u00b7 \" + flowNumber.toFixed(1) + \" L/min\";\n  } else if (r.active && flowNumber === 0) {\n    flow = \"No flow reported\";\n  } else {\n    flow = \"No recent reading\";\n  }\n  const connectivity = r.active ? \"Connected\" : \"No recent data\";\n  return '<div class=\"js-node ' + clsFor(r.status) + '\">' +\n    '<div class=\"js-node-head\"><span class=\"js-node-name\">' + r.location + '</span>' +\n    '<span class=\"js-node-status ' + clsFor(r.status) + '\">' + r.status + '</span></div>' +\n    '<div class=\"js-node-row\"><span>Overall water status</span><b>' + overall + '</b></div>' +\n    '<div class=\"js-node-row\"><span>Active alarm</span><b>' + alarm + '</b></div>' +\n    '<div class=\"js-node-row\"><span>Flow status</span><b>' + flow + '</b></div>' +\n    '<div class=\"js-node-row\"><span>Connectivity</span><b>' + connectivity + '</b></div>' +\n    '</div>';\n}).join(\"\");\nreturn '<div class=\"js-node-grid\">' + cards + '</div>';\n",
+            "markdownCss": "\n.js-node-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:10px;padding:8px;box-sizing:border-box;}\n.js-node{border:1px solid #d9dee3;border-left:6px solid #2e7d32;border-radius:5px;background:#fff;padding:8px 10px;min-width:0;}\n.js-node.crit{border-left-color:#c62828;background:#fff6f6;}\n.js-node.warn{border-left-color:#ef6c00;background:#fffaf2;}\n.js-node.off{border-left-color:#607d8b;background:#f7f9fa;}\n.js-node-head{display:flex;align-items:center;justify-content:space-between;gap:8px;margin-bottom:6px;}\n.js-node-name{font-size:16px;font-weight:700;color:#263238;}\n.js-node-status{font-size:12px;font-weight:700;padding:3px 8px;border-radius:10px;background:#e8f5e9;color:#1b5e20;white-space:nowrap;}\n.js-node-status.crit{background:#ffebee;color:#b71c1c;}\n.js-node-status.warn{background:#fff3e0;color:#e65100;}\n.js-node-status.off{background:#eceff1;color:#37474f;}\n.js-node-row{display:flex;justify-content:space-between;gap:8px;font-size:12px;line-height:1.55;color:#546e7a;border-top:1px solid #eef1f3;padding-top:3px;}\n.js-node-row b{color:#263238;font-weight:600;text-align:right;}\n"
+          },
+          "showTitle": true,
+          "title": "Monitoring locations / node status"
+        },
+        "row": 3,
+        "col": 0,
+        "id": "node_status"
+      },
+      "active_alerts": {
+        "typeFullFqn": "system.alarm_widgets.alarms_table",
+        "type": "alarm",
+        "sizeX": 12,
+        "sizeY": 7,
+        "config": {
+          "alarmSource": {
+            "type": "entity",
+            "entityAliasId": "fleet",
+            "name": "alerts",
+            "dataKeys": [
+              {
+                "name": "type",
+                "type": "alarm",
+                "label": "Priority / location / problem",
+                "color": "#c62828",
+                "settings": {
+                  "useCellContentFunction": true,
+                  "cellContentFunction": "\nvar places = {\"JalSanket-Node-01\": \"Dhunche\", \"JalSanket-Node-02\": \"Syafrubesi\", \"JalSanket-Node-03\": \"Rasuwagadhi\"};\nvar problems = {\n  \"High Turbidity Warning\": \"Turbidity above safe level\",\n  \"Gross Contamination Critical\": \"Turbidity critically high\",\n  \"pH Out of Range Critical\": \"pH outside safe range\",\n  \"High TDS Critical\": \"Dissolved solids too high\",\n  \"Supply Interruption Major\": \"Water supply interrupted\",\n  \"Node Inactive Critical\": \"No recent data from node\"\n};\nvar sev = String(alarm.severity || \"INFO\").toUpperCase();\nvar place = places[alarm.originatorDisplayName] || alarm.originatorDisplayName || \"Unknown location\";\nvar problem = problems[value] || value;\nvar ts = alarm.createdTime || alarm.startTs || Date.now();\nvar time = new Date(ts).toLocaleString();\nvar style = \"border-left:5px solid #1976d2;background:#e3f2fd;\";\nvar badge = \"padding:2px 6px;border-radius:3px;background:#1976d2;color:#fff;font-size:10px;\";\nif (sev === \"CRITICAL\") {\n  style = \"border-left:5px solid #c62828;background:#ffebee;\";\n  badge = \"padding:3px 8px;border-radius:3px;background:#c62828;color:#fff;font-size:11px;font-weight:700;\";\n} else if (sev === \"MAJOR\" || sev === \"WARNING\") {\n  style = \"border-left:5px solid #ef6c00;background:#fff3e0;\";\n  badge = \"padding:2px 7px;border-radius:3px;background:#ef6c00;color:#fff;font-size:10px;font-weight:700;\";\n}\nreturn '<div style=\"' + style + 'padding:6px 8px;border-radius:4px;min-width:280px;box-sizing:border-box;\">' +\n  '<span style=\"' + badge + '\">' + sev + '</span> ' +\n  '<b style=\"color:#263238;\">' + place + '</b> \u2014 <span style=\"color:#37474f;\">' + problem + '</span> ' +\n  '<small style=\"color:#78909c;\">(' + time + ')</small></div>';\n",
+                  "useCellContentFunctionOnExport": true
+                },
+                "aggregationType": null,
+                "units": null
+              }
+            ]
+          },
+          "alarmFilterConfig": {
+            "statusList": [
+              "ACTIVE"
+            ]
+          },
+          "alarmStatusList": [
+            "ACTIVE"
+          ],
+          "configMode": "advanced",
+          "settings": {
+            "alarmsTitle": "Active alerts",
+            "allowAcknowledgment": false,
+            "allowAssign": false,
+            "allowClear": false,
+            "defaultPageSize": 5,
+            "defaultSortOrder": "-severity",
+            "displayActivity": false,
+            "displayDetails": false,
+            "displayPagination": true,
+            "enableFilter": false,
+            "enableSearch": false,
+            "enableSelectColumnDisplay": false,
+            "enableSelection": false
+          },
+          "showTitle": true,
+          "title": "Active alerts requiring attention",
           "useDashboardTimewindow": false
         },
-        "row": 2,
+        "row": 8,
         "col": 0,
-        "id": "fleet_health"
+        "id": "active_alerts"
+      },
+      "node_map": {
+        "typeFullFqn": "system.maps_v2.openstreetmap",
+        "type": "latest",
+        "sizeX": 12,
+        "sizeY": 7,
+        "config": {
+          "datasources": [
+            {
+              "type": "entity",
+              "name": "",
+              "entityAliasId": "fleet",
+              "filterId": null,
+              "dataKeys": [
+                {
+                  "name": "latitude",
+                  "type": "timeseries",
+                  "label": "latitude",
+                  "color": "#2196f3",
+                  "settings": {},
+                  "aggregationType": null,
+                  "units": null,
+                  "decimals": 7
+                },
+                {
+                  "name": "longitude",
+                  "type": "timeseries",
+                  "label": "longitude",
+                  "color": "#4caf50",
+                  "settings": {},
+                  "aggregationType": null,
+                  "units": null,
+                  "decimals": 7
+                },
+                {
+                  "name": "safetyStatus",
+                  "type": "attribute",
+                  "label": "safetyStatus",
+                  "color": "#607d8b",
+                  "settings": {},
+                  "aggregationType": null,
+                  "units": null
+                },
+                {
+                  "name": "active",
+                  "type": "attribute",
+                  "label": "active",
+                  "color": "#607d8b",
+                  "settings": {},
+                  "aggregationType": null,
+                  "units": null
+                }
+              ],
+              "alarmFilterConfig": {
+                "statusList": [
+                  "ACTIVE"
+                ]
+              }
+            }
+          ],
+          "settings": {
+            "latKeyName": "latitude",
+            "lngKeyName": "longitude",
+            "label": "${entityName}",
+            "mapProvider": "OpenStreetMap.Mapnik",
+            "provider": "openstreet-map",
+            "fitMapBounds": true,
+            "useDefaultCenterPosition": false,
+            "showLabel": true,
+            "showTooltip": true,
+            "useLabelFunction": true,
+            "labelFunction": "\nvar name = dsData[dsIndex][\"entityName\"] || dsData[dsIndex][\"deviceName\"] || \"\";\nvar places = {\"JalSanket-Node-01\": \"Dhunche\", \"JalSanket-Node-02\": \"Syafrubesi\", \"JalSanket-Node-03\": \"Rasuwagadhi\"};\nvar rawActive = dsData[dsIndex][\"active\"];\nvar active = rawActive === true || String(rawActive).toLowerCase() === \"true\";\nvar safety = String(dsData[dsIndex][\"safetyStatus\"] || \"\").toUpperCase();\nvar status = !active ? \"OFFLINE\" : safety === \"UNSAFE\" ? \"CRITICAL\" : safety === \"WARNING\" ? \"WARNING\" : \"SAFE\";\nreturn (places[name] || name) + \" \u2014 \" + status;\n",
+            "useColorFunction": true,
+            "colorFunction": "\nvar rawActive = dsData[dsIndex][\"active\"];\nvar active = rawActive === true || String(rawActive).toLowerCase() === \"true\";\nvar safety = String(dsData[dsIndex][\"safetyStatus\"] || \"\").toUpperCase();\nif (!active) return \"#607d8b\";\nif (safety === \"UNSAFE\") return \"#c62828\";\nif (safety === \"WARNING\") return \"#ef6c00\";\nreturn \"#2e7d32\";\n",
+            "useTooltipFunction": true,
+            "tooltipFunction": "\nvar d = dsData[dsIndex];\nvar name = d[\"entityName\"] || d[\"deviceName\"] || \"\";\nvar places = {\"JalSanket-Node-01\": \"Dhunche\", \"JalSanket-Node-02\": \"Syafrubesi\", \"JalSanket-Node-03\": \"Rasuwagadhi\"};\nvar rawActive = d[\"active\"];\nvar active = rawActive === true || String(rawActive).toLowerCase() === \"true\";\nvar safety = String(d[\"safetyStatus\"] || \"\").toUpperCase();\nvar status = !active ? \"OFFLINE\" : safety === \"UNSAFE\" ? \"CRITICAL\" : safety === \"WARNING\" ? \"WARNING\" : \"SAFE\";\nvar lat = Number(d[\"latitude\"]), lng = Number(d[\"longitude\"]);\nreturn \"<b>\" + (places[name] || name) + \"</b><br/>Status: \" + status +\n  \"<br/>Location: \" + (isFinite(lat) ? lat.toFixed(4) : \"n/a\") + \", \" +\n  (isFinite(lng) ? lng.toFixed(4) : \"n/a\");\n"
+          },
+          "showTitle": true,
+          "title": "Location overview (OpenStreetMap)"
+        },
+        "row": 8,
+        "col": 12,
+        "id": "node_map"
+      },
+      "measurements_header": {
+        "typeFullFqn": "system.cards.markdown_card",
+        "type": "latest",
+        "sizeX": 24,
+        "sizeY": 1,
+        "config": {
+          "datasources": [],
+          "settings": {
+            "applyDefaultMarkdownStyle": true,
+            "markdownTextPattern": "**Detailed values for Dhunche** \u2014 gauges show its latest reading. The trend charts below cover all three locations."
+          },
+          "showTitle": true,
+          "title": "Water-quality and operational measurements"
+        },
+        "row": 15,
+        "col": 0,
+        "id": "measurements_header"
       },
       "ph_gauge": {
         "typeFullFqn": "system.digital_gauges.gauge_justgage",
         "type": "latest",
         "sizeX": 8,
-        "sizeY": 5,
+        "sizeY": 4,
         "config": {
           "datasources": [
             {
@@ -99,7 +321,7 @@
                 {
                   "name": "ph",
                   "type": "timeseries",
-                  "label": "pH (Node-01)",
+                  "label": "Dhunche",
                   "color": "#2196f3",
                   "settings": {},
                   "aggregationType": null,
@@ -146,10 +368,10 @@
             "colorLabel": "#999999"
           },
           "showTitle": true,
-          "title": "pH (Node-01)",
+          "title": "pH \u2014 Dhunche",
           "useDashboardTimewindow": false
         },
-        "row": 6,
+        "row": 16,
         "col": 0,
         "id": "ph_gauge"
       },
@@ -157,7 +379,7 @@
         "typeFullFqn": "system.digital_gauges.gauge_justgage",
         "type": "latest",
         "sizeX": 8,
-        "sizeY": 5,
+        "sizeY": 4,
         "config": {
           "datasources": [
             {
@@ -168,7 +390,7 @@
                 {
                   "name": "turbidity_ntu",
                   "type": "timeseries",
-                  "label": "Turbidity (Node-01)",
+                  "label": "Dhunche",
                   "color": "#2196f3",
                   "settings": {},
                   "aggregationType": null,
@@ -215,10 +437,10 @@
             "colorLabel": "#999999"
           },
           "showTitle": true,
-          "title": "Turbidity (Node-01)",
+          "title": "Turbidity \u2014 Dhunche",
           "useDashboardTimewindow": false
         },
-        "row": 6,
+        "row": 16,
         "col": 8,
         "id": "turbidity_gauge"
       },
@@ -226,7 +448,7 @@
         "typeFullFqn": "system.digital_gauges.gauge_justgage",
         "type": "latest",
         "sizeX": 8,
-        "sizeY": 5,
+        "sizeY": 4,
         "config": {
           "datasources": [
             {
@@ -237,7 +459,7 @@
                 {
                   "name": "tds_ppm",
                   "type": "timeseries",
-                  "label": "TDS (Node-01)",
+                  "label": "Dhunche",
                   "color": "#2196f3",
                   "settings": {},
                   "aggregationType": null,
@@ -284,10 +506,10 @@
             "colorLabel": "#999999"
           },
           "showTitle": true,
-          "title": "TDS (Node-01)",
+          "title": "TDS \u2014 Dhunche",
           "useDashboardTimewindow": false
         },
-        "row": 6,
+        "row": 16,
         "col": 16,
         "id": "tds_gauge"
       },
@@ -295,31 +517,68 @@
         "typeFullFqn": "system.time_series_chart",
         "type": "timeseries",
         "sizeX": 8,
-        "sizeY": 6,
+        "sizeY": 5,
         "config": {
           "datasources": [
             {
               "type": "entity",
-              "name": "",
-              "entityAliasId": "fleet",
+              "name": "Dhunche",
+              "entityId": "737cbce0-e44f-11f1-8c2a-39d8a38c3af6",
+              "entityType": "DEVICE",
+              "entityName": "JalSanket-Node-01",
               "filterId": null,
               "dataKeys": [
                 {
                   "name": "turbidity_ntu",
                   "type": "timeseries",
-                  "label": "turbidity_ntu - ${deviceName}",
+                  "label": "Dhunche",
                   "color": "#2196f3",
                   "settings": {},
                   "aggregationType": null,
                   "units": null,
                   "decimals": 2
                 }
-              ],
-              "alarmFilterConfig": {
-                "statusList": [
-                  "ACTIVE"
-                ]
-              }
+              ]
+            },
+            {
+              "type": "entity",
+              "name": "Syafrubesi",
+              "entityId": "8090ab30-e44f-11f1-b835-cf86ca25bc9f",
+              "entityType": "DEVICE",
+              "entityName": "JalSanket-Node-02",
+              "filterId": null,
+              "dataKeys": [
+                {
+                  "name": "turbidity_ntu",
+                  "type": "timeseries",
+                  "label": "Syafrubesi",
+                  "color": "#2196f3",
+                  "settings": {},
+                  "aggregationType": null,
+                  "units": null,
+                  "decimals": 2
+                }
+              ]
+            },
+            {
+              "type": "entity",
+              "name": "Rasuwagadhi",
+              "entityId": "81265b80-e44f-11f1-b835-cf86ca25bc9f",
+              "entityType": "DEVICE",
+              "entityName": "JalSanket-Node-03",
+              "filterId": null,
+              "dataKeys": [
+                {
+                  "name": "turbidity_ntu",
+                  "type": "timeseries",
+                  "label": "Rasuwagadhi",
+                  "color": "#2196f3",
+                  "settings": {},
+                  "aggregationType": null,
+                  "units": null,
+                  "decimals": 2
+                }
+              ]
             }
           ],
           "settings": {
@@ -329,10 +588,10 @@
             }
           },
           "showTitle": true,
-          "title": "Turbidity by source (NTU)",
+          "title": "Turbidity trend by location (NTU)",
           "useDashboardTimewindow": true
         },
-        "row": 11,
+        "row": 20,
         "col": 0,
         "id": "turbidity_series"
       },
@@ -340,31 +599,68 @@
         "typeFullFqn": "system.time_series_chart",
         "type": "timeseries",
         "sizeX": 8,
-        "sizeY": 6,
+        "sizeY": 5,
         "config": {
           "datasources": [
             {
               "type": "entity",
-              "name": "",
-              "entityAliasId": "fleet",
+              "name": "Dhunche",
+              "entityId": "737cbce0-e44f-11f1-8c2a-39d8a38c3af6",
+              "entityType": "DEVICE",
+              "entityName": "JalSanket-Node-01",
               "filterId": null,
               "dataKeys": [
                 {
                   "name": "ph",
                   "type": "timeseries",
-                  "label": "ph - ${deviceName}",
+                  "label": "Dhunche",
                   "color": "#f44336",
                   "settings": {},
                   "aggregationType": null,
                   "units": null,
                   "decimals": 2
                 }
-              ],
-              "alarmFilterConfig": {
-                "statusList": [
-                  "ACTIVE"
-                ]
-              }
+              ]
+            },
+            {
+              "type": "entity",
+              "name": "Syafrubesi",
+              "entityId": "8090ab30-e44f-11f1-b835-cf86ca25bc9f",
+              "entityType": "DEVICE",
+              "entityName": "JalSanket-Node-02",
+              "filterId": null,
+              "dataKeys": [
+                {
+                  "name": "ph",
+                  "type": "timeseries",
+                  "label": "Syafrubesi",
+                  "color": "#f44336",
+                  "settings": {},
+                  "aggregationType": null,
+                  "units": null,
+                  "decimals": 2
+                }
+              ]
+            },
+            {
+              "type": "entity",
+              "name": "Rasuwagadhi",
+              "entityId": "81265b80-e44f-11f1-b835-cf86ca25bc9f",
+              "entityType": "DEVICE",
+              "entityName": "JalSanket-Node-03",
+              "filterId": null,
+              "dataKeys": [
+                {
+                  "name": "ph",
+                  "type": "timeseries",
+                  "label": "Rasuwagadhi",
+                  "color": "#f44336",
+                  "settings": {},
+                  "aggregationType": null,
+                  "units": null,
+                  "decimals": 2
+                }
+              ]
             }
           ],
           "settings": {
@@ -374,10 +670,10 @@
             }
           },
           "showTitle": true,
-          "title": "pH by source",
+          "title": "pH trend by location",
           "useDashboardTimewindow": true
         },
-        "row": 11,
+        "row": 20,
         "col": 8,
         "id": "ph_series"
       },
@@ -385,31 +681,68 @@
         "typeFullFqn": "system.time_series_chart",
         "type": "timeseries",
         "sizeX": 8,
-        "sizeY": 6,
+        "sizeY": 5,
         "config": {
           "datasources": [
             {
               "type": "entity",
-              "name": "",
-              "entityAliasId": "fleet",
+              "name": "Dhunche",
+              "entityId": "737cbce0-e44f-11f1-8c2a-39d8a38c3af6",
+              "entityType": "DEVICE",
+              "entityName": "JalSanket-Node-01",
               "filterId": null,
               "dataKeys": [
                 {
                   "name": "tds_ppm",
                   "type": "timeseries",
-                  "label": "tds_ppm - ${deviceName}",
+                  "label": "Dhunche",
                   "color": "#4caf50",
                   "settings": {},
                   "aggregationType": null,
                   "units": null,
                   "decimals": 2
                 }
-              ],
-              "alarmFilterConfig": {
-                "statusList": [
-                  "ACTIVE"
-                ]
-              }
+              ]
+            },
+            {
+              "type": "entity",
+              "name": "Syafrubesi",
+              "entityId": "8090ab30-e44f-11f1-b835-cf86ca25bc9f",
+              "entityType": "DEVICE",
+              "entityName": "JalSanket-Node-02",
+              "filterId": null,
+              "dataKeys": [
+                {
+                  "name": "tds_ppm",
+                  "type": "timeseries",
+                  "label": "Syafrubesi",
+                  "color": "#4caf50",
+                  "settings": {},
+                  "aggregationType": null,
+                  "units": null,
+                  "decimals": 2
+                }
+              ]
+            },
+            {
+              "type": "entity",
+              "name": "Rasuwagadhi",
+              "entityId": "81265b80-e44f-11f1-b835-cf86ca25bc9f",
+              "entityType": "DEVICE",
+              "entityName": "JalSanket-Node-03",
+              "filterId": null,
+              "dataKeys": [
+                {
+                  "name": "tds_ppm",
+                  "type": "timeseries",
+                  "label": "Rasuwagadhi",
+                  "color": "#4caf50",
+                  "settings": {},
+                  "aggregationType": null,
+                  "units": null,
+                  "decimals": 2
+                }
+              ]
             }
           ],
           "settings": {
@@ -419,10 +752,10 @@
             }
           },
           "showTitle": true,
-          "title": "TDS by source (ppm)",
+          "title": "TDS trend by location (ppm)",
           "useDashboardTimewindow": true
         },
-        "row": 11,
+        "row": 20,
         "col": 16,
         "id": "tds_series"
       },
@@ -477,148 +810,14 @@
           "title": "Water temperature and flow",
           "useDashboardTimewindow": true
         },
-        "row": 17,
+        "row": 25,
         "col": 0,
         "id": "temp_flow"
-      },
-      "node_map": {
-        "typeFullFqn": "system.maps_v2.openstreetmap",
-        "type": "latest",
-        "sizeX": 16,
-        "sizeY": 7,
-        "config": {
-          "datasources": [
-            {
-              "type": "entity",
-              "name": "",
-              "entityAliasId": "fleet",
-              "filterId": null,
-              "dataKeys": [
-                {
-                  "name": "latitude",
-                  "type": "timeseries",
-                  "label": "latitude",
-                  "color": "#2196f3",
-                  "settings": {},
-                  "aggregationType": null,
-                  "units": null,
-                  "decimals": 7
-                },
-                {
-                  "name": "longitude",
-                  "type": "timeseries",
-                  "label": "longitude",
-                  "color": "#4caf50",
-                  "settings": {},
-                  "aggregationType": null,
-                  "units": null,
-                  "decimals": 7
-                }
-              ],
-              "alarmFilterConfig": {
-                "statusList": [
-                  "ACTIVE"
-                ]
-              }
-            }
-          ],
-          "settings": {
-            "latKeyName": "latitude",
-            "lngKeyName": "longitude",
-            "label": "${entityName}",
-            "mapProvider": "OpenStreetMap.Mapnik",
-            "provider": "openstreet-map",
-            "fitMapBounds": true,
-            "useDefaultCenterPosition": false,
-            "showLabel": true,
-            "showTooltip": true
-          },
-          "showTitle": true,
-          "title": "Source locations (OpenStreetMap)"
-        },
-        "row": 22,
-        "col": 0,
-        "id": "node_map"
-      },
-      "alarms": {
-        "typeFullFqn": "system.alarm_widgets.alarms_table",
-        "type": "alarm",
-        "sizeX": 8,
-        "sizeY": 7,
-        "config": {
-          "alarmSource": {
-            "type": "entity",
-            "entityAliasId": "fleet",
-            "name": "alarms",
-            "dataKeys": [
-              {
-                "name": "createdTime",
-                "type": "alarm",
-                "label": "Created time",
-                "color": "#2196f3",
-                "settings": {},
-                "aggregationType": null,
-                "units": null
-              },
-              {
-                "name": "originatorDisplayName",
-                "type": "alarm",
-                "label": "Originator",
-                "color": "#4caf50",
-                "settings": {},
-                "aggregationType": null,
-                "units": null
-              },
-              {
-                "name": "type",
-                "type": "alarm",
-                "label": "Type",
-                "color": "#f44336",
-                "settings": {},
-                "aggregationType": null,
-                "units": null
-              },
-              {
-                "name": "severity",
-                "type": "alarm",
-                "label": "Severity",
-                "color": "#ffc107",
-                "settings": {},
-                "aggregationType": null,
-                "units": null
-              },
-              {
-                "name": "status",
-                "type": "alarm",
-                "label": "Status",
-                "color": "#607d8b",
-                "settings": {},
-                "aggregationType": null,
-                "units": null
-              }
-            ]
-          },
-          "alarmStatusList": [
-            "ACTIVE"
-          ],
-          "settings": {
-            "defaultPageSize": 10,
-            "defaultSortOrder": "-createdTime",
-            "enableSearch": true,
-            "enableSelection": true
-          },
-          "showTitle": true,
-          "title": "Active alarms",
-          "useDashboardTimewindow": false
-        },
-        "row": 22,
-        "col": 16,
-        "id": "alarms"
       },
       "nav_to_demo_controls": {
         "id": "nav_to_demo_controls",
         "col": 9,
-        "row": 29,
+        "row": 30,
         "sizeX": 6,
         "sizeY": 1,
         "type": "latest",
@@ -736,75 +935,81 @@
         "layouts": {
           "main": {
             "widgets": {
-              "summary": {
+              "system_status": {
                 "sizeX": 24,
-                "sizeY": 2,
+                "sizeY": 3,
                 "row": 0,
                 "col": 0
               },
-              "fleet_health": {
+              "node_status": {
                 "sizeX": 24,
-                "sizeY": 4,
-                "row": 2,
+                "sizeY": 5,
+                "row": 3,
+                "col": 0
+              },
+              "active_alerts": {
+                "sizeX": 12,
+                "sizeY": 7,
+                "row": 8,
+                "col": 0
+              },
+              "node_map": {
+                "sizeX": 12,
+                "sizeY": 7,
+                "row": 8,
+                "col": 12
+              },
+              "measurements_header": {
+                "sizeX": 24,
+                "sizeY": 1,
+                "row": 15,
                 "col": 0
               },
               "ph_gauge": {
                 "sizeX": 8,
-                "sizeY": 5,
-                "row": 6,
+                "sizeY": 4,
+                "row": 16,
                 "col": 0
               },
               "turbidity_gauge": {
                 "sizeX": 8,
-                "sizeY": 5,
-                "row": 6,
+                "sizeY": 4,
+                "row": 16,
                 "col": 8
               },
               "tds_gauge": {
                 "sizeX": 8,
-                "sizeY": 5,
-                "row": 6,
+                "sizeY": 4,
+                "row": 16,
                 "col": 16
               },
               "turbidity_series": {
                 "sizeX": 8,
-                "sizeY": 6,
-                "row": 11,
+                "sizeY": 5,
+                "row": 20,
                 "col": 0
               },
               "ph_series": {
                 "sizeX": 8,
-                "sizeY": 6,
-                "row": 11,
+                "sizeY": 5,
+                "row": 20,
                 "col": 8
               },
               "tds_series": {
                 "sizeX": 8,
-                "sizeY": 6,
-                "row": 11,
+                "sizeY": 5,
+                "row": 20,
                 "col": 16
               },
               "temp_flow": {
                 "sizeX": 24,
                 "sizeY": 5,
-                "row": 17,
+                "row": 25,
                 "col": 0
-              },
-              "node_map": {
-                "sizeX": 16,
-                "sizeY": 7,
-                "row": 22,
-                "col": 0
-              },
-              "alarms": {
-                "sizeX": 8,
-                "sizeY": 7,
-                "row": 22,
-                "col": 16
               },
               "nav_to_demo_controls": {
                 "col": 9,
-                "row": 29,
+                "row": 30,
                 "sizeX": 6,
                 "sizeY": 1
               }
