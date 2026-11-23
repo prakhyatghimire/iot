@@ -658,6 +658,13 @@ def build_cloud_dashboard(device_ids: Optional[list[str]] = None,
         "showTitle": True,
         "title": "Active alerts requiring attention",
         "useDashboardTimewindow": False,
+        # Alarm widgets subscribe with their own timewindow. Without this the
+        # Cloud renderer passes null to subscribeForAlarms and throws
+        # "Cannot read properties of null (reading 'realtimeWindowMs')".
+        "timewindow": {
+            "selectedTab": 0,
+            "realtime": {"realtimeType": 0, "timewindowMs": 2592000000},
+        },
     })
 
     add("node_map", "Location overview (OpenStreetMap)", 12, 7, 8, 12, {
@@ -703,7 +710,7 @@ def build_cloud_dashboard(device_ids: Optional[list[str]] = None,
         ("turbidity_gauge", "Turbidity — Dhunche", "turbidity_ntu", 300, "NTU", 1, 8),
         ("tds_gauge", "TDS — Dhunche", "tds_ppm", 1000, "ppm", 1, 16),
     ):
-        add(widget_id, title, 8, 4, 16, col, {
+        add(widget_id, title, 8, 5, 16, col, {
             "datasources": _cloud_device_datasource(node01_id, [
                 _cloud_key(key_name, "timeseries", "Dhunche", "#2196f3", decimals),
             ]),
@@ -717,20 +724,23 @@ def build_cloud_dashboard(device_ids: Optional[list[str]] = None,
                 # numeric value. Keep the header, hide only the canvas label.
                 "showTitle": False,
                 "showMinMax": True,
-                # JustGage reads flat font keys (fontValueSize, fontTitleSize,
-                # ...). Object-shaped keys are ignored by the renderer.
-                "fontTitle": "Roboto", "fontTitleSize": 9,
-                "fontTitleStyle": "normal", "fontTitleWeight": "500",
-                "colorTitle": "#999999",
-                "fontValue": "Roboto", "fontValueSize": 24,
-                "fontValueStyle": "normal", "fontValueWeight": "500",
-                "colorValue": "#666666",
-                "fontMinMax": "Roboto", "fontMinMaxSize": 9,
-                "fontMinMaxStyle": "normal", "fontMinMaxWeight": "500",
-                "colorMinMax": "#666666",
-                "fontLabel": "Roboto", "fontLabelSize": 8,
-                "fontLabelStyle": "normal", "fontLabelWeight": "500",
-                "colorLabel": "#999999",
+                # The stock descriptor requires this even when no custom level
+                # colours are used; omitting it crashes JustGage on init.
+                "levelColors": [],
+                # Font settings are nested objects in the current Cloud widget
+                # descriptor (titleFont/valueFont/minMaxFont/labelFont).
+                "titleFont": {"family": "Roboto", "size": 9,
+                              "style": "normal", "weight": "500",
+                              "color": "#999999"},
+                "valueFont": {"family": "Roboto", "size": 24,
+                              "style": "normal", "weight": "500",
+                              "color": "#666666"},
+                "minMaxFont": {"family": "Roboto", "size": 9,
+                               "style": "normal", "weight": "500",
+                               "color": "#666666"},
+                "labelFont": {"family": "Roboto", "size": 8,
+                              "style": "normal", "weight": "500",
+                              "color": "#999999"},
             },
             "showTitle": True,
             "title": title,
@@ -746,7 +756,7 @@ def build_cloud_dashboard(device_ids: Optional[list[str]] = None,
         ("ph_series", "pH trend by location", "ph", "#f44336", 8),
         ("tds_series", "TDS trend by location (ppm)", "tds_ppm", "#4caf50", 16),
     ):
-        add(widget_id, title, 8, 5, 20, col, {
+        add(widget_id, title, 8, 5, 21, col, {
             "datasources": _cloud_location_datasources(
                 device_ids, key_name, color, 2,
             ),
@@ -759,7 +769,7 @@ def build_cloud_dashboard(device_ids: Optional[list[str]] = None,
     for widget_id, title, key_names in (
         ("temp_flow", "Water temperature and flow", ("water_temp_c", "flow_lpm")),
     ):
-        add(widget_id, title, 24, 5, 25, 0, {
+        add(widget_id, title, 24, 5, 26, 0, {
             "datasources": _cloud_datasource([
                 _cloud_key(name, "timeseries", name, color, 2)
                 for name, color in zip(key_names, ("#2196f3", "#f44336"))
@@ -772,7 +782,7 @@ def build_cloud_dashboard(device_ids: Optional[list[str]] = None,
 
     nav = _navigation_button(
         "nav_to_demo_controls", "Go to Demo Controls", "arrow_forward",
-        DEMO_CONTROLS_DASHBOARD_ID, 30, 9,
+        DEMO_CONTROLS_DASHBOARD_ID, 31, 9,
     )
     widgets[nav["id"]] = nav
     layout[nav["id"]] = {"col": nav["col"], "row": nav["row"],

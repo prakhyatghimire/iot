@@ -413,13 +413,19 @@ def main() -> int:
         }
         check("monitoring gauges use human-readable location titles",
               {w["id"]: w["config"]["title"] for w in gauges} == expected_gauge_titles)
-        check("monitoring gauges use compact canvas fonts",
+        check("monitoring gauges carry the required level-colour array",
               len(gauges) == 3 and all(
-                  w["config"]["settings"]["fontValueSize"] == 24
-                  and w["config"]["settings"]["fontTitleSize"] == 9
-                  and w["config"]["settings"]["fontMinMaxSize"] == 9
-                  and w["config"]["settings"]["fontLabelSize"] == 8
+                  w["config"]["settings"]["levelColors"] == [] for w in gauges))
+        check("monitoring gauges use nested Cloud font objects",
+              len(gauges) == 3 and all(
+                  isinstance(w["config"]["settings"]["valueFont"], dict)
+                  and w["config"]["settings"]["valueFont"]["size"] == 24
+                  and w["config"]["settings"]["titleFont"]["size"] == 9
+                  and w["config"]["settings"]["minMaxFont"]["size"] == 9
+                  and w["config"]["settings"]["labelFont"]["size"] == 8
                   for w in gauges))
+        check("active alerts carry a widget timewindow",
+              alert_cfg["timewindow"]["realtime"]["timewindowMs"] == 2592000000)
         import_artifact = json.loads(
             (Path(__file__).parent / "thingsboard" / "jalsanket_dashboard.json").read_text())
         import_gauges = [w for w in import_artifact["configuration"]["widgets"].values()
