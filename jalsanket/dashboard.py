@@ -196,24 +196,30 @@ CLOUD_WIDGET_FQNS: dict[str, tuple[str, str]] = {
     "active_alerts": ("alarm_widgets.alarms_table", "alarm"),
 }
 
-# A markdown card receives one row per resolved fleet device. The keys below
-# are read from existing Cloud attributes/telemetry; status labels are derived
-# from safetyStatus + active, never from invented readings or alarm records.
+# A markdown card receives one row per resolved fleet device. ThingsBoard
+# exposes each value under its configured label ("Connectivity", "Water
+# status", ...), not the raw attribute name, so the helper below accepts both.
+# Status labels are derived from existing safetyStatus + active values, never
+# from invented readings or alarm records.
 _STATUS_COMMON_JS = r"""
 const places = {"JalSanket-Node-01": "Dhunche", "JalSanket-Node-02": "Syafrubesi", "JalSanket-Node-03": "Rasuwagadhi"};
 const order = ["Dhunche", "Syafrubesi", "Rasuwagadhi"];
+const val = function (d, label, name) {
+  return d[label] !== undefined ? d[label] : d[name];
+};
 const rows = data.map(function (d) {
-  const location = places[d.deviceName || d.entityName] || d.entityName || "Unknown location";
-  const rawActive = d.active;
+  const location = places[val(d, "Location", "deviceName") || d.entityName] || d.entityName || "Unknown location";
+  const rawActive = val(d, "Connectivity", "active");
   const active = rawActive === true || String(rawActive).toLowerCase() === "true";
-  const safety = String(d.safetyStatus || "").toUpperCase();
+  const safety = String(val(d, "Water status", "safetyStatus") || "").toUpperCase();
   let status = "OFFLINE";
   if (active) {
     if (safety === "UNSAFE") status = "CRITICAL";
     else if (safety === "WARNING") status = "WARNING";
     else status = "SAFE";
   }
-  return {location: location, status: status, safety: safety, active: active, flow: d.flow_lpm};
+  return {location: location, status: status, safety: safety, active: active,
+          flow: val(d, "Flow", "flow_lpm")};
 }).sort(function (a, b) { return order.indexOf(a.location) - order.indexOf(b.location); });
 const count = function (s) { return rows.filter(function (r) { return r.status === s; }).length; };
 const critical = rows.filter(function (r) { return r.status === "CRITICAL"; });

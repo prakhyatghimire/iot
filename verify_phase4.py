@@ -380,9 +380,13 @@ def main() -> int:
         check("status cards read existing location/flow/connectivity attributes",
               {"deviceName", "safetyStatus", "active", "flow_lpm"} <= status_keys,
               str(status_keys))
+        status_js = status_widget["config"]["settings"]["markdownTextFunction"]
+        node_js = main_dash["configuration"]["widgets"]["node_status"]["config"]["settings"]["markdownTextFunction"]
         check("status card functions render explicit severity words",
-              "CRITICAL" in status_widget["config"]["settings"]["markdownTextFunction"]
-              and "OFFLINE" in main_dash["configuration"]["widgets"]["node_status"]["config"]["settings"]["markdownTextFunction"])
+              "CRITICAL" in status_js and "OFFLINE" in node_js)
+        check("status card functions read ThingsBoard's labelled values",
+              all(token in status_js and token in node_js
+                  for token in ("Connectivity", "Water status", "Flow")))
 
         alert_cfg = main_dash["configuration"]["widgets"]["active_alerts"]["config"]
         alert_key = alert_cfg["alarmSource"]["dataKeys"][0]
