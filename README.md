@@ -378,9 +378,10 @@ the dashboard. There is no local ThingsBoard server.
 Live ThingsBoard Cloud checks are recorded under `evidence/`:
 `live_preflight.json`, `live_mqtt_probe.json`, `live_cloud_config.json`,
 `live_rpc_probe.json`, `live_cloud_alarms.json`, `live_cloud_attributes.json`,
-`live_fleet_run7.log`, `live_cloud_verification.json` and the dashboard
-screenshots. The measured metrics and publication plots are documented in
-"Final metrics / evidence" below.
+`live_fleet_run7.log`, `live_cloud_verification.json`, the dashboard
+screenshots under `evidence/screenshots/` and the status-first UX revision
+report at `evidence/dashboard_ux_revision_report.md`. The measured metrics and
+publication plots are documented in "Final metrics / evidence" below.
 
 Commands used for live verification (run from the repository root). Credentials
 come only from the git-ignored `.env` or exported environment variables; do not
