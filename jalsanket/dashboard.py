@@ -306,28 +306,11 @@ const clsFor = function (s) {
 """
 
 _INCIDENT_STATUS_JS_BODY = r"""
-const phState = function (v) {
-  const n = Number(v);
-  if (!isFinite(n)) return "NO READING";
-  return (n < T.phLow || n > T.phHigh) ? "CRITICAL" : "SAFE";
-};
-const turbidityState = function (v) {
-  const n = Number(v);
-  if (!isFinite(n)) return "NO READING";
-  if (n > T.turbidityCritical) return "CRITICAL";
-  if (n > T.turbidityWarning) return "WARNING";
-  return "SAFE";
-};
-const tdsState = function (v) {
-  const n = Number(v);
-  if (!isFinite(n)) return "NO READING";
-  return n > T.tdsCritical ? "CRITICAL" : "SAFE";
-};
 const incidentRows = rows.map(function (r) {
   return {
     location: r.location, node: r.node, status: r.status, safety: r.safety,
     active: r.active, flow: r.flow, ph: r.ph, turbidity: r.turbidity,
-    tds: r.tds, evidence: r.evidence, lastReading: "latest reading"
+    tds: r.tds, evidence: r.evidence
   };
 });
 const serious = incidentRows.filter(function (r) {
@@ -369,17 +352,32 @@ if (serious.length) {
   const measurement = function (label, value, unit, state, digits) {
     const n = Number(value);
     const shown = isFinite(n) ? n.toFixed(digits) : "No reading";
-    const cls = state === "CRITICAL" ? "crit" : state === "WARNING" ? "warn" :
+    const cls = state === "CRITICAL" ? "crit" :
+      state === "WARNING" || state === "ALARM BAND" ? "warn" :
       state === "SAFE" || state === "INTERRUPTED" ? "safe" : "off";
     return '<span class="js-incident-measure ' + cls + '">' + label + " " + shown +
       (unit ? " " + unit : "") + " · " + state + "</span>";
   };
+  const bandState = function (value, highTrigger, clearThreshold, lowTrigger, lowClear) {
+    const n = Number(value);
+    if (!isFinite(n)) return "NO READING";
+    if (lowTrigger !== undefined) {
+      if (n < lowTrigger || n > highTrigger) return "CRITICAL";
+      if (n < lowClear || n > clearThreshold) return "ALARM BAND";
+      return "SAFE";
+    }
+    if (n > highTrigger) return "CRITICAL";
+    if (n > clearThreshold) return "ALARM BAND";
+    return "SAFE";
+  };
   const readings = offline
     ? '<span class="js-incident-measure off">No current readings while the node has no recent data</span>'
     : measurement("Turbidity", primary.turbidity, "NTU",
-                  turbidityState(primary.turbidity), 1) +
-      measurement("TDS", primary.tds, "ppm", tdsState(primary.tds), 1) +
-      measurement("pH", primary.ph, "", phState(primary.ph), 2) +
+                  bandState(primary.turbidity, T.turbidityCritical, T.grossClear), 1) +
+      measurement("TDS", primary.tds, "ppm",
+                  bandState(primary.tds, T.tdsCritical, T.tdsClear), 1) +
+      measurement("pH", primary.ph, "",
+                  bandState(primary.ph, T.phHigh, T.phHighClear, T.phLow, T.phLowClear), 2) +
       measurement("Flow", primary.flow, "L/min",
                   interrupted ? "INTERRUPTED" : "SAFE", 1);
   let situation = "Current values use the existing safe ranges shown by the gauges.";
@@ -400,7 +398,7 @@ if (serious.length) {
     title + '</div>' +
     '<div class="js-incident-place">' + primary.location + ' Water Source · ' +
     primary.node + '</div>' +
-    '<div class="js-incident-meta">' + severity + ' · LAST READING ' + primary.lastReading +
+    '<div class="js-incident-meta">' + severity + ' · CURRENT DASHBOARD TELEMETRY' +
     ' · detection time is shown in ACTIVE ALERTS below when an alarm is present</div>' +
     '<div class="js-incident-summary"><b>What happened:</b> ' + explanation + '</div>' +
     '<div class="js-incident-readings">' + readings + '</div>' +

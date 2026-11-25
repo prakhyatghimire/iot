@@ -321,11 +321,14 @@ def main() -> int:
     hysteresis = out["cards"]["hysteresis"]
     check("a reading inside the active critical clear band is still an incident",
           'class="js-critical-alert js-incident"' in hysteresis
-          and "severe turbidity" in hysteresis)
-    check("header names severity, source, node and last reading",
+          and "severe turbidity" in hysteresis
+          and "ALARM BAND" in hysteresis
+          and "Turbidity 180.0 NTU · ALARM BAND" in hysteresis
+          and "TDS 470.0 ppm · ALARM BAND" in hysteresis)
+    check("header names severity, source, node and telemetry scope",
           all(token in contamination for token in (
               "CRITICAL WATER SAFETY INCIDENT", "Dhunche Water Source",
-              "JalSanket Node 01", "LAST READING")))
+              "JalSanket Node 01", "CURRENT DASHBOARD TELEMETRY")))
     check("summary is factual and does not claim AI or a physical cause",
           "Multiple water-quality thresholds are currently exceeded." in contamination
           and "AI" not in contamination and "caused by" not in contamination.lower())
