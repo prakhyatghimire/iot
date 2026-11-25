@@ -345,8 +345,10 @@ source and JalSanket node, severity, the measurements that breached existing
 thresholds, current values with units, the state of the other two sources, and
 a pointer to the existing trend charts for actual progression. Multiple serious
 alarms on one node are grouped into one panel, with Critical reported first and
-Supply Interruption shown as Major rather than a connection loss. Node cards add
-an incident-scope line, map markers add `INCIDENT · <source> — <status>` and
+Supply Interruption shown as Major rather than a connection loss. The
+`JalSanket Water Safety · Rasuwa Monitoring Area` status card carries the single
+incident-scope line (`isolated to`, `multiple locations affected`, or no active
+incident); node cards no longer repeat it. Map markers add `INCIDENT · <source> — <status>` and
 tooltips say whether a source is affected. The ACTIVE alerts table remains the
 evidence panel and shows only real ThingsBoard alarm fields, including its real
 Detected time when an alarm exists.
