@@ -387,6 +387,15 @@ def main() -> int:
         check("status card functions read ThingsBoard's labelled values",
               all(token in status_js and token in node_js
                   for token in ("Connectivity", "Water status", "Flow")))
+        node_css = main_dash["configuration"]["widgets"]["node_status"]["config"]["settings"]["markdownCss"]
+        check("node status data rows use aligned label/value columns",
+              "grid-template-columns:minmax(110px,42%) minmax(0,1fr)" in node_css)
+        check("critical node status turns red",
+              ".js-node.crit{" in node_css
+              and "background:#c62828" in node_css
+              and ".js-node-status.crit{background:#b71c1c;color:#fff" in node_css)
+        check("offline nodes show no recent flow reading",
+              'flow = "No recent reading"' in node_js)
 
         alert_cfg = main_dash["configuration"]["widgets"]["active_alerts"]["config"]
         alert_key = alert_cfg["alarmSource"]["dataKeys"][0]

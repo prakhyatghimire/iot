@@ -265,15 +265,15 @@ return '<div class="js-system ' + cls + '">' +
 
 NODE_STATUS_JS = _STATUS_COMMON_JS + r"""
 const cards = rows.map(function (r) {
-  const overall = r.status === "OFFLINE" ? "Unavailable" :
+  const overall = r.status === "OFFLINE" ? "OFFLINE" :
     (r.safety || "UNKNOWN");
   const alarm = r.status === "CRITICAL" ? "Critical condition active" :
     r.status === "WARNING" ? "Warning condition active" :
     r.status === "OFFLINE" ? "Not available while offline" : "None";
   const flowNumber = Number(r.flow);
   let flow;
-  if (!r.active && isFinite(flowNumber)) {
-    flow = "Last reading " + flowNumber.toFixed(1) + " L/min";
+  if (!r.active) {
+    flow = "No recent reading";
   } else if (r.active && isFinite(flowNumber) && flowNumber > 0) {
     flow = "Flowing · " + flowNumber.toFixed(1) + " L/min";
   } else if (r.active && flowNumber === 0) {
@@ -296,7 +296,7 @@ return '<div class="js-node-grid">' + cards + '</div>';
 
 SYSTEM_STATUS_CSS = r"""
 .js-system{padding:14px 18px;border-radius:6px;border-left:8px solid #2e7d32;background:#e8f5e9;color:#1b5e20;height:100%;box-sizing:border-box;display:flex;flex-direction:column;justify-content:center;}
-.js-system.crit{border-left-color:#c62828;background:#ffebee;color:#b71c1c;}
+.js-system.crit{border-left-color:#b71c1c;background:#c62828;color:#fff;}
 .js-system.warn{border-left-color:#ef6c00;background:#fff3e0;color:#e65100;}
 .js-system.off{border-left-color:#607d8b;background:#eceff1;color:#37474f;}
 .js-system-level{font-size:22px;font-weight:700;letter-spacing:.3px;}
@@ -308,17 +308,20 @@ SYSTEM_STATUS_CSS = r"""
 NODE_STATUS_CSS = r"""
 .js-node-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:10px;padding:8px;box-sizing:border-box;}
 .js-node{border:1px solid #d9dee3;border-left:6px solid #2e7d32;border-radius:5px;background:#fff;padding:8px 10px;min-width:0;}
-.js-node.crit{border-left-color:#c62828;background:#fff6f6;}
+.js-node.crit{border:1px solid #b71c1c;border-left:6px solid #b71c1c;background:#c62828;color:#fff;}
+.js-node.crit .js-node-name,.js-node.crit .js-node-row,.js-node.crit .js-node-row b{color:#fff;}
+.js-node.crit .js-node-row{border-top-color:rgba(255,255,255,.35);}
+.js-node.crit .js-node-status{background:#b71c1c;color:#fff;border:1px solid #fff;}
 .js-node.warn{border-left-color:#ef6c00;background:#fffaf2;}
 .js-node.off{border-left-color:#607d8b;background:#f7f9fa;}
 .js-node-head{display:flex;align-items:center;justify-content:space-between;gap:8px;margin-bottom:6px;}
 .js-node-name{font-size:16px;font-weight:700;color:#263238;}
 .js-node-status{font-size:12px;font-weight:700;padding:3px 8px;border-radius:10px;background:#e8f5e9;color:#1b5e20;white-space:nowrap;}
-.js-node-status.crit{background:#ffebee;color:#b71c1c;}
 .js-node-status.warn{background:#fff3e0;color:#e65100;}
 .js-node-status.off{background:#eceff1;color:#37474f;}
-.js-node-row{display:flex;justify-content:space-between;gap:8px;font-size:12px;line-height:1.55;color:#546e7a;border-top:1px solid #eef1f3;padding-top:3px;}
-.js-node-row b{color:#263238;font-weight:600;text-align:right;}
+.js-node-row{display:grid;grid-template-columns:minmax(110px,42%) minmax(0,1fr);column-gap:8px;font-size:12px;line-height:1.55;color:#546e7a;border-top:1px solid #eef1f3;padding-top:3px;}
+.js-node-row span,.js-node-row b{min-width:0;}
+.js-node-row b{color:#263238;font-weight:600;text-align:left;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;}
 """
 
 # Alarms table cell function: one human-readable line per active alarm. It uses
