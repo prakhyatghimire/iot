@@ -436,14 +436,26 @@ if (critical.length) {
 const summary = rows.length + " monitoring locations · " + count("SAFE") + " safe · " +
   count("WARNING") + " warning · " + count("CRITICAL") + " critical · " +
   count("STALE") + " unconfirmed · " + count("OFFLINE") + " offline";
-let scopeText = "Incident scope: no active critical or major incident";
-let scopeCls = "safe";
-if (serious.length > 1) {
-  scopeText = "Incident scope: multiple locations affected";
-  scopeCls = "crit";
-} else if (serious.length === 1) {
-  scopeText = "Incident scope: isolated to " + serious[0].location;
-  scopeCls = "crit";
+const scopeKey = "__jalsanketIncidentScopeDismissed";
+const scopeStore = typeof window !== "undefined" ? window : {};
+const scopeSignature = serious.length
+  ? serious.map(function (r) { return r.location + ":" + r.status; }).sort().join("|")
+  : "";
+if (!serious.length) scopeStore[scopeKey] = "";
+const scopeDismissed = !!scopeSignature && scopeStore[scopeKey] === scopeSignature;
+let scopeHtml = "";
+if (serious.length && !scopeDismissed) {
+  const scopeText = serious.length > 1
+    ? "Incident scope: multiple locations affected"
+    : "Incident scope: isolated to " + serious[0].location;
+  const closeAttr = "var w=typeof window!=='undefined'?window:{};" +
+    "w['" + scopeKey + "']='" + scopeSignature + "';" +
+    "var e=this.closest('.js-system-scope');if(e)e.style.display='none'";
+  scopeHtml = '<div class="js-system-scope crit js-incident-scope">' +
+    '<span>' + scopeText + '</span>' +
+    '<button type="button" class="js-scope-close" aria-label="Close incident scope" ' +
+    'title="Close incident scope" onclick="' + closeAttr + '">×</button>' +
+    '</div>';
 }
 return incidentHtml + '<div class="js-system ' + cls + '">' +
   '<div class="js-system-context">Municipal Water Monitoring Authority · demonstration hierarchy</div>' +
@@ -451,7 +463,7 @@ return incidentHtml + '<div class="js-system ' + cls + '">' +
   '<div class="js-system-level">SYSTEM STATUS: ' + level + '</div>' +
   '<div class="js-system-headline">' + headline + '</div>' +
   '<div class="js-system-detail">' + detail + '</div>' +
-  '<div class="js-system-scope ' + scopeCls + '">' + scopeText + '</div>' +
+  scopeHtml +
   '<div class="js-system-summary">' + summary + '</div>' +
   '</div>';
 """
@@ -503,10 +515,12 @@ SYSTEM_STATUS_CSS = r"""
 .js-system-level{font-size:19px;font-weight:700;letter-spacing:.3px;margin-top:2px;}
 .js-system-headline{font-size:14px;font-weight:600;margin-top:1px;}
 .js-system-detail{font-size:12px;margin-top:2px;}
-.js-system-scope{font-size:12px;font-weight:700;margin-top:3px;padding:2px 6px;border-radius:3px;background:#e8f5e9;color:#1b5e20;border-left:4px solid #2e7d32;}
+.js-system-scope{display:flex;align-items:center;justify-content:space-between;gap:8px;font-size:12px;font-weight:700;margin-top:3px;padding:2px 6px;border-radius:3px;background:#e8f5e9;color:#1b5e20;border-left:4px solid #2e7d32;}
 .js-system.crit .js-system-scope,.js-system-scope.crit{background:rgba(255,255,255,.18);color:#fff;border-left-color:#fff;}
 .js-system.warn .js-system-scope{background:#ffe0b2;color:#e65100;border-left-color:#ef6c00;}
 .js-system.off .js-system-scope{background:#cfd8dc;color:#37474f;border-left-color:#607d8b;}
+.js-scope-close{flex:none;border:0;background:transparent;color:inherit;font-size:16px;line-height:1;font-weight:700;padding:0 2px;cursor:pointer;}
+.js-scope-close:hover,.js-scope-close:focus{background:rgba(255,255,255,.22);border-radius:3px;outline:none;}
 .js-system-summary{font-size:11px;opacity:.85;margin-top:3px;}
 .js-critical-alert{position:fixed;top:62px;right:24px;z-index:2147483000;max-width:520px;padding:12px 16px;border:2px solid #fff;border-radius:6px;background:#b71c1c;color:#fff;font-size:14px;line-height:1.4;box-shadow:0 6px 18px rgba(0,0,0,.35);pointer-events:none;animation:jsCriticalPulse 1.6s ease-in-out infinite;}
 .js-critical-alert-title{font-weight:800;letter-spacing:.4px;}

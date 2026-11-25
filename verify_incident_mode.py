@@ -185,10 +185,15 @@ def run_widget_functions(artifact: dict) -> dict:
     map_safe = dict(map_row, safetyStatus="SAFE")
     map_stale = dict(map_row, ph=7.17, turbidity_ntu=6.1, tds_ppm=195.0,
                      flow_lpm=13.8)
+    dismissed_js = (
+        'const window = {__jalsanketIncidentScopeDismissed: "Dhunche:CRITICAL"};\n'
+        + system_js
+    )
     payload = {
         "cards": {
             "normal": {"js": system_js, "data": NORMAL},
             "contamination": {"js": system_js, "data": CONTAMINATION},
+            "contamination_dismissed": {"js": dismissed_js, "data": CONTAMINATION},
             "supply": {"js": system_js, "data": SUPPLY},
             "multiple": {"js": system_js, "data": MULTIPLE},
             "offline": {"js": system_js, "data": OFFLINE},
@@ -302,9 +307,9 @@ def main() -> int:
     check("a warning alone does not open Incident Mode",
           "js-incident" not in out["cards"]["warning"]
           and "SYSTEM STATUS: WARNING" in out["cards"]["warning"])
-    check("system status widget has a normal incident-scope line",
-          "Incident scope: no active critical or major incident"
-          in out["cards"]["normal"])
+    check("system status widget hides incident scope in normal mode",
+          "Incident scope:" not in out["cards"]["normal"]
+          and "js-incident-scope" not in out["cards"]["normal"])
     check("node status widget no longer repeats the incident scope",
           all("Incident scope:" not in out["cards"][key] for key in (
               "nodes_normal", "nodes_contamination", "nodes_supply", "nodes_stale")))
@@ -347,6 +352,15 @@ def main() -> int:
           and "does not identify a physical cause" in contamination)
     check("system status widget says the incident is isolated to one source",
           "Incident scope: isolated to Dhunche" in contamination)
+    check("incident scope has a close button inside the status widget",
+          'class="js-system-scope crit js-incident-scope"' in contamination
+          and 'class="js-scope-close"' in contamination
+          and 'aria-label="Close incident scope"' in contamination
+          and "__jalsanketIncidentScopeDismissed" in contamination)
+    check("closing the incident scope hides it in the status widget",
+          "Incident scope:" not in out["cards"]["contamination_dismissed"]
+          and "js-incident-scope" not in out["cards"]["contamination_dismissed"]
+          and "js-incident" in out["cards"]["contamination_dismissed"])
 
     section("5. Supply interruption and node inactivity")
     supply = out["cards"]["supply"]
