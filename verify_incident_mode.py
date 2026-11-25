@@ -18,10 +18,15 @@ from pathlib import Path
 
 from jalsanket.alarm_rules import cloud_alarm_rules
 from jalsanket.alarms import (
+    GROSS_CONTAMINATION_CLEAR,
     GROSS_CONTAMINATION_TRIGGER,
+    HIGH_TDS_CLEAR,
     HIGH_TDS_TRIGGER,
+    HIGH_TURBIDITY_CLEAR,
     HIGH_TURBIDITY_TRIGGER,
+    PH_HIGH_CLEAR,
     PH_HIGH_TRIGGER,
+    PH_LOW_CLEAR,
     PH_LOW_TRIGGER,
 )
 from jalsanket.dashboard import MONITORING_DASHBOARD_ID
@@ -119,6 +124,19 @@ RESOLVED = snapshot(
     ((7.18, 18.0, 220.0, 13.8), (7.22, 4.7, 179.8, 12.9),
      (7.14, 5.4, 188.4, 13.8)),
 )
+# Live Cloud state on 2026-11-25: connectivity was fresh but safetyStatus was
+# two days old and the current readings were normal. It must not open an incident.
+STALE = snapshot(
+    ("SAFE", "UNSAFE", "SAFE"), (True, True, True),
+    ((7.17, 6.1, 195.0, 13.8), (7.22, 4.7, 179.8, 12.9),
+     (7.14, 5.4, 188.4, 13.8)),
+)
+# Hysteresis band: still inside an active critical alarm's clear threshold.
+HYSTERESIS = snapshot(
+    ("UNSAFE", "SAFE", "SAFE"), (True, True, True),
+    ((7.25, 180.0, 470.0, 12.1), (7.22, 4.7, 179.8, 12.9),
+     (7.14, 5.4, 188.4, 13.8)),
+)
 
 
 NODE_SCRIPT = r"""
@@ -162,8 +180,11 @@ def run_widget_functions(artifact: dict) -> dict:
     map_row = {
         "entityName": "JalSanket-Node-01", "active": True,
         "safetyStatus": "UNSAFE", "latitude": 28.11, "longitude": 85.29,
+        "ph": 6.10, "turbidity_ntu": 260.4, "tds_ppm": 535.0, "flow_lpm": 11.2,
     }
     map_safe = dict(map_row, safetyStatus="SAFE")
+    map_stale = dict(map_row, ph=7.17, turbidity_ntu=6.1, tds_ppm=195.0,
+                     flow_lpm=13.8)
     payload = {
         "cards": {
             "normal": {"js": system_js, "data": NORMAL},
@@ -173,9 +194,12 @@ def run_widget_functions(artifact: dict) -> dict:
             "offline": {"js": system_js, "data": OFFLINE},
             "warning": {"js": system_js, "data": WARNING},
             "resolved": {"js": system_js, "data": RESOLVED},
+            "stale": {"js": system_js, "data": STALE},
+            "hysteresis": {"js": system_js, "data": HYSTERESIS},
             "nodes_contamination": {"js": node_js, "data": CONTAMINATION},
             "nodes_supply": {"js": node_js, "data": SUPPLY},
             "nodes_normal": {"js": node_js, "data": NORMAL},
+            "nodes_stale": {"js": node_js, "data": STALE},
         },
         "cells": {
             "alert": {
@@ -195,6 +219,9 @@ def run_widget_functions(artifact: dict) -> dict:
             },
             "safe_tooltip": {
                 "js": map_settings["tooltipFunction"], "data": [map_safe], "index": 0,
+            },
+            "stale_label": {
+                "js": map_settings["labelFunction"], "data": [map_stale], "index": 0,
             },
         },
     }
@@ -243,6 +270,10 @@ def main() -> int:
           (HIGH_TURBIDITY_TRIGGER, GROSS_CONTAMINATION_TRIGGER,
            PH_LOW_TRIGGER, PH_HIGH_TRIGGER, HIGH_TDS_TRIGGER)
           == (50.0, 200.0, 6.5, 8.5, 500.0))
+    check("existing hysteresis clear bands are unchanged",
+          (HIGH_TURBIDITY_CLEAR, GROSS_CONTAMINATION_CLEAR,
+           PH_LOW_CLEAR, PH_HIGH_CLEAR, HIGH_TDS_CLEAR)
+          == (40.0, 150.0, 6.7, 8.3, 450.0))
     check("existing telemetry schema is unchanged",
           TELEMETRY_KEYS == ("ph", "turbidity_ntu", "tds_ppm", "water_temp_c",
                              "flow_lpm", "latitude", "longitude"))
@@ -274,11 +305,23 @@ def main() -> int:
     check("node card has a normal incident-scope line",
           "Incident scope: no active critical or major incident"
           in out["cards"]["nodes_normal"])
+    stale = out["cards"]["stale"]
+    check("stale unsafe status is not promoted to an incident",
+          "js-incident" not in stale
+          and "No active water-safety incident" in stale
+          and "1 unconfirmed" in stale)
+    check("stale status is labelled unconfirmed on the node card",
+          "UNCONFIRMED" in out["cards"]["nodes_stale"]
+          and "Not confirmed by current readings" in out["cards"]["nodes_stale"])
 
     section("4. Critical contamination incident")
     contamination = out["cards"]["contamination"]
     check("one grouped contamination panel is shown",
           contamination.count('class="js-critical-alert js-incident"') == 1)
+    hysteresis = out["cards"]["hysteresis"]
+    check("a reading inside the active critical clear band is still an incident",
+          'class="js-critical-alert js-incident"' in hysteresis
+          and "severe turbidity" in hysteresis)
     check("header names severity, source, node and last reading",
           all(token in contamination for token in (
               "CRITICAL WATER SAFETY INCIDENT", "Dhunche Water Source",
@@ -341,6 +384,8 @@ def main() -> int:
           out["map"]["affected_label"] == "INCIDENT · Dhunche — CRITICAL")
     check("unaffected marker remains visible without an incident label",
           out["map"]["safe_label"] == "Dhunche — SAFE")
+    check("stale marker is shown as unconfirmed, not as an incident",
+          out["map"]["stale_label"] == "Dhunche — STALE")
     check("tooltip identifies the affected source and its node",
           "Affected source: Yes" in out["map"]["affected_tooltip"]
           and "JalSanket Node 01" in out["map"]["affected_tooltip"]

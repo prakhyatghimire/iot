@@ -17,10 +17,15 @@ from typing import Optional
 
 from .alarm_rules import device_profile_alarm_config, rule_chain_document
 from .alarms import (
+    GROSS_CONTAMINATION_CLEAR,
     GROSS_CONTAMINATION_TRIGGER,
+    HIGH_TDS_CLEAR,
     HIGH_TDS_TRIGGER,
+    HIGH_TURBIDITY_CLEAR,
     HIGH_TURBIDITY_TRIGGER,
+    PH_HIGH_CLEAR,
     PH_HIGH_TRIGGER,
+    PH_LOW_CLEAR,
     PH_LOW_TRIGGER,
 )
 from .fleet import DEFAULT_NODE_SPECS, FleetConfig
@@ -200,6 +205,25 @@ RPC_BUTTON_COMMANDS: tuple[tuple[str, str, str, str], ...] = (
 # Consistent action colors across all three nodes in the demo-controls dashboard.
 RPC_BUTTON_COLORS: tuple[str, ...] = ("#d32f2f", "#f57c00", "#1976d2", "#616161")
 
+# Incident Mode is presentation-only. It reads the same device attributes and
+# telemetry keys as the existing status cards and uses the existing alarm
+# thresholds, including their clear bands, solely to explain which measurements
+# are outside their safe range. It never creates, clears, acknowledges or
+# redefines a ThingsBoard alarm.
+INCIDENT_THRESHOLDS = {
+    "phLow": PH_LOW_TRIGGER,
+    "phHigh": PH_HIGH_TRIGGER,
+    "phLowClear": PH_LOW_CLEAR,
+    "phHighClear": PH_HIGH_CLEAR,
+    "turbidityWarning": HIGH_TURBIDITY_TRIGGER,
+    "turbidityClear": HIGH_TURBIDITY_CLEAR,
+    "turbidityCritical": GROSS_CONTAMINATION_TRIGGER,
+    "grossClear": GROSS_CONTAMINATION_CLEAR,
+    "tdsCritical": HIGH_TDS_TRIGGER,
+    "tdsClear": HIGH_TDS_CLEAR,
+}
+INCIDENT_THRESHOLDS_JS = "const T = " + json.dumps(INCIDENT_THRESHOLDS) + ";\n"
+
 CLOUD_WIDGET_FQNS: dict[str, tuple[str, str]] = {
     "system_status": ("cards.markdown_card", "latest"),
     "node_status": ("cards.markdown_card", "latest"),
@@ -218,8 +242,9 @@ CLOUD_WIDGET_FQNS: dict[str, tuple[str, str]] = {
 # A markdown card receives one row per resolved fleet device. ThingsBoard
 # exposes each value under its configured label ("Connectivity", "Water
 # status", ...), not the raw attribute name, so the helper below accepts both.
-# Status labels are derived from existing safetyStatus + active values, never
-# from invented readings or alarm records.
+# Status labels are derived from existing safetyStatus, active and measurement
+# values. A stale safetyStatus is never promoted to an incident without current
+# measurements that still fall inside the existing alarm hysteresis band.
 _STATUS_COMMON_JS = r"""
 const places = {"JalSanket-Node-01": "Dhunche", "JalSanket-Node-02": "Syafrubesi", "JalSanket-Node-03": "Rasuwagadhi"};
 const nodes = {"Dhunche": "JalSanket Node 01", "Syafrubesi": "JalSanket Node 02", "Rasuwagadhi": "JalSanket Node 03"};
@@ -227,52 +252,60 @@ const order = ["Dhunche", "Syafrubesi", "Rasuwagadhi"];
 const val = function (d, label, name) {
   return d[label] !== undefined ? d[label] : d[name];
 };
+const numberOrNull = function (v) {
+  const n = Number(v);
+  return isFinite(n) ? n : null;
+};
+const evidenceFor = function (ph, turbidity, tds, flow) {
+  return {
+    gross: turbidity !== null && turbidity > T.grossClear,
+    tdsHigh: tds !== null && tds > T.tdsClear,
+    phBad: ph !== null && (ph < T.phLowClear || ph > T.phHighClear),
+    warningTurbidity: turbidity !== null && turbidity > T.turbidityClear,
+    interrupted: flow === 0
+  };
+};
+const statusFor = function (active, safety, evidence) {
+  if (!active) return "OFFLINE";
+  const critical = evidence.gross || evidence.tdsHigh || evidence.phBad || evidence.interrupted;
+  if (safety === "UNSAFE" || safety === "CRITICAL") {
+    return critical ? "CRITICAL" : "STALE";
+  }
+  if (safety === "WARNING") {
+    if (critical) return "CRITICAL";
+    return evidence.warningTurbidity ? "WARNING" : "STALE";
+  }
+  return "SAFE";
+};
 const rows = data.map(function (d) {
   const location = places[val(d, "Location", "deviceName") || d.entityName] || d.entityName || "Unknown location";
   const rawActive = val(d, "Connectivity", "active");
   const active = rawActive === true || String(rawActive).toLowerCase() === "true";
   const safety = String(val(d, "Water status", "safetyStatus") || "").toUpperCase();
-  let status = "OFFLINE";
-  if (active) {
-    if (safety === "UNSAFE") status = "CRITICAL";
-    else if (safety === "WARNING") status = "WARNING";
-    else status = "SAFE";
-  }
+  const ph = numberOrNull(val(d, "pH reading", "ph"));
+  const turbidity = numberOrNull(val(d, "Turbidity reading", "turbidity_ntu"));
+  const tds = numberOrNull(val(d, "TDS reading", "tds_ppm"));
+  const flow = numberOrNull(val(d, "Flow", "flow_lpm"));
+  const evidence = evidenceFor(ph, turbidity, tds, flow);
   return {location: location, node: nodes[location] || "JalSanket node",
-          status: status, safety: safety, active: active,
-          flow: val(d, "Flow", "flow_lpm")};
+          status: statusFor(active, safety, evidence), safety: safety, active: active,
+          ph: ph, turbidity: turbidity, tds: tds, flow: flow, evidence: evidence};
 }).sort(function (a, b) { return order.indexOf(a.location) - order.indexOf(b.location); });
 const count = function (s) { return rows.filter(function (r) { return r.status === s; }).length; };
 const critical = rows.filter(function (r) { return r.status === "CRITICAL"; });
 const warning = rows.filter(function (r) { return r.status === "WARNING"; });
+const stale = rows.filter(function (r) { return r.status === "STALE"; });
 const offline = rows.filter(function (r) { return r.status === "OFFLINE"; });
 const clsFor = function (s) {
   if (s === "CRITICAL") return "crit";
   if (s === "WARNING") return "warn";
   if (s === "OFFLINE") return "off";
+  if (s === "STALE") return "stale";
   return "safe";
 };
 """
 
-# Incident Mode is presentation-only. It reads the same device attributes and
-# telemetry keys as the existing status cards and uses the existing alarm
-# thresholds solely to explain which measurements are outside their safe range.
-# It never creates, clears, acknowledges or redefines a ThingsBoard alarm.
-INCIDENT_THRESHOLDS = {
-    "phLow": PH_LOW_TRIGGER,
-    "phHigh": PH_HIGH_TRIGGER,
-    "turbidityWarning": HIGH_TURBIDITY_TRIGGER,
-    "turbidityCritical": GROSS_CONTAMINATION_TRIGGER,
-    "tdsCritical": HIGH_TDS_TRIGGER,
-}
-INCIDENT_THRESHOLDS_JS = "const T = " + json.dumps(INCIDENT_THRESHOLDS) + ";\n"
-
 _INCIDENT_STATUS_JS_BODY = r"""
-const fmtTime = function (ts) {
-  const n = Number(ts);
-  if (!isFinite(n) || n <= 0) return "latest reading";
-  try { return new Date(n).toLocaleTimeString(); } catch (e) { return "latest reading"; }
-};
 const phState = function (v) {
   const n = Number(v);
   if (!isFinite(n)) return "NO READING";
@@ -290,21 +323,11 @@ const tdsState = function (v) {
   if (!isFinite(n)) return "NO READING";
   return n > T.tdsCritical ? "CRITICAL" : "SAFE";
 };
-const detailByPlace = {};
-data.forEach(function (d) {
-  const location = places[val(d, "Location", "deviceName") || d.entityName] ||
-    d.entityName || "Unknown location";
-  detailByPlace[location] = d;
-});
 const incidentRows = rows.map(function (r) {
-  const d = detailByPlace[r.location] || {};
   return {
     location: r.location, node: r.node, status: r.status, safety: r.safety,
-    active: r.active, flow: r.flow,
-    ph: val(d, "pH reading", "ph"),
-    turbidity: val(d, "Turbidity reading", "turbidity_ntu"),
-    tds: val(d, "TDS reading", "tds_ppm"),
-    lastReading: fmtTime(d.ts || d["Last reading"])
+    active: r.active, flow: r.flow, ph: r.ph, turbidity: r.turbidity,
+    tds: r.tds, evidence: r.evidence, lastReading: "latest reading"
   };
 });
 const serious = incidentRows.filter(function (r) {
@@ -324,12 +347,12 @@ if (serious.length) {
   if (offline) {
     concerns.push("No recent data from the node");
   } else {
-    const turbidity = turbidityState(primary.turbidity);
-    if (turbidity === "CRITICAL") concerns.push("severe turbidity");
-    else if (turbidity === "WARNING") concerns.push("high turbidity");
-    if (tdsState(primary.tds) === "CRITICAL") concerns.push("high dissolved solids");
-    if (phState(primary.ph) === "CRITICAL") concerns.push("pH outside safe range");
-    if (interrupted) concerns.push("water supply interrupted");
+    const evidence = primary.evidence || {};
+    if (evidence.gross) concerns.push("severe turbidity");
+    else if (evidence.warningTurbidity) concerns.push("high turbidity");
+    if (evidence.tdsHigh) concerns.push("high dissolved solids");
+    if (evidence.phBad) concerns.push("pH outside safe range");
+    if (evidence.interrupted) concerns.push("water supply interrupted");
   }
   const primaryConcern = concerns.length ? concerns[0] : "unsafe water status reported";
   const explanation = offline
@@ -366,8 +389,9 @@ if (serious.length) {
     situation = "Water supply is interrupted at this source; the node is connected. This is not a connection loss.";
   }
   let scenarioNote = "";
-  if (!offline && turbidityState(primary.turbidity) !== "SAFE" &&
-      (tdsState(primary.tds) === "CRITICAL" || phState(primary.ph) === "CRITICAL")) {
+  const evidence = primary.evidence || {};
+  if (!offline && (evidence.gross || evidence.warningTurbidity) &&
+      (evidence.tdsHigh || evidence.phBad)) {
     scenarioNote = '<div class="js-incident-note">Simulated scenario note: this pattern is ' +
       'consistent with the scripted contamination demonstration. It does not identify a physical cause.</div>';
   }
@@ -406,10 +430,14 @@ if (critical.length) {
   cls = "warn"; level = "ATTENTION"; headline = offline.length + " monitoring location(s) offline";
   detail = offline.map(function (r) { return r.location; }).join(", ") +
     " has no recent data. The remaining locations report normal water status.";
+} else if (stale.length) {
+  cls = "warn"; level = "ATTENTION"; headline = "No active water-safety incident";
+  detail = stale.map(function (r) { return r.location; }).join(", ") +
+    " has a stored water status that current readings do not confirm. It is not shown as an incident.";
 }
 const summary = rows.length + " monitoring locations · " + count("SAFE") + " safe · " +
   count("WARNING") + " warning · " + count("CRITICAL") + " critical · " +
-  count("OFFLINE") + " offline";
+  count("STALE") + " unconfirmed · " + count("OFFLINE") + " offline";
 return incidentHtml + '<div class="js-system ' + cls + '">' +
   '<div class="js-system-context">Municipal Water Monitoring Authority · demonstration hierarchy</div>' +
   '<div class="js-system-area">Rasuwa Monitoring Area</div>' +
@@ -420,15 +448,16 @@ return incidentHtml + '<div class="js-system ' + cls + '">' +
   '</div>';
 """
 
-SYSTEM_STATUS_JS = _STATUS_COMMON_JS + INCIDENT_THRESHOLDS_JS + _INCIDENT_STATUS_JS_BODY
+SYSTEM_STATUS_JS = INCIDENT_THRESHOLDS_JS + _STATUS_COMMON_JS + _INCIDENT_STATUS_JS_BODY
 
-NODE_STATUS_JS = _STATUS_COMMON_JS + r"""
+NODE_STATUS_JS = INCIDENT_THRESHOLDS_JS + _STATUS_COMMON_JS + r"""
 const cards = rows.map(function (r) {
-  const overall = r.status === "OFFLINE" ? "OFFLINE" :
-    (r.safety || "UNKNOWN");
+  const overall = r.status === "STALE" ? "UNCONFIRMED" :
+    r.status === "OFFLINE" ? "OFFLINE" : (r.safety || "UNKNOWN");
   const alarm = r.status === "CRITICAL" ? "Critical — see alert below" :
     r.status === "WARNING" ? "Warning — see alert below" :
-    r.status === "OFFLINE" ? "Not available while offline" : "None";
+    r.status === "OFFLINE" ? "Not available while offline" :
+    r.status === "STALE" ? "Not confirmed by current readings" : "None";
   const flowNumber = Number(r.flow);
   let flow;
   if (!r.active) {
@@ -473,6 +502,7 @@ SYSTEM_STATUS_CSS = r"""
 .js-system.crit{border-left-color:#b71c1c;background:#c62828;color:#fff;}
 .js-system.warn{border-left-color:#ef6c00;background:#fff3e0;color:#e65100;}
 .js-system.off{border-left-color:#607d8b;background:#eceff1;color:#37474f;}
+.js-system.stale{border-left-color:#ef6c00;background:#fff8e1;color:#8d4e00;}
 .js-system-context{font-size:11px;font-weight:600;letter-spacing:.2px;opacity:.85;}
 .js-system-area{font-size:13px;font-weight:700;margin-top:1px;}
 .js-system-level{font-size:19px;font-weight:700;letter-spacing:.3px;margin-top:2px;}
@@ -505,6 +535,8 @@ NODE_STATUS_CSS = r"""
 .js-node.crit .js-node-status{background:#b71c1c;color:#fff;border:1px solid #fff;}
 .js-node.warn{border-left-color:#ef6c00;background:#fffaf2;}
 .js-node.off{border-left-color:#607d8b;background:#f7f9fa;}
+.js-node.stale{border-left-color:#ef6c00;background:#fffdf6;}
+.js-node-status.stale{background:#fff8e1;color:#8d4e00;}
 .js-node-head{display:flex;align-items:flex-start;justify-content:space-between;gap:8px;margin-bottom:4px;}
 .js-node-name{font-size:15px;font-weight:700;color:#263238;line-height:1.2;}
 .js-node-sub{font-size:10px;color:#607d8b;line-height:1.2;margin-top:1px;}
@@ -562,38 +594,61 @@ return '<div style="' + style + 'padding:6px 8px;border-radius:4px;min-width:280
   '<small style="color:#78909c;">(Detected ' + time + ')</small></div>';
 """
 
-# Map functions use the same existing attributes. The status word is part of
-# every marker label so severity is never communicated by colour alone.
-MAP_LABEL_FUNCTION = r"""
-var name = dsData[dsIndex]["entityName"] || dsData[dsIndex]["deviceName"] || "";
+# Map functions use the same existing attributes and measurement values. The
+# status word is part of every marker label so severity is never communicated
+# by colour alone. The same freshness guard prevents a stale safetyStatus from
+# marking a safe source as an incident.
+MAP_COMMON_JS = INCIDENT_THRESHOLDS_JS + r"""
+var mapNumber = function (v) {
+  var n = Number(v);
+  return isFinite(n) ? n : null;
+};
+var mapStatus = function (d) {
+  var rawActive = d["active"];
+  var active = rawActive === true || String(rawActive).toLowerCase() === "true";
+  var safety = String(d["safetyStatus"] || "").toUpperCase();
+  if (!active) return "OFFLINE";
+  var ph = mapNumber(d["ph"]);
+  var turbidity = mapNumber(d["turbidity_ntu"]);
+  var tds = mapNumber(d["tds_ppm"]);
+  var flow = mapNumber(d["flow_lpm"]);
+  var critical = (turbidity !== null && turbidity > T.grossClear) ||
+    (tds !== null && tds > T.tdsClear) ||
+    (ph !== null && (ph < T.phLowClear || ph > T.phHighClear)) || flow === 0;
+  if (safety === "UNSAFE" || safety === "CRITICAL") {
+    return critical ? "CRITICAL" : "STALE";
+  }
+  if (safety === "WARNING") {
+    if (critical) return "CRITICAL";
+    return turbidity !== null && turbidity > T.turbidityClear ? "WARNING" : "STALE";
+  }
+  return "SAFE";
+};
+"""
+
+MAP_LABEL_FUNCTION = MAP_COMMON_JS + r"""
+var d = dsData[dsIndex];
+var name = d["entityName"] || d["deviceName"] || "";
 var places = {"JalSanket-Node-01": "Dhunche", "JalSanket-Node-02": "Syafrubesi", "JalSanket-Node-03": "Rasuwagadhi"};
-var rawActive = dsData[dsIndex]["active"];
-var active = rawActive === true || String(rawActive).toLowerCase() === "true";
-var safety = String(dsData[dsIndex]["safetyStatus"] || "").toUpperCase();
-var status = !active ? "OFFLINE" : safety === "UNSAFE" ? "CRITICAL" : safety === "WARNING" ? "WARNING" : "SAFE";
+var status = mapStatus(d);
 var incident = status === "CRITICAL" || status === "OFFLINE" ? "INCIDENT · " : "";
 return incident + (places[name] || name) + " — " + status;
 """
 
-MAP_COLOR_FUNCTION = r"""
-var rawActive = dsData[dsIndex]["active"];
-var active = rawActive === true || String(rawActive).toLowerCase() === "true";
-var safety = String(dsData[dsIndex]["safetyStatus"] || "").toUpperCase();
-if (!active) return "#607d8b";
-if (safety === "UNSAFE") return "#c62828";
-if (safety === "WARNING") return "#ef6c00";
+MAP_COLOR_FUNCTION = MAP_COMMON_JS + r"""
+var status = mapStatus(dsData[dsIndex]);
+if (status === "OFFLINE") return "#607d8b";
+if (status === "CRITICAL") return "#c62828";
+if (status === "WARNING" || status === "STALE") return "#ef6c00";
 return "#2e7d32";
 """
 
-MAP_TOOLTIP_FUNCTION = r"""
+MAP_TOOLTIP_FUNCTION = MAP_COMMON_JS + r"""
 var d = dsData[dsIndex];
 var name = d["entityName"] || d["deviceName"] || "";
 var places = {"JalSanket-Node-01": "Dhunche", "JalSanket-Node-02": "Syafrubesi", "JalSanket-Node-03": "Rasuwagadhi"};
 var nodes = {"Dhunche": "JalSanket Node 01", "Syafrubesi": "JalSanket Node 02", "Rasuwagadhi": "JalSanket Node 03"};
-var rawActive = d["active"];
-var active = rawActive === true || String(rawActive).toLowerCase() === "true";
-var safety = String(d["safetyStatus"] || "").toUpperCase();
-var status = !active ? "OFFLINE" : safety === "UNSAFE" ? "CRITICAL" : safety === "WARNING" ? "WARNING" : "SAFE";
+var status = mapStatus(d);
 var place = places[name] || name;
 var lat = Number(d["latitude"]), lng = Number(d["longitude"]);
 return "<b>" + place + "</b><br/>Rasuwa Monitoring Area · water source" +
@@ -978,6 +1033,10 @@ def build_cloud_dashboard(device_ids: Optional[list[str]] = None,
             _cloud_key("longitude", "timeseries", "longitude", "#4caf50", 7),
             _cloud_key("safetyStatus", "attribute", "safetyStatus", "#607d8b"),
             _cloud_key("active", "attribute", "active", "#607d8b"),
+            _cloud_key("flow_lpm", "timeseries", "flow_lpm", "#1976d3", 1),
+            _cloud_key("ph", "timeseries", "ph", "#f44336", 2),
+            _cloud_key("turbidity_ntu", "timeseries", "turbidity_ntu", "#2196f3", 1),
+            _cloud_key("tds_ppm", "timeseries", "tds_ppm", "#4caf50", 1),
         ]),
         "settings": {
             "latKeyName": "latitude",

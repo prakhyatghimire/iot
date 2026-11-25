@@ -108,6 +108,30 @@ cards, ACTIVE alerts and the map.
   21→22, temperature/flow 26→27 and navigation 31→32. Ordering is unchanged.
 - No charts or decorative widgets were added.
 
+## 7A. Water Safety Incident Mode
+
+Incident Mode is a presentation state on the same 13 widgets; it is not a new
+alarm engine, dashboard state, entity or RPC method. Normal monitoring remains
+the default. A serious Critical/Major condition opens one fixed banner that
+names the water source, JalSanket node and severity, then lists the breached
+measurements and current values with units, the connectivity state, the other
+sources and where the real trend charts continue the history.
+
+The status cards and map markers reuse the existing `safetyStatus`, `active`,
+`ph`, `turbidity_ntu`, `tds_ppm` and `flow_lpm` values. They use both the
+existing alarm trigger thresholds and their clear bands (for example, a gross
+contamination alarm remains active until turbidity is below 150 NTU) to confirm
+that a stored unsafe status is still supported by current readings. A stale
+`UNSAFE` attribute with normal readings is shown as `STALE / UNCONFIRMED` and
+does not open an incident. Supply interruption with zero flow and a connected
+node is shown as Major, not as offline. Multiple serious conditions on one node
+are grouped into one banner.
+
+The ACTIVE alerts table remains the evidence panel and uses only real
+ThingsBoard alarm fields (`severity`, `originatorDisplayName`, type and real
+detection time). No fake Customer, User, Asset, relation, alarm, telemetry
+sample, timestamp or physical cause is introduced.
+
 ## 8. ThingsBoard Cloud limitations
 
 - No Customer, Asset, User or relation records exist; tenant limits are zero.
@@ -125,12 +149,14 @@ cards, ACTIVE alerts and the map.
 ## 9. Exact files changed
 
 - `jalsanket/dashboard.py` — presentation hierarchy, titles, widget rows, gauge
-  settings and colour bands.
+  settings, colour bands and Water Safety Incident Mode rendering.
 - `thingsboard/jalsanket_dashboard.json` — regenerated Cloud import artifact.
 - `verify_phase4.py` — hierarchy, demonstration-label and node-pairing assertions.
-- `README.md` — updated dashboard hierarchy description.
+- `verify_incident_mode.py` — normal, contamination, supply, grouped alarms,
+  stale-state, resolution, unaffected-node and preserved-widget checks.
+- `README.md` — updated dashboard hierarchy and Incident Mode description.
 - `evidence/dashboard_ux_revision_report.md` — pointer to this authoritative report.
-- This report and six screenshots below.
+- This report and the screenshots below.
 
 No provisioning, telemetry, storage, MQTT, alarm or RPC source file was changed.
 

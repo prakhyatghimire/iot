@@ -327,6 +327,33 @@ To export data, open a chart's three-dot menu and choose
 The dashboard timewindow uses a 10 s aggregation interval over the last hour
 (360 buckets), which stays inside ThingsBoard's per-query bucket limit — a
 5 s interval produced 720 buckets, HTTP 400 and empty chart/CSV exports.
+
+#### Water Safety Incident Mode
+
+The duty-officer view adds a presentation-only **Water Safety Incident Mode**
+on the same 13 widgets. Normal monitoring stays the default; a serious event
+opens a fixed banner that answers, in order: what happened, the affected water
+source and JalSanket node, severity, the measurements that breached existing
+thresholds, current values with units, the state of the other two sources, and
+a pointer to the existing trend charts for actual progression. Multiple serious
+alarms on one node are grouped into one panel, with Critical reported first and
+Supply Interruption shown as Major rather than a connection loss. Node cards add
+an incident-scope line, map markers add `INCIDENT · <source> — <status>` and
+tooltips say whether a source is affected. The ACTIVE alerts table remains the
+evidence panel and shows only real ThingBoard alarm fields, including its real
+Detected time when an alarm exists.
+
+Incident Mode derives state from the existing `safetyStatus`, `active`, flow,
+pH, turbidity and TDS values. It uses the existing alarm trigger **and clear**
+bands to confirm that a stored unsafe status is still supported by current
+measurements. If connectivity is fresh but `safetyStatus` is old and the
+readings are normal, the source is shown as `STALE / UNCONFIRMED`, not as a
+critical incident. No alarm, telemetry key, threshold, RPC method or device
+identity was added. Buffer depth/replay counts and exact incident timelines are
+not shown because this Cloud tenant does not expose `bufferDepth` or reliable
+alarm/telemetry history to the dashboard; the trend charts and real alarm table
+are the only history sources. No scenario note claims a physical cause.
+
 Demo controls live on a second, compact dashboard titled
 **JalSanket - Demo Controls** so the monitoring view stays uncluttered. It has
 twelve small RPC Button widgets in a 4 x 3 grid: **Trigger Contamination**,
