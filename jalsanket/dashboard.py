@@ -2,9 +2,10 @@
 
 ``build_dashboard()`` keeps the original CE-shaped artifact used by the local
 regression suite. ``build_cloud_dashboard()`` emits the ThingsBoard Cloud
-dashboard that was imported into the tenant; both answer the same question:
-"Which water source is unsafe right now?" Every widget is bound to one fleet
-alias, and the fleet-health table highlights ``safetyStatus``.
+dashboard with a demonstration information hierarchy: owner → area → water
+source → JalSanket node → measurements/alarms. Both answer the same question:
+"Which water source is unsafe right now?" Every Cloud widget is bound to the
+existing fleet alias and reads existing telemetry/attributes only.
 """
 
 from __future__ import annotations
@@ -18,9 +19,20 @@ from .alarm_rules import device_profile_alarm_config, rule_chain_document
 from .fleet import DEFAULT_NODE_SPECS, FleetConfig
 from .provisioning import TELEMETRY_KEYS, device_document
 
-DASHBOARD_TITLE = "JalSanket - Municipal Water Safety"
+DASHBOARD_TITLE = "JalSanket Water Safety — Rasuwa Monitoring Area"
 DEMO_CONTROLS_TITLE = "JalSanket - Demo Controls"
 FLEET_ALIAS = "fleet"
+
+# Demonstration-only organizational model. These strings describe the intended
+# information hierarchy; they do not claim real municipal ownership or a real
+# sensor deployment. No Cloud Customer/Asset entities are created.
+HIERARCHY_OWNER = "Municipal Water Monitoring Authority"
+HIERARCHY_AREA = "Rasuwa Monitoring Area"
+HIERARCHY_NOTE = "Demonstration hierarchy — no real municipal ownership or sensor deployment is claimed."
+HIERARCHY_CHAIN = (
+    f"{HIERARCHY_OWNER} → {HIERARCHY_AREA} → water source / location → "
+    "JalSanket IoT node → sensors / telemetry → alarms / events."
+)
 
 # Duty-officer labels for the three existing devices. These are presentation
 # names only: device names, IDs, tokens and telemetry keys are never changed.
@@ -203,6 +215,7 @@ CLOUD_WIDGET_FQNS: dict[str, tuple[str, str]] = {
 # from invented readings or alarm records.
 _STATUS_COMMON_JS = r"""
 const places = {"JalSanket-Node-01": "Dhunche", "JalSanket-Node-02": "Syafrubesi", "JalSanket-Node-03": "Rasuwagadhi"};
+const nodes = {"Dhunche": "JalSanket Node 01", "Syafrubesi": "JalSanket Node 02", "Rasuwagadhi": "JalSanket Node 03"};
 const order = ["Dhunche", "Syafrubesi", "Rasuwagadhi"];
 const val = function (d, label, name) {
   return d[label] !== undefined ? d[label] : d[name];
@@ -218,7 +231,8 @@ const rows = data.map(function (d) {
     else if (safety === "WARNING") status = "WARNING";
     else status = "SAFE";
   }
-  return {location: location, status: status, safety: safety, active: active,
+  return {location: location, node: nodes[location] || "JalSanket node",
+          status: status, safety: safety, active: active,
           flow: val(d, "Flow", "flow_lpm")};
 }).sort(function (a, b) { return order.indexOf(a.location) - order.indexOf(b.location); });
 const count = function (s) { return rows.filter(function (r) { return r.status === s; }).length; };
@@ -252,18 +266,22 @@ if (critical.length) {
   detail = offline.map(function (r) { return r.location; }).join(", ") +
     " has no recent data. The remaining locations report normal water status.";
 }
-const summary = rows.length + " locations · " + count("SAFE") + " safe · " +
+const summary = rows.length + " monitoring locations · " + count("SAFE") + " safe · " +
   count("WARNING") + " warning · " + count("CRITICAL") + " critical · " +
   count("OFFLINE") + " offline";
 let alertHtml = "";
 if (critical.length) {
-  const criticalPlaces = critical.map(function (r) { return r.location; }).join(", ");
+  const criticalPlaces = critical.map(function (r) {
+    return r.location + " (" + r.node + ")";
+  }).join(", ");
   alertHtml = '<div class="js-critical-alert" role="alert">' +
-    '<span class="js-critical-alert-title">CRITICAL ALERT</span> — ' +
+    '<span class="js-critical-alert-title">CRITICAL ALERT</span> — Rasuwa Monitoring Area / ' +
     criticalPlaces + ' has unsafe water status. Immediate attention required.' +
     '</div>';
 }
 return alertHtml + '<div class="js-system ' + cls + '">' +
+  '<div class="js-system-context">Municipal Water Monitoring Authority · demonstration hierarchy</div>' +
+  '<div class="js-system-area">Rasuwa Monitoring Area</div>' +
   '<div class="js-system-level">SYSTEM STATUS: ' + level + '</div>' +
   '<div class="js-system-headline">' + headline + '</div>' +
   '<div class="js-system-detail">' + detail + '</div>' +
@@ -275,8 +293,8 @@ NODE_STATUS_JS = _STATUS_COMMON_JS + r"""
 const cards = rows.map(function (r) {
   const overall = r.status === "OFFLINE" ? "OFFLINE" :
     (r.safety || "UNKNOWN");
-  const alarm = r.status === "CRITICAL" ? "Critical condition active" :
-    r.status === "WARNING" ? "Warning condition active" :
+  const alarm = r.status === "CRITICAL" ? "Critical — see alert below" :
+    r.status === "WARNING" ? "Warning — see alert below" :
     r.status === "OFFLINE" ? "Not available while offline" : "None";
   const flowNumber = Number(r.flow);
   let flow;
@@ -291,7 +309,9 @@ const cards = rows.map(function (r) {
   }
   const connectivity = r.active ? "Connected" : "No recent data";
   return '<div class="js-node ' + clsFor(r.status) + '">' +
-    '<div class="js-node-head"><span class="js-node-name">' + r.location + '</span>' +
+    '<div class="js-node-head"><div>' +
+    '<div class="js-node-name">' + r.location + '</div>' +
+    '<div class="js-node-sub">Water source · ' + r.node + '</div></div>' +
     '<span class="js-node-status ' + clsFor(r.status) + '">' + r.status + '</span></div>' +
     '<div class="js-node-row"><span>Overall water status</span><b>' + overall + '</b></div>' +
     '<div class="js-node-row"><span>Active alarm</span><b>' + alarm + '</b></div>' +
@@ -303,14 +323,16 @@ return '<div class="js-node-grid">' + cards + '</div>';
 """
 
 SYSTEM_STATUS_CSS = r"""
-.js-system{padding:14px 18px;border-radius:6px;border-left:8px solid #2e7d32;background:#e8f5e9;color:#1b5e20;height:100%;box-sizing:border-box;display:flex;flex-direction:column;justify-content:center;}
+.js-system{padding:10px 16px;border-radius:6px;border-left:8px solid #2e7d32;background:#e8f5e9;color:#1b5e20;height:100%;box-sizing:border-box;display:flex;flex-direction:column;justify-content:center;}
 .js-system.crit{border-left-color:#b71c1c;background:#c62828;color:#fff;}
 .js-system.warn{border-left-color:#ef6c00;background:#fff3e0;color:#e65100;}
 .js-system.off{border-left-color:#607d8b;background:#eceff1;color:#37474f;}
-.js-system-level{font-size:22px;font-weight:700;letter-spacing:.3px;}
-.js-system-headline{font-size:16px;font-weight:600;margin-top:2px;}
-.js-system-detail{font-size:14px;margin-top:3px;}
-.js-system-summary{font-size:12px;opacity:.85;margin-top:5px;}
+.js-system-context{font-size:11px;font-weight:600;letter-spacing:.2px;opacity:.85;}
+.js-system-area{font-size:13px;font-weight:700;margin-top:1px;}
+.js-system-level{font-size:19px;font-weight:700;letter-spacing:.3px;margin-top:2px;}
+.js-system-headline{font-size:14px;font-weight:600;margin-top:1px;}
+.js-system-detail{font-size:12px;margin-top:2px;}
+.js-system-summary{font-size:11px;opacity:.85;margin-top:3px;}
 .js-critical-alert{position:fixed;top:62px;right:24px;z-index:2147483000;max-width:520px;padding:12px 16px;border:2px solid #fff;border-radius:6px;background:#b71c1c;color:#fff;font-size:14px;line-height:1.4;box-shadow:0 6px 18px rgba(0,0,0,.35);pointer-events:none;animation:jsCriticalPulse 1.6s ease-in-out infinite;}
 .js-critical-alert-title{font-weight:800;letter-spacing:.4px;}
 @keyframes jsCriticalPulse{0%,100%{opacity:1}50%{opacity:.82}}
@@ -325,9 +347,11 @@ NODE_STATUS_CSS = r"""
 .js-node.crit .js-node-status{background:#b71c1c;color:#fff;border:1px solid #fff;}
 .js-node.warn{border-left-color:#ef6c00;background:#fffaf2;}
 .js-node.off{border-left-color:#607d8b;background:#f7f9fa;}
-.js-node-head{display:flex;align-items:center;justify-content:space-between;gap:8px;margin-bottom:6px;}
-.js-node-name{font-size:16px;font-weight:700;color:#263238;}
-.js-node-status{font-size:12px;font-weight:700;padding:3px 8px;border-radius:10px;background:#e8f5e9;color:#1b5e20;white-space:nowrap;}
+.js-node-head{display:flex;align-items:flex-start;justify-content:space-between;gap:8px;margin-bottom:4px;}
+.js-node-name{font-size:15px;font-weight:700;color:#263238;line-height:1.2;}
+.js-node-sub{font-size:10px;color:#607d8b;line-height:1.2;margin-top:1px;}
+.js-node.crit .js-node-name,.js-node.crit .js-node-sub{color:#fff;}
+.js-node-status{font-size:11px;font-weight:700;padding:3px 7px;border-radius:10px;background:#e8f5e9;color:#1b5e20;white-space:nowrap;}
 .js-node-status.warn{background:#fff3e0;color:#e65100;}
 .js-node-status.off{background:#eceff1;color:#37474f;}
 .js-node-row{display:grid;grid-template-columns:minmax(110px,42%) minmax(0,1fr);column-gap:8px;font-size:12px;line-height:1.55;color:#546e7a;border-top:1px solid #eef1f3;padding-top:3px;}
@@ -339,6 +363,7 @@ NODE_STATUS_CSS = r"""
 # only fields already supplied by ThingsBoard's alarm datasource.
 ALERT_CELL_FUNCTION = r"""
 var places = {"JalSanket-Node-01": "Dhunche", "JalSanket-Node-02": "Syafrubesi", "JalSanket-Node-03": "Rasuwagadhi"};
+var nodes = {"Dhunche": "JalSanket Node 01", "Syafrubesi": "JalSanket Node 02", "Rasuwagadhi": "JalSanket Node 03"};
 var problems = {
   "High Turbidity Warning": "Turbidity above safe level",
   "Gross Contamination Critical": "Turbidity critically high",
@@ -349,6 +374,7 @@ var problems = {
 };
 var sev = String(alarm.severity || "INFO").toUpperCase();
 var place = places[alarm.originatorDisplayName] || alarm.originatorDisplayName || "Unknown location";
+var node = nodes[place] || "";
 var problem = problems[value] || value;
 var ts = alarm.createdTime || alarm.startTs || Date.now();
 var time = new Date(ts).toLocaleString();
@@ -363,7 +389,9 @@ if (sev === "CRITICAL") {
 }
 return '<div style="' + style + 'padding:6px 8px;border-radius:4px;min-width:280px;box-sizing:border-box;">' +
   '<span style="' + badge + '">' + sev + '</span> ' +
-  '<b style="color:#263238;">' + place + '</b> — <span style="color:#37474f;">' + problem + '</span> ' +
+  '<b style="color:#263238;">' + place + '</b>' +
+  (node ? ' <small style="color:#607d8b;">(' + node + ')</small>' : '') +
+  ' — <span style="color:#37474f;">' + problem + '</span> ' +
   '<small style="color:#78909c;">(' + time + ')</small></div>';
 """
 
@@ -393,12 +421,15 @@ MAP_TOOLTIP_FUNCTION = r"""
 var d = dsData[dsIndex];
 var name = d["entityName"] || d["deviceName"] || "";
 var places = {"JalSanket-Node-01": "Dhunche", "JalSanket-Node-02": "Syafrubesi", "JalSanket-Node-03": "Rasuwagadhi"};
+var nodes = {"Dhunche": "JalSanket Node 01", "Syafrubesi": "JalSanket Node 02", "Rasuwagadhi": "JalSanket Node 03"};
 var rawActive = d["active"];
 var active = rawActive === true || String(rawActive).toLowerCase() === "true";
 var safety = String(d["safetyStatus"] || "").toUpperCase();
 var status = !active ? "OFFLINE" : safety === "UNSAFE" ? "CRITICAL" : safety === "WARNING" ? "WARNING" : "SAFE";
+var place = places[name] || name;
 var lat = Number(d["latitude"]), lng = Number(d["longitude"]);
-return "<b>" + (places[name] || name) + "</b><br/>Status: " + status +
+return "<b>" + place + "</b><br/>Rasuwa Monitoring Area · water source" +
+  "<br/>JalSanket node: " + (nodes[place] || name) + "<br/>Status: " + status +
   "<br/>Location: " + (isFinite(lat) ? lat.toFixed(4) : "n/a") + ", " +
   (isFinite(lng) ? lng.toFixed(4) : "n/a");
 """
@@ -633,14 +664,14 @@ def build_cloud_dashboard(device_ids: Optional[list[str]] = None,
         _cloud_key("active", "attribute", "Connectivity", "#607d8b"),
         _cloud_key("flow_lpm", "timeseries", "Flow", "#1976d3", 1),
     ]
-    add("system_status", "Overall system status", 24, 3, 0, 0,
+    add("system_status", "JalSanket Water Safety · Rasuwa Monitoring Area", 24, 4, 0, 0,
         _cloud_markdown_config(
-            "Overall system status", summary_keys,
+            "JalSanket Water Safety · Rasuwa Monitoring Area", summary_keys,
             javascript=SYSTEM_STATUS_JS, css=SYSTEM_STATUS_CSS,
         ))
-    add("node_status", "Monitoring locations / node status", 24, 5, 3, 0,
+    add("node_status", "Monitoring locations / water sources → JalSanket nodes", 24, 5, 4, 0,
         _cloud_markdown_config(
-            "Monitoring locations / node status", summary_keys,
+            "Monitoring locations / water sources → JalSanket nodes", summary_keys,
             javascript=NODE_STATUS_JS, css=NODE_STATUS_CSS,
         ))
 
@@ -650,7 +681,7 @@ def build_cloud_dashboard(device_ids: Optional[list[str]] = None,
         "cellContentFunction": ALERT_CELL_FUNCTION,
         "useCellContentFunctionOnExport": True,
     }
-    add("active_alerts", "Active alerts requiring attention", 12, 7, 8, 0, {
+    add("active_alerts", "Active alerts requiring attention · Rasuwa area", 12, 7, 9, 0, {
         "alarmSource": {
             "type": "entity",
             "entityAliasId": FLEET_ALIAS,
@@ -661,7 +692,7 @@ def build_cloud_dashboard(device_ids: Optional[list[str]] = None,
         "alarmStatusList": ["ACTIVE"],
         "configMode": "advanced",
         "settings": {
-            "alarmsTitle": "Active alerts",
+            "alarmsTitle": "Active alerts — Rasuwa Monitoring Area",
             "allowAcknowledgment": False,
             "allowAssign": False,
             "allowClear": False,
@@ -676,7 +707,7 @@ def build_cloud_dashboard(device_ids: Optional[list[str]] = None,
             "enableSelection": False,
         },
         "showTitle": True,
-        "title": "Active alerts requiring attention",
+        "title": "Active alerts requiring attention · Rasuwa area",
         "useDashboardTimewindow": False,
         # Alarm widgets subscribe with their own timewindow. Without this the
         # Cloud renderer passes null to subscribeForAlarms and throws
@@ -687,7 +718,7 @@ def build_cloud_dashboard(device_ids: Optional[list[str]] = None,
         },
     })
 
-    add("node_map", "Location overview (OpenStreetMap)", 12, 7, 8, 12, {
+    add("node_map", "Rasuwa area — water sources (OpenStreetMap)", 12, 7, 9, 12, {
         "datasources": _cloud_datasource([
             _cloud_key("latitude", "timeseries", "latitude", "#2196f3", 7),
             _cloud_key("longitude", "timeseries", "longitude", "#4caf50", 7),
@@ -712,25 +743,25 @@ def build_cloud_dashboard(device_ids: Optional[list[str]] = None,
             "tooltipFunction": MAP_TOOLTIP_FUNCTION,
         },
         "showTitle": True,
-        "title": "Location overview (OpenStreetMap)",
+        "title": "Rasuwa area — water sources (OpenStreetMap)",
     })
 
-    add("measurements_header", "Water-quality and operational measurements", 24, 1, 15, 0,
+    add("measurements_header", "Selected location / node details → measurements → trends", 24, 1, 16, 0,
         _cloud_markdown_config(
-            "Water-quality and operational measurements", [],
+            "Selected location / node details → measurements → trends", [],
             markdown=(
-                "**Detailed values for Dhunche** — gauges show its latest reading. "
-                "The trend charts below cover all three locations."
+                "**Dhunche water source · JalSanket Node 01** — current measurements "
+                "below belong to this node; the trend charts cover all three locations."
             ),
         ))
 
     node01_id = device_ids[0] if device_ids else None
     for widget_id, title, key_name, maximum, units, decimals, col in (
-        ("ph_gauge", "pH — Dhunche", "ph", 14, "pH", 2, 0),
-        ("turbidity_gauge", "Turbidity — Dhunche", "turbidity_ntu", 300, "NTU", 1, 8),
-        ("tds_gauge", "TDS — Dhunche", "tds_ppm", 1000, "ppm", 1, 16),
+        ("ph_gauge", "pH — Dhunche (Node 01)", "ph", 14, "pH", 2, 0),
+        ("turbidity_gauge", "Turbidity — Dhunche (Node 01)", "turbidity_ntu", 300, "NTU", 1, 8),
+        ("tds_gauge", "TDS — Dhunche (Node 01)", "tds_ppm", 1000, "ppm", 1, 16),
     ):
-        add(widget_id, title, 8, 5, 16, col, {
+        add(widget_id, title, 8, 5, 17, col, {
             "datasources": _cloud_device_datasource(node01_id, [
                 _cloud_key(key_name, "timeseries", "Dhunche", "#2196f3", decimals),
             ]),
@@ -776,7 +807,7 @@ def build_cloud_dashboard(device_ids: Optional[list[str]] = None,
         ("ph_series", "pH trend by location", "ph", "#f44336", 8),
         ("tds_series", "TDS trend by location (ppm)", "tds_ppm", "#4caf50", 16),
     ):
-        add(widget_id, title, 8, 5, 21, col, {
+        add(widget_id, title, 8, 5, 22, col, {
             "datasources": _cloud_location_datasources(
                 device_ids, key_name, color, 2,
             ),
@@ -789,7 +820,7 @@ def build_cloud_dashboard(device_ids: Optional[list[str]] = None,
     for widget_id, title, key_names in (
         ("temp_flow", "Water temperature and flow", ("water_temp_c", "flow_lpm")),
     ):
-        add(widget_id, title, 24, 5, 26, 0, {
+        add(widget_id, title, 24, 5, 27, 0, {
             "datasources": _cloud_datasource([
                 _cloud_key(name, "timeseries", name, color, 2)
                 for name, color in zip(key_names, ("#2196f3", "#f44336"))
@@ -802,7 +833,7 @@ def build_cloud_dashboard(device_ids: Optional[list[str]] = None,
 
     nav = _navigation_button(
         "nav_to_demo_controls", "Go to Demo Controls", "arrow_forward",
-        DEMO_CONTROLS_DASHBOARD_ID, 31, 9,
+        DEMO_CONTROLS_DASHBOARD_ID, 32, 9,
     )
     widgets[nav["id"]] = nav
     layout[nav["id"]] = {"col": nav["col"], "row": nav["row"],
@@ -812,8 +843,9 @@ def build_cloud_dashboard(device_ids: Optional[list[str]] = None,
         "title": DASHBOARD_TITLE,
         "configuration": {
             "description": (
-                "Municipal water-safety overview for three JalSanket Cloud nodes. "
-                "Telemetry keys: " + ", ".join(TELEMETRY_KEYS) + "."
+                HIERARCHY_CHAIN + " " + HIERARCHY_NOTE +
+                " Existing Cloud devices, alias and telemetry keys only: " +
+                ", ".join(TELEMETRY_KEYS) + "."
             ),
             "widgets": widgets,
             "states": {

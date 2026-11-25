@@ -402,6 +402,18 @@ def main() -> int:
               and "role=\"alert\"" in status_js
               and "position:fixed" in system_css
               and "background:#b71c1c" in system_css)
+        check("overall status names the demonstration owner and area",
+              "Municipal Water Monitoring Authority" in status_js
+              and "Rasuwa Monitoring Area" in status_js
+              and "demonstration hierarchy" in status_js)
+        check("location cards pair each water source with its node",
+              all(token in node_js
+                  for token in ("JalSanket Node 01", "JalSanket Node 02",
+                                "JalSanket Node 03", "Water source")))
+        check("area hierarchy is labelled as a demonstration, not real ownership",
+              "Demonstration hierarchy" in main_dash["configuration"]["description"]
+              and "no real municipal ownership" in
+              main_dash["configuration"]["description"].lower())
 
         alert_cfg = main_dash["configuration"]["widgets"]["active_alerts"]["config"]
         alert_key = alert_cfg["alarmSource"]["dataKeys"][0]
@@ -411,6 +423,7 @@ def main() -> int:
               and alert_cfg["settings"]["defaultSortOrder"] == "-severity"
               and alert_key["settings"]["useCellContentFunction"] is True
               and "Dhunche" in alert_key["settings"]["cellContentFunction"]
+              and "JalSanket Node 02" in alert_key["settings"]["cellContentFunction"]
               and "createdTime" in alert_key["settings"]["cellContentFunction"])
 
         map_settings = main_dash["configuration"]["widgets"]["node_map"]["config"]["settings"]
@@ -418,7 +431,9 @@ def main() -> int:
               map_settings["useLabelFunction"] is True
               and map_settings["useColorFunction"] is True
               and all(place in map_settings["labelFunction"]
-                      for place in ("Dhunche", "Syafrubesi", "Rasuwagadhi")))
+                      for place in ("Dhunche", "Syafrubesi", "Rasuwagadhi"))
+              and "Rasuwa Monitoring Area" in map_settings["tooltipFunction"]
+              and "JalSanket node:" in map_settings["tooltipFunction"])
 
         gauges = [w for w in main_dash["configuration"]["widgets"].values()
                   if w["typeFullFqn"] == "system.digital_gauges.gauge_justgage"]
@@ -426,9 +441,9 @@ def main() -> int:
               len(gauges) == 3 and all(w["config"]["settings"]["showTitle"] is False
                                        for w in gauges))
         expected_gauge_titles = {
-            "ph_gauge": "pH — Dhunche",
-            "turbidity_gauge": "Turbidity — Dhunche",
-            "tds_gauge": "TDS — Dhunche",
+            "ph_gauge": "pH — Dhunche (Node 01)",
+            "turbidity_gauge": "Turbidity — Dhunche (Node 01)",
+            "tds_gauge": "TDS — Dhunche (Node 01)",
         }
         check("monitoring gauges use human-readable location titles",
               {w["id"]: w["config"]["title"] for w in gauges} == expected_gauge_titles)

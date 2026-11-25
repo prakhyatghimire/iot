@@ -1,13 +1,13 @@
 {
-  "title": "JalSanket - Municipal Water Safety",
+  "title": "JalSanket Water Safety \u2014 Rasuwa Monitoring Area",
   "configuration": {
-    "description": "Municipal water-safety overview for three JalSanket Cloud nodes. Telemetry keys: ph, turbidity_ntu, tds_ppm, water_temp_c, flow_lpm, latitude, longitude.",
+    "description": "Municipal Water Monitoring Authority \u2192 Rasuwa Monitoring Area \u2192 water source / location \u2192 JalSanket IoT node \u2192 sensors / telemetry \u2192 alarms / events. Demonstration hierarchy \u2014 no real municipal ownership or sensor deployment is claimed. Existing Cloud devices, alias and telemetry keys only: ph, turbidity_ntu, tds_ppm, water_temp_c, flow_lpm, latitude, longitude.",
     "widgets": {
       "system_status": {
         "typeFullFqn": "system.cards.markdown_card",
         "type": "latest",
         "sizeX": 24,
-        "sizeY": 3,
+        "sizeY": 4,
         "config": {
           "datasources": [
             {
@@ -65,11 +65,11 @@
             "applyDefaultMarkdownStyle": true,
             "markdownTextPattern": "",
             "useMarkdownTextFunction": true,
-            "markdownTextFunction": "\nconst places = {\"JalSanket-Node-01\": \"Dhunche\", \"JalSanket-Node-02\": \"Syafrubesi\", \"JalSanket-Node-03\": \"Rasuwagadhi\"};\nconst order = [\"Dhunche\", \"Syafrubesi\", \"Rasuwagadhi\"];\nconst val = function (d, label, name) {\n  return d[label] !== undefined ? d[label] : d[name];\n};\nconst rows = data.map(function (d) {\n  const location = places[val(d, \"Location\", \"deviceName\") || d.entityName] || d.entityName || \"Unknown location\";\n  const rawActive = val(d, \"Connectivity\", \"active\");\n  const active = rawActive === true || String(rawActive).toLowerCase() === \"true\";\n  const safety = String(val(d, \"Water status\", \"safetyStatus\") || \"\").toUpperCase();\n  let status = \"OFFLINE\";\n  if (active) {\n    if (safety === \"UNSAFE\") status = \"CRITICAL\";\n    else if (safety === \"WARNING\") status = \"WARNING\";\n    else status = \"SAFE\";\n  }\n  return {location: location, status: status, safety: safety, active: active,\n          flow: val(d, \"Flow\", \"flow_lpm\")};\n}).sort(function (a, b) { return order.indexOf(a.location) - order.indexOf(b.location); });\nconst count = function (s) { return rows.filter(function (r) { return r.status === s; }).length; };\nconst critical = rows.filter(function (r) { return r.status === \"CRITICAL\"; });\nconst warning = rows.filter(function (r) { return r.status === \"WARNING\"; });\nconst offline = rows.filter(function (r) { return r.status === \"OFFLINE\"; });\nconst clsFor = function (s) {\n  if (s === \"CRITICAL\") return \"crit\";\n  if (s === \"WARNING\") return \"warn\";\n  if (s === \"OFFLINE\") return \"off\";\n  return \"safe\";\n};\n\nlet cls = \"safe\", level = \"SAFE\", headline = \"All monitored locations normal\";\nlet detail = \"No active warning or critical condition is reported.\";\nif (critical.length) {\n  cls = \"crit\"; level = \"CRITICAL\"; headline = \"Immediate attention required\";\n  detail = critical.map(function (r) { return r.location; }).join(\", \") +\n    \" has an unsafe water status. Review the active alert below.\";\n} else if (warning.length) {\n  cls = \"warn\"; level = \"WARNING\"; headline = \"Attention required\";\n  detail = warning.map(function (r) { return r.location; }).join(\", \") +\n    \" has an active warning condition.\";\n} else if (offline.length === rows.length) {\n  cls = \"off\"; level = \"OFFLINE\"; headline = \"No recent data from any location\";\n  detail = \"All three monitoring locations are offline. Confirm connectivity before relying on this view.\";\n} else if (offline.length) {\n  cls = \"warn\"; level = \"ATTENTION\"; headline = offline.length + \" monitoring location(s) offline\";\n  detail = offline.map(function (r) { return r.location; }).join(\", \") +\n    \" has no recent data. The remaining locations report normal water status.\";\n}\nconst summary = rows.length + \" locations \u00b7 \" + count(\"SAFE\") + \" safe \u00b7 \" +\n  count(\"WARNING\") + \" warning \u00b7 \" + count(\"CRITICAL\") + \" critical \u00b7 \" +\n  count(\"OFFLINE\") + \" offline\";\nlet alertHtml = \"\";\nif (critical.length) {\n  const criticalPlaces = critical.map(function (r) { return r.location; }).join(\", \");\n  alertHtml = '<div class=\"js-critical-alert\" role=\"alert\">' +\n    '<span class=\"js-critical-alert-title\">CRITICAL ALERT</span> \u2014 ' +\n    criticalPlaces + ' has unsafe water status. Immediate attention required.' +\n    '</div>';\n}\nreturn alertHtml + '<div class=\"js-system ' + cls + '\">' +\n  '<div class=\"js-system-level\">SYSTEM STATUS: ' + level + '</div>' +\n  '<div class=\"js-system-headline\">' + headline + '</div>' +\n  '<div class=\"js-system-detail\">' + detail + '</div>' +\n  '<div class=\"js-system-summary\">' + summary + '</div>' +\n  '</div>';\n",
-            "markdownCss": "\n.js-system{padding:14px 18px;border-radius:6px;border-left:8px solid #2e7d32;background:#e8f5e9;color:#1b5e20;height:100%;box-sizing:border-box;display:flex;flex-direction:column;justify-content:center;}\n.js-system.crit{border-left-color:#b71c1c;background:#c62828;color:#fff;}\n.js-system.warn{border-left-color:#ef6c00;background:#fff3e0;color:#e65100;}\n.js-system.off{border-left-color:#607d8b;background:#eceff1;color:#37474f;}\n.js-system-level{font-size:22px;font-weight:700;letter-spacing:.3px;}\n.js-system-headline{font-size:16px;font-weight:600;margin-top:2px;}\n.js-system-detail{font-size:14px;margin-top:3px;}\n.js-system-summary{font-size:12px;opacity:.85;margin-top:5px;}\n.js-critical-alert{position:fixed;top:62px;right:24px;z-index:2147483000;max-width:520px;padding:12px 16px;border:2px solid #fff;border-radius:6px;background:#b71c1c;color:#fff;font-size:14px;line-height:1.4;box-shadow:0 6px 18px rgba(0,0,0,.35);pointer-events:none;animation:jsCriticalPulse 1.6s ease-in-out infinite;}\n.js-critical-alert-title{font-weight:800;letter-spacing:.4px;}\n@keyframes jsCriticalPulse{0%,100%{opacity:1}50%{opacity:.82}}\n"
+            "markdownTextFunction": "\nconst places = {\"JalSanket-Node-01\": \"Dhunche\", \"JalSanket-Node-02\": \"Syafrubesi\", \"JalSanket-Node-03\": \"Rasuwagadhi\"};\nconst nodes = {\"Dhunche\": \"JalSanket Node 01\", \"Syafrubesi\": \"JalSanket Node 02\", \"Rasuwagadhi\": \"JalSanket Node 03\"};\nconst order = [\"Dhunche\", \"Syafrubesi\", \"Rasuwagadhi\"];\nconst val = function (d, label, name) {\n  return d[label] !== undefined ? d[label] : d[name];\n};\nconst rows = data.map(function (d) {\n  const location = places[val(d, \"Location\", \"deviceName\") || d.entityName] || d.entityName || \"Unknown location\";\n  const rawActive = val(d, \"Connectivity\", \"active\");\n  const active = rawActive === true || String(rawActive).toLowerCase() === \"true\";\n  const safety = String(val(d, \"Water status\", \"safetyStatus\") || \"\").toUpperCase();\n  let status = \"OFFLINE\";\n  if (active) {\n    if (safety === \"UNSAFE\") status = \"CRITICAL\";\n    else if (safety === \"WARNING\") status = \"WARNING\";\n    else status = \"SAFE\";\n  }\n  return {location: location, node: nodes[location] || \"JalSanket node\",\n          status: status, safety: safety, active: active,\n          flow: val(d, \"Flow\", \"flow_lpm\")};\n}).sort(function (a, b) { return order.indexOf(a.location) - order.indexOf(b.location); });\nconst count = function (s) { return rows.filter(function (r) { return r.status === s; }).length; };\nconst critical = rows.filter(function (r) { return r.status === \"CRITICAL\"; });\nconst warning = rows.filter(function (r) { return r.status === \"WARNING\"; });\nconst offline = rows.filter(function (r) { return r.status === \"OFFLINE\"; });\nconst clsFor = function (s) {\n  if (s === \"CRITICAL\") return \"crit\";\n  if (s === \"WARNING\") return \"warn\";\n  if (s === \"OFFLINE\") return \"off\";\n  return \"safe\";\n};\n\nlet cls = \"safe\", level = \"SAFE\", headline = \"All monitored locations normal\";\nlet detail = \"No active warning or critical condition is reported.\";\nif (critical.length) {\n  cls = \"crit\"; level = \"CRITICAL\"; headline = \"Immediate attention required\";\n  detail = critical.map(function (r) { return r.location; }).join(\", \") +\n    \" has an unsafe water status. Review the active alert below.\";\n} else if (warning.length) {\n  cls = \"warn\"; level = \"WARNING\"; headline = \"Attention required\";\n  detail = warning.map(function (r) { return r.location; }).join(\", \") +\n    \" has an active warning condition.\";\n} else if (offline.length === rows.length) {\n  cls = \"off\"; level = \"OFFLINE\"; headline = \"No recent data from any location\";\n  detail = \"All three monitoring locations are offline. Confirm connectivity before relying on this view.\";\n} else if (offline.length) {\n  cls = \"warn\"; level = \"ATTENTION\"; headline = offline.length + \" monitoring location(s) offline\";\n  detail = offline.map(function (r) { return r.location; }).join(\", \") +\n    \" has no recent data. The remaining locations report normal water status.\";\n}\nconst summary = rows.length + \" monitoring locations \u00b7 \" + count(\"SAFE\") + \" safe \u00b7 \" +\n  count(\"WARNING\") + \" warning \u00b7 \" + count(\"CRITICAL\") + \" critical \u00b7 \" +\n  count(\"OFFLINE\") + \" offline\";\nlet alertHtml = \"\";\nif (critical.length) {\n  const criticalPlaces = critical.map(function (r) {\n    return r.location + \" (\" + r.node + \")\";\n  }).join(\", \");\n  alertHtml = '<div class=\"js-critical-alert\" role=\"alert\">' +\n    '<span class=\"js-critical-alert-title\">CRITICAL ALERT</span> \u2014 Rasuwa Monitoring Area / ' +\n    criticalPlaces + ' has unsafe water status. Immediate attention required.' +\n    '</div>';\n}\nreturn alertHtml + '<div class=\"js-system ' + cls + '\">' +\n  '<div class=\"js-system-context\">Municipal Water Monitoring Authority \u00b7 demonstration hierarchy</div>' +\n  '<div class=\"js-system-area\">Rasuwa Monitoring Area</div>' +\n  '<div class=\"js-system-level\">SYSTEM STATUS: ' + level + '</div>' +\n  '<div class=\"js-system-headline\">' + headline + '</div>' +\n  '<div class=\"js-system-detail\">' + detail + '</div>' +\n  '<div class=\"js-system-summary\">' + summary + '</div>' +\n  '</div>';\n",
+            "markdownCss": "\n.js-system{padding:10px 16px;border-radius:6px;border-left:8px solid #2e7d32;background:#e8f5e9;color:#1b5e20;height:100%;box-sizing:border-box;display:flex;flex-direction:column;justify-content:center;}\n.js-system.crit{border-left-color:#b71c1c;background:#c62828;color:#fff;}\n.js-system.warn{border-left-color:#ef6c00;background:#fff3e0;color:#e65100;}\n.js-system.off{border-left-color:#607d8b;background:#eceff1;color:#37474f;}\n.js-system-context{font-size:11px;font-weight:600;letter-spacing:.2px;opacity:.85;}\n.js-system-area{font-size:13px;font-weight:700;margin-top:1px;}\n.js-system-level{font-size:19px;font-weight:700;letter-spacing:.3px;margin-top:2px;}\n.js-system-headline{font-size:14px;font-weight:600;margin-top:1px;}\n.js-system-detail{font-size:12px;margin-top:2px;}\n.js-system-summary{font-size:11px;opacity:.85;margin-top:3px;}\n.js-critical-alert{position:fixed;top:62px;right:24px;z-index:2147483000;max-width:520px;padding:12px 16px;border:2px solid #fff;border-radius:6px;background:#b71c1c;color:#fff;font-size:14px;line-height:1.4;box-shadow:0 6px 18px rgba(0,0,0,.35);pointer-events:none;animation:jsCriticalPulse 1.6s ease-in-out infinite;}\n.js-critical-alert-title{font-weight:800;letter-spacing:.4px;}\n@keyframes jsCriticalPulse{0%,100%{opacity:1}50%{opacity:.82}}\n"
           },
           "showTitle": true,
-          "title": "Overall system status"
+          "title": "JalSanket Water Safety \u00b7 Rasuwa Monitoring Area"
         },
         "row": 0,
         "col": 0,
@@ -137,13 +137,13 @@
             "applyDefaultMarkdownStyle": true,
             "markdownTextPattern": "",
             "useMarkdownTextFunction": true,
-            "markdownTextFunction": "\nconst places = {\"JalSanket-Node-01\": \"Dhunche\", \"JalSanket-Node-02\": \"Syafrubesi\", \"JalSanket-Node-03\": \"Rasuwagadhi\"};\nconst order = [\"Dhunche\", \"Syafrubesi\", \"Rasuwagadhi\"];\nconst val = function (d, label, name) {\n  return d[label] !== undefined ? d[label] : d[name];\n};\nconst rows = data.map(function (d) {\n  const location = places[val(d, \"Location\", \"deviceName\") || d.entityName] || d.entityName || \"Unknown location\";\n  const rawActive = val(d, \"Connectivity\", \"active\");\n  const active = rawActive === true || String(rawActive).toLowerCase() === \"true\";\n  const safety = String(val(d, \"Water status\", \"safetyStatus\") || \"\").toUpperCase();\n  let status = \"OFFLINE\";\n  if (active) {\n    if (safety === \"UNSAFE\") status = \"CRITICAL\";\n    else if (safety === \"WARNING\") status = \"WARNING\";\n    else status = \"SAFE\";\n  }\n  return {location: location, status: status, safety: safety, active: active,\n          flow: val(d, \"Flow\", \"flow_lpm\")};\n}).sort(function (a, b) { return order.indexOf(a.location) - order.indexOf(b.location); });\nconst count = function (s) { return rows.filter(function (r) { return r.status === s; }).length; };\nconst critical = rows.filter(function (r) { return r.status === \"CRITICAL\"; });\nconst warning = rows.filter(function (r) { return r.status === \"WARNING\"; });\nconst offline = rows.filter(function (r) { return r.status === \"OFFLINE\"; });\nconst clsFor = function (s) {\n  if (s === \"CRITICAL\") return \"crit\";\n  if (s === \"WARNING\") return \"warn\";\n  if (s === \"OFFLINE\") return \"off\";\n  return \"safe\";\n};\n\nconst cards = rows.map(function (r) {\n  const overall = r.status === \"OFFLINE\" ? \"OFFLINE\" :\n    (r.safety || \"UNKNOWN\");\n  const alarm = r.status === \"CRITICAL\" ? \"Critical condition active\" :\n    r.status === \"WARNING\" ? \"Warning condition active\" :\n    r.status === \"OFFLINE\" ? \"Not available while offline\" : \"None\";\n  const flowNumber = Number(r.flow);\n  let flow;\n  if (!r.active) {\n    flow = \"No recent reading\";\n  } else if (r.active && isFinite(flowNumber) && flowNumber > 0) {\n    flow = \"Flowing \u00b7 \" + flowNumber.toFixed(1) + \" L/min\";\n  } else if (r.active && flowNumber === 0) {\n    flow = \"No flow reported\";\n  } else {\n    flow = \"No recent reading\";\n  }\n  const connectivity = r.active ? \"Connected\" : \"No recent data\";\n  return '<div class=\"js-node ' + clsFor(r.status) + '\">' +\n    '<div class=\"js-node-head\"><span class=\"js-node-name\">' + r.location + '</span>' +\n    '<span class=\"js-node-status ' + clsFor(r.status) + '\">' + r.status + '</span></div>' +\n    '<div class=\"js-node-row\"><span>Overall water status</span><b>' + overall + '</b></div>' +\n    '<div class=\"js-node-row\"><span>Active alarm</span><b>' + alarm + '</b></div>' +\n    '<div class=\"js-node-row\"><span>Flow status</span><b>' + flow + '</b></div>' +\n    '<div class=\"js-node-row\"><span>Connectivity</span><b>' + connectivity + '</b></div>' +\n    '</div>';\n}).join(\"\");\nreturn '<div class=\"js-node-grid\">' + cards + '</div>';\n",
-            "markdownCss": "\n.js-node-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:10px;padding:8px;box-sizing:border-box;}\n.js-node{border:1px solid #d9dee3;border-left:6px solid #2e7d32;border-radius:5px;background:#fff;padding:8px 10px;min-width:0;}\n.js-node.crit{border:1px solid #b71c1c;border-left:6px solid #b71c1c;background:#c62828;color:#fff;}\n.js-node.crit .js-node-name,.js-node.crit .js-node-row,.js-node.crit .js-node-row b{color:#fff;}\n.js-node.crit .js-node-row{border-top-color:rgba(255,255,255,.35);}\n.js-node.crit .js-node-status{background:#b71c1c;color:#fff;border:1px solid #fff;}\n.js-node.warn{border-left-color:#ef6c00;background:#fffaf2;}\n.js-node.off{border-left-color:#607d8b;background:#f7f9fa;}\n.js-node-head{display:flex;align-items:center;justify-content:space-between;gap:8px;margin-bottom:6px;}\n.js-node-name{font-size:16px;font-weight:700;color:#263238;}\n.js-node-status{font-size:12px;font-weight:700;padding:3px 8px;border-radius:10px;background:#e8f5e9;color:#1b5e20;white-space:nowrap;}\n.js-node-status.warn{background:#fff3e0;color:#e65100;}\n.js-node-status.off{background:#eceff1;color:#37474f;}\n.js-node-row{display:grid;grid-template-columns:minmax(110px,42%) minmax(0,1fr);column-gap:8px;font-size:12px;line-height:1.55;color:#546e7a;border-top:1px solid #eef1f3;padding-top:3px;}\n.js-node-row span,.js-node-row b{min-width:0;}\n.js-node-row b{color:#263238;font-weight:600;text-align:left;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;}\n"
+            "markdownTextFunction": "\nconst places = {\"JalSanket-Node-01\": \"Dhunche\", \"JalSanket-Node-02\": \"Syafrubesi\", \"JalSanket-Node-03\": \"Rasuwagadhi\"};\nconst nodes = {\"Dhunche\": \"JalSanket Node 01\", \"Syafrubesi\": \"JalSanket Node 02\", \"Rasuwagadhi\": \"JalSanket Node 03\"};\nconst order = [\"Dhunche\", \"Syafrubesi\", \"Rasuwagadhi\"];\nconst val = function (d, label, name) {\n  return d[label] !== undefined ? d[label] : d[name];\n};\nconst rows = data.map(function (d) {\n  const location = places[val(d, \"Location\", \"deviceName\") || d.entityName] || d.entityName || \"Unknown location\";\n  const rawActive = val(d, \"Connectivity\", \"active\");\n  const active = rawActive === true || String(rawActive).toLowerCase() === \"true\";\n  const safety = String(val(d, \"Water status\", \"safetyStatus\") || \"\").toUpperCase();\n  let status = \"OFFLINE\";\n  if (active) {\n    if (safety === \"UNSAFE\") status = \"CRITICAL\";\n    else if (safety === \"WARNING\") status = \"WARNING\";\n    else status = \"SAFE\";\n  }\n  return {location: location, node: nodes[location] || \"JalSanket node\",\n          status: status, safety: safety, active: active,\n          flow: val(d, \"Flow\", \"flow_lpm\")};\n}).sort(function (a, b) { return order.indexOf(a.location) - order.indexOf(b.location); });\nconst count = function (s) { return rows.filter(function (r) { return r.status === s; }).length; };\nconst critical = rows.filter(function (r) { return r.status === \"CRITICAL\"; });\nconst warning = rows.filter(function (r) { return r.status === \"WARNING\"; });\nconst offline = rows.filter(function (r) { return r.status === \"OFFLINE\"; });\nconst clsFor = function (s) {\n  if (s === \"CRITICAL\") return \"crit\";\n  if (s === \"WARNING\") return \"warn\";\n  if (s === \"OFFLINE\") return \"off\";\n  return \"safe\";\n};\n\nconst cards = rows.map(function (r) {\n  const overall = r.status === \"OFFLINE\" ? \"OFFLINE\" :\n    (r.safety || \"UNKNOWN\");\n  const alarm = r.status === \"CRITICAL\" ? \"Critical \u2014 see alert below\" :\n    r.status === \"WARNING\" ? \"Warning \u2014 see alert below\" :\n    r.status === \"OFFLINE\" ? \"Not available while offline\" : \"None\";\n  const flowNumber = Number(r.flow);\n  let flow;\n  if (!r.active) {\n    flow = \"No recent reading\";\n  } else if (r.active && isFinite(flowNumber) && flowNumber > 0) {\n    flow = \"Flowing \u00b7 \" + flowNumber.toFixed(1) + \" L/min\";\n  } else if (r.active && flowNumber === 0) {\n    flow = \"No flow reported\";\n  } else {\n    flow = \"No recent reading\";\n  }\n  const connectivity = r.active ? \"Connected\" : \"No recent data\";\n  return '<div class=\"js-node ' + clsFor(r.status) + '\">' +\n    '<div class=\"js-node-head\"><div>' +\n    '<div class=\"js-node-name\">' + r.location + '</div>' +\n    '<div class=\"js-node-sub\">Water source \u00b7 ' + r.node + '</div></div>' +\n    '<span class=\"js-node-status ' + clsFor(r.status) + '\">' + r.status + '</span></div>' +\n    '<div class=\"js-node-row\"><span>Overall water status</span><b>' + overall + '</b></div>' +\n    '<div class=\"js-node-row\"><span>Active alarm</span><b>' + alarm + '</b></div>' +\n    '<div class=\"js-node-row\"><span>Flow status</span><b>' + flow + '</b></div>' +\n    '<div class=\"js-node-row\"><span>Connectivity</span><b>' + connectivity + '</b></div>' +\n    '</div>';\n}).join(\"\");\nreturn '<div class=\"js-node-grid\">' + cards + '</div>';\n",
+            "markdownCss": "\n.js-node-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:10px;padding:8px;box-sizing:border-box;}\n.js-node{border:1px solid #d9dee3;border-left:6px solid #2e7d32;border-radius:5px;background:#fff;padding:8px 10px;min-width:0;}\n.js-node.crit{border:1px solid #b71c1c;border-left:6px solid #b71c1c;background:#c62828;color:#fff;}\n.js-node.crit .js-node-name,.js-node.crit .js-node-row,.js-node.crit .js-node-row b{color:#fff;}\n.js-node.crit .js-node-row{border-top-color:rgba(255,255,255,.35);}\n.js-node.crit .js-node-status{background:#b71c1c;color:#fff;border:1px solid #fff;}\n.js-node.warn{border-left-color:#ef6c00;background:#fffaf2;}\n.js-node.off{border-left-color:#607d8b;background:#f7f9fa;}\n.js-node-head{display:flex;align-items:flex-start;justify-content:space-between;gap:8px;margin-bottom:4px;}\n.js-node-name{font-size:15px;font-weight:700;color:#263238;line-height:1.2;}\n.js-node-sub{font-size:10px;color:#607d8b;line-height:1.2;margin-top:1px;}\n.js-node.crit .js-node-name,.js-node.crit .js-node-sub{color:#fff;}\n.js-node-status{font-size:11px;font-weight:700;padding:3px 7px;border-radius:10px;background:#e8f5e9;color:#1b5e20;white-space:nowrap;}\n.js-node-status.warn{background:#fff3e0;color:#e65100;}\n.js-node-status.off{background:#eceff1;color:#37474f;}\n.js-node-row{display:grid;grid-template-columns:minmax(110px,42%) minmax(0,1fr);column-gap:8px;font-size:12px;line-height:1.55;color:#546e7a;border-top:1px solid #eef1f3;padding-top:3px;}\n.js-node-row span,.js-node-row b{min-width:0;}\n.js-node-row b{color:#263238;font-weight:600;text-align:left;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;}\n"
           },
           "showTitle": true,
-          "title": "Monitoring locations / node status"
+          "title": "Monitoring locations / water sources \u2192 JalSanket nodes"
         },
-        "row": 3,
+        "row": 4,
         "col": 0,
         "id": "node_status"
       },
@@ -165,7 +165,7 @@
                 "color": "#c62828",
                 "settings": {
                   "useCellContentFunction": true,
-                  "cellContentFunction": "\nvar places = {\"JalSanket-Node-01\": \"Dhunche\", \"JalSanket-Node-02\": \"Syafrubesi\", \"JalSanket-Node-03\": \"Rasuwagadhi\"};\nvar problems = {\n  \"High Turbidity Warning\": \"Turbidity above safe level\",\n  \"Gross Contamination Critical\": \"Turbidity critically high\",\n  \"pH Out of Range Critical\": \"pH outside safe range\",\n  \"High TDS Critical\": \"Dissolved solids too high\",\n  \"Supply Interruption Major\": \"Water supply interrupted\",\n  \"Node Inactive Critical\": \"No recent data from node\"\n};\nvar sev = String(alarm.severity || \"INFO\").toUpperCase();\nvar place = places[alarm.originatorDisplayName] || alarm.originatorDisplayName || \"Unknown location\";\nvar problem = problems[value] || value;\nvar ts = alarm.createdTime || alarm.startTs || Date.now();\nvar time = new Date(ts).toLocaleString();\nvar style = \"border-left:5px solid #1976d2;background:#e3f2fd;\";\nvar badge = \"padding:2px 6px;border-radius:3px;background:#1976d2;color:#fff;font-size:10px;\";\nif (sev === \"CRITICAL\") {\n  style = \"border-left:5px solid #c62828;background:#ffebee;\";\n  badge = \"padding:3px 8px;border-radius:3px;background:#c62828;color:#fff;font-size:11px;font-weight:700;\";\n} else if (sev === \"MAJOR\" || sev === \"WARNING\") {\n  style = \"border-left:5px solid #ef6c00;background:#fff3e0;\";\n  badge = \"padding:2px 7px;border-radius:3px;background:#ef6c00;color:#fff;font-size:10px;font-weight:700;\";\n}\nreturn '<div style=\"' + style + 'padding:6px 8px;border-radius:4px;min-width:280px;box-sizing:border-box;\">' +\n  '<span style=\"' + badge + '\">' + sev + '</span> ' +\n  '<b style=\"color:#263238;\">' + place + '</b> \u2014 <span style=\"color:#37474f;\">' + problem + '</span> ' +\n  '<small style=\"color:#78909c;\">(' + time + ')</small></div>';\n",
+                  "cellContentFunction": "\nvar places = {\"JalSanket-Node-01\": \"Dhunche\", \"JalSanket-Node-02\": \"Syafrubesi\", \"JalSanket-Node-03\": \"Rasuwagadhi\"};\nvar nodes = {\"Dhunche\": \"JalSanket Node 01\", \"Syafrubesi\": \"JalSanket Node 02\", \"Rasuwagadhi\": \"JalSanket Node 03\"};\nvar problems = {\n  \"High Turbidity Warning\": \"Turbidity above safe level\",\n  \"Gross Contamination Critical\": \"Turbidity critically high\",\n  \"pH Out of Range Critical\": \"pH outside safe range\",\n  \"High TDS Critical\": \"Dissolved solids too high\",\n  \"Supply Interruption Major\": \"Water supply interrupted\",\n  \"Node Inactive Critical\": \"No recent data from node\"\n};\nvar sev = String(alarm.severity || \"INFO\").toUpperCase();\nvar place = places[alarm.originatorDisplayName] || alarm.originatorDisplayName || \"Unknown location\";\nvar node = nodes[place] || \"\";\nvar problem = problems[value] || value;\nvar ts = alarm.createdTime || alarm.startTs || Date.now();\nvar time = new Date(ts).toLocaleString();\nvar style = \"border-left:5px solid #1976d2;background:#e3f2fd;\";\nvar badge = \"padding:2px 6px;border-radius:3px;background:#1976d2;color:#fff;font-size:10px;\";\nif (sev === \"CRITICAL\") {\n  style = \"border-left:5px solid #c62828;background:#ffebee;\";\n  badge = \"padding:3px 8px;border-radius:3px;background:#c62828;color:#fff;font-size:11px;font-weight:700;\";\n} else if (sev === \"MAJOR\" || sev === \"WARNING\") {\n  style = \"border-left:5px solid #ef6c00;background:#fff3e0;\";\n  badge = \"padding:2px 7px;border-radius:3px;background:#ef6c00;color:#fff;font-size:10px;font-weight:700;\";\n}\nreturn '<div style=\"' + style + 'padding:6px 8px;border-radius:4px;min-width:280px;box-sizing:border-box;\">' +\n  '<span style=\"' + badge + '\">' + sev + '</span> ' +\n  '<b style=\"color:#263238;\">' + place + '</b>' +\n  (node ? ' <small style=\"color:#607d8b;\">(' + node + ')</small>' : '') +\n  ' \u2014 <span style=\"color:#37474f;\">' + problem + '</span> ' +\n  '<small style=\"color:#78909c;\">(' + time + ')</small></div>';\n",
                   "useCellContentFunctionOnExport": true
                 },
                 "aggregationType": null,
@@ -183,7 +183,7 @@
           ],
           "configMode": "advanced",
           "settings": {
-            "alarmsTitle": "Active alerts",
+            "alarmsTitle": "Active alerts \u2014 Rasuwa Monitoring Area",
             "allowAcknowledgment": false,
             "allowAssign": false,
             "allowClear": false,
@@ -198,7 +198,7 @@
             "enableSelection": false
           },
           "showTitle": true,
-          "title": "Active alerts requiring attention",
+          "title": "Active alerts requiring attention \u00b7 Rasuwa area",
           "useDashboardTimewindow": false,
           "timewindow": {
             "selectedTab": 0,
@@ -208,7 +208,7 @@
             }
           }
         },
-        "row": 8,
+        "row": 9,
         "col": 0,
         "id": "active_alerts"
       },
@@ -286,12 +286,12 @@
             "useColorFunction": true,
             "colorFunction": "\nvar rawActive = dsData[dsIndex][\"active\"];\nvar active = rawActive === true || String(rawActive).toLowerCase() === \"true\";\nvar safety = String(dsData[dsIndex][\"safetyStatus\"] || \"\").toUpperCase();\nif (!active) return \"#607d8b\";\nif (safety === \"UNSAFE\") return \"#c62828\";\nif (safety === \"WARNING\") return \"#ef6c00\";\nreturn \"#2e7d32\";\n",
             "useTooltipFunction": true,
-            "tooltipFunction": "\nvar d = dsData[dsIndex];\nvar name = d[\"entityName\"] || d[\"deviceName\"] || \"\";\nvar places = {\"JalSanket-Node-01\": \"Dhunche\", \"JalSanket-Node-02\": \"Syafrubesi\", \"JalSanket-Node-03\": \"Rasuwagadhi\"};\nvar rawActive = d[\"active\"];\nvar active = rawActive === true || String(rawActive).toLowerCase() === \"true\";\nvar safety = String(d[\"safetyStatus\"] || \"\").toUpperCase();\nvar status = !active ? \"OFFLINE\" : safety === \"UNSAFE\" ? \"CRITICAL\" : safety === \"WARNING\" ? \"WARNING\" : \"SAFE\";\nvar lat = Number(d[\"latitude\"]), lng = Number(d[\"longitude\"]);\nreturn \"<b>\" + (places[name] || name) + \"</b><br/>Status: \" + status +\n  \"<br/>Location: \" + (isFinite(lat) ? lat.toFixed(4) : \"n/a\") + \", \" +\n  (isFinite(lng) ? lng.toFixed(4) : \"n/a\");\n"
+            "tooltipFunction": "\nvar d = dsData[dsIndex];\nvar name = d[\"entityName\"] || d[\"deviceName\"] || \"\";\nvar places = {\"JalSanket-Node-01\": \"Dhunche\", \"JalSanket-Node-02\": \"Syafrubesi\", \"JalSanket-Node-03\": \"Rasuwagadhi\"};\nvar nodes = {\"Dhunche\": \"JalSanket Node 01\", \"Syafrubesi\": \"JalSanket Node 02\", \"Rasuwagadhi\": \"JalSanket Node 03\"};\nvar rawActive = d[\"active\"];\nvar active = rawActive === true || String(rawActive).toLowerCase() === \"true\";\nvar safety = String(d[\"safetyStatus\"] || \"\").toUpperCase();\nvar status = !active ? \"OFFLINE\" : safety === \"UNSAFE\" ? \"CRITICAL\" : safety === \"WARNING\" ? \"WARNING\" : \"SAFE\";\nvar place = places[name] || name;\nvar lat = Number(d[\"latitude\"]), lng = Number(d[\"longitude\"]);\nreturn \"<b>\" + place + \"</b><br/>Rasuwa Monitoring Area \u00b7 water source\" +\n  \"<br/>JalSanket node: \" + (nodes[place] || name) + \"<br/>Status: \" + status +\n  \"<br/>Location: \" + (isFinite(lat) ? lat.toFixed(4) : \"n/a\") + \", \" +\n  (isFinite(lng) ? lng.toFixed(4) : \"n/a\");\n"
           },
           "showTitle": true,
-          "title": "Location overview (OpenStreetMap)"
+          "title": "Rasuwa area \u2014 water sources (OpenStreetMap)"
         },
-        "row": 8,
+        "row": 9,
         "col": 12,
         "id": "node_map"
       },
@@ -304,12 +304,12 @@
           "datasources": [],
           "settings": {
             "applyDefaultMarkdownStyle": true,
-            "markdownTextPattern": "**Detailed values for Dhunche** \u2014 gauges show its latest reading. The trend charts below cover all three locations."
+            "markdownTextPattern": "**Dhunche water source \u00b7 JalSanket Node 01** \u2014 current measurements below belong to this node; the trend charts cover all three locations."
           },
           "showTitle": true,
-          "title": "Water-quality and operational measurements"
+          "title": "Selected location / node details \u2192 measurements \u2192 trends"
         },
-        "row": 15,
+        "row": 16,
         "col": 0,
         "id": "measurements_header"
       },
@@ -384,10 +384,10 @@
             }
           },
           "showTitle": true,
-          "title": "pH \u2014 Dhunche",
+          "title": "pH \u2014 Dhunche (Node 01)",
           "useDashboardTimewindow": false
         },
-        "row": 16,
+        "row": 17,
         "col": 0,
         "id": "ph_gauge"
       },
@@ -462,10 +462,10 @@
             }
           },
           "showTitle": true,
-          "title": "Turbidity \u2014 Dhunche",
+          "title": "Turbidity \u2014 Dhunche (Node 01)",
           "useDashboardTimewindow": false
         },
-        "row": 16,
+        "row": 17,
         "col": 8,
         "id": "turbidity_gauge"
       },
@@ -540,10 +540,10 @@
             }
           },
           "showTitle": true,
-          "title": "TDS \u2014 Dhunche",
+          "title": "TDS \u2014 Dhunche (Node 01)",
           "useDashboardTimewindow": false
         },
-        "row": 16,
+        "row": 17,
         "col": 16,
         "id": "tds_gauge"
       },
@@ -625,7 +625,7 @@
           "title": "Turbidity trend by location (NTU)",
           "useDashboardTimewindow": true
         },
-        "row": 21,
+        "row": 22,
         "col": 0,
         "id": "turbidity_series"
       },
@@ -707,7 +707,7 @@
           "title": "pH trend by location",
           "useDashboardTimewindow": true
         },
-        "row": 21,
+        "row": 22,
         "col": 8,
         "id": "ph_series"
       },
@@ -789,7 +789,7 @@
           "title": "TDS trend by location (ppm)",
           "useDashboardTimewindow": true
         },
-        "row": 21,
+        "row": 22,
         "col": 16,
         "id": "tds_series"
       },
@@ -844,14 +844,14 @@
           "title": "Water temperature and flow",
           "useDashboardTimewindow": true
         },
-        "row": 26,
+        "row": 27,
         "col": 0,
         "id": "temp_flow"
       },
       "nav_to_demo_controls": {
         "id": "nav_to_demo_controls",
         "col": 9,
-        "row": 31,
+        "row": 32,
         "sizeX": 6,
         "sizeY": 1,
         "type": "latest",
@@ -971,79 +971,79 @@
             "widgets": {
               "system_status": {
                 "sizeX": 24,
-                "sizeY": 3,
+                "sizeY": 4,
                 "row": 0,
                 "col": 0
               },
               "node_status": {
                 "sizeX": 24,
                 "sizeY": 5,
-                "row": 3,
+                "row": 4,
                 "col": 0
               },
               "active_alerts": {
                 "sizeX": 12,
                 "sizeY": 7,
-                "row": 8,
+                "row": 9,
                 "col": 0
               },
               "node_map": {
                 "sizeX": 12,
                 "sizeY": 7,
-                "row": 8,
+                "row": 9,
                 "col": 12
               },
               "measurements_header": {
                 "sizeX": 24,
                 "sizeY": 1,
-                "row": 15,
+                "row": 16,
                 "col": 0
               },
               "ph_gauge": {
                 "sizeX": 8,
                 "sizeY": 5,
-                "row": 16,
+                "row": 17,
                 "col": 0
               },
               "turbidity_gauge": {
                 "sizeX": 8,
                 "sizeY": 5,
-                "row": 16,
+                "row": 17,
                 "col": 8
               },
               "tds_gauge": {
                 "sizeX": 8,
                 "sizeY": 5,
-                "row": 16,
+                "row": 17,
                 "col": 16
               },
               "turbidity_series": {
                 "sizeX": 8,
                 "sizeY": 5,
-                "row": 21,
+                "row": 22,
                 "col": 0
               },
               "ph_series": {
                 "sizeX": 8,
                 "sizeY": 5,
-                "row": 21,
+                "row": 22,
                 "col": 8
               },
               "tds_series": {
                 "sizeX": 8,
                 "sizeY": 5,
-                "row": 21,
+                "row": 22,
                 "col": 16
               },
               "temp_flow": {
                 "sizeX": 24,
                 "sizeY": 5,
-                "row": 26,
+                "row": 27,
                 "col": 0
               },
               "nav_to_demo_controls": {
                 "col": 9,
-                "row": 31,
+                "row": 32,
                 "sizeX": 6,
                 "sizeY": 1
               }
