@@ -207,8 +207,16 @@ at the project root. Copy `.env.example` to `.env` and fill in real values.
 | `MQTT_CLIENT_ID` | no | Derived from the node ID if omitted |
 | `MQTT_RECONNECT_MIN_DELAY_S` | no (2) | Backoff floor |
 | `MQTT_RECONNECT_MAX_DELAY_S` | no (60) | Backoff ceiling |
-| `MQTT_REPLAY_BATCH_SIZE` | no (20) | Rows per replay publish |
+| `MQTT_REPLAY_BATCH_SIZE` | no (20; set 1 for this Cloud tenant) | Rows per replay publish |
 | `MQTT_PUBLISH_TIMEOUT_S` | no (30) | Time without PUBACK before retrying |
+
+This Cloud tenant drops the MQTT link (`rc=128`, no QoS 1 PUBACK) when a replay
+message contains more than about ten data points, or when three nodes replay
+batches simultaneously. Once that happens the buffer never drains, live
+telemetry stops and demo RPCs are not received — so triggering contamination
+appears to do nothing. Set `MQTT_REPLAY_BATCH_SIZE=1` in `.env` (also reflected
+in `.env.example`) so rows drain one at a time and the link stays up. No
+transport or replay code was changed.
 
 TLS uses `ssl.create_default_context()` and certificate verification is never
 disabled. Logs use `MqttConfig.safe_summary()`, which never contains the token.

@@ -148,6 +148,15 @@ sample, timestamp or physical cause is introduced.
 - `bufferDepth` is absent from all Cloud timeseries and attribute key lists, so
   no buffer-depth or replay count is shown. Exact incident timelines are not
   invented: only the existing trend charts and real alarm fields are used.
+- This Cloud tenant disconnects MQTT with `rc=128` and no QoS 1 PUBACK when a
+  replay message carries more than about ten data points, or when three nodes
+  replay batches together. A stuck replay backlog therefore blocks live
+  telemetry and demo RPCs, making contamination appear to have no effect. The
+  runtime `.env` uses `MQTT_REPLAY_BATCH_SIZE=1` (documented in `.env.example`
+  and the README); no transport or replay code was changed. With that setting
+  the RPC reached the generator, Cloud telemetry updated and the dashboard
+  opened the grouped Critical incident with real values, then recovered on
+  Reset.
 - Agent-side WebSocket subscriptions fail in this environment; verification used
   fresh authenticated page loads and REST reads.
 - Static device attributes still hold older `27.x` coordinates; the map uses the
