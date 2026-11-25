@@ -435,67 +435,98 @@ def main() -> int:
               and "Rasuwa Monitoring Area" in map_settings["tooltipFunction"]
               and "JalSanket node:" in map_settings["tooltipFunction"])
 
-        led_specs = {
-            "ph_gauge": ("ph", "pH", 2, "14", "#8cff70"),
-            "turbidity_gauge": ("turbidity_ntu", "Turbidity", 1, "300", "#67e8f9"),
-            "tds_gauge": ("tds_ppm", "TDS", 1, "1000", "#ffcc66"),
+        red = "#d32f2f"
+        dark_red = "#8e0000"
+        green = "#2e7d32"
+        gauge_specs = {
+            "ph_gauge": {
+                "key": "ph", "label": "pH", "unit": "pH", "decimals": 2,
+                "max": 14, "ticks": [0, 6.5, 8.5, 14],
+                "safe": "SAFE 6.5-8.5 pH",
+                "bands": [(0, 6.5, red), (6.5, 8.5, green),
+                          (8.5, None, red)],
+            },
+            "turbidity_gauge": {
+                "key": "turbidity_ntu", "label": "Turbidity", "unit": "NTU",
+                "decimals": 1, "max": 300,
+                "ticks": [0, 50, 200, 300], "safe": "SAFE 0-50 NTU",
+                "bands": [(0, 50, green), (50, 200, red),
+                          (200, None, dark_red)],
+            },
+            "tds_gauge": {
+                "key": "tds_ppm", "label": "TDS", "unit": "ppm",
+                "decimals": 1, "max": 1000,
+                "ticks": [0, 500, 1000], "safe": "SAFE 0-500 ppm",
+                "bands": [(0, 500, green), (500, None, red)],
+            },
         }
-        led_titles = {
+        gauge_titles = {
             "ph_gauge": "pH — Dhunche (Node 01)",
             "turbidity_gauge": "Turbidity — Dhunche (Node 01)",
             "tds_gauge": "TDS — Dhunche (Node 01)",
         }
-        led_widgets = {wid: main_dash["configuration"]["widgets"][wid]
-                       for wid in led_specs}
-        check("all three current readings are LED panels, not dials",
-              not any(w["typeFullFqn"].endswith("gauge_justgage")
-                      for w in main_dash["configuration"]["widgets"].values())
-              and all(w["typeFullFqn"].endswith("cards.markdown_card")
-                      and w["config"]["settings"].get("useMarkdownTextFunction") is True
-                      and w["config"].get("useDashboardTimewindow") is False
-                      for w in led_widgets.values()))
-        check("each LED uses segmented digits and a live accent colour",
-              all(all(token in led_widgets[wid]["config"]["settings"]["markdownTextFunction"]
-                      for token in ("led-digit", "led-seg", "--led-accent",
-                                    "js-led-live", "toFixed(" + str(spec[2]) + ")"))
-                  and spec[4] in
-                  led_widgets[wid]["config"]["settings"]["markdownTextFunction"]
-                  for wid, spec in led_specs.items()))
-        check("each LED reads its existing telemetry key and exposed label",
-              all({k["name"] for ds in led_widgets[wid]["config"]["datasources"]
-                   for k in ds["dataKeys"]} == {spec[0]}
-                  and led_widgets[wid]["config"]["datasources"][0]["dataKeys"][0]["label"]
-                  == spec[1]
-                  and led_widgets[wid]["config"]["datasources"][0]["type"] == "entity"
-                  for wid, spec in led_specs.items()))
-        check("each LED shows a live scale without inventing alarm thresholds",
-              all(all(token in led_widgets[wid]["config"]["settings"]["markdownTextFunction"]
-                      for token in ("js-led-scale", "js-led-fill", spec[3]))
-                  for wid, spec in led_specs.items())
-              and not any("levelColors" in led_widgets[wid]["config"]["settings"]
-                          for wid in led_specs))
-        check("LED panels share polished instrument-screen styling",
-              all(all(token in w["config"]["settings"]["markdownCss"]
-                      for token in (".js-led-shell", ".js-led-screen",
-                                    ".led-seg.on", "jsLedPulse", "radial-gradient",
-                                    "repeating-linear-gradient", "var(--led-accent)",
-                                    "box-shadow"))
-                  for w in led_widgets.values()))
-        check("LED panels keep human-readable location titles",
-              {wid: w["config"]["title"] for wid, w in led_widgets.items()}
-              == led_titles)
+        gauges = {wid: main_dash["configuration"]["widgets"][wid]
+                  for wid in gauge_specs}
+        check("all three current readings are real JustGage widgets",
+              all(w["typeFullFqn"] == "system.digital_gauges.gauge_justgage"
+                  and w["type"] == "latest"
+                  and "useMarkdownTextFunction" not in w["config"]["settings"]
+                  and w["config"].get("useDashboardTimewindow") is False
+                  for w in gauges.values()))
+        check("gauges show the live value, number markers and safe range",
+              all(w["config"]["settings"]["showValue"] is True
+                  and w["config"]["settings"]["showMinMax"] is True
+                  and w["config"]["settings"]["showTitle"] is True
+                  and w["config"]["settings"]["showUnitTitle"] is True
+                  and w["config"]["settings"]["title"] == spec["safe"]
+                  and w["config"]["settings"]["minValue"] == 0
+                  and w["config"]["settings"]["maxValue"] == spec["max"]
+                  and w["config"]["settings"]["decimals"] == spec["decimals"]
+                  and w["config"]["settings"]["units"] == spec["unit"]
+                  for wid, spec in gauge_specs.items()
+                  for w in [gauges[wid]]))
+        check("gauges place numeric tick markers at alarm thresholds",
+              all(w["config"]["settings"]["showTicks"] is True
+                  and [t["value"] for t in
+                       w["config"]["settings"]["ticksValue"]] == spec["ticks"]
+                  and all(t["type"] == "constant" for t in
+                          w["config"]["settings"]["ticksValue"])
+                  for wid, spec in gauge_specs.items()
+                  for w in [gauges[wid]]))
+        check("gauge bands turn red outside the existing safe ranges",
+              all(w["config"]["settings"]["barColor"]["type"] == "range"
+                  and w["config"]["settings"]["barColor"]["rangeList"]["advancedMode"]
+                  is True
+                  and [(b["from"]["value"], b["to"]["value"], b["color"])
+                       for b in w["config"]["settings"]["barColor"]["rangeList"]["rangeAdvanced"]]
+                  == spec["bands"]
+                  for wid, spec in gauge_specs.items()
+                  for w in [gauges[wid]]))
+        check("gauges read their existing telemetry keys from Node-01",
+              all({k["name"] for ds in w["config"]["datasources"]
+                   for k in ds["dataKeys"]} == {spec["key"]}
+                  and w["config"]["datasources"][0]["dataKeys"][0]["label"]
+                  == spec["label"]
+                  and w["config"]["datasources"][0]["dataKeys"][0]["units"]
+                  == spec["unit"]
+                  and w["config"]["datasources"][0]["type"] == "entity"
+                  for wid, spec in gauge_specs.items()
+                  for w in [gauges[wid]]))
+        check("gauges keep human-readable location titles",
+              {wid: w["config"]["title"] for wid, w in gauges.items()}
+              == gauge_titles)
         check("active alerts carry a widget timewindow",
               alert_cfg["timewindow"]["realtime"]["timewindowMs"] == 2592000000)
         import_artifact = json.loads(
             (Path(__file__).parent / "thingsboard" / "jalsanket_dashboard.json").read_text())
-        import_leds = {wid: import_artifact["configuration"]["widgets"][wid]
-                       for wid in led_specs}
-        check("all three LED panels are pinned to Node-01 in the import artifact",
-              all(w["typeFullFqn"].endswith("cards.markdown_card")
+        import_gauges = {wid: import_artifact["configuration"]["widgets"][wid]
+                         for wid in gauge_specs}
+        check("all three gauges are pinned to Node-01 in the import artifact",
+              all(w["typeFullFqn"] == "system.digital_gauges.gauge_justgage"
                   and w["config"]["datasources"][0].get("entityId")
                   == "737cbce0-e44f-11f1-8c2a-39d8a38c3af6"
                   and "entityAliasId" not in w["config"]["datasources"][0]
-                  for w in import_leds.values()))
+                  for w in import_gauges.values()))
         import_chart = import_artifact["configuration"]["widgets"]["turbidity_series"]
         check("import artifact chart legends use location names",
               [ds["name"] for ds in import_chart["config"]["datasources"]]

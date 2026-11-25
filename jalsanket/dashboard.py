@@ -16,6 +16,13 @@ from pathlib import Path
 from typing import Optional
 
 from .alarm_rules import device_profile_alarm_config, rule_chain_document
+from .alarms import (
+    GROSS_CONTAMINATION_TRIGGER,
+    HIGH_TDS_TRIGGER,
+    HIGH_TURBIDITY_TRIGGER,
+    PH_HIGH_TRIGGER,
+    PH_LOW_TRIGGER,
+)
 from .fleet import DEFAULT_NODE_SPECS, FleetConfig
 from .provisioning import TELEMETRY_KEYS, device_document
 
@@ -197,9 +204,9 @@ CLOUD_WIDGET_FQNS: dict[str, tuple[str, str]] = {
     "system_status": ("cards.markdown_card", "latest"),
     "node_status": ("cards.markdown_card", "latest"),
     "measurements_header": ("cards.markdown_card", "latest"),
-    "ph_gauge": ("cards.markdown_card", "latest"),
-    "turbidity_gauge": ("cards.markdown_card", "latest"),
-    "tds_gauge": ("cards.markdown_card", "latest"),
+    "ph_gauge": ("digital_gauges.gauge_justgage", "latest"),
+    "turbidity_gauge": ("digital_gauges.gauge_justgage", "latest"),
+    "tds_gauge": ("digital_gauges.gauge_justgage", "latest"),
     "turbidity_series": ("time_series_chart", "timeseries"),
     "ph_series": ("time_series_chart", "timeseries"),
     "tds_series": ("time_series_chart", "timeseries"),
@@ -359,69 +366,12 @@ NODE_STATUS_CSS = r"""
 .js-node-row b{color:#263238;font-weight:600;text-align:left;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;}
 """
 
-# All three current-reading cards are instrument-style LED panels rather than
-# dials. Each one reads one existing Node-01 timeseries key; the scale is only a
-# visual guide for the previous gauge range, not a new alarm threshold.
-LED_JS_TEMPLATE = r"""
-const d = data[0] || {};
-const raw = d["__LABEL__"] !== undefined ? d["__LABEL__"] : d["__KEY__"];
-const value = Number(raw);
-const shown = isFinite(value) ? value.toFixed(__DECIMALS__) : "__MISSING__";
-const fill = isFinite(value) ? Math.max(2, Math.min(100, value / __MAX__ * 100)) : 0;
-const segments = {
-  "0": "abcdef", "1": "bc", "2": "abdeg", "3": "abcdg", "4": "bcfg",
-  "5": "acdfg", "6": "acdefg", "7": "abc", "8": "abcdefg", "9": "abcdfg",
-  "-": "g"
-};
-function glyph(ch) {
-  if (ch === ".") {
-    return '<span class="led-dot"></span>';
-  }
-  const on = segments[ch] || "";
-  return '<span class="led-digit">' + ["a", "b", "c", "d", "e", "f", "g"].map(function (s) {
-    return '<i class="led-seg ' + s + (on.indexOf(s) >= 0 ? ' on' : '') + '"></i>';
-  }).join('') + '</span>';
-}
-const readout = shown.split('').map(glyph).join('');
-return '<div class="js-led-shell" style="--led-accent:__ACCENT__;--led-glow:__GLOW__;">' +
-  '<div class="js-led-top"><span>JalSanket · Dhunche · Node 01</span>' +
-    '<span class="js-led-live"><i class="js-led-dot"></i>LIVE</span></div>' +
-  '<div class="js-led-screen">' +
-    '<div class="js-led-readout">' + readout + '</div>' +
-    '<span class="js-led-unit">__UNIT__</span></div>' +
-  '<div class="js-led-meta"><span class="js-led-name">__TITLE_SHORT__</span>' +
-    '<span class="js-led-scale"><i class="js-led-fill" style="width:' + fill + '%"></i></span>' +
-    '<span class="js-led-range">0–__MAX_LABEL__</span></div>' +
-  '<div class="js-led-foot">Dhunche water source · JalSanket Node 01 · latest telemetry</div>' +
-  '</div>';
-"""
-
-LED_CSS = r"""
-.js-led-shell{height:100%;box-sizing:border-box;padding:8px 10px;border:1px solid #3c4a52;border-radius:7px;background:linear-gradient(145deg,#2b363c,#11191e);box-shadow:0 2px 7px rgba(0,0,0,.32),inset 0 1px 0 rgba(255,255,255,.08);display:flex;flex-direction:column;justify-content:center;gap:5px;color:#cfd8dc;}
-.js-led-top{display:flex;align-items:center;justify-content:space-between;font-size:9px;font-weight:600;letter-spacing:1.1px;text-transform:uppercase;color:#90a4ae;}
-.js-led-live{display:flex;align-items:center;gap:5px;color:var(--led-accent);font-weight:700;}
-.js-led-dot{width:6px;height:6px;border-radius:50%;background:var(--led-accent);box-shadow:0 0 8px var(--led-glow);animation:jsLedPulse 1.8s ease-in-out infinite;}
-@keyframes jsLedPulse{0%,100%{opacity:.45;}50%{opacity:1;}}
-.js-led-screen{position:relative;overflow:hidden;min-height:62px;padding:8px 9px;border:2px solid #05090b;border-radius:5px;background:radial-gradient(ellipse at 50% 0%,rgba(255,255,255,.05),transparent 62%),linear-gradient(#07100c,#040907);box-shadow:inset 0 0 20px rgba(0,0,0,.9),0 0 0 1px rgba(255,255,255,.04);display:flex;align-items:center;justify-content:center;gap:8px;}
-.js-led-screen:after{content:"";position:absolute;inset:0;background:repeating-linear-gradient(0deg,rgba(255,255,255,.018) 0 1px,transparent 1px 3px);pointer-events:none;}
-.js-led-readout{display:flex;align-items:center;gap:2px;position:relative;z-index:1;}
-.led-digit{position:relative;display:inline-block;width:24px;height:44px;filter:drop-shadow(0 0 3px var(--led-glow));}
-.led-seg{position:absolute;display:block;border-radius:2px;background:rgba(120,140,130,.10);transition:background .15s ease,box-shadow .15s ease;}
-.led-seg.on{background:var(--led-accent);box-shadow:0 0 7px var(--led-glow),0 0 14px var(--led-glow);}
-.led-seg.a,.led-seg.g,.led-seg.d{left:4px;right:4px;height:4px;}
-.led-seg.a{top:1px;}.led-seg.g{top:20px;}.led-seg.d{bottom:1px;}
-.led-seg.b,.led-seg.c,.led-seg.e,.led-seg.f{width:4px;height:18px;}
-.led-seg.b,.led-seg.f{top:4px;}.led-seg.c,.led-seg.e{top:23px;}
-.led-seg.b,.led-seg.c{right:2px;}.led-seg.e,.led-seg.f{left:2px;}
-.led-dot{display:inline-block;width:5px;height:5px;border-radius:50%;background:var(--led-accent);box-shadow:0 0 7px var(--led-glow);align-self:flex-end;margin-bottom:5px;}
-.js-led-unit{position:relative;z-index:1;font-size:12px;font-weight:700;letter-spacing:1px;color:var(--led-accent);text-shadow:0 0 7px var(--led-glow);}
-.js-led-meta{display:flex;align-items:center;gap:7px;font-size:9px;color:#90a4ae;}
-.js-led-name{font-weight:700;letter-spacing:.8px;white-space:nowrap;}
-.js-led-scale{position:relative;flex:1;height:4px;border-radius:2px;background:#263238;overflow:hidden;}
-.js-led-fill{display:block;height:100%;border-radius:2px;background:linear-gradient(90deg,var(--led-glow),var(--led-accent));box-shadow:0 0 8px var(--led-glow);}
-.js-led-range{white-space:nowrap;font-variant-numeric:tabular-nums;}
-.js-led-foot{font-size:9px;color:#78909c;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
-"""
+# The three current-reading widgets stay as real ThingsBoard gauges. Colour
+# bands are visual annotations of the existing alarm thresholds; they do not
+# create, widen or replace any rule in alarms.py / alarm_rules.py.
+GAUGE_SAFE_COLOR = "#2e7d32"
+GAUGE_UNSAFE_COLOR = "#d32f2f"
+GAUGE_CRITICAL_COLOR = "#8e0000"
 
 # Alarms table cell function: one human-readable line per active alarm. It uses
 # only fields already supplied by ThingsBoard's alarm datasource.
@@ -617,9 +567,9 @@ def _cloud_datasource(keys: list[dict]) -> list[dict]:
 def _cloud_device_datasource(device_id: Optional[str], keys: list[dict]) -> list[dict]:
     """Single-device datasource for widgets that only accept one entity.
 
-    Each current-reading card is a single-location readout, and the former
-    JustGage widgets also declared ``maxDatasources: 1``. Binding them to the
-    multi-device fleet alias makes their subscription ambiguous, so these
+    Each current-reading card is a single-location readout, and the JustGage
+    widget declares ``maxDatasources: 1`` / ``singleEntity: true``. Binding it
+    to the multi-device fleet alias makes its subscription ambiguous, so these
     Node-01 detail widgets are pinned to that device explicitly.
     """
     ds = _cloud_datasource(keys)[0]
@@ -657,31 +607,80 @@ def _cloud_markdown_config(title: str, keys: list[dict], *,
     }
 
 
-def _cloud_led_config(title: str, key_name: str, label: str, unit: str,
-                      decimals: int, maximum: int, accent: str, glow: str,
-                      device_id: Optional[str]) -> dict:
-    """Build one richly styled LED panel from an existing telemetry key."""
-    missing = "--" + ("." + "-" * decimals if decimals else "")
-    javascript = (LED_JS_TEMPLATE
-                  .replace("__LABEL__", label)
-                  .replace("__KEY__", key_name)
-                  .replace("__DECIMALS__", str(decimals))
-                  .replace("__MISSING__", missing)
-                  .replace("__MAX__", str(maximum))
-                  .replace("__MAX_LABEL__", str(maximum))
-                  .replace("__UNIT__", unit)
-                  .replace("__TITLE_SHORT__", title.split(" — ")[0].upper())
-                  .replace("__ACCENT__", accent)
-                  .replace("__GLOW__", glow))
-    config = _cloud_markdown_config(
-        title,
-        [_cloud_key(key_name, "timeseries", label, accent, decimals)],
-        javascript=javascript,
-        css=LED_CSS,
-        device_id=device_id,
-    )
-    config["useDashboardTimewindow"] = False
-    return config
+def _cloud_gauge_range(start: float, end: Optional[float], color: str) -> dict:
+    """One supported ThingsBoard advanced colour band for a gauge."""
+    return {
+        "from": {"type": "constant", "value": start},
+        "to": {"type": "constant", "value": end},
+        "color": color,
+    }
+
+
+def _cloud_gauge_config(title: str, key_name: str, label: str, unit: str,
+                        decimals: int, minimum: float, maximum: float,
+                        ticks: tuple[float, ...], safe_range: str,
+                        bands: tuple[tuple[float, Optional[float], str], ...],
+                        device_id: Optional[str]) -> dict:
+    """Build a real gauge with threshold colours, ticks and a live value."""
+    key = _cloud_key(key_name, "timeseries", label, GAUGE_SAFE_COLOR, decimals)
+    key["units"] = unit
+    key["settings"] = {"units": unit, "decimals": decimals}
+    ranges = [_cloud_gauge_range(start, end, color) for start, end, color in bands]
+    settings = {
+        "minValue": minimum,
+        "maxValue": maximum,
+        "decimals": decimals,
+        "units": unit,
+        "gaugeType": "arc",
+        "donutStartAngle": 90,
+        "gaugeWidthScale": 0.75,
+        "gaugeColor": "#eceff1",
+        "showValue": True,
+        "showMinMax": True,
+        "showTitle": True,
+        "title": safe_range,
+        "showUnitTitle": True,
+        "unitTitle": unit,
+        "showTimestamp": False,
+        "showTicks": True,
+        "tickWidth": 3,
+        "colorTicks": "#546e7a",
+        "ticksValue": [{"type": "constant", "value": value} for value in ticks],
+        "animation": True,
+        "animationDuration": 700,
+        "animationRule": "linear",
+        "defaultColor": GAUGE_SAFE_COLOR,
+        "levelColors": [],
+        "useFixedLevelColor": True,
+        "fixedLevelColors": [
+            {"from": band["from"], "to": band["to"], "color": band["color"]}
+            for band in ranges
+        ],
+        "barColor": {
+            "type": "range",
+            "color": GAUGE_SAFE_COLOR,
+            "rangeList": {
+                "advancedMode": True,
+                "range": None,
+                "rangeAdvanced": ranges,
+            },
+        },
+        "titleFont": {"family": "Roboto", "size": 9, "style": "normal",
+                      "weight": "600", "color": "#37474f"},
+        "valueFont": {"family": "Roboto", "size": 28, "style": "normal",
+                      "weight": "700", "color": "#263238"},
+        "minMaxFont": {"family": "Roboto", "size": 10, "style": "normal",
+                       "weight": "600", "color": "#37474f"},
+        "labelFont": {"family": "Roboto", "size": 9, "style": "normal",
+                      "weight": "500", "color": "#546e7a"},
+    }
+    return {
+        "datasources": _cloud_device_datasource(device_id, [key]),
+        "settings": settings,
+        "showTitle": True,
+        "title": title,
+        "useDashboardTimewindow": False,
+    }
 
 
 def _cloud_location_datasources(device_ids: Optional[list[str]],
@@ -853,17 +852,29 @@ def build_cloud_dashboard(device_ids: Optional[list[str]] = None,
         ))
 
     node01_id = device_ids[0] if device_ids else None
-    for widget_id, title, key_name, label, unit, decimals, maximum, accent, glow, col in (
-        ("ph_gauge", "pH — Dhunche (Node 01)", "ph", "pH", "pH", 2,
-         14, "#8cff70", "#39ff14", 0),
+    for (widget_id, title, key_name, label, unit, decimals, maximum,
+         ticks, safe_range, bands, col) in (
+        ("ph_gauge", "pH — Dhunche (Node 01)", "ph", "pH", "pH", 2, 14,
+         (0, PH_LOW_TRIGGER, PH_HIGH_TRIGGER, 14), "SAFE 6.5-8.5 pH",
+         ((0, PH_LOW_TRIGGER, GAUGE_UNSAFE_COLOR),
+          (PH_LOW_TRIGGER, PH_HIGH_TRIGGER, GAUGE_SAFE_COLOR),
+          (PH_HIGH_TRIGGER, None, GAUGE_UNSAFE_COLOR)), 0),
         ("turbidity_gauge", "Turbidity — Dhunche (Node 01)", "turbidity_ntu",
-         "Turbidity", "NTU", 1, 300, "#67e8f9", "#00b8d4", 8),
+         "Turbidity", "NTU", 1, 300,
+         (0, HIGH_TURBIDITY_TRIGGER, GROSS_CONTAMINATION_TRIGGER, 300),
+         "SAFE 0-50 NTU",
+         ((0, HIGH_TURBIDITY_TRIGGER, GAUGE_SAFE_COLOR),
+          (HIGH_TURBIDITY_TRIGGER, GROSS_CONTAMINATION_TRIGGER,
+           GAUGE_UNSAFE_COLOR),
+          (GROSS_CONTAMINATION_TRIGGER, None, GAUGE_CRITICAL_COLOR)), 8),
         ("tds_gauge", "TDS — Dhunche (Node 01)", "tds_ppm", "TDS", "ppm", 1,
-         1000, "#ffcc66", "#ff9800", 16),
+         1000, (0, HIGH_TDS_TRIGGER, 1000), "SAFE 0-500 ppm",
+         ((0, HIGH_TDS_TRIGGER, GAUGE_SAFE_COLOR),
+          (HIGH_TDS_TRIGGER, None, GAUGE_UNSAFE_COLOR)), 16),
     ):
-        add(widget_id, title, 8, 5, 17, col, _cloud_led_config(
-            title, key_name, label, unit, decimals, maximum, accent, glow,
-            node01_id,
+        add(widget_id, title, 8, 5, 17, col, _cloud_gauge_config(
+            title, key_name, label, unit, decimals, 0, maximum, ticks,
+            safe_range, bands, node01_id,
         ))
 
     # One chart per metric: turbidity (0-300 NTU), pH (0-14) and TDS (0-1000 ppm)

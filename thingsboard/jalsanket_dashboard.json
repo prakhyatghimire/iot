@@ -314,7 +314,7 @@
         "id": "measurements_header"
       },
       "ph_gauge": {
-        "typeFullFqn": "system.cards.markdown_card",
+        "typeFullFqn": "system.digital_gauges.gauge_justgage",
         "type": "latest",
         "sizeX": 8,
         "sizeY": 5,
@@ -329,10 +329,13 @@
                   "name": "ph",
                   "type": "timeseries",
                   "label": "pH",
-                  "color": "#8cff70",
-                  "settings": {},
+                  "color": "#2e7d32",
+                  "settings": {
+                    "units": "pH",
+                    "decimals": 2
+                  },
                   "aggregationType": null,
-                  "units": null,
+                  "units": "pH",
                   "decimals": 2
                 }
               ],
@@ -347,11 +350,154 @@
             }
           ],
           "settings": {
-            "applyDefaultMarkdownStyle": true,
-            "markdownTextPattern": "",
-            "useMarkdownTextFunction": true,
-            "markdownTextFunction": "\nconst d = data[0] || {};\nconst raw = d[\"pH\"] !== undefined ? d[\"pH\"] : d[\"ph\"];\nconst value = Number(raw);\nconst shown = isFinite(value) ? value.toFixed(2) : \"--.--\";\nconst fill = isFinite(value) ? Math.max(2, Math.min(100, value / 14 * 100)) : 0;\nconst segments = {\n  \"0\": \"abcdef\", \"1\": \"bc\", \"2\": \"abdeg\", \"3\": \"abcdg\", \"4\": \"bcfg\",\n  \"5\": \"acdfg\", \"6\": \"acdefg\", \"7\": \"abc\", \"8\": \"abcdefg\", \"9\": \"abcdfg\",\n  \"-\": \"g\"\n};\nfunction glyph(ch) {\n  if (ch === \".\") {\n    return '<span class=\"led-dot\"></span>';\n  }\n  const on = segments[ch] || \"\";\n  return '<span class=\"led-digit\">' + [\"a\", \"b\", \"c\", \"d\", \"e\", \"f\", \"g\"].map(function (s) {\n    return '<i class=\"led-seg ' + s + (on.indexOf(s) >= 0 ? ' on' : '') + '\"></i>';\n  }).join('') + '</span>';\n}\nconst readout = shown.split('').map(glyph).join('');\nreturn '<div class=\"js-led-shell\" style=\"--led-accent:#8cff70;--led-glow:#39ff14;\">' +\n  '<div class=\"js-led-top\"><span>JalSanket \u00b7 Dhunche \u00b7 Node 01</span>' +\n    '<span class=\"js-led-live\"><i class=\"js-led-dot\"></i>LIVE</span></div>' +\n  '<div class=\"js-led-screen\">' +\n    '<div class=\"js-led-readout\">' + readout + '</div>' +\n    '<span class=\"js-led-unit\">pH</span></div>' +\n  '<div class=\"js-led-meta\"><span class=\"js-led-name\">PH</span>' +\n    '<span class=\"js-led-scale\"><i class=\"js-led-fill\" style=\"width:' + fill + '%\"></i></span>' +\n    '<span class=\"js-led-range\">0\u201314</span></div>' +\n  '<div class=\"js-led-foot\">Dhunche water source \u00b7 JalSanket Node 01 \u00b7 latest telemetry</div>' +\n  '</div>';\n",
-            "markdownCss": "\n.js-led-shell{height:100%;box-sizing:border-box;padding:8px 10px;border:1px solid #3c4a52;border-radius:7px;background:linear-gradient(145deg,#2b363c,#11191e);box-shadow:0 2px 7px rgba(0,0,0,.32),inset 0 1px 0 rgba(255,255,255,.08);display:flex;flex-direction:column;justify-content:center;gap:5px;color:#cfd8dc;}\n.js-led-top{display:flex;align-items:center;justify-content:space-between;font-size:9px;font-weight:600;letter-spacing:1.1px;text-transform:uppercase;color:#90a4ae;}\n.js-led-live{display:flex;align-items:center;gap:5px;color:var(--led-accent);font-weight:700;}\n.js-led-dot{width:6px;height:6px;border-radius:50%;background:var(--led-accent);box-shadow:0 0 8px var(--led-glow);animation:jsLedPulse 1.8s ease-in-out infinite;}\n@keyframes jsLedPulse{0%,100%{opacity:.45;}50%{opacity:1;}}\n.js-led-screen{position:relative;overflow:hidden;min-height:62px;padding:8px 9px;border:2px solid #05090b;border-radius:5px;background:radial-gradient(ellipse at 50% 0%,rgba(255,255,255,.05),transparent 62%),linear-gradient(#07100c,#040907);box-shadow:inset 0 0 20px rgba(0,0,0,.9),0 0 0 1px rgba(255,255,255,.04);display:flex;align-items:center;justify-content:center;gap:8px;}\n.js-led-screen:after{content:\"\";position:absolute;inset:0;background:repeating-linear-gradient(0deg,rgba(255,255,255,.018) 0 1px,transparent 1px 3px);pointer-events:none;}\n.js-led-readout{display:flex;align-items:center;gap:2px;position:relative;z-index:1;}\n.led-digit{position:relative;display:inline-block;width:24px;height:44px;filter:drop-shadow(0 0 3px var(--led-glow));}\n.led-seg{position:absolute;display:block;border-radius:2px;background:rgba(120,140,130,.10);transition:background .15s ease,box-shadow .15s ease;}\n.led-seg.on{background:var(--led-accent);box-shadow:0 0 7px var(--led-glow),0 0 14px var(--led-glow);}\n.led-seg.a,.led-seg.g,.led-seg.d{left:4px;right:4px;height:4px;}\n.led-seg.a{top:1px;}.led-seg.g{top:20px;}.led-seg.d{bottom:1px;}\n.led-seg.b,.led-seg.c,.led-seg.e,.led-seg.f{width:4px;height:18px;}\n.led-seg.b,.led-seg.f{top:4px;}.led-seg.c,.led-seg.e{top:23px;}\n.led-seg.b,.led-seg.c{right:2px;}.led-seg.e,.led-seg.f{left:2px;}\n.led-dot{display:inline-block;width:5px;height:5px;border-radius:50%;background:var(--led-accent);box-shadow:0 0 7px var(--led-glow);align-self:flex-end;margin-bottom:5px;}\n.js-led-unit{position:relative;z-index:1;font-size:12px;font-weight:700;letter-spacing:1px;color:var(--led-accent);text-shadow:0 0 7px var(--led-glow);}\n.js-led-meta{display:flex;align-items:center;gap:7px;font-size:9px;color:#90a4ae;}\n.js-led-name{font-weight:700;letter-spacing:.8px;white-space:nowrap;}\n.js-led-scale{position:relative;flex:1;height:4px;border-radius:2px;background:#263238;overflow:hidden;}\n.js-led-fill{display:block;height:100%;border-radius:2px;background:linear-gradient(90deg,var(--led-glow),var(--led-accent));box-shadow:0 0 8px var(--led-glow);}\n.js-led-range{white-space:nowrap;font-variant-numeric:tabular-nums;}\n.js-led-foot{font-size:9px;color:#78909c;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}\n"
+            "minValue": 0,
+            "maxValue": 14,
+            "decimals": 2,
+            "units": "pH",
+            "gaugeType": "arc",
+            "donutStartAngle": 90,
+            "gaugeWidthScale": 0.75,
+            "gaugeColor": "#eceff1",
+            "showValue": true,
+            "showMinMax": true,
+            "showTitle": true,
+            "title": "SAFE 6.5-8.5 pH",
+            "showUnitTitle": true,
+            "unitTitle": "pH",
+            "showTimestamp": false,
+            "showTicks": true,
+            "tickWidth": 3,
+            "colorTicks": "#546e7a",
+            "ticksValue": [
+              {
+                "type": "constant",
+                "value": 0
+              },
+              {
+                "type": "constant",
+                "value": 6.5
+              },
+              {
+                "type": "constant",
+                "value": 8.5
+              },
+              {
+                "type": "constant",
+                "value": 14
+              }
+            ],
+            "animation": true,
+            "animationDuration": 700,
+            "animationRule": "linear",
+            "defaultColor": "#2e7d32",
+            "levelColors": [],
+            "useFixedLevelColor": true,
+            "fixedLevelColors": [
+              {
+                "from": {
+                  "type": "constant",
+                  "value": 0
+                },
+                "to": {
+                  "type": "constant",
+                  "value": 6.5
+                },
+                "color": "#d32f2f"
+              },
+              {
+                "from": {
+                  "type": "constant",
+                  "value": 6.5
+                },
+                "to": {
+                  "type": "constant",
+                  "value": 8.5
+                },
+                "color": "#2e7d32"
+              },
+              {
+                "from": {
+                  "type": "constant",
+                  "value": 8.5
+                },
+                "to": {
+                  "type": "constant",
+                  "value": null
+                },
+                "color": "#d32f2f"
+              }
+            ],
+            "barColor": {
+              "type": "range",
+              "color": "#2e7d32",
+              "rangeList": {
+                "advancedMode": true,
+                "range": null,
+                "rangeAdvanced": [
+                  {
+                    "from": {
+                      "type": "constant",
+                      "value": 0
+                    },
+                    "to": {
+                      "type": "constant",
+                      "value": 6.5
+                    },
+                    "color": "#d32f2f"
+                  },
+                  {
+                    "from": {
+                      "type": "constant",
+                      "value": 6.5
+                    },
+                    "to": {
+                      "type": "constant",
+                      "value": 8.5
+                    },
+                    "color": "#2e7d32"
+                  },
+                  {
+                    "from": {
+                      "type": "constant",
+                      "value": 8.5
+                    },
+                    "to": {
+                      "type": "constant",
+                      "value": null
+                    },
+                    "color": "#d32f2f"
+                  }
+                ]
+              }
+            },
+            "titleFont": {
+              "family": "Roboto",
+              "size": 9,
+              "style": "normal",
+              "weight": "600",
+              "color": "#37474f"
+            },
+            "valueFont": {
+              "family": "Roboto",
+              "size": 28,
+              "style": "normal",
+              "weight": "700",
+              "color": "#263238"
+            },
+            "minMaxFont": {
+              "family": "Roboto",
+              "size": 10,
+              "style": "normal",
+              "weight": "600",
+              "color": "#37474f"
+            },
+            "labelFont": {
+              "family": "Roboto",
+              "size": 9,
+              "style": "normal",
+              "weight": "500",
+              "color": "#546e7a"
+            }
           },
           "showTitle": true,
           "title": "pH \u2014 Dhunche (Node 01)",
@@ -362,7 +508,7 @@
         "id": "ph_gauge"
       },
       "turbidity_gauge": {
-        "typeFullFqn": "system.cards.markdown_card",
+        "typeFullFqn": "system.digital_gauges.gauge_justgage",
         "type": "latest",
         "sizeX": 8,
         "sizeY": 5,
@@ -377,10 +523,13 @@
                   "name": "turbidity_ntu",
                   "type": "timeseries",
                   "label": "Turbidity",
-                  "color": "#67e8f9",
-                  "settings": {},
+                  "color": "#2e7d32",
+                  "settings": {
+                    "units": "NTU",
+                    "decimals": 1
+                  },
                   "aggregationType": null,
-                  "units": null,
+                  "units": "NTU",
                   "decimals": 1
                 }
               ],
@@ -395,11 +544,154 @@
             }
           ],
           "settings": {
-            "applyDefaultMarkdownStyle": true,
-            "markdownTextPattern": "",
-            "useMarkdownTextFunction": true,
-            "markdownTextFunction": "\nconst d = data[0] || {};\nconst raw = d[\"Turbidity\"] !== undefined ? d[\"Turbidity\"] : d[\"turbidity_ntu\"];\nconst value = Number(raw);\nconst shown = isFinite(value) ? value.toFixed(1) : \"--.-\";\nconst fill = isFinite(value) ? Math.max(2, Math.min(100, value / 300 * 100)) : 0;\nconst segments = {\n  \"0\": \"abcdef\", \"1\": \"bc\", \"2\": \"abdeg\", \"3\": \"abcdg\", \"4\": \"bcfg\",\n  \"5\": \"acdfg\", \"6\": \"acdefg\", \"7\": \"abc\", \"8\": \"abcdefg\", \"9\": \"abcdfg\",\n  \"-\": \"g\"\n};\nfunction glyph(ch) {\n  if (ch === \".\") {\n    return '<span class=\"led-dot\"></span>';\n  }\n  const on = segments[ch] || \"\";\n  return '<span class=\"led-digit\">' + [\"a\", \"b\", \"c\", \"d\", \"e\", \"f\", \"g\"].map(function (s) {\n    return '<i class=\"led-seg ' + s + (on.indexOf(s) >= 0 ? ' on' : '') + '\"></i>';\n  }).join('') + '</span>';\n}\nconst readout = shown.split('').map(glyph).join('');\nreturn '<div class=\"js-led-shell\" style=\"--led-accent:#67e8f9;--led-glow:#00b8d4;\">' +\n  '<div class=\"js-led-top\"><span>JalSanket \u00b7 Dhunche \u00b7 Node 01</span>' +\n    '<span class=\"js-led-live\"><i class=\"js-led-dot\"></i>LIVE</span></div>' +\n  '<div class=\"js-led-screen\">' +\n    '<div class=\"js-led-readout\">' + readout + '</div>' +\n    '<span class=\"js-led-unit\">NTU</span></div>' +\n  '<div class=\"js-led-meta\"><span class=\"js-led-name\">TURBIDITY</span>' +\n    '<span class=\"js-led-scale\"><i class=\"js-led-fill\" style=\"width:' + fill + '%\"></i></span>' +\n    '<span class=\"js-led-range\">0\u2013300</span></div>' +\n  '<div class=\"js-led-foot\">Dhunche water source \u00b7 JalSanket Node 01 \u00b7 latest telemetry</div>' +\n  '</div>';\n",
-            "markdownCss": "\n.js-led-shell{height:100%;box-sizing:border-box;padding:8px 10px;border:1px solid #3c4a52;border-radius:7px;background:linear-gradient(145deg,#2b363c,#11191e);box-shadow:0 2px 7px rgba(0,0,0,.32),inset 0 1px 0 rgba(255,255,255,.08);display:flex;flex-direction:column;justify-content:center;gap:5px;color:#cfd8dc;}\n.js-led-top{display:flex;align-items:center;justify-content:space-between;font-size:9px;font-weight:600;letter-spacing:1.1px;text-transform:uppercase;color:#90a4ae;}\n.js-led-live{display:flex;align-items:center;gap:5px;color:var(--led-accent);font-weight:700;}\n.js-led-dot{width:6px;height:6px;border-radius:50%;background:var(--led-accent);box-shadow:0 0 8px var(--led-glow);animation:jsLedPulse 1.8s ease-in-out infinite;}\n@keyframes jsLedPulse{0%,100%{opacity:.45;}50%{opacity:1;}}\n.js-led-screen{position:relative;overflow:hidden;min-height:62px;padding:8px 9px;border:2px solid #05090b;border-radius:5px;background:radial-gradient(ellipse at 50% 0%,rgba(255,255,255,.05),transparent 62%),linear-gradient(#07100c,#040907);box-shadow:inset 0 0 20px rgba(0,0,0,.9),0 0 0 1px rgba(255,255,255,.04);display:flex;align-items:center;justify-content:center;gap:8px;}\n.js-led-screen:after{content:\"\";position:absolute;inset:0;background:repeating-linear-gradient(0deg,rgba(255,255,255,.018) 0 1px,transparent 1px 3px);pointer-events:none;}\n.js-led-readout{display:flex;align-items:center;gap:2px;position:relative;z-index:1;}\n.led-digit{position:relative;display:inline-block;width:24px;height:44px;filter:drop-shadow(0 0 3px var(--led-glow));}\n.led-seg{position:absolute;display:block;border-radius:2px;background:rgba(120,140,130,.10);transition:background .15s ease,box-shadow .15s ease;}\n.led-seg.on{background:var(--led-accent);box-shadow:0 0 7px var(--led-glow),0 0 14px var(--led-glow);}\n.led-seg.a,.led-seg.g,.led-seg.d{left:4px;right:4px;height:4px;}\n.led-seg.a{top:1px;}.led-seg.g{top:20px;}.led-seg.d{bottom:1px;}\n.led-seg.b,.led-seg.c,.led-seg.e,.led-seg.f{width:4px;height:18px;}\n.led-seg.b,.led-seg.f{top:4px;}.led-seg.c,.led-seg.e{top:23px;}\n.led-seg.b,.led-seg.c{right:2px;}.led-seg.e,.led-seg.f{left:2px;}\n.led-dot{display:inline-block;width:5px;height:5px;border-radius:50%;background:var(--led-accent);box-shadow:0 0 7px var(--led-glow);align-self:flex-end;margin-bottom:5px;}\n.js-led-unit{position:relative;z-index:1;font-size:12px;font-weight:700;letter-spacing:1px;color:var(--led-accent);text-shadow:0 0 7px var(--led-glow);}\n.js-led-meta{display:flex;align-items:center;gap:7px;font-size:9px;color:#90a4ae;}\n.js-led-name{font-weight:700;letter-spacing:.8px;white-space:nowrap;}\n.js-led-scale{position:relative;flex:1;height:4px;border-radius:2px;background:#263238;overflow:hidden;}\n.js-led-fill{display:block;height:100%;border-radius:2px;background:linear-gradient(90deg,var(--led-glow),var(--led-accent));box-shadow:0 0 8px var(--led-glow);}\n.js-led-range{white-space:nowrap;font-variant-numeric:tabular-nums;}\n.js-led-foot{font-size:9px;color:#78909c;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}\n"
+            "minValue": 0,
+            "maxValue": 300,
+            "decimals": 1,
+            "units": "NTU",
+            "gaugeType": "arc",
+            "donutStartAngle": 90,
+            "gaugeWidthScale": 0.75,
+            "gaugeColor": "#eceff1",
+            "showValue": true,
+            "showMinMax": true,
+            "showTitle": true,
+            "title": "SAFE 0-50 NTU",
+            "showUnitTitle": true,
+            "unitTitle": "NTU",
+            "showTimestamp": false,
+            "showTicks": true,
+            "tickWidth": 3,
+            "colorTicks": "#546e7a",
+            "ticksValue": [
+              {
+                "type": "constant",
+                "value": 0
+              },
+              {
+                "type": "constant",
+                "value": 50.0
+              },
+              {
+                "type": "constant",
+                "value": 200.0
+              },
+              {
+                "type": "constant",
+                "value": 300
+              }
+            ],
+            "animation": true,
+            "animationDuration": 700,
+            "animationRule": "linear",
+            "defaultColor": "#2e7d32",
+            "levelColors": [],
+            "useFixedLevelColor": true,
+            "fixedLevelColors": [
+              {
+                "from": {
+                  "type": "constant",
+                  "value": 0
+                },
+                "to": {
+                  "type": "constant",
+                  "value": 50.0
+                },
+                "color": "#2e7d32"
+              },
+              {
+                "from": {
+                  "type": "constant",
+                  "value": 50.0
+                },
+                "to": {
+                  "type": "constant",
+                  "value": 200.0
+                },
+                "color": "#d32f2f"
+              },
+              {
+                "from": {
+                  "type": "constant",
+                  "value": 200.0
+                },
+                "to": {
+                  "type": "constant",
+                  "value": null
+                },
+                "color": "#8e0000"
+              }
+            ],
+            "barColor": {
+              "type": "range",
+              "color": "#2e7d32",
+              "rangeList": {
+                "advancedMode": true,
+                "range": null,
+                "rangeAdvanced": [
+                  {
+                    "from": {
+                      "type": "constant",
+                      "value": 0
+                    },
+                    "to": {
+                      "type": "constant",
+                      "value": 50.0
+                    },
+                    "color": "#2e7d32"
+                  },
+                  {
+                    "from": {
+                      "type": "constant",
+                      "value": 50.0
+                    },
+                    "to": {
+                      "type": "constant",
+                      "value": 200.0
+                    },
+                    "color": "#d32f2f"
+                  },
+                  {
+                    "from": {
+                      "type": "constant",
+                      "value": 200.0
+                    },
+                    "to": {
+                      "type": "constant",
+                      "value": null
+                    },
+                    "color": "#8e0000"
+                  }
+                ]
+              }
+            },
+            "titleFont": {
+              "family": "Roboto",
+              "size": 9,
+              "style": "normal",
+              "weight": "600",
+              "color": "#37474f"
+            },
+            "valueFont": {
+              "family": "Roboto",
+              "size": 28,
+              "style": "normal",
+              "weight": "700",
+              "color": "#263238"
+            },
+            "minMaxFont": {
+              "family": "Roboto",
+              "size": 10,
+              "style": "normal",
+              "weight": "600",
+              "color": "#37474f"
+            },
+            "labelFont": {
+              "family": "Roboto",
+              "size": 9,
+              "style": "normal",
+              "weight": "500",
+              "color": "#546e7a"
+            }
           },
           "showTitle": true,
           "title": "Turbidity \u2014 Dhunche (Node 01)",
@@ -410,7 +702,7 @@
         "id": "turbidity_gauge"
       },
       "tds_gauge": {
-        "typeFullFqn": "system.cards.markdown_card",
+        "typeFullFqn": "system.digital_gauges.gauge_justgage",
         "type": "latest",
         "sizeX": 8,
         "sizeY": 5,
@@ -425,10 +717,13 @@
                   "name": "tds_ppm",
                   "type": "timeseries",
                   "label": "TDS",
-                  "color": "#ffcc66",
-                  "settings": {},
+                  "color": "#2e7d32",
+                  "settings": {
+                    "units": "ppm",
+                    "decimals": 1
+                  },
                   "aggregationType": null,
-                  "units": null,
+                  "units": "ppm",
                   "decimals": 1
                 }
               ],
@@ -443,11 +738,128 @@
             }
           ],
           "settings": {
-            "applyDefaultMarkdownStyle": true,
-            "markdownTextPattern": "",
-            "useMarkdownTextFunction": true,
-            "markdownTextFunction": "\nconst d = data[0] || {};\nconst raw = d[\"TDS\"] !== undefined ? d[\"TDS\"] : d[\"tds_ppm\"];\nconst value = Number(raw);\nconst shown = isFinite(value) ? value.toFixed(1) : \"--.-\";\nconst fill = isFinite(value) ? Math.max(2, Math.min(100, value / 1000 * 100)) : 0;\nconst segments = {\n  \"0\": \"abcdef\", \"1\": \"bc\", \"2\": \"abdeg\", \"3\": \"abcdg\", \"4\": \"bcfg\",\n  \"5\": \"acdfg\", \"6\": \"acdefg\", \"7\": \"abc\", \"8\": \"abcdefg\", \"9\": \"abcdfg\",\n  \"-\": \"g\"\n};\nfunction glyph(ch) {\n  if (ch === \".\") {\n    return '<span class=\"led-dot\"></span>';\n  }\n  const on = segments[ch] || \"\";\n  return '<span class=\"led-digit\">' + [\"a\", \"b\", \"c\", \"d\", \"e\", \"f\", \"g\"].map(function (s) {\n    return '<i class=\"led-seg ' + s + (on.indexOf(s) >= 0 ? ' on' : '') + '\"></i>';\n  }).join('') + '</span>';\n}\nconst readout = shown.split('').map(glyph).join('');\nreturn '<div class=\"js-led-shell\" style=\"--led-accent:#ffcc66;--led-glow:#ff9800;\">' +\n  '<div class=\"js-led-top\"><span>JalSanket \u00b7 Dhunche \u00b7 Node 01</span>' +\n    '<span class=\"js-led-live\"><i class=\"js-led-dot\"></i>LIVE</span></div>' +\n  '<div class=\"js-led-screen\">' +\n    '<div class=\"js-led-readout\">' + readout + '</div>' +\n    '<span class=\"js-led-unit\">ppm</span></div>' +\n  '<div class=\"js-led-meta\"><span class=\"js-led-name\">TDS</span>' +\n    '<span class=\"js-led-scale\"><i class=\"js-led-fill\" style=\"width:' + fill + '%\"></i></span>' +\n    '<span class=\"js-led-range\">0\u20131000</span></div>' +\n  '<div class=\"js-led-foot\">Dhunche water source \u00b7 JalSanket Node 01 \u00b7 latest telemetry</div>' +\n  '</div>';\n",
-            "markdownCss": "\n.js-led-shell{height:100%;box-sizing:border-box;padding:8px 10px;border:1px solid #3c4a52;border-radius:7px;background:linear-gradient(145deg,#2b363c,#11191e);box-shadow:0 2px 7px rgba(0,0,0,.32),inset 0 1px 0 rgba(255,255,255,.08);display:flex;flex-direction:column;justify-content:center;gap:5px;color:#cfd8dc;}\n.js-led-top{display:flex;align-items:center;justify-content:space-between;font-size:9px;font-weight:600;letter-spacing:1.1px;text-transform:uppercase;color:#90a4ae;}\n.js-led-live{display:flex;align-items:center;gap:5px;color:var(--led-accent);font-weight:700;}\n.js-led-dot{width:6px;height:6px;border-radius:50%;background:var(--led-accent);box-shadow:0 0 8px var(--led-glow);animation:jsLedPulse 1.8s ease-in-out infinite;}\n@keyframes jsLedPulse{0%,100%{opacity:.45;}50%{opacity:1;}}\n.js-led-screen{position:relative;overflow:hidden;min-height:62px;padding:8px 9px;border:2px solid #05090b;border-radius:5px;background:radial-gradient(ellipse at 50% 0%,rgba(255,255,255,.05),transparent 62%),linear-gradient(#07100c,#040907);box-shadow:inset 0 0 20px rgba(0,0,0,.9),0 0 0 1px rgba(255,255,255,.04);display:flex;align-items:center;justify-content:center;gap:8px;}\n.js-led-screen:after{content:\"\";position:absolute;inset:0;background:repeating-linear-gradient(0deg,rgba(255,255,255,.018) 0 1px,transparent 1px 3px);pointer-events:none;}\n.js-led-readout{display:flex;align-items:center;gap:2px;position:relative;z-index:1;}\n.led-digit{position:relative;display:inline-block;width:24px;height:44px;filter:drop-shadow(0 0 3px var(--led-glow));}\n.led-seg{position:absolute;display:block;border-radius:2px;background:rgba(120,140,130,.10);transition:background .15s ease,box-shadow .15s ease;}\n.led-seg.on{background:var(--led-accent);box-shadow:0 0 7px var(--led-glow),0 0 14px var(--led-glow);}\n.led-seg.a,.led-seg.g,.led-seg.d{left:4px;right:4px;height:4px;}\n.led-seg.a{top:1px;}.led-seg.g{top:20px;}.led-seg.d{bottom:1px;}\n.led-seg.b,.led-seg.c,.led-seg.e,.led-seg.f{width:4px;height:18px;}\n.led-seg.b,.led-seg.f{top:4px;}.led-seg.c,.led-seg.e{top:23px;}\n.led-seg.b,.led-seg.c{right:2px;}.led-seg.e,.led-seg.f{left:2px;}\n.led-dot{display:inline-block;width:5px;height:5px;border-radius:50%;background:var(--led-accent);box-shadow:0 0 7px var(--led-glow);align-self:flex-end;margin-bottom:5px;}\n.js-led-unit{position:relative;z-index:1;font-size:12px;font-weight:700;letter-spacing:1px;color:var(--led-accent);text-shadow:0 0 7px var(--led-glow);}\n.js-led-meta{display:flex;align-items:center;gap:7px;font-size:9px;color:#90a4ae;}\n.js-led-name{font-weight:700;letter-spacing:.8px;white-space:nowrap;}\n.js-led-scale{position:relative;flex:1;height:4px;border-radius:2px;background:#263238;overflow:hidden;}\n.js-led-fill{display:block;height:100%;border-radius:2px;background:linear-gradient(90deg,var(--led-glow),var(--led-accent));box-shadow:0 0 8px var(--led-glow);}\n.js-led-range{white-space:nowrap;font-variant-numeric:tabular-nums;}\n.js-led-foot{font-size:9px;color:#78909c;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}\n"
+            "minValue": 0,
+            "maxValue": 1000,
+            "decimals": 1,
+            "units": "ppm",
+            "gaugeType": "arc",
+            "donutStartAngle": 90,
+            "gaugeWidthScale": 0.75,
+            "gaugeColor": "#eceff1",
+            "showValue": true,
+            "showMinMax": true,
+            "showTitle": true,
+            "title": "SAFE 0-500 ppm",
+            "showUnitTitle": true,
+            "unitTitle": "ppm",
+            "showTimestamp": false,
+            "showTicks": true,
+            "tickWidth": 3,
+            "colorTicks": "#546e7a",
+            "ticksValue": [
+              {
+                "type": "constant",
+                "value": 0
+              },
+              {
+                "type": "constant",
+                "value": 500.0
+              },
+              {
+                "type": "constant",
+                "value": 1000
+              }
+            ],
+            "animation": true,
+            "animationDuration": 700,
+            "animationRule": "linear",
+            "defaultColor": "#2e7d32",
+            "levelColors": [],
+            "useFixedLevelColor": true,
+            "fixedLevelColors": [
+              {
+                "from": {
+                  "type": "constant",
+                  "value": 0
+                },
+                "to": {
+                  "type": "constant",
+                  "value": 500.0
+                },
+                "color": "#2e7d32"
+              },
+              {
+                "from": {
+                  "type": "constant",
+                  "value": 500.0
+                },
+                "to": {
+                  "type": "constant",
+                  "value": null
+                },
+                "color": "#d32f2f"
+              }
+            ],
+            "barColor": {
+              "type": "range",
+              "color": "#2e7d32",
+              "rangeList": {
+                "advancedMode": true,
+                "range": null,
+                "rangeAdvanced": [
+                  {
+                    "from": {
+                      "type": "constant",
+                      "value": 0
+                    },
+                    "to": {
+                      "type": "constant",
+                      "value": 500.0
+                    },
+                    "color": "#2e7d32"
+                  },
+                  {
+                    "from": {
+                      "type": "constant",
+                      "value": 500.0
+                    },
+                    "to": {
+                      "type": "constant",
+                      "value": null
+                    },
+                    "color": "#d32f2f"
+                  }
+                ]
+              }
+            },
+            "titleFont": {
+              "family": "Roboto",
+              "size": 9,
+              "style": "normal",
+              "weight": "600",
+              "color": "#37474f"
+            },
+            "valueFont": {
+              "family": "Roboto",
+              "size": 28,
+              "style": "normal",
+              "weight": "700",
+              "color": "#263238"
+            },
+            "minMaxFont": {
+              "family": "Roboto",
+              "size": 10,
+              "style": "normal",
+              "weight": "600",
+              "color": "#37474f"
+            },
+            "labelFont": {
+              "family": "Roboto",
+              "size": 9,
+              "style": "normal",
+              "weight": "500",
+              "color": "#546e7a"
+            }
           },
           "showTitle": true,
           "title": "TDS \u2014 Dhunche (Node 01)",
