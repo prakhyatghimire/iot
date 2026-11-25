@@ -393,7 +393,7 @@ def main() -> int:
         check("critical node status turns red",
               ".js-node.crit{" in node_css
               and "background:#c62828" in node_css
-              and ".js-node-status.crit{background:#b71c1c;color:#fff" in node_css)
+              and ".js-node.crit .js-node-status{background:#b71c1c;color:#fff" in node_css)
         check("offline nodes show no recent flow reading",
               'flow = "No recent reading"' in node_js)
 
