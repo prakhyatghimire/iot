@@ -313,12 +313,13 @@ raises a fixed `CRITICAL ALERT` naming the area, location and node. Alerts are
 sorted by severity and rendered as
 `CRITICAL — Syafrubesi (JalSanket Node 02) — Turbidity critically high (time)`.
 Map markers use the human-readable names Dhunche, Syafrubesi and Rasuwagadhi,
-include the status word, and are coloured by severity. Current readings are
-pinned to Dhunche (JalSanket Node 01): pH appears as a dark LED-style numeric
-display that updates from the existing `ph` telemetry key, while turbidity and
-TDS remain compact gauges. The turbidity, pH and TDS trend charts use one
-y-axis per metric (their scales differ by orders of magnitude) with
-per-location legends. To export data, open a chart's three-dot menu and choose
+include the status word, and are coloured by severity. All three current
+readings are pinned to Dhunche (JalSanket Node 01) and shown as dark LED
+instrument panels with segmented digits, a live indicator and a display-range
+bar: pH (green), turbidity (cyan) and TDS (amber) each update from their
+existing telemetry key. The range bar is a visual guide only and adds no alarm
+threshold. The turbidity, pH and TDS trend charts use one y-axis per metric
+(their scales differ by orders of magnitude) with per-location legends. To export data, open a chart's three-dot menu and choose
 **Export data to CSV**; the CSV contains one row per timestamp and location.
 The dashboard timewindow uses a 10 s aggregation interval over the last hour
 (360 buckets), which stays inside ThingsBoard's per-query bucket limit — a

@@ -81,7 +81,7 @@ municipal ownership or sensor deployment is claimed.
 | 1 | `JalSanket Water Safety · Rasuwa Monitoring Area` | 0 | Is the area safe? |
 | 2 | `Monitoring locations / water sources → JalSanket nodes` | 4 | Which source has a problem? |
 | 3 | Active alerts + area map | 9 | Severity, cause and where? |
-| 4 | `Selected location / node details → measurements → trends` + pH LED / turbidity & TDS gauges | 16–17 | Current sensor values for the selected node? |
+| 4 | `Selected location / node details → measurements → trends` + pH / turbidity / TDS LED panels | 16–17 | Current sensor values for the selected node? |
 | 5 | Trends and temperature/flow | 22–27 | Historical/technical detail |
 | — | Navigation to demo controls | 32 | Separate RPC scenario controls |
 
@@ -91,19 +91,20 @@ cards, ACTIVE alerts and the map.
 ## 7. Widgets removed / rearranged / renamed
 
 - Removed: **none**. All 13 widgets and all required functionality remain.
-- Converted the pH dial into a dark LED-style numeric readout driven by the same
-  existing `ph` timeseries key; no widget was added and no telemetry was derived.
+- Converted all three dials into rich dark LED instrument panels with segmented
+  digits, live indicator and display-range bar, each driven by its same existing
+  timeseries key; no widget was added and no telemetry was derived.
 - Renamed:
   - `system_status` → `JalSanket Water Safety · Rasuwa Monitoring Area`
   - `node_status` → `Monitoring locations / water sources → JalSanket nodes`
   - `active_alerts` → `Active alerts requiring attention · Rasuwa area`
   - `node_map` → `Rasuwa area — water sources (OpenStreetMap)`
   - `measurements_header` → `Selected location / node details → measurements → trends`
-  - pH LED / turbidity / TDS gauges → `pH/Turbidity/TDS — Dhunche (Node 01)`
+  - pH / turbidity / TDS LED panels → `pH/Turbidity/TDS — Dhunche (Node 01)`
 - Rearranged: system banner grew from 3 to 4 rows; node status moved from row 3
-  to 4, alerts/map 8→9, measurements header 15→16, gauges 16→17, trends 21→22,
-  temperature/flow 26→27 and navigation 31→32. Ordering is unchanged.
-- No gauges, charts or decorative widgets were added.
+  to 4, alerts/map 8→9, measurements header 15→16, LED panels 16→17, trends
+  21→22, temperature/flow 26→27 and navigation 31→32. Ordering is unchanged.
+- No charts or decorative widgets were added.
 
 ## 8. ThingsBoard Cloud limitations
 
@@ -126,7 +127,7 @@ cards, ACTIVE alerts and the map.
 - `verify_phase4.py` — hierarchy, demonstration-label and node-pairing assertions.
 - `README.md` — updated dashboard hierarchy description.
 - `evidence/dashboard_ux_revision_report.md` — pointer to this authoritative report.
-- This report and four screenshots below.
+- This report and five screenshots below.
 
 No provisioning, telemetry, storage, MQTT, alarm or RPC source file was changed.
 
@@ -137,7 +138,7 @@ No provisioning, telemetry, storage, MQTT, alarm or RPC source file was changed.
 - `verify_phase2.py` — 45/45 passed.
 - `verify_phase3.py` — 63/63 passed.
 - `verify_metrics.py` — 29/29 passed.
-- `verify_phase4.py` — 129/129 passed (including pH LED checks).
+- `verify_phase4.py` — 127/127 passed (including all three LED-panel checks).
 - Live REST after save: title `JalSanket Water Safety — Rasuwa Monitoring Area`,
   13 widgets, alias id `2ea433e1-1bb5-76cd-daee-b4c348e7e6b8`, six alarm rules,
   three unchanged device IDs.
