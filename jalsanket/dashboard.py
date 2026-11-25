@@ -437,19 +437,22 @@ const summary = rows.length + " monitoring locations · " + count("SAFE") + " sa
   count("WARNING") + " warning · " + count("CRITICAL") + " critical · " +
   count("STALE") + " unconfirmed · " + count("OFFLINE") + " offline";
 const scopeKey = "__jalsanketIncidentScopeDismissed";
-const scopeStore = typeof window !== "undefined" ? window : {};
+const scopeStore = typeof localStorage !== "undefined" ? localStorage : {
+  getItem: function () { return null; },
+  setItem: function () {},
+  removeItem: function () {}
+};
 const scopeSignature = serious.length
   ? serious.map(function (r) { return r.location + ":" + r.status; }).sort().join("|")
   : "";
-if (!serious.length) scopeStore[scopeKey] = "";
-const scopeDismissed = !!scopeSignature && scopeStore[scopeKey] === scopeSignature;
+if (!serious.length) scopeStore.removeItem(scopeKey);
+const scopeDismissed = !!scopeSignature && scopeStore.getItem(scopeKey) === scopeSignature;
 let scopeHtml = "";
 if (serious.length && !scopeDismissed) {
   const scopeText = serious.length > 1
     ? "Incident scope: multiple locations affected"
     : "Incident scope: isolated to " + serious[0].location;
-  const closeAttr = "var w=typeof window!=='undefined'?window:{};" +
-    "w['" + scopeKey + "']='" + scopeSignature + "';" +
+  const closeAttr = "localStorage.setItem('" + scopeKey + "','" + scopeSignature + "');" +
     "var e=this.closest('.js-system-scope');if(e)e.style.display='none'";
   scopeHtml = '<div class="js-system-scope crit js-incident-scope">' +
     '<span>' + scopeText + '</span>' +

@@ -186,8 +186,10 @@ def run_widget_functions(artifact: dict) -> dict:
     map_stale = dict(map_row, ph=7.17, turbidity_ntu=6.1, tds_ppm=195.0,
                      flow_lpm=13.8)
     dismissed_js = (
-        'const window = {__jalsanketIncidentScopeDismissed: "Dhunche:CRITICAL"};\n'
-        + system_js
+        "const localStorage = {"
+        'getItem: function (k) { return k === "__jalsanketIncidentScopeDismissed" ? "Dhunche:CRITICAL" : null; },'
+        "setItem: function () {}, removeItem: function () {}"
+        "};\n" + system_js
     )
     payload = {
         "cards": {
@@ -356,7 +358,7 @@ def main() -> int:
           'class="js-system-scope crit js-incident-scope"' in contamination
           and 'class="js-scope-close"' in contamination
           and 'aria-label="Close incident scope"' in contamination
-          and "__jalsanketIncidentScopeDismissed" in contamination)
+          and "localStorage.setItem('__jalsanketIncidentScopeDismissed'" in contamination)
     check("closing the incident scope hides it in the status widget",
           "Incident scope:" not in out["cards"]["contamination_dismissed"]
           and "js-incident-scope" not in out["cards"]["contamination_dismissed"]
