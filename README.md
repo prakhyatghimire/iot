@@ -309,7 +309,10 @@ is safe, which location has a problem, how serious it is and what needs
 attention. The system banner and three location cards derive SAFE / WARNING /
 CRITICAL / OFFLINE from the existing `safetyStatus` and `active` attributes;
 the cards show only overall water status, active alarm, flow status and
-connectivity. Alerts come from the stock ACTIVE alarms table, sorted by severity
+connectivity. A CRITICAL condition turns the banner and affected card solid red
+and raises a fixed, pulsing `CRITICAL ALERT` overlay naming the location; this
+is an in-dashboard `role="alert"` message rather than a repeated native browser
+popup. Alerts come from the stock ACTIVE alarms table, sorted by severity
 and rendered as `Critical — Syafrubesi — Turbidity critically high (time)`.
 Map markers use the human-readable names Dhunche, Syafrubesi and Rasuwagadhi,
 include the status word, and are coloured by severity. Detailed gauges are

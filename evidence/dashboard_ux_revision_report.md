@@ -14,7 +14,11 @@ Report date: 2026-11-25 (alignment and critical-colour revision applied)
 - Replaced the old text prompt (`summary`) and entities table (`fleet_health`)
   with two dynamic markdown cards:
   - `system_status` — overall SAFE / WARNING / CRITICAL / OFFLINE banner with a
-    one-line count of safe, warning, critical and offline locations.
+    one-line count of safe, warning, critical and offline locations. When any
+    location is CRITICAL it also renders a fixed, pulsing red `CRITICAL ALERT`
+    overlay naming the location and requiring immediate attention. This is a
+    non-blocking in-dashboard alert (`role="alert"`), not a repeated native
+    browser popup.
   - `node_status` — one card each for Dhunche, Syafrubesi and Rasuwagadhi showing
     only overall water status, active alarm, flow status and connectivity. The
     label/value rows use a fixed two-column grid so values line up across all
@@ -89,6 +93,9 @@ The final layout contains 13 widgets and no stale `summary`, `fleet_health`,
 - A CRITICAL node is unmistakable: its whole card and the overall banner turn
   solid red with white text and a red status pill. Data rows use a fixed
   label/value grid, so the same field lines up across all three location cards.
+- A CRITICAL condition also raises a visible `CRITICAL ALERT` overlay at the top
+  right of the dashboard, so it cannot be missed while scrolling. It appears
+  only while a critical condition exists and does not block the UI.
 - CRITICAL alerts sort above MAJOR/WARNING and get a stronger red badge;
   warnings use orange and informational alerts use blue.
 - The map marker for an unsafe location says `Syafrubesi — CRITICAL`, so the
@@ -102,12 +109,12 @@ The final layout contains 13 widgets and no stale `summary`, `fleet_health`,
 - `python3 -m compileall -q jalsanket *.py` — passed.
 - `verify_phase1.py`, `verify_phase2.py`, `verify_phase3.py`,
   `verify_metrics.py` — all passed; no backend regression.
-- `verify_phase4.py` — 121/121 checks passed, including the new UX assertions:
+- `verify_phase4.py` — 122/122 checks passed, including the new UX assertions:
   no stale widgets, hierarchy order, labelled status-card values, explicit
   severity words, aligned node-row columns, solid-red critical card CSS,
-  ACTIVE/sorted custom alert cell, map label function, nested gauge fonts with
-  `levelColors`, preserved fleet alias, valid timewindow, per-location chart
-  legends and human-readable gauge titles.
+  critical alert overlay, ACTIVE/sorted custom alert cell, map label function,
+  nested gauge fonts with `levelColors`, preserved fleet alias, valid
+  timewindow, per-location chart legends and human-readable gauge titles.
 - Live REST verification of dashboard `8626a700-...`: 13 expected widget ids,
   preserved alias id, dashboard timewindow unchanged, alert widget timewindow
   present, three location-named chart datasources, map functions present.
@@ -119,7 +126,10 @@ The final layout contains 13 widgets and no stale `summary`, `fleet_health`,
   connectivity were read from existing live values. No readings or alarms were
   invented. Computed styles confirmed the overall banner and the Syafrubesi card
   both use `rgb(198, 40, 40)` with white text, while the safe cards stay white;
-  node rows use a `144px 191px` label/value grid.
+  node rows use a `144px 191px` label/value grid. The live alert overlay rendered
+  as `CRITICAL ALERT — Syafrubesi has unsafe water status. Immediate attention
+  required.` with `position: fixed`, `z-index: 2147483000`, `role="alert"`,
+  background `rgb(183, 28, 28)` and no console errors.
 - Map coordinates verified from existing telemetry: Dhunche 28.1100/85.2900,
   Syafrubesi 28.0920/85.3610, Rasuwagadhi 28.1710/85.3870.
 - Active-alert widget was probed earlier with a real CRITICAL alarm and rendered
@@ -131,8 +141,11 @@ The final layout contains 13 widgets and no stale `summary`, `fleet_health`,
 
 ## 6. Screenshot paths
 
-- `evidence/screenshots/dashboard_ux_first_viewport.png` — status banner, three
-  location cards, active-alert area and map in the first screen.
+- `evidence/screenshots/dashboard_ux_first_viewport.png` — CRITICAL alert
+  overlay, status banner, three aligned location cards, active-alert area and
+  map in the first screen.
+- `evidence/screenshots/dashboard_ux_critical_alert.png` — dedicated capture of
+  the red critical overlay and red critical card.
 - `evidence/screenshots/dashboard_ux_alerts_map.png` — active alerts and the
   OpenStreetMap location overview with status-labelled markers.
 - `evidence/screenshots/dashboard_ux_measurements_trends.png` — gauges and the
@@ -154,6 +167,10 @@ The final layout contains 13 widgets and no stale `summary`, `fleet_health`,
   **label** (for example `Connectivity`, `Water status`, `Flow`), not the raw key
   name; the card functions accept both forms so the widget keeps human-readable
   internal labels.
+- A native `window.alert()` was deliberately not used: the markdown function
+  re-renders on each telemetry update, so a modal popup would repeat and block
+  the duty officer's browser. The fixed `role="alert"` overlay provides the same
+  "critical happened" signal without blocking navigation or requiring dismissal.
 - The Cloud JustGage descriptor requires `levelColors` and uses nested font
   objects (`titleFont`, `valueFont`, `minMaxFont`, `labelFont`); the previous flat
   font keys caused runtime widget errors and were removed.
