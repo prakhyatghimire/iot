@@ -197,7 +197,7 @@ CLOUD_WIDGET_FQNS: dict[str, tuple[str, str]] = {
     "system_status": ("cards.markdown_card", "latest"),
     "node_status": ("cards.markdown_card", "latest"),
     "measurements_header": ("cards.markdown_card", "latest"),
-    "ph_gauge": ("digital_gauges.gauge_justgage", "latest"),
+    "ph_gauge": ("cards.markdown_card", "latest"),
     "turbidity_gauge": ("digital_gauges.gauge_justgage", "latest"),
     "tds_gauge": ("digital_gauges.gauge_justgage", "latest"),
     "turbidity_series": ("time_series_chart", "timeseries"),
@@ -357,6 +357,32 @@ NODE_STATUS_CSS = r"""
 .js-node-row{display:grid;grid-template-columns:minmax(110px,42%) minmax(0,1fr);column-gap:8px;font-size:12px;line-height:1.55;color:#546e7a;border-top:1px solid #eef1f3;padding-top:3px;}
 .js-node-row span,.js-node-row b{min-width:0;}
 .js-node-row b{color:#263238;font-weight:600;text-align:left;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;}
+"""
+
+# pH is presented as a dark LED readout instead of a dial. It still reads the
+# existing `ph` timeseries key from Node-01; no derived value is invented.
+PH_LED_JS = r"""
+const d = data[0] || {};
+const raw = d["pH"] !== undefined ? d["pH"] : d.ph;
+const value = Number(raw);
+const shown = isFinite(value) ? value.toFixed(2) : "--.--";
+return '<div class="js-led-screen">' +
+  '<div class="js-led-caption">WATER QUALITY · pH</div>' +
+  '<div class="js-led-panel">' +
+    '<span class="js-led-value">' + shown + '</span>' +
+    '<span class="js-led-unit">pH</span>' +
+  '</div>' +
+  '<div class="js-led-foot">Dhunche · JalSanket Node 01 · latest telemetry</div>' +
+  '</div>';
+"""
+
+PH_LED_CSS = r"""
+.js-led-screen{height:100%;box-sizing:border-box;padding:8px 10px;border:1px solid #263238;border-radius:6px;background:#101820;display:flex;flex-direction:column;justify-content:center;gap:3px;}
+.js-led-caption{font-size:10px;font-weight:700;letter-spacing:1.5px;color:#90a4ae;text-align:center;}
+.js-led-panel{display:flex;align-items:baseline;justify-content:center;gap:8px;padding:7px 10px;border:2px solid #1b5e20;border-radius:5px;background:repeating-linear-gradient(0deg,rgba(0,0,0,.24) 0 1px,transparent 1px 4px),#07120b;box-shadow:inset 0 0 14px rgba(0,0,0,.85);}
+.js-led-value{font-family:"Courier New",monospace;font-size:36px;font-weight:700;line-height:1;letter-spacing:4px;color:#8cff70;text-shadow:0 0 6px #39ff14,0 0 18px rgba(57,255,20,.45);font-variant-numeric:tabular-nums;}
+.js-led-unit{font-family:"Courier New",monospace;font-size:13px;font-weight:700;color:#4caf50;text-shadow:0 0 5px rgba(76,175,80,.7);}
+.js-led-foot{font-size:10px;color:#78909c;text-align:center;}
 """
 
 # Alarms table cell function: one human-readable line per active alarm. It uses
@@ -553,9 +579,10 @@ def _cloud_datasource(keys: list[dict]) -> list[dict]:
 def _cloud_device_datasource(device_id: Optional[str], keys: list[dict]) -> list[dict]:
     """Single-device datasource for widgets that only accept one entity.
 
-    The JustGage widgets declare ``maxDatasources: 1`` / ``singleEntity: true``.
-    Binding them to the multi-device fleet alias makes their subscription
-    ambiguous, so the three compact gauges are pinned to Node-01 explicitly.
+    The JustGage widgets declare ``maxDatasources: 1`` / ``singleEntity: true``,
+    and the pH LED card is a single-location readout. Binding them to the
+    multi-device fleet alias makes their subscription ambiguous, so these
+    Node-01 detail widgets are pinned to that device explicitly.
     """
     ds = _cloud_datasource(keys)[0]
     if device_id:
@@ -569,7 +596,8 @@ def _cloud_device_datasource(device_id: Optional[str], keys: list[dict]) -> list
 
 def _cloud_markdown_config(title: str, keys: list[dict], *,
                            javascript: Optional[str] = None,
-                           markdown: str = "", css: str = "") -> dict:
+                           markdown: str = "", css: str = "",
+                           device_id: Optional[str] = None) -> dict:
     """Build a markdown card config driven by an in-page JS function."""
     settings: dict = {
         "applyDefaultMarkdownStyle": True,
@@ -579,8 +607,12 @@ def _cloud_markdown_config(title: str, keys: list[dict], *,
         settings["useMarkdownTextFunction"] = True
         settings["markdownTextFunction"] = javascript
         settings["markdownCss"] = css
+    if keys and device_id:
+        datasources = _cloud_device_datasource(device_id, keys)
+    else:
+        datasources = _cloud_datasource(keys) if keys else []
     return {
-        "datasources": _cloud_datasource(keys) if keys else [],
+        "datasources": datasources,
         "settings": settings,
         "showTitle": True,
         "title": title,
@@ -756,8 +788,17 @@ def build_cloud_dashboard(device_ids: Optional[list[str]] = None,
         ))
 
     node01_id = device_ids[0] if device_ids else None
+    ph_led_config = _cloud_markdown_config(
+        "pH — Dhunche (Node 01)",
+        [_cloud_key("ph", "timeseries", "pH", "#8cff70", 2)],
+        javascript=PH_LED_JS,
+        css=PH_LED_CSS,
+        device_id=node01_id,
+    )
+    ph_led_config["useDashboardTimewindow"] = False
+    add("ph_gauge", "pH — Dhunche (Node 01)", 8, 5, 17, 0, ph_led_config)
+
     for widget_id, title, key_name, maximum, units, decimals, col in (
-        ("ph_gauge", "pH — Dhunche (Node 01)", "ph", 14, "pH", 2, 0),
         ("turbidity_gauge", "Turbidity — Dhunche (Node 01)", "turbidity_ntu", 300, "NTU", 1, 8),
         ("tds_gauge", "TDS — Dhunche (Node 01)", "tds_ppm", 1000, "ppm", 1, 16),
     ):

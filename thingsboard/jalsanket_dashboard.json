@@ -314,7 +314,7 @@
         "id": "measurements_header"
       },
       "ph_gauge": {
-        "typeFullFqn": "system.digital_gauges.gauge_justgage",
+        "typeFullFqn": "system.cards.markdown_card",
         "type": "latest",
         "sizeX": 8,
         "sizeY": 5,
@@ -328,8 +328,8 @@
                 {
                   "name": "ph",
                   "type": "timeseries",
-                  "label": "Dhunche",
-                  "color": "#2196f3",
+                  "label": "pH",
+                  "color": "#8cff70",
                   "settings": {},
                   "aggregationType": null,
                   "units": null,
@@ -347,41 +347,11 @@
             }
           ],
           "settings": {
-            "minValue": 0,
-            "maxValue": 14,
-            "decimals": 2,
-            "units": "pH",
-            "showTitle": false,
-            "showMinMax": true,
-            "levelColors": [],
-            "titleFont": {
-              "family": "Roboto",
-              "size": 9,
-              "style": "normal",
-              "weight": "500",
-              "color": "#999999"
-            },
-            "valueFont": {
-              "family": "Roboto",
-              "size": 24,
-              "style": "normal",
-              "weight": "500",
-              "color": "#666666"
-            },
-            "minMaxFont": {
-              "family": "Roboto",
-              "size": 9,
-              "style": "normal",
-              "weight": "500",
-              "color": "#666666"
-            },
-            "labelFont": {
-              "family": "Roboto",
-              "size": 8,
-              "style": "normal",
-              "weight": "500",
-              "color": "#999999"
-            }
+            "applyDefaultMarkdownStyle": true,
+            "markdownTextPattern": "",
+            "useMarkdownTextFunction": true,
+            "markdownTextFunction": "\nconst d = data[0] || {};\nconst raw = d[\"pH\"] !== undefined ? d[\"pH\"] : d.ph;\nconst value = Number(raw);\nconst shown = isFinite(value) ? value.toFixed(2) : \"--.--\";\nreturn '<div class=\"js-led-screen\">' +\n  '<div class=\"js-led-caption\">WATER QUALITY \u00b7 pH</div>' +\n  '<div class=\"js-led-panel\">' +\n    '<span class=\"js-led-value\">' + shown + '</span>' +\n    '<span class=\"js-led-unit\">pH</span>' +\n  '</div>' +\n  '<div class=\"js-led-foot\">Dhunche \u00b7 JalSanket Node 01 \u00b7 latest telemetry</div>' +\n  '</div>';\n",
+            "markdownCss": "\n.js-led-screen{height:100%;box-sizing:border-box;padding:8px 10px;border:1px solid #263238;border-radius:6px;background:#101820;display:flex;flex-direction:column;justify-content:center;gap:3px;}\n.js-led-caption{font-size:10px;font-weight:700;letter-spacing:1.5px;color:#90a4ae;text-align:center;}\n.js-led-panel{display:flex;align-items:baseline;justify-content:center;gap:8px;padding:7px 10px;border:2px solid #1b5e20;border-radius:5px;background:repeating-linear-gradient(0deg,rgba(0,0,0,.24) 0 1px,transparent 1px 4px),#07120b;box-shadow:inset 0 0 14px rgba(0,0,0,.85);}\n.js-led-value{font-family:\"Courier New\",monospace;font-size:36px;font-weight:700;line-height:1;letter-spacing:4px;color:#8cff70;text-shadow:0 0 6px #39ff14,0 0 18px rgba(57,255,20,.45);font-variant-numeric:tabular-nums;}\n.js-led-unit{font-family:\"Courier New\",monospace;font-size:13px;font-weight:700;color:#4caf50;text-shadow:0 0 5px rgba(76,175,80,.7);}\n.js-led-foot{font-size:10px;color:#78909c;text-align:center;}\n"
           },
           "showTitle": true,
           "title": "pH \u2014 Dhunche (Node 01)",

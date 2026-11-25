@@ -435,23 +435,42 @@ def main() -> int:
               and "Rasuwa Monitoring Area" in map_settings["tooltipFunction"]
               and "JalSanket node:" in map_settings["tooltipFunction"])
 
+        ph_led = main_dash["configuration"]["widgets"]["ph_gauge"]
+        ph_config = ph_led["config"]
+        ph_settings = ph_config["settings"]
+        check("pH detail is a live LED readout, not a dial",
+              ph_led["typeFullFqn"].endswith("cards.markdown_card")
+              and ph_settings.get("useMarkdownTextFunction") is True
+              and ph_config.get("useDashboardTimewindow") is False
+              and "js-led-value" in ph_settings["markdownTextFunction"]
+              and "toFixed(2)" in ph_settings["markdownTextFunction"])
+        check("pH LED reads the existing ph key with an exposed pH label",
+              {k["name"] for ds in ph_config["datasources"]
+               for k in ds["dataKeys"]} == {"ph"}
+              and ph_config["datasources"][0]["dataKeys"][0]["label"] == "pH"
+              and ph_config["datasources"][0]["type"] == "entity")
+        ph_css = ph_settings["markdownCss"]
+        check("pH LED renders as a dark segmented numeric screen",
+              all(token in ph_css for token in (
+                  ".js-led-screen", "#101820", "repeating-linear-gradient",
+                  "#07120b", "#8cff70", "font-variant-numeric:tabular-nums")))
+
         gauges = [w for w in main_dash["configuration"]["widgets"].values()
                   if w["typeFullFqn"] == "system.digital_gauges.gauge_justgage"]
-        check("three monitoring gauges hide the canvas label",
-              len(gauges) == 3 and all(w["config"]["settings"]["showTitle"] is False
+        check("two retained monitoring gauges hide the canvas label",
+              len(gauges) == 2 and all(w["config"]["settings"]["showTitle"] is False
                                        for w in gauges))
         expected_gauge_titles = {
-            "ph_gauge": "pH — Dhunche (Node 01)",
             "turbidity_gauge": "Turbidity — Dhunche (Node 01)",
             "tds_gauge": "TDS — Dhunche (Node 01)",
         }
-        check("monitoring gauges use human-readable location titles",
+        check("retained monitoring gauges use human-readable location titles",
               {w["id"]: w["config"]["title"] for w in gauges} == expected_gauge_titles)
-        check("monitoring gauges carry the required level-colour array",
-              len(gauges) == 3 and all(
+        check("retained monitoring gauges carry the required level-colour array",
+              len(gauges) == 2 and all(
                   w["config"]["settings"]["levelColors"] == [] for w in gauges))
-        check("monitoring gauges use nested Cloud font objects",
-              len(gauges) == 3 and all(
+        check("retained monitoring gauges use nested Cloud font objects",
+              len(gauges) == 2 and all(
                   isinstance(w["config"]["settings"]["valueFont"], dict)
                   and w["config"]["settings"]["valueFont"]["size"] == 24
                   and w["config"]["settings"]["titleFont"]["size"] == 9
@@ -464,12 +483,18 @@ def main() -> int:
             (Path(__file__).parent / "thingsboard" / "jalsanket_dashboard.json").read_text())
         import_gauges = [w for w in import_artifact["configuration"]["widgets"].values()
                          if w["typeFullFqn"] == "system.digital_gauges.gauge_justgage"]
-        check("monitoring gauges are pinned to Node-01 in the import artifact",
-              len(import_gauges) == 3 and all(
+        check("retained monitoring gauges are pinned to Node-01 in the import artifact",
+              len(import_gauges) == 2 and all(
                   w["config"]["datasources"][0].get("entityId")
                   == "737cbce0-e44f-11f1-8c2a-39d8a38c3af6"
                   and "entityAliasId" not in w["config"]["datasources"][0]
                   for w in import_gauges))
+        import_ph = import_artifact["configuration"]["widgets"]["ph_gauge"]
+        check("pH LED is pinned to Node-01 in the import artifact",
+              import_ph["typeFullFqn"].endswith("cards.markdown_card")
+              and import_ph["config"]["datasources"][0].get("entityId")
+              == "737cbce0-e44f-11f1-8c2a-39d8a38c3af6"
+              and "entityAliasId" not in import_ph["config"]["datasources"][0])
         import_chart = import_artifact["configuration"]["widgets"]["turbidity_series"]
         check("import artifact chart legends use location names",
               [ds["name"] for ds in import_chart["config"]["datasources"]]
