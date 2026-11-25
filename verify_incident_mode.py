@@ -258,6 +258,11 @@ def main() -> int:
               k["name"] for ds in widgets["system_status"]["config"]["datasources"]
               for k in ds["dataKeys"]
           })
+    check("old area-status widget title is replaced by the incident panel",
+          widgets["system_status"]["config"]["title"] == "Water Safety Incident")
+    check("incident panel renders inside the widget, not as a fixed overlay",
+          "js-system-incident" in widgets["system_status"]["config"]["settings"]["markdownCss"]
+          and "position:fixed" not in widgets["system_status"]["config"]["settings"]["markdownCss"])
     check("fleet alias is unchanged and still resolves the same three devices",
           len(config["entityAliases"]) == 1
           and config["entityAliases"]["fleet"]["alias"] == "JalSanket Fleet"
@@ -302,13 +307,13 @@ def main() -> int:
           "js-incident" not in normal and "WATER SAFETY INCIDENT" not in normal)
     check("normal mode states there is no active incident",
           "No active water-safety incident" in normal)
-    check("normal mode still shows the area status and all locations",
-          "SYSTEM STATUS: SAFE" in normal
+    check("normal mode still shows the all-clear and all locations",
+          "No active water-safety incident" in normal
           and all(name in out["cards"]["nodes_normal"]
                   for name in PLACES + NODE_NAMES))
     check("a warning alone does not open Incident Mode",
           "js-incident" not in out["cards"]["warning"]
-          and "SYSTEM STATUS: WARNING" in out["cards"]["warning"])
+          and "Attention required" in out["cards"]["warning"])
     check("system status widget hides incident scope in normal mode",
           "Incident scope:" not in out["cards"]["normal"]
           and "js-incident-scope" not in out["cards"]["normal"])

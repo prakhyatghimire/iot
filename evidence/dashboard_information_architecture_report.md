@@ -80,32 +80,34 @@ municipal ownership or sensor deployment is claimed.
 
 | Level | Widget area | Row | Question answered |
 | --- | --- | --- | --- |
-| 1 | `JalSanket Water Safety · Rasuwa Monitoring Area` | 0 | Is the area safe? |
+| 1 | `Water Safety Incident` | 0 | Is there an active water-safety incident, and what is happening? |
 | 2 | `Monitoring locations / water sources → JalSanket nodes` | 4 | Which source has a problem? |
 | 3 | Active alerts + area map | 9 | Severity, cause and where? |
 | 4 | `Selected location / node details → measurements → trends` + pH / turbidity / TDS gauges | 16–17 | Current sensor values and safe/out-of-range state? |
 | 5 | Trends and temperature/flow | 22–27 | Historical/technical detail |
 | — | Navigation to demo controls | 32 | Separate RPC scenario controls |
 
-The first viewport shows owner/area context, system status, all three location
+The first viewport shows the incident/all-clear panel, all three location
 cards, ACTIVE alerts and the map.
 
 ## 7. Widgets removed / rearranged / renamed
 
-- Removed: **none**. All 13 widgets and all required functionality remain.
+- Removed: the old `JalSanket Water Safety · Rasuwa Monitoring Area` status card
+  was replaced in the same slot by the `Water Safety Incident` panel. All 13
+  widgets and all required functionality remain.
 - Restored all three current readings as real JustGage dials after the assignment
   requirement. Each gauge shows the live value, unit, min/max numbers and tick
   marks at the existing alarm thresholds. Its arc is green inside the safe range
   and red outside it; turbidity uses dark red for the critical band above 200
   NTU. No widget was added and no telemetry or alarm threshold was derived.
 - Renamed:
-  - `system_status` → `JalSanket Water Safety · Rasuwa Monitoring Area`
+  - `system_status` → `Water Safety Incident`
   - `node_status` → `Monitoring locations / water sources → JalSanket nodes`
   - `active_alerts` → `Active alerts requiring attention · Rasuwa area`
   - `node_map` → `Rasuwa area — water sources (OpenStreetMap)`
   - `measurements_header` → `Selected location / node details → measurements → trends`
   - pH / turbidity / TDS gauges → `pH/Turbidity/TDS — Dhunche (Node 01)`
-- Rearranged: system banner grew from 3 to 4 rows; node status moved from row 3
+- Rearranged: the incident widget occupies 4 rows; node status moved from row 3
   to 4, alerts/map 8→9, measurements header 15→16, gauges 16→17, trends
   21→22, temperature/flow 26→27 and navigation 31→32. Ordering is unchanged.
 - No charts or decorative widgets were added.
@@ -114,12 +116,14 @@ cards, ACTIVE alerts and the map.
 
 Incident Mode is a presentation state on the same 13 widgets; it is not a new
 alarm engine, dashboard state, entity or RPC method. Normal monitoring remains
-the default. A serious Critical/Major condition opens one fixed banner that
-names the water source, JalSanket node and severity, then lists the breached
-measurements and current values with units, the connectivity state, the other
-sources and where the real trend charts continue the history.
+the default. A serious Critical/Major condition fills the `Water Safety
+Incident` widget with one grouped panel that names the water source, JalSanket
+node and severity, then lists the breached measurements and current values with
+units, the connectivity state, the other sources and where the real trend charts
+continue the history. In normal monitoring the same widget shows a compact
+all-clear message. No floating banner is rendered.
 
-The status cards and map markers reuse the existing `safetyStatus`, `active`,
+The node cards and map markers reuse the existing `safetyStatus`, `active`,
 `ph`, `turbidity_ntu`, `tds_ppm` and `flow_lpm` values. They use both the
 existing alarm trigger thresholds and their clear bands (for example, a gross
 contamination alarm remains active until turbidity is below 150 NTU) to confirm
@@ -127,7 +131,7 @@ that a stored unsafe status is still supported by current readings. A stale
 `UNSAFE` attribute with normal readings is shown as `STALE / UNCONFIRMED` and
 does not open an incident. Supply interruption with zero flow and a connected
 node is shown as Major, not as offline. Multiple serious conditions on one node
-are grouped into one banner.
+are grouped into one panel.
 
 The ACTIVE alerts table remains the evidence panel and uses only real
 ThingsBoard alarm fields (`severity`, `originatorDisplayName`, type and real
@@ -206,7 +210,7 @@ No provisioning, telemetry, storage, MQTT, alarm or RPC source file was changed.
   turbidity green to 50 NTU, red to 200 and dark red above 200; TDS green to
   500 ppm and red above. These only mirror existing alarm thresholds.
 - Incident Mode live exercise with the existing demo controls: normal state
-  (`SYSTEM STATUS: SAFE`, no overlay), scripted contamination at Node 01
+  (`No active water-safety incident`, no incident panel), scripted contamination at Node 01
   (one grouped `CRITICAL WATER SAFETY INCIDENT`, real turbidity/TDS/pH values,
   `INCIDENT · Dhunche — CRITICAL` on the map), supply interruption at Node 02
   (`MAJOR WATER SAFETY INCIDENT`, zero flow with the node connected), then

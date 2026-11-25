@@ -460,13 +460,14 @@ if (serious.length && !scopeDismissed) {
     'title="Close incident scope" onclick="' + closeAttr + '">×</button>' +
     '</div>';
 }
-return incidentHtml + '<div class="js-system ' + cls + '">' +
+if (serious.length) {
+  return '<div class="js-system-incident">' + incidentHtml + scopeHtml + '</div>';
+}
+return '<div class="js-system ' + cls + '">' +
   '<div class="js-system-context">Municipal Water Monitoring Authority · demonstration hierarchy</div>' +
   '<div class="js-system-area">Rasuwa Monitoring Area</div>' +
-  '<div class="js-system-level">SYSTEM STATUS: ' + level + '</div>' +
   '<div class="js-system-headline">' + headline + '</div>' +
   '<div class="js-system-detail">' + detail + '</div>' +
-  scopeHtml +
   '<div class="js-system-summary">' + summary + '</div>' +
   '</div>';
 """
@@ -525,9 +526,9 @@ SYSTEM_STATUS_CSS = r"""
 .js-scope-close{flex:none;border:0;background:transparent;color:inherit;font-size:16px;line-height:1;font-weight:700;padding:0 2px;cursor:pointer;}
 .js-scope-close:hover,.js-scope-close:focus{background:rgba(255,255,255,.22);border-radius:3px;outline:none;}
 .js-system-summary{font-size:11px;opacity:.85;margin-top:3px;}
-.js-critical-alert{position:fixed;top:62px;right:24px;z-index:2147483000;max-width:520px;padding:12px 16px;border:2px solid #fff;border-radius:6px;background:#b71c1c;color:#fff;font-size:14px;line-height:1.4;box-shadow:0 6px 18px rgba(0,0,0,.35);pointer-events:none;animation:jsCriticalPulse 1.6s ease-in-out infinite;}
+.js-system-incident{height:100%;box-sizing:border-box;overflow:auto;border-radius:6px;border-left:8px solid #b71c1c;background:#b71c1c;}
+.js-system-incident .js-critical-alert{position:static;top:auto;right:auto;left:auto;transform:none;max-width:none;height:100%;box-sizing:border-box;overflow:auto;margin:0;padding:10px 14px;border:0;border-radius:0;background:#b71c1c;color:#fff;font-size:13px;line-height:1.35;pointer-events:auto;box-shadow:none;animation:none;}
 .js-critical-alert-title{font-weight:800;letter-spacing:.4px;}
-.js-critical-alert.js-incident{left:50%;right:auto;transform:translateX(-50%);max-width:880px;padding:14px 18px;background:#b71c1c;animation:none;}
 .js-incident-kicker{font-size:17px;font-weight:800;letter-spacing:.5px;line-height:1.2;}
 .js-incident-place{font-size:16px;font-weight:700;margin-top:3px;}
 .js-incident-meta{font-size:12px;margin-top:2px;opacity:.95;}
@@ -987,9 +988,9 @@ def build_cloud_dashboard(device_ids: Optional[list[str]] = None,
         _cloud_key("turbidity_ntu", "timeseries", "Turbidity reading", "#2196f3", 1),
         _cloud_key("tds_ppm", "timeseries", "TDS reading", "#4caf50", 1),
     ]
-    add("system_status", "JalSanket Water Safety · Rasuwa Monitoring Area", 24, 4, 0, 0,
+    add("system_status", "Water Safety Incident", 24, 4, 0, 0,
         _cloud_markdown_config(
-            "JalSanket Water Safety · Rasuwa Monitoring Area", summary_keys,
+            "Water Safety Incident", summary_keys,
             javascript=SYSTEM_STATUS_JS, css=SYSTEM_STATUS_CSS,
         ))
     add("node_status", "Monitoring locations / water sources → JalSanket nodes", 24, 5, 4, 0,

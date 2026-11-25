@@ -397,11 +397,12 @@ def main() -> int:
         check("offline nodes show no recent flow reading",
               'flow = "No recent reading"' in node_js)
         system_css = status_widget["config"]["settings"]["markdownCss"]
-        check("critical state raises an in-dashboard alert overlay",
+        check("critical state renders an in-widget alert panel",
               "js-critical-alert" in status_js
               and "role=\"alert\"" in status_js
-              and "position:fixed" in system_css
-              and "background:#b71c1c" in system_css)
+              and "js-system-incident" in system_css
+              and "background:#b71c1c" in system_css
+              and "position:fixed" not in system_css)
         check("overall status names the demonstration owner and area",
               "Municipal Water Monitoring Authority" in status_js
               and "Rasuwa Monitoring Area" in status_js

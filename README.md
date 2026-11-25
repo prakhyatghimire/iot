@@ -339,18 +339,20 @@ The dashboard timewindow uses a 10 s aggregation interval over the last hour
 #### Water Safety Incident Mode
 
 The duty-officer view adds a presentation-only **Water Safety Incident Mode**
-on the same 13 widgets. Normal monitoring stays the default; a serious event
-opens a fixed banner that answers, in order: what happened, the affected water
-source and JalSanket node, severity, the measurements that breached existing
-thresholds, current values with units, the state of the other two sources, and
-a pointer to the existing trend charts for actual progression. Multiple serious
-alarms on one node are grouped into one panel, with Critical reported first and
-Supply Interruption shown as Major rather than a connection loss. The
-`JalSanket Water Safety · Rasuwa Monitoring Area` status card carries the single
-incident-scope line (`isolated to` or `multiple locations affected`) only while
-an incident is active; it is absent in normal monitoring and node cards never
-repeat it. The line has a close button that dismisses it until the incident
-clears, and it remains in the same card when the widget is maximized. Map markers add `INCIDENT · <source> — <status>` and
+on the same 13 widgets. The old
+`JalSanket Water Safety · Rasuwa Monitoring Area` status card is replaced by a
+`Water Safety Incident` widget in the same slot. Normal monitoring shows a
+compact all-clear message; a serious event fills that widget with one grouped
+panel that answers, in order: what happened, the affected water source and
+JalSanket node, severity, the measurements that breached existing thresholds,
+current values with units, the state of the other two sources, and a pointer to
+the existing trend charts for actual progression. There is no separate floating
+banner. Multiple serious alarms on one node are grouped into one panel, with
+Critical reported first and Supply Interruption shown as Major rather than a
+connection loss. The panel carries the single incident-scope line (`isolated to`
+or `multiple locations affected`) with a close button that dismisses it until
+the incident clears; node cards never repeat it. The same panel and close button
+remain in the widget when it is maximized. Map markers add `INCIDENT · <source> — <status>` and
 tooltips say whether a source is affected. The ACTIVE alerts table remains the
 evidence panel and shows only real ThingsBoard alarm fields, including its real
 Detected time when an alarm exists.
