@@ -150,10 +150,11 @@ No provisioning, telemetry, storage, MQTT, alarm or RPC source file was changed.
   `CRITICAL ALERT — Rasuwa Monitoring Area / Syafrubesi (JalSanket Node 02) has unsafe water status. Immediate attention required.`
 - Node cards showed `Dhunche · JalSanket Node 01`, `Syafrubesi · JalSanket Node 02`
   and `Rasuwagadhi · JalSanket Node 03`.
-- The pH LED displayed `7.17`, matching REST telemetry `7.168` for Node-01.
-  Evaluating the same widget function with `6.42` rendered `6.42`, and with no
-  value rendered `--.--`, confirming the numeric screen follows the bound
-  telemetry rather than a fixed label.
+- All three LED panels rendered current Node-01 telemetry: pH `7.17` (REST
+  `7.168`), turbidity `6.1 NTU` (REST `6.07`) and TDS `195.0 ppm` (REST `195.0`).
+  Evaluating each widget function with a different value changed the segmented
+  readout and range bar; with no value it rendered `--.--` / `--.-` and `0%`,
+  confirming the screens follow bound telemetry rather than fixed labels.
 
 ## 11. Screenshot paths
 
@@ -161,6 +162,7 @@ No provisioning, telemetry, storage, MQTT, alarm or RPC source file was changed.
 - `evidence/screenshots/dashboard_ia_alerts_map.png`
 - `evidence/screenshots/dashboard_ia_details.png`
 - `evidence/screenshots/dashboard_ph_led.png`
+- `evidence/screenshots/dashboard_all_led_panels.png`
 
 ## 12. Backend untouched
 
