@@ -302,9 +302,12 @@ def main() -> int:
     check("a warning alone does not open Incident Mode",
           "js-incident" not in out["cards"]["warning"]
           and "SYSTEM STATUS: WARNING" in out["cards"]["warning"])
-    check("node card has a normal incident-scope line",
+    check("system status widget has a normal incident-scope line",
           "Incident scope: no active critical or major incident"
-          in out["cards"]["nodes_normal"])
+          in out["cards"]["normal"])
+    check("node status widget no longer repeats the incident scope",
+          all("Incident scope:" not in out["cards"][key] for key in (
+              "nodes_normal", "nodes_contamination", "nodes_supply", "nodes_stale")))
     stale = out["cards"]["stale"]
     check("stale unsafe status is not promoted to an incident",
           "js-incident" not in stale
@@ -342,8 +345,8 @@ def main() -> int:
     check("scripted scenario note is clearly labelled as simulated",
           "Simulated scenario note" in contamination
           and "does not identify a physical cause" in contamination)
-    check("node card says the incident is isolated to one source",
-          "Incident scope: isolated to Dhunche" in out["cards"]["nodes_contamination"])
+    check("system status widget says the incident is isolated to one source",
+          "Incident scope: isolated to Dhunche" in contamination)
 
     section("5. Supply interruption and node inactivity")
     supply = out["cards"]["supply"]

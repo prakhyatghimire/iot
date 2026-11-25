@@ -436,12 +436,22 @@ if (critical.length) {
 const summary = rows.length + " monitoring locations · " + count("SAFE") + " safe · " +
   count("WARNING") + " warning · " + count("CRITICAL") + " critical · " +
   count("STALE") + " unconfirmed · " + count("OFFLINE") + " offline";
+let scopeText = "Incident scope: no active critical or major incident";
+let scopeCls = "safe";
+if (serious.length > 1) {
+  scopeText = "Incident scope: multiple locations affected";
+  scopeCls = "crit";
+} else if (serious.length === 1) {
+  scopeText = "Incident scope: isolated to " + serious[0].location;
+  scopeCls = "crit";
+}
 return incidentHtml + '<div class="js-system ' + cls + '">' +
   '<div class="js-system-context">Municipal Water Monitoring Authority · demonstration hierarchy</div>' +
   '<div class="js-system-area">Rasuwa Monitoring Area</div>' +
   '<div class="js-system-level">SYSTEM STATUS: ' + level + '</div>' +
   '<div class="js-system-headline">' + headline + '</div>' +
   '<div class="js-system-detail">' + detail + '</div>' +
+  '<div class="js-system-scope ' + scopeCls + '">' + scopeText + '</div>' +
   '<div class="js-system-summary">' + summary + '</div>' +
   '</div>';
 """
@@ -479,20 +489,7 @@ const cards = rows.map(function (r) {
     '<div class="js-node-row"><span>Connectivity</span><b>' + connectivity + '</b></div>' +
     '</div>';
 }).join("");
-const seriousRows = rows.filter(function (r) {
-  return r.status === "CRITICAL" || r.status === "OFFLINE";
-});
-let scope = "Incident scope: no active critical or major incident";
-let scopeCls = "safe";
-if (seriousRows.length > 1) {
-  scope = "Incident scope: multiple locations affected";
-  scopeCls = "crit";
-} else if (seriousRows.length === 1) {
-  scope = "Incident scope: isolated to " + seriousRows[0].location;
-  scopeCls = "crit";
-}
-return '<div class="js-node-scope ' + scopeCls + '">' + scope + '</div>' +
-  '<div class="js-node-grid">' + cards + '</div>';
+return '<div class="js-node-grid">' + cards + '</div>';
 """
 
 SYSTEM_STATUS_CSS = r"""
@@ -506,6 +503,10 @@ SYSTEM_STATUS_CSS = r"""
 .js-system-level{font-size:19px;font-weight:700;letter-spacing:.3px;margin-top:2px;}
 .js-system-headline{font-size:14px;font-weight:600;margin-top:1px;}
 .js-system-detail{font-size:12px;margin-top:2px;}
+.js-system-scope{font-size:12px;font-weight:700;margin-top:3px;padding:2px 6px;border-radius:3px;background:#e8f5e9;color:#1b5e20;border-left:4px solid #2e7d32;}
+.js-system.crit .js-system-scope,.js-system-scope.crit{background:rgba(255,255,255,.18);color:#fff;border-left-color:#fff;}
+.js-system.warn .js-system-scope{background:#ffe0b2;color:#e65100;border-left-color:#ef6c00;}
+.js-system.off .js-system-scope{background:#cfd8dc;color:#37474f;border-left-color:#607d8b;}
 .js-system-summary{font-size:11px;opacity:.85;margin-top:3px;}
 .js-critical-alert{position:fixed;top:62px;right:24px;z-index:2147483000;max-width:520px;padding:12px 16px;border:2px solid #fff;border-radius:6px;background:#b71c1c;color:#fff;font-size:14px;line-height:1.4;box-shadow:0 6px 18px rgba(0,0,0,.35);pointer-events:none;animation:jsCriticalPulse 1.6s ease-in-out infinite;}
 .js-critical-alert-title{font-weight:800;letter-spacing:.4px;}
@@ -545,8 +546,6 @@ NODE_STATUS_CSS = r"""
 .js-node-row{display:grid;grid-template-columns:minmax(110px,42%) minmax(0,1fr);column-gap:8px;font-size:12px;line-height:1.55;color:#546e7a;border-top:1px solid #eef1f3;padding-top:3px;}
 .js-node-row span,.js-node-row b{min-width:0;}
 .js-node-row b{color:#263238;font-weight:600;text-align:left;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;}
-.js-node-scope{padding:6px 10px;margin:8px 8px 0;border-radius:4px;background:#e8f5e9;border-left:5px solid #2e7d32;color:#1b5e20;font-size:12px;font-weight:700;}
-.js-node-scope.crit{background:#ffebee;border-left-color:#c62828;color:#b71c1c;}
 """
 
 # The three current-reading widgets stay as real ThingsBoard gauges. Colour
