@@ -81,7 +81,7 @@ municipal ownership or sensor deployment is claimed.
 | 1 | `JalSanket Water Safety · Rasuwa Monitoring Area` | 0 | Is the area safe? |
 | 2 | `Monitoring locations / water sources → JalSanket nodes` | 4 | Which source has a problem? |
 | 3 | Active alerts + area map | 9 | Severity, cause and where? |
-| 4 | `Selected location / node details → measurements → trends` + pH / turbidity / TDS LED panels | 16–17 | Current sensor values for the selected node? |
+| 4 | `Selected location / node details → measurements → trends` + pH / turbidity / TDS gauges | 16–17 | Current sensor values and safe/out-of-range state? |
 | 5 | Trends and temperature/flow | 22–27 | Historical/technical detail |
 | — | Navigation to demo controls | 32 | Separate RPC scenario controls |
 
@@ -91,18 +91,20 @@ cards, ACTIVE alerts and the map.
 ## 7. Widgets removed / rearranged / renamed
 
 - Removed: **none**. All 13 widgets and all required functionality remain.
-- Converted all three dials into rich dark LED instrument panels with segmented
-  digits, live indicator and display-range bar, each driven by its same existing
-  timeseries key; no widget was added and no telemetry was derived.
+- Restored all three current readings as real JustGage dials after the assignment
+  requirement. Each gauge shows the live value, unit, min/max numbers and tick
+  marks at the existing alarm thresholds. Its arc is green inside the safe range
+  and red outside it; turbidity uses dark red for the critical band above 200
+  NTU. No widget was added and no telemetry or alarm threshold was derived.
 - Renamed:
   - `system_status` → `JalSanket Water Safety · Rasuwa Monitoring Area`
   - `node_status` → `Monitoring locations / water sources → JalSanket nodes`
   - `active_alerts` → `Active alerts requiring attention · Rasuwa area`
   - `node_map` → `Rasuwa area — water sources (OpenStreetMap)`
   - `measurements_header` → `Selected location / node details → measurements → trends`
-  - pH / turbidity / TDS LED panels → `pH/Turbidity/TDS — Dhunche (Node 01)`
+  - pH / turbidity / TDS gauges → `pH/Turbidity/TDS — Dhunche (Node 01)`
 - Rearranged: system banner grew from 3 to 4 rows; node status moved from row 3
-  to 4, alerts/map 8→9, measurements header 15→16, LED panels 16→17, trends
+  to 4, alerts/map 8→9, measurements header 15→16, gauges 16→17, trends
   21→22, temperature/flow 26→27 and navigation 31→32. Ordering is unchanged.
 - No charts or decorative widgets were added.
 
@@ -122,12 +124,13 @@ cards, ACTIVE alerts and the map.
 
 ## 9. Exact files changed
 
-- `jalsanket/dashboard.py` — presentation hierarchy, titles, widget rows, JS/CSS.
+- `jalsanket/dashboard.py` — presentation hierarchy, titles, widget rows, gauge
+  settings and colour bands.
 - `thingsboard/jalsanket_dashboard.json` — regenerated Cloud import artifact.
 - `verify_phase4.py` — hierarchy, demonstration-label and node-pairing assertions.
 - `README.md` — updated dashboard hierarchy description.
 - `evidence/dashboard_ux_revision_report.md` — pointer to this authoritative report.
-- This report and five screenshots below.
+- This report and six screenshots below.
 
 No provisioning, telemetry, storage, MQTT, alarm or RPC source file was changed.
 
@@ -138,7 +141,7 @@ No provisioning, telemetry, storage, MQTT, alarm or RPC source file was changed.
 - `verify_phase2.py` — 45/45 passed.
 - `verify_phase3.py` — 63/63 passed.
 - `verify_metrics.py` — 29/29 passed.
-- `verify_phase4.py` — 127/127 passed (including all three LED-panel checks).
+- `verify_phase4.py` — 127/127 passed (including all three threshold-gauge checks).
 - Live REST after save: title `JalSanket Water Safety — Rasuwa Monitoring Area`,
   13 widgets, alias id `2ea433e1-1bb5-76cd-daee-b4c348e7e6b8`, six alarm rules,
   three unchanged device IDs.
@@ -150,11 +153,22 @@ No provisioning, telemetry, storage, MQTT, alarm or RPC source file was changed.
   `CRITICAL ALERT — Rasuwa Monitoring Area / Syafrubesi (JalSanket Node 02) has unsafe water status. Immediate attention required.`
 - Node cards showed `Dhunche · JalSanket Node 01`, `Syafrubesi · JalSanket Node 02`
   and `Rasuwagadhi · JalSanket Node 03`.
-- All three LED panels rendered current Node-01 telemetry: pH `7.17` (REST
-  `7.168`), turbidity `6.1 NTU` (REST `6.07`) and TDS `195.0 ppm` (REST `195.0`).
-  Evaluating each widget function with a different value changed the segmented
-  readout and range bar; with no value it rendered `--.--` / `--.-` and `0%`,
-  confirming the screens follow bound telemetry rather than fixed labels.
+- Live REST after the gauge save returned 13 widgets and three
+  `system.digital_gauges.gauge_justgage` widgets (`ph_gauge`, `turbidity_gauge`,
+  `tds_gauge`) with the same alias id `2ea433e1-1bb5-76cd-daee-b4c348e7e6b8`.
+- Each live gauge config kept `showValue`, `showMinMax`, `showTitle`,
+  `showUnitTitle` and `showTicks` enabled. Tick values are `0/6.5/8.5/14` for
+  pH, `0/50/200/300` for turbidity and `0/500/1000` for TDS; the in-gauge labels
+  are `SAFE 6.5-8.5 pH`, `SAFE 0-50 NTU` and `SAFE 0-500 ppm`.
+- Colour bands verified live: pH red below 6.5 and above 8.5 with green between;
+  turbidity green to 50 NTU, red to 200 and dark red above 200; TDS green to
+  500 ppm and red above. These only mirror existing alarm thresholds.
+- Current Node-01 REST telemetry was pH `7.168` (shown as `7.17`), turbidity
+  `6.07` (`6.1 NTU`) and TDS `195.0` (`195.0 ppm`), all inside the green bands.
+  Three gauge canvases rendered with no console errors; pixel sampling confirmed
+  green arcs for the safe readings. A red state was not forced live because that
+  would require changing live telemetry or thresholds; the red bands are covered
+  by `verify_phase4.py` and the saved Cloud configuration.
 
 ## 11. Screenshot paths
 
@@ -163,6 +177,7 @@ No provisioning, telemetry, storage, MQTT, alarm or RPC source file was changed.
 - `evidence/screenshots/dashboard_ia_details.png`
 - `evidence/screenshots/dashboard_ph_led.png`
 - `evidence/screenshots/dashboard_all_led_panels.png`
+- `evidence/screenshots/dashboard_threshold_gauges.png`
 
 ## 12. Backend untouched
 

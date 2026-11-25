@@ -314,12 +314,15 @@ sorted by severity and rendered as
 `CRITICAL — Syafrubesi (JalSanket Node 02) — Turbidity critically high (time)`.
 Map markers use the human-readable names Dhunche, Syafrubesi and Rasuwagadhi,
 include the status word, and are coloured by severity. All three current
-readings are pinned to Dhunche (JalSanket Node 01) and shown as dark LED
-instrument panels with segmented digits, a live indicator and a display-range
-bar: pH (green), turbidity (cyan) and TDS (amber) each update from their
-existing telemetry key. The range bar is a visual guide only and adds no alarm
-threshold. The turbidity, pH and TDS trend charts use one y-axis per metric
-(their scales differ by orders of magnitude) with per-location legends. To export data, open a chart's three-dot menu and choose
+readings are pinned to Dhunche (JalSanket Node 01) and rendered as real
+ThingsBoard gauges. Each gauge shows the live value, its unit, minimum/maximum
+numbers and tick marks at the alarm thresholds. The arc is green inside the
+safe range and red outside it: pH below 6.5 or above 8.5, turbidity above 50
+NTU (dark red above 200) and TDS above 500 ppm. These colours only visualise
+the existing alarm thresholds; no telemetry, rule or threshold was changed.
+The turbidity, pH and TDS trend charts use one y-axis per metric (their scales
+differ by orders of magnitude) with per-location legends.
+To export data, open a chart's three-dot menu and choose
 **Export data to CSV**; the CSV contains one row per timestamp and location.
 The dashboard timewindow uses a 10 s aggregation interval over the last hour
 (360 buckets), which stays inside ThingsBoard's per-query bucket limit — a
