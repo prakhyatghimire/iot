@@ -254,13 +254,147 @@ const clsFor = function (s) {
 };
 """
 
-SYSTEM_STATUS_JS = _STATUS_COMMON_JS + r"""
-let cls = "safe", level = "SAFE", headline = "All monitored locations normal";
+# Incident Mode is presentation-only. It reads the same device attributes and
+# telemetry keys as the existing status cards and uses the existing alarm
+# thresholds solely to explain which measurements are outside their safe range.
+# It never creates, clears, acknowledges or redefines a ThingsBoard alarm.
+INCIDENT_THRESHOLDS = {
+    "phLow": PH_LOW_TRIGGER,
+    "phHigh": PH_HIGH_TRIGGER,
+    "turbidityWarning": HIGH_TURBIDITY_TRIGGER,
+    "turbidityCritical": GROSS_CONTAMINATION_TRIGGER,
+    "tdsCritical": HIGH_TDS_TRIGGER,
+}
+INCIDENT_THRESHOLDS_JS = "const T = " + json.dumps(INCIDENT_THRESHOLDS) + ";\n"
+
+_INCIDENT_STATUS_JS_BODY = r"""
+const fmtTime = function (ts) {
+  const n = Number(ts);
+  if (!isFinite(n) || n <= 0) return "latest reading";
+  try { return new Date(n).toLocaleTimeString(); } catch (e) { return "latest reading"; }
+};
+const phState = function (v) {
+  const n = Number(v);
+  if (!isFinite(n)) return "NO READING";
+  return (n < T.phLow || n > T.phHigh) ? "CRITICAL" : "SAFE";
+};
+const turbidityState = function (v) {
+  const n = Number(v);
+  if (!isFinite(n)) return "NO READING";
+  if (n > T.turbidityCritical) return "CRITICAL";
+  if (n > T.turbidityWarning) return "WARNING";
+  return "SAFE";
+};
+const tdsState = function (v) {
+  const n = Number(v);
+  if (!isFinite(n)) return "NO READING";
+  return n > T.tdsCritical ? "CRITICAL" : "SAFE";
+};
+const detailByPlace = {};
+data.forEach(function (d) {
+  const location = places[val(d, "Location", "deviceName") || d.entityName] ||
+    d.entityName || "Unknown location";
+  detailByPlace[location] = d;
+});
+const incidentRows = rows.map(function (r) {
+  const d = detailByPlace[r.location] || {};
+  return {
+    location: r.location, node: r.node, status: r.status, safety: r.safety,
+    active: r.active, flow: r.flow,
+    ph: val(d, "pH reading", "ph"),
+    turbidity: val(d, "Turbidity reading", "turbidity_ntu"),
+    tds: val(d, "TDS reading", "tds_ppm"),
+    lastReading: fmtTime(d.ts || d["Last reading"])
+  };
+});
+const serious = incidentRows.filter(function (r) {
+  return r.status === "CRITICAL" || r.status === "OFFLINE";
+});
+let incidentHtml = "";
+if (serious.length) {
+  const primary = serious[0];
+  const flowNumber = Number(primary.flow);
+  const flowText = isFinite(flowNumber) ? flowNumber.toFixed(1) + " L/min" : "no reading";
+  const offline = primary.status === "OFFLINE";
+  const interrupted = !offline && primary.active && flowNumber === 0;
+  const severity = offline ? "CRITICAL" : interrupted ? "MAJOR" : "CRITICAL";
+  const title = offline ? "NODE INACTIVE WATER SAFETY INCIDENT" :
+    severity + " WATER SAFETY INCIDENT";
+  const concerns = [];
+  if (offline) {
+    concerns.push("No recent data from the node");
+  } else {
+    const turbidity = turbidityState(primary.turbidity);
+    if (turbidity === "CRITICAL") concerns.push("severe turbidity");
+    else if (turbidity === "WARNING") concerns.push("high turbidity");
+    if (tdsState(primary.tds) === "CRITICAL") concerns.push("high dissolved solids");
+    if (phState(primary.ph) === "CRITICAL") concerns.push("pH outside safe range");
+    if (interrupted) concerns.push("water supply interrupted");
+  }
+  const primaryConcern = concerns.length ? concerns[0] : "unsafe water status reported";
+  const explanation = offline
+    ? "No recent data is available from this node; water-quality values cannot be confirmed."
+    : concerns.length > 1
+      ? "Multiple water-quality thresholds are currently exceeded. Observed: " +
+        concerns.join(", ") + "."
+      : "Primary concern: " + primaryConcern + ".";
+  const others = incidentRows.filter(function (r) {
+    return r.location !== primary.location;
+  }).map(function (r) {
+    return r.location + " — " + r.status;
+  }).join(" · ");
+  const measurement = function (label, value, unit, state, digits) {
+    const n = Number(value);
+    const shown = isFinite(n) ? n.toFixed(digits) : "No reading";
+    const cls = state === "CRITICAL" ? "crit" : state === "WARNING" ? "warn" :
+      state === "SAFE" || state === "INTERRUPTED" ? "safe" : "off";
+    return '<span class="js-incident-measure ' + cls + '">' + label + " " + shown +
+      (unit ? " " + unit : "") + " · " + state + "</span>";
+  };
+  const readings = offline
+    ? '<span class="js-incident-measure off">No current readings while the node has no recent data</span>'
+    : measurement("Turbidity", primary.turbidity, "NTU",
+                  turbidityState(primary.turbidity), 1) +
+      measurement("TDS", primary.tds, "ppm", tdsState(primary.tds), 1) +
+      measurement("pH", primary.ph, "", phState(primary.ph), 2) +
+      measurement("Flow", primary.flow, "L/min",
+                  interrupted ? "INTERRUPTED" : "SAFE", 1);
+  let situation = "Current values use the existing safe ranges shown by the gauges.";
+  if (offline) {
+    situation = "The node has no recent data. Check connectivity before relying on water-quality values.";
+  } else if (interrupted) {
+    situation = "Water supply is interrupted at this source; the node is connected. This is not a connection loss.";
+  }
+  let scenarioNote = "";
+  if (!offline && turbidityState(primary.turbidity) !== "SAFE" &&
+      (tdsState(primary.tds) === "CRITICAL" || phState(primary.ph) === "CRITICAL")) {
+    scenarioNote = '<div class="js-incident-note">Simulated scenario note: this pattern is ' +
+      'consistent with the scripted contamination demonstration. It does not identify a physical cause.</div>';
+  }
+  incidentHtml = '<div class="js-critical-alert js-incident" role="alert">' +
+    '<div class="js-incident-kicker"><span class="js-critical-alert-title">CRITICAL ALERT</span> · ' +
+    title + '</div>' +
+    '<div class="js-incident-place">' + primary.location + ' Water Source · ' +
+    primary.node + '</div>' +
+    '<div class="js-incident-meta">' + severity + ' · LAST READING ' + primary.lastReading +
+    ' · detection time is shown in ACTIVE ALERTS below when an alarm is present</div>' +
+    '<div class="js-incident-summary"><b>What happened:</b> ' + explanation + '</div>' +
+    '<div class="js-incident-readings">' + readings + '</div>' +
+    '<div class="js-incident-summary"><b>Current flow:</b> ' + flowText +
+    ' · <b>Node:</b> ' + (primary.active ? "connected" : "no recent data") + '</div>' +
+    '<div class="js-incident-note">' + situation + '</div>' +
+    '<div class="js-incident-others"><b>Other sources:</b> ' + others + '</div>' +
+    '<div class="js-incident-note">Progression: the trend charts below show actual measurement ' +
+    'history. No timestamps or values are invented.</div>' + scenarioNote +
+    '</div>';
+}
+
+let cls = "safe", level = "SAFE", headline = "No active water-safety incident";
 let detail = "No active warning or critical condition is reported.";
 if (critical.length) {
   cls = "crit"; level = "CRITICAL"; headline = "Immediate attention required";
   detail = critical.map(function (r) { return r.location; }).join(", ") +
-    " has an unsafe water status. Review the active alert below.";
+    " has an unsafe water status. Incident details are shown in the fixed banner.";
 } else if (warning.length) {
   cls = "warn"; level = "WARNING"; headline = "Attention required";
   detail = warning.map(function (r) { return r.location; }).join(", ") +
@@ -276,17 +410,7 @@ if (critical.length) {
 const summary = rows.length + " monitoring locations · " + count("SAFE") + " safe · " +
   count("WARNING") + " warning · " + count("CRITICAL") + " critical · " +
   count("OFFLINE") + " offline";
-let alertHtml = "";
-if (critical.length) {
-  const criticalPlaces = critical.map(function (r) {
-    return r.location + " (" + r.node + ")";
-  }).join(", ");
-  alertHtml = '<div class="js-critical-alert" role="alert">' +
-    '<span class="js-critical-alert-title">CRITICAL ALERT</span> — Rasuwa Monitoring Area / ' +
-    criticalPlaces + ' has unsafe water status. Immediate attention required.' +
-    '</div>';
-}
-return alertHtml + '<div class="js-system ' + cls + '">' +
+return incidentHtml + '<div class="js-system ' + cls + '">' +
   '<div class="js-system-context">Municipal Water Monitoring Authority · demonstration hierarchy</div>' +
   '<div class="js-system-area">Rasuwa Monitoring Area</div>' +
   '<div class="js-system-level">SYSTEM STATUS: ' + level + '</div>' +
@@ -295,6 +419,8 @@ return alertHtml + '<div class="js-system ' + cls + '">' +
   '<div class="js-system-summary">' + summary + '</div>' +
   '</div>';
 """
+
+SYSTEM_STATUS_JS = _STATUS_COMMON_JS + INCIDENT_THRESHOLDS_JS + _INCIDENT_STATUS_JS_BODY
 
 NODE_STATUS_JS = _STATUS_COMMON_JS + r"""
 const cards = rows.map(function (r) {
@@ -326,7 +452,20 @@ const cards = rows.map(function (r) {
     '<div class="js-node-row"><span>Connectivity</span><b>' + connectivity + '</b></div>' +
     '</div>';
 }).join("");
-return '<div class="js-node-grid">' + cards + '</div>';
+const seriousRows = rows.filter(function (r) {
+  return r.status === "CRITICAL" || r.status === "OFFLINE";
+});
+let scope = "Incident scope: no active critical or major incident";
+let scopeCls = "safe";
+if (seriousRows.length > 1) {
+  scope = "Incident scope: multiple locations affected";
+  scopeCls = "crit";
+} else if (seriousRows.length === 1) {
+  scope = "Incident scope: isolated to " + seriousRows[0].location;
+  scopeCls = "crit";
+}
+return '<div class="js-node-scope ' + scopeCls + '">' + scope + '</div>' +
+  '<div class="js-node-grid">' + cards + '</div>';
 """
 
 SYSTEM_STATUS_CSS = r"""
@@ -342,6 +481,18 @@ SYSTEM_STATUS_CSS = r"""
 .js-system-summary{font-size:11px;opacity:.85;margin-top:3px;}
 .js-critical-alert{position:fixed;top:62px;right:24px;z-index:2147483000;max-width:520px;padding:12px 16px;border:2px solid #fff;border-radius:6px;background:#b71c1c;color:#fff;font-size:14px;line-height:1.4;box-shadow:0 6px 18px rgba(0,0,0,.35);pointer-events:none;animation:jsCriticalPulse 1.6s ease-in-out infinite;}
 .js-critical-alert-title{font-weight:800;letter-spacing:.4px;}
+.js-critical-alert.js-incident{left:50%;right:auto;transform:translateX(-50%);max-width:880px;padding:14px 18px;background:#b71c1c;animation:none;}
+.js-incident-kicker{font-size:17px;font-weight:800;letter-spacing:.5px;line-height:1.2;}
+.js-incident-place{font-size:16px;font-weight:700;margin-top:3px;}
+.js-incident-meta{font-size:12px;margin-top:2px;opacity:.95;}
+.js-incident-summary{font-size:13px;line-height:1.35;margin-top:7px;}
+.js-incident-readings{display:flex;flex-wrap:wrap;gap:6px;margin-top:7px;}
+.js-incident-measure{display:inline-block;padding:4px 7px;border-radius:4px;background:rgba(255,255,255,.14);border:1px solid rgba(255,255,255,.38);font-size:12px;font-weight:600;white-space:nowrap;}
+.js-incident-measure.crit{background:#7f0000;border-color:#ffcdd2;}
+.js-incident-measure.warn{background:#e65100;border-color:#ffe0b2;}
+.js-incident-measure.off{background:#37474f;border-color:#b0bec5;}
+.js-incident-others{font-size:12px;margin-top:7px;font-weight:600;}
+.js-incident-note{font-size:11px;line-height:1.35;margin-top:5px;opacity:.9;}
 @keyframes jsCriticalPulse{0%,100%{opacity:1}50%{opacity:.82}}
 """
 
@@ -364,6 +515,8 @@ NODE_STATUS_CSS = r"""
 .js-node-row{display:grid;grid-template-columns:minmax(110px,42%) minmax(0,1fr);column-gap:8px;font-size:12px;line-height:1.55;color:#546e7a;border-top:1px solid #eef1f3;padding-top:3px;}
 .js-node-row span,.js-node-row b{min-width:0;}
 .js-node-row b{color:#263238;font-weight:600;text-align:left;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;}
+.js-node-scope{padding:6px 10px;margin:8px 8px 0;border-radius:4px;background:#e8f5e9;border-left:5px solid #2e7d32;color:#1b5e20;font-size:12px;font-weight:700;}
+.js-node-scope.crit{background:#ffebee;border-left-color:#c62828;color:#b71c1c;}
 """
 
 # The three current-reading widgets stay as real ThingsBoard gauges. Colour
@@ -406,7 +559,7 @@ return '<div style="' + style + 'padding:6px 8px;border-radius:4px;min-width:280
   '<b style="color:#263238;">' + place + '</b>' +
   (node ? ' <small style="color:#607d8b;">(' + node + ')</small>' : '') +
   ' — <span style="color:#37474f;">' + problem + '</span> ' +
-  '<small style="color:#78909c;">(' + time + ')</small></div>';
+  '<small style="color:#78909c;">(Detected ' + time + ')</small></div>';
 """
 
 # Map functions use the same existing attributes. The status word is part of
@@ -418,7 +571,8 @@ var rawActive = dsData[dsIndex]["active"];
 var active = rawActive === true || String(rawActive).toLowerCase() === "true";
 var safety = String(dsData[dsIndex]["safetyStatus"] || "").toUpperCase();
 var status = !active ? "OFFLINE" : safety === "UNSAFE" ? "CRITICAL" : safety === "WARNING" ? "WARNING" : "SAFE";
-return (places[name] || name) + " — " + status;
+var incident = status === "CRITICAL" || status === "OFFLINE" ? "INCIDENT · " : "";
+return incident + (places[name] || name) + " — " + status;
 """
 
 MAP_COLOR_FUNCTION = r"""
@@ -444,6 +598,7 @@ var place = places[name] || name;
 var lat = Number(d["latitude"]), lng = Number(d["longitude"]);
 return "<b>" + place + "</b><br/>Rasuwa Monitoring Area · water source" +
   "<br/>JalSanket node: " + (nodes[place] || name) + "<br/>Status: " + status +
+  "<br/>Affected source: " + (status === "CRITICAL" || status === "OFFLINE" ? "Yes" : "No") +
   "<br/>Location: " + (isFinite(lat) ? lat.toFixed(4) : "n/a") + ", " +
   (isFinite(lng) ? lng.toFixed(4) : "n/a");
 """
@@ -759,6 +914,9 @@ def build_cloud_dashboard(device_ids: Optional[list[str]] = None,
         _cloud_key("safetyStatus", "attribute", "Water status", "#2e7d32"),
         _cloud_key("active", "attribute", "Connectivity", "#607d8b"),
         _cloud_key("flow_lpm", "timeseries", "Flow", "#1976d3", 1),
+        _cloud_key("ph", "timeseries", "pH reading", "#f44336", 2),
+        _cloud_key("turbidity_ntu", "timeseries", "Turbidity reading", "#2196f3", 1),
+        _cloud_key("tds_ppm", "timeseries", "TDS reading", "#4caf50", 1),
     ]
     add("system_status", "JalSanket Water Safety · Rasuwa Monitoring Area", 24, 4, 0, 0,
         _cloud_markdown_config(
@@ -847,7 +1005,9 @@ def build_cloud_dashboard(device_ids: Optional[list[str]] = None,
             "Selected location / node details → measurements → trends", [],
             markdown=(
                 "**Dhunche water source · JalSanket Node 01** — current measurements "
-                "below belong to this node; the trend charts cover all three locations."
+                "below belong to this node; the trend charts cover all three locations. "
+                "During an incident, the banner above names the affected source and shows "
+                "its current values."
             ),
         ))
 
