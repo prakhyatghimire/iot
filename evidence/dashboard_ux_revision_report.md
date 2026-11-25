@@ -49,7 +49,8 @@ Report date: 2026-11-25 (alignment and critical-colour revision applied)
 
 ## 2. Hierarchy used
 
-1. `JalSanket Water Safety System` (dashboard title)
+1. `JalSanket - Municipal Water Safety` (live dashboard title, i.e. the
+   JalSanket Water Safety System)
 2. `Overall system status` — one banner, row 0
 3. `Monitoring locations / node status` — three location cards, row 3
 4. `Active alerts requiring attention` and `Location overview (OpenStreetMap)` —
