@@ -301,22 +301,20 @@ separate twelve-button demo-controls dashboard. Each dashboard has a small
 and applies the Cloud-shaped profile, credentials, attributes, alarm rules and
 both dashboards. No admin password is invented or required for the Cloud tenant.
 
-The monitoring dashboard is arranged as a hierarchy: **Overall system status**
-→ **Monitoring locations / node status** → **Active alerts requiring attention**
-and **Location overview (OpenStreetMap)** → **Water-quality and operational
-measurements** → detailed trends. The first viewport answers whether the system
-is safe, which location has a problem, how serious it is and what needs
-attention. The system banner and three location cards derive SAFE / WARNING /
-CRITICAL / OFFLINE from the existing `safetyStatus` and `active` attributes;
-the cards show only overall water status, active alarm, flow status and
-connectivity. A CRITICAL condition turns the banner and affected card solid red
-and raises a fixed, pulsing `CRITICAL ALERT` overlay naming the location; this
-is an in-dashboard `role="alert"` message rather than a repeated native browser
-popup. Alerts come from the stock ACTIVE alarms table, sorted by severity
-and rendered as `Critical — Syafrubesi — Turbidity critically high (time)`.
+The monitoring dashboard follows a demonstration information hierarchy:
+**Municipal Water Monitoring Authority → Rasuwa Monitoring Area → water
+source/location → JalSanket IoT node → sensor measurements → alarms/events**.
+The authority and area are UI labels only; they do not claim real municipal
+ownership or deployment. The first viewport shows the area status, the three
+water sources with their node identities, ACTIVE alerts and the area map.
+SAFE / WARNING / CRITICAL / OFFLINE are derived from existing `safetyStatus`
+and `active` attributes; a CRITICAL state turns the banner and card red and
+raises a fixed `CRITICAL ALERT` naming the area, location and node. Alerts are
+sorted by severity and rendered as
+`CRITICAL — Syafrubesi (JalSanket Node 02) — Turbidity critically high (time)`.
 Map markers use the human-readable names Dhunche, Syafrubesi and Rasuwagadhi,
 include the status word, and are coloured by severity. Detailed gauges are
-pinned to Dhunche (Node-01) and the turbidity, pH and TDS trend charts use one
+pinned to Dhunche (JalSanket Node 01) and the turbidity, pH and TDS trend charts use one
 y-axis per metric (their scales differ by orders of magnitude) with
 per-location legends. To export data, open a chart's three-dot menu and choose
 **Export data to CSV**; the CSV contains one row per timestamp and location.

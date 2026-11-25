@@ -9,6 +9,10 @@ Fleet alias preserved: `JalSanket Fleet`, id `2ea433e1-1bb5-76cd-daee-b4c348e7e6
 Generated artifact: `thingsboard/jalsanket_dashboard.json`
 Report date: 2026-11-25 (alignment and critical-colour revision applied)
 
+> This report records the earlier status/colour revision. For the current
+> owner → area → location → node information architecture, widget rows, titles
+> and validation counts, see `evidence/dashboard_information_architecture_report.md`.
+
 ## 1. Exact dashboard changes
 
 - Replaced the old text prompt (`summary`) and entities table (`fleet_health`)
