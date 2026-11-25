@@ -7,7 +7,7 @@ identity, token or Cloud alarm-rule behaviour was changed.
 Live dashboard kept: `8626a700-e451-11f1-8c2a-39d8a38c3af6`
 Fleet alias preserved: `JalSanket Fleet`, id `2ea433e1-1bb5-76cd-daee-b4c348e7e6b8`
 Generated artifact: `thingsboard/jalsanket_dashboard.json`
-Report date: 2026-11-23
+Report date: 2026-11-25 (alignment and critical-colour revision applied)
 
 ## 1. Exact dashboard changes
 
@@ -16,7 +16,12 @@ Report date: 2026-11-23
   - `system_status` — overall SAFE / WARNING / CRITICAL / OFFLINE banner with a
     one-line count of safe, warning, critical and offline locations.
   - `node_status` — one card each for Dhunche, Syafrubesi and Rasuwagadhi showing
-    only overall water status, active alarm, flow status and connectivity.
+    only overall water status, active alarm, flow status and connectivity. The
+    label/value rows use a fixed two-column grid so values line up across all
+    three cards, and a CRITICAL node card (and the overall banner) turns solid
+    red with white text instead of only showing a red accent. Offline cards now
+    explicitly say `OFFLINE` / `No recent reading` so they agree with the
+    overall status banner.
 - Replaced `alarms` with `active_alerts`: ACTIVE-only alarm table, severity-first
   sort (`-severity`), five rows per page, custom one-line human-readable cell
   (`CRITICAL — Syafrubesi — Turbidity critically high (time)`), and a widget
@@ -78,8 +83,12 @@ The final layout contains 13 widgets and no stale `summary`, `fleet_health`,
 - Primary labels are Dhunche, Syafrubesi and Rasuwagadhi; device IDs, MQTT
   topics, database terms and raw telemetry keys are not used as primary UI text.
 - Status semantics are consistent: `safetyStatus = UNSAFE` becomes CRITICAL,
-  `WARNING` stays WARNING, and `active = false` becomes OFFLINE, with the last
-  flow reading clearly marked as historical when offline.
+  `WARNING` stays WARNING, and `active = false` becomes OFFLINE. Offline cards
+  say `OFFLINE` and `No recent reading`, matching the overall banner instead of
+  showing a flow value that contradicts it.
+- A CRITICAL node is unmistakable: its whole card and the overall banner turn
+  solid red with white text and a red status pill. Data rows use a fixed
+  label/value grid, so the same field lines up across all three location cards.
 - CRITICAL alerts sort above MAJOR/WARNING and get a stronger red badge;
   warnings use orange and informational alerts use blue.
 - The map marker for an unsafe location says `Syafrubesi — CRITICAL`, so the
@@ -93,11 +102,12 @@ The final layout contains 13 widgets and no stale `summary`, `fleet_health`,
 - `python3 -m compileall -q jalsanket *.py` — passed.
 - `verify_phase1.py`, `verify_phase2.py`, `verify_phase3.py`,
   `verify_metrics.py` — all passed; no backend regression.
-- `verify_phase4.py` — 117/117 checks passed, including the new UX assertions:
+- `verify_phase4.py` — 121/121 checks passed, including the new UX assertions:
   no stale widgets, hierarchy order, labelled status-card values, explicit
-  severity words, ACTIVE/sorted custom alert cell, map label function, nested
-  gauge fonts with `levelColors`, preserved fleet alias, valid timewindow,
-  per-location chart legends and human-readable gauge titles.
+  severity words, aligned node-row columns, solid-red critical card CSS,
+  ACTIVE/sorted custom alert cell, map label function, nested gauge fonts with
+  `levelColors`, preserved fleet alias, valid timewindow, per-location chart
+  legends and human-readable gauge titles.
 - Live REST verification of dashboard `8626a700-...`: 13 expected widget ids,
   preserved alias id, dashboard timewindow unchanged, alert widget timewindow
   present, three location-named chart datasources, map functions present.
@@ -107,7 +117,9 @@ The final layout contains 13 widgets and no stale `summary`, `fleet_health`,
   `SYSTEM STATUS: CRITICAL`, `3 locations · 2 safe · 0 warning · 1 critical ·
   0 offline`; Dhunche SAFE, Syafrubesi CRITICAL, Rasuwagadhi SAFE; flows and
   connectivity were read from existing live values. No readings or alarms were
-  invented.
+  invented. Computed styles confirmed the overall banner and the Syafrubesi card
+  both use `rgb(198, 40, 40)` with white text, while the safe cards stay white;
+  node rows use a `144px 191px` label/value grid.
 - Map coordinates verified from existing telemetry: Dhunche 28.1100/85.2900,
   Syafrubesi 28.0920/85.3610, Rasuwagadhi 28.1710/85.3870.
 - Active-alert widget was probed earlier with a real CRITICAL alarm and rendered
