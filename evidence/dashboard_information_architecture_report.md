@@ -2,7 +2,9 @@
 
 Report date: 2026-11-25  
 Live dashboard preserved: `8626a700-e451-11f1-8c2a-39d8a38c3af6`  
-Live fleet alias preserved: `JalSanket Fleet`, id `2ea433e1-1bb5-76cd-daee-b4c348e7e6b8`
+Live fleet alias preserved: `JalSanket Fleet`, current live id
+`8ebfa76f-118a-c3c9-3670-92d61b84c911` (an earlier snapshot recorded
+`2ea433e1-1bb5-76cd-daee-b4c348e7e6b8`; this change kept the existing live id).
 
 ## 1. Current hierarchy before the change
 
@@ -134,11 +136,18 @@ sample, timestamp or physical cause is introduced.
 
 ## 8. ThingsBoard Cloud limitations
 
-- No Customer, Asset, User or relation records exist; tenant limits are zero.
-- Real owner/role hierarchy and duty-officer access control cannot be created
-  without a provisioning/application change, so it was not attempted.
-- Alarm quota remains exhausted (`201 / 200`, billing period ends 2026-12-18),
-  so ACTIVE alarm rows are empty in screenshots; no alarms were fabricated.
+- No Customer, Asset or relation records exist. Tenant users are platform
+  accounts, not fabricated municipal roles or Asset hierarchy records.
+- Real owner/role hierarchy and duty-officer access control would require a
+  provisioning/application change; no fake Customer/User/Asset entity was added.
+  A real platform user was separately invited to the **Tenant Users** group.
+- The live tenant currently has no alarm-generation path: the Root Rule Chain
+  has no create/clear alarm node and the device profile has `alarms: []`. Alarm
+  history contains 201 cleared records, but `statusList=ACTIVE` is empty. The
+  alarm table is therefore an evidence panel only; no alarm was fabricated.
+- `bufferDepth` is absent from all Cloud timeseries and attribute key lists, so
+  no buffer-depth or replay count is shown. Exact incident timelines are not
+  invented: only the existing trend charts and real alarm fields are used.
 - Agent-side WebSocket subscriptions fail in this environment; verification used
   fresh authenticated page loads and REST reads.
 - Static device attributes still hold older `27.x` coordinates; the map uses the
@@ -168,20 +177,18 @@ No provisioning, telemetry, storage, MQTT, alarm or RPC source file was changed.
 - `verify_phase3.py` — 63/63 passed.
 - `verify_metrics.py` — 29/29 passed.
 - `verify_phase4.py` — 127/127 passed (including all three threshold-gauge checks).
-- Live REST after save: title `JalSanket Water Safety — Rasuwa Monitoring Area`,
-  13 widgets, alias id `2ea433e1-1bb5-76cd-daee-b4c348e7e6b8`, six alarm rules,
-  three unchanged device IDs.
+- `verify_incident_mode.py` — 43/43 passed (normal, stale status, hysteresis
+  bands, contamination, supply interruption, grouped alarms, unaffected sources
+  and resolution, using the exact functions in the generated Cloud artifact).
+- Live REST after the final save: title `JalSanket Water Safety — Rasuwa
+  Monitoring Area`, 13 widgets, alias id
+  `8ebfa76f-118a-c3c9-3670-92d61b84c911`, three unchanged device IDs, and the
+  status/map datasources carry the existing measurement keys used by the guard.
 - All seven existing telemetry keys returned values for all three devices, with
   coordinates `28.11/85.29`, `28.092/85.361`, `28.171/85.387`; no stale
   Kathmandu coordinates remain in the map datasource.
-- Fresh Cloud page load: no console errors; banner showed owner/area context,
-  `SYSTEM STATUS: CRITICAL`, and the overlay
-  `CRITICAL ALERT — Rasuwa Monitoring Area / Syafrubesi (JalSanket Node 02) has unsafe water status. Immediate attention required.`
 - Node cards showed `Dhunche · JalSanket Node 01`, `Syafrubesi · JalSanket Node 02`
-  and `Rasuwagadhi · JalSanket Node 03`.
-- Live REST after the gauge save returned 13 widgets and three
-  `system.digital_gauges.gauge_justgage` widgets (`ph_gauge`, `turbidity_gauge`,
-  `tds_gauge`) with the same alias id `2ea433e1-1bb5-76cd-daee-b4c348e7e6b8`.
+  and `Rasuwagadhi · JalSanket Node 03` on a fresh page load with no console errors.
 - Each live gauge config kept `showValue`, `showMinMax`, `showTitle`,
   `showUnitTitle` and `showTicks` enabled. Tick values are `0/6.5/8.5/14` for
   pH, `0/50/200/300` for turbidity and `0/500/1000` for TDS; the in-gauge labels
@@ -189,14 +196,17 @@ No provisioning, telemetry, storage, MQTT, alarm or RPC source file was changed.
 - Colour bands verified live: pH red below 6.5 and above 8.5 with green between;
   turbidity green to 50 NTU, red to 200 and dark red above 200; TDS green to
   500 ppm and red above. These only mirror existing alarm thresholds.
-- Current Node-01 REST telemetry was pH `7.168` (shown as `7.17`), turbidity
-  `6.07` (`6.1 NTU`) and TDS `195.0` (`195.0 ppm`), all inside the green bands.
-  Three gauge canvases rendered with no console errors; pixel sampling confirmed
-  green arcs for the safe readings. A red state was not forced live because that
-  would require changing live telemetry or thresholds; the red bands are covered
-  by `verify_phase4.py` and the saved Cloud configuration.
+- Incident Mode live exercise with the existing demo controls: normal state
+  (`SYSTEM STATUS: SAFE`, no overlay), scripted contamination at Node 01
+  (one grouped `CRITICAL WATER SAFETY INCIDENT`, real turbidity/TDS/pH values,
+  `INCIDENT · Dhunche — CRITICAL` on the map), supply interruption at Node 02
+  (`MAJOR WATER SAFETY INCIDENT`, zero flow with the node connected), then
+  recovery (`No active water-safety incident` again). Each state was confirmed
+  against REST telemetry/attributes and fresh page loads had no console errors.
 
 ## 11. Screenshot paths
+
+Existing hierarchy/gauge evidence:
 
 - `evidence/screenshots/dashboard_ia_first_viewport.png`
 - `evidence/screenshots/dashboard_ia_alerts_map.png`
@@ -204,6 +214,14 @@ No provisioning, telemetry, storage, MQTT, alarm or RPC source file was changed.
 - `evidence/screenshots/dashboard_ph_led.png`
 - `evidence/screenshots/dashboard_all_led_panels.png`
 - `evidence/screenshots/dashboard_threshold_gauges.png`
+
+Water Safety Incident Mode evidence:
+
+- `evidence/screenshots/incident_normal.png`
+- `evidence/screenshots/incident_contamination.png`
+- `evidence/screenshots/incident_map.png`
+- `evidence/screenshots/incident_supply.png`
+- `evidence/screenshots/incident_resolved.png`
 
 ## 12. Backend untouched
 

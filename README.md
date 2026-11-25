@@ -340,7 +340,7 @@ alarms on one node are grouped into one panel, with Critical reported first and
 Supply Interruption shown as Major rather than a connection loss. Node cards add
 an incident-scope line, map markers add `INCIDENT · <source> — <status>` and
 tooltips say whether a source is affected. The ACTIVE alerts table remains the
-evidence panel and shows only real ThingBoard alarm fields, including its real
+evidence panel and shows only real ThingsBoard alarm fields, including its real
 Detected time when an alarm exists.
 
 Incident Mode derives state from the existing `safetyStatus`, `active`, flow,
@@ -348,8 +348,10 @@ pH, turbidity and TDS values. It uses the existing alarm trigger **and clear**
 bands to confirm that a stored unsafe status is still supported by current
 measurements. If connectivity is fresh but `safetyStatus` is old and the
 readings are normal, the source is shown as `STALE / UNCONFIRMED`, not as a
-critical incident. No alarm, telemetry key, threshold, RPC method or device
-identity was added. Buffer depth/replay counts and exact incident timelines are
+critical incident. A value still inside an active alarm's wider clear band is
+labelled `ALARM BAND`, not `SAFE`, so the summary and measurement chips agree.
+No alarm, telemetry key, threshold, RPC method or device identity was added.
+Buffer depth/replay counts and exact incident timelines are
 not shown because this Cloud tenant does not expose `bufferDepth` or reliable
 alarm/telemetry history to the dashboard; the trend charts and real alarm table
 are the only history sources. No scenario note claims a physical cause.
