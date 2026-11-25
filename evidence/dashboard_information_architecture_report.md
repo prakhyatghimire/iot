@@ -126,7 +126,7 @@ cards, ACTIVE alerts and the map.
 - `verify_phase4.py` — hierarchy, demonstration-label and node-pairing assertions.
 - `README.md` — updated dashboard hierarchy description.
 - `evidence/dashboard_ux_revision_report.md` — pointer to this authoritative report.
-- This report and three screenshots below.
+- This report and four screenshots below.
 
 No provisioning, telemetry, storage, MQTT, alarm or RPC source file was changed.
 
@@ -149,12 +149,17 @@ No provisioning, telemetry, storage, MQTT, alarm or RPC source file was changed.
   `CRITICAL ALERT — Rasuwa Monitoring Area / Syafrubesi (JalSanket Node 02) has unsafe water status. Immediate attention required.`
 - Node cards showed `Dhunche · JalSanket Node 01`, `Syafrubesi · JalSanket Node 02`
   and `Rasuwagadhi · JalSanket Node 03`.
+- The pH LED displayed `7.17`, matching REST telemetry `7.168` for Node-01.
+  Evaluating the same widget function with `6.42` rendered `6.42`, and with no
+  value rendered `--.--`, confirming the numeric screen follows the bound
+  telemetry rather than a fixed label.
 
 ## 11. Screenshot paths
 
 - `evidence/screenshots/dashboard_ia_first_viewport.png`
 - `evidence/screenshots/dashboard_ia_alerts_map.png`
 - `evidence/screenshots/dashboard_ia_details.png`
+- `evidence/screenshots/dashboard_ph_led.png`
 
 ## 12. Backend untouched
 
