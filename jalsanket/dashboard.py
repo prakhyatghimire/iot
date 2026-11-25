@@ -255,7 +255,15 @@ if (critical.length) {
 const summary = rows.length + " locations · " + count("SAFE") + " safe · " +
   count("WARNING") + " warning · " + count("CRITICAL") + " critical · " +
   count("OFFLINE") + " offline";
-return '<div class="js-system ' + cls + '">' +
+let alertHtml = "";
+if (critical.length) {
+  const criticalPlaces = critical.map(function (r) { return r.location; }).join(", ");
+  alertHtml = '<div class="js-critical-alert" role="alert">' +
+    '<span class="js-critical-alert-title">CRITICAL ALERT</span> — ' +
+    criticalPlaces + ' has unsafe water status. Immediate attention required.' +
+    '</div>';
+}
+return alertHtml + '<div class="js-system ' + cls + '">' +
   '<div class="js-system-level">SYSTEM STATUS: ' + level + '</div>' +
   '<div class="js-system-headline">' + headline + '</div>' +
   '<div class="js-system-detail">' + detail + '</div>' +
@@ -303,6 +311,9 @@ SYSTEM_STATUS_CSS = r"""
 .js-system-headline{font-size:16px;font-weight:600;margin-top:2px;}
 .js-system-detail{font-size:14px;margin-top:3px;}
 .js-system-summary{font-size:12px;opacity:.85;margin-top:5px;}
+.js-critical-alert{position:fixed;top:62px;right:24px;z-index:2147483000;max-width:520px;padding:12px 16px;border:2px solid #fff;border-radius:6px;background:#b71c1c;color:#fff;font-size:14px;line-height:1.4;box-shadow:0 6px 18px rgba(0,0,0,.35);pointer-events:none;animation:jsCriticalPulse 1.6s ease-in-out infinite;}
+.js-critical-alert-title{font-weight:800;letter-spacing:.4px;}
+@keyframes jsCriticalPulse{0%,100%{opacity:1}50%{opacity:.82}}
 """
 
 NODE_STATUS_CSS = r"""

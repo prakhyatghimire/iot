@@ -396,6 +396,12 @@ def main() -> int:
               and ".js-node.crit .js-node-status{background:#b71c1c;color:#fff" in node_css)
         check("offline nodes show no recent flow reading",
               'flow = "No recent reading"' in node_js)
+        system_css = status_widget["config"]["settings"]["markdownCss"]
+        check("critical state raises an in-dashboard alert overlay",
+              "js-critical-alert" in status_js
+              and "role=\"alert\"" in status_js
+              and "position:fixed" in system_css
+              and "background:#b71c1c" in system_css)
 
         alert_cfg = main_dash["configuration"]["widgets"]["active_alerts"]["config"]
         alert_key = alert_cfg["alarmSource"]["dataKeys"][0]
